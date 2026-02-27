@@ -14,39 +14,39 @@ Install Gollek CLI using release artifacts for macOS, Linux, and Windows.
 ### curl installer (macOS/Linux)
 
 ```bash
-curl -fsSL https://github.com/wayang-ai/wayang-platform/releases/download/gollek-cli-v<version>/install.sh | bash
+curl -fsSL https://github.com/wayang-ai/wayang-platform/releases/download/gollek-v<version>/install.sh | bash
 ```
 
 ### Homebrew
 
-Use the generated release formula (`gollek-cli.rb`) in your tap:
+Use the generated release formula (`gollek.rb`) in your tap:
 
 ```bash
 brew tap <org>/<tap>
-brew install gollek-cli
+brew install gollek
 ```
 
 ### Chocolatey
 
-Use the generated release package template (`gollek-cli-chocolatey-template.zip`) and publish it, then:
+Use the generated release package template (`gollek-chocolatey-template.zip`) and publish it, then:
 
 ```powershell
-choco install gollek-cli
+choco install gollek
 ```
 
 ### Windows native executable
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/wayang-ai/wayang-platform/releases/download/gollek-cli-v<version>/gollek-cli-windows-x64.exe" -OutFile "gollek-cli.exe"
-.\gollek-cli.exe --version
+Invoke-WebRequest -Uri "https://github.com/wayang-ai/wayang-platform/releases/download/gollek-v<version>/gollek-windows-x64.exe" -OutFile "gollek.exe"
+.\gollek.exe --version
 ```
 
 ### Windows JVM fallback (Java 21+)
 
-Download and extract `gollek-cli-jvm.zip`, then:
+Download and extract `gollek-jvm.zip`, then:
 
 ```powershell
-.\bin\gollek-cli.bat --version
+.\bin\gollek.bat --version
 ```
 
 ---
@@ -65,8 +65,8 @@ If needed, set `GOLLEK_HOME` to force legacy layout, otherwise prefer `~/.wayang
 ## Verify Install
 
 ```bash
-gollek-cli --version
-gollek-cli --help
+gollek --version
+gollek --help
 ```
 
 ---
