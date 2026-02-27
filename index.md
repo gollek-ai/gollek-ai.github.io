@@ -3,15 +3,36 @@ layout: default
 title: Gollek SDK - Universal Inference SDK for AI Models
 ---
 
-# Gollek SDK
+<section class="hero">
+  <p class="eyebrow">Universal Inference SDK + CLI</p>
+  <h1>Build AI features once. Run local or cloud with the same API.</h1>
+  <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, and hosted providers. Use it as a Java SDK or install the standalone <code>gollek</code> CLI.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="/docs/">Get Started</a>
+    <a class="btn btn-ghost" href="/docs/cli-installation">Install Gollek</a>
+    <a class="btn btn-ghost" href="https://github.com/wayang-ai/wayang-platform">GitHub</a>
+  </div>
+  <div class="hero-stats">
+    <span>SDK + CLI</span>
+    <span>Local + Cloud Providers</span>
+    <span>Native Ready</span>
+  </div>
+</section>
 
-## Universal Inference SDK for AI Models
-
-A powerful, lightweight Java SDK and CLI for seamless AI model inference across multiple providers and formats. Build once, run anywhere - from local GGUF models to cloud APIs.
-
-[Get Started](/docs/) &nbsp; [View on GitHub](https://github.com/wayang-ai/wayang-platform)
-
-CLI install docs: [Gollek CLI Installation](/docs/cli-installation)
+<section class="quick-grid">
+  <a class="quick-card" href="/docs/">
+    <h3>Start Integration</h3>
+    <p>Set up dependencies, configure providers, and run first inference quickly.</p>
+  </a>
+  <a class="quick-card" href="/docs/cli-installation">
+    <h3>Install CLI</h3>
+    <p>Install <code>gollek</code> via release installer, Homebrew, or Chocolatey.</p>
+  </a>
+  <a class="quick-card" href="/docs/examples">
+    <h3>Read Examples</h3>
+    <p>Copy real code patterns for streaming, async jobs, and provider selection.</p>
+  </a>
+</section>
 
 ---
 

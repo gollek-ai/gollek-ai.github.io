@@ -3,9 +3,30 @@ layout: default
 title: Getting Started with Gollek SDK
 ---
 
-# Getting Started with Gollek SDK
+<section class="hero hero-compact">
+  <p class="eyebrow">Developer Onboarding</p>
+  <h1>Choose your Gollek path: SDK integration or CLI usage</h1>
+  <p class="lead">This page gives you a practical starting route. Pick the path you need, then continue into API references and examples.</p>
+</section>
 
-Get up and running with Gollek SDK in minutes. This guide covers installation, configuration, and your first inference call.
+<section class="quick-grid">
+  <a class="quick-card" href="/docs/cli-installation">
+    <h3>CLI Distribution</h3>
+    <p>Install <code>gollek</code> for macOS, Linux, and Windows with release artifacts or package managers.</p>
+  </a>
+  <a class="quick-card" href="#maven-dependency">
+    <h3>Java SDK Setup</h3>
+    <p>Add Maven/Gradle dependencies and optional providers for embedded inference.</p>
+  </a>
+  <a class="quick-card" href="/docs/examples">
+    <h3>Code Examples</h3>
+    <p>Jump to real usage patterns for streaming, async jobs, and provider selection.</p>
+  </a>
+</section>
+
+<section class="subtle-panel">
+  <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/native-ffi">Native FFI</a>
+</section>
 
 ---
 
