@@ -21,6 +21,18 @@ Before you begin, ensure you have:
 
 ## Installation
 
+### Gollek CLI (Binary Distribution)
+
+If you want the CLI directly (without embedding the SDK), use the release installers:
+
+- macOS/Linux: curl installer (`install.sh`)
+- Windows: native `.exe` or PowerShell installer (`install.ps1`)
+- Package managers: Homebrew formula + Chocolatey template
+
+See full instructions: [CLI Installation Guide](/docs/cli-installation)
+
+---
+
 ### Maven Dependency
 
 Add the Gollek SDK dependency to your `pom.xml`:

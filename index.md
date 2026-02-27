@@ -7,9 +7,11 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 
 ## Universal Inference SDK for AI Models
 
-A powerful, lightweight Java SDK for seamless AI model inference across multiple providers and formats. Build once, run anywhere - from local GGUF models to cloud APIs.
+A powerful, lightweight Java SDK and CLI for seamless AI model inference across multiple providers and formats. Build once, run anywhere - from local GGUF models to cloud APIs.
 
 [Get Started](/docs/) &nbsp; [View on GitHub](https://github.com/wayang-ai/wayang-platform)
+
+CLI install docs: [Gollek CLI Installation](/docs/cli-installation)
 
 ---
 
