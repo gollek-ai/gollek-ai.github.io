@@ -14,7 +14,7 @@ Install Gollek CLI using release artifacts for macOS, Linux, and Windows.
 ### curl installer (macOS/Linux)
 
 ```bash
-curl -fsSL https://github.com/wayang-ai/wayang-platform/releases/download/gollek-v<version>/install.sh | bash
+curl -fsSL https://github.com/bhangun/gollek/releases/latest/download/install.sh | bash
 ```
 
 ### Homebrew
@@ -22,7 +22,7 @@ curl -fsSL https://github.com/wayang-ai/wayang-platform/releases/download/gollek
 Use the generated release formula (`gollek.rb`) in your tap:
 
 ```bash
-brew tap <org>/<tap>
+brew tap bhangun/gollek
 brew install gollek
 ```
 
@@ -37,7 +37,7 @@ choco install gollek
 ### Windows native executable
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/wayang-ai/wayang-platform/releases/download/gollek-v<version>/gollek-windows-x64.exe" -OutFile "gollek.exe"
+Invoke-WebRequest -Uri "https://github.com/bhangun/gollek/releases/latest/download/gollek-windows-x64.exe" -OutFile "gollek.exe"
 .\gollek.exe --version
 ```
 

@@ -10,7 +10,7 @@ title: Gollek SDK - Universal Inference SDK for AI Models
   <div class="hero-actions">
     <a class="btn btn-primary" href="/docs/">Get Started</a>
     <a class="btn btn-ghost" href="/docs/cli-installation">Install Gollek</a>
-    <a class="btn btn-ghost" href="https://github.com/wayang-ai/wayang-platform">GitHub</a>
+    <a class="btn btn-ghost" href="https://github.com/bhangun/gollek">GitHub</a>
   </div>
   <div class="hero-stats">
     <span>SDK + CLI</span>
@@ -162,8 +162,8 @@ System.out.println(response.getContent());
 ## Community and Support
 
 - [Documentation](/docs/) - Comprehensive guides and API references
-- [Discussions](https://github.com/wayang-ai/wayang-platform/discussions) - Ask questions and share ideas
-- [Issues](https://github.com/wayang-ai/wayang-platform/issues) - Report bugs and request features
+- [Discussions](https://github.com/bhangun/gollek/discussions) - Ask questions and share ideas
+- [Issues](https://github.com/bhangun/gollek/issues) - Report bugs and request features
 - [Architecture](/docs/architecture) - Deep dive into Gollek architecture
 
 ---

@@ -146,6 +146,12 @@ Unified model storage and retrieval:
 - S3-compatible storage
 - Custom sources via SPI
 
+
+# Local Runners
+- Local runners emitting internal StreamChunks
+- OpenAI-compatible SSE JSON can be enable when needed by using flag --enable-json. This adapter layer serializes those chunks as OpenAI-compatible SSE JSON.
+
+
 **Model Manifest:**
 ```json
 {
