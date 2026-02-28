@@ -9,6 +9,7 @@ title: Gollek SDK - Universal Inference SDK for AI Models
   <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, and hosted providers. Use it as a Java SDK or install the standalone <code>gollek</code> CLI.</p>
   <div class="hero-actions">
     <a class="btn btn-primary" href="/docs/">Get Started</a>
+    <a class="btn btn-ghost" href="/blog/">Blog</a>
     <a class="btn btn-ghost" href="/docs/cli-installation">Install Gollek</a>
     <a class="btn btn-ghost" href="https://github.com/bhangun/gollek">GitHub</a>
   </div>
@@ -31,6 +32,10 @@ title: Gollek SDK - Universal Inference SDK for AI Models
   <a class="quick-card" href="/docs/examples">
     <h3>Read Examples</h3>
     <p>Copy real code patterns for streaming, async jobs, and provider selection.</p>
+  </a>
+  <a class="quick-card" href="/blog/">
+    <h3>Product Blog</h3>
+    <p>Read release notes, architecture updates, and implementation progress.</p>
   </a>
 </section>
 
