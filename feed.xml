@@ -9,8 +9,12 @@ layout: null
     <description>Gollek release notes, architecture updates, and developer guides.</description>
     <language>en-us</language>
     <lastBuildDate>{{ "now" | date_to_rfc822 }}</lastBuildDate>
-    {% assign posts = site.pages | where_exp: "p", "p.url contains '/blog/' and p.url != '/blog/' and p.title and p.date" | sort: "date" | reverse %}
-    {% for post in posts limit: 20 %}
+    {% assign sorted_pages = site.pages | sort: "date" | reverse %}
+    {% assign count = 0 %}
+    {% for post in sorted_pages %}
+      {% if post.url contains '/blog/' and post.url != '/blog/' and post.title and post.date %}
+        {% assign count = count | plus: 1 %}
+        {% if count <= 20 %}
     <item>
       <title>{{ post.title | xml_escape }}</title>
       <link>{{ post.url | relative_url }}</link>
@@ -18,6 +22,8 @@ layout: null
       <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
       <description>{{ post.description | default: post.title | xml_escape }}</description>
     </item>
+        {% endif %}
+      {% endif %}
     {% endfor %}
   </channel>
 </rss>

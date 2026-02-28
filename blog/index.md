@@ -14,14 +14,21 @@ title: Gollek Blog
   </div>
 </section>
 
-{% assign posts = site.pages | where_exp: "p", "p.url contains '/blog/' and p.url != '/blog/' and p.title and p.date" | sort: "date" | reverse %}
+{% assign sorted_pages = site.pages | sort: "date" | reverse %}
+{% assign blog_count = 0 %}
+{% for post in sorted_pages %}
+  {% if post.url contains '/blog/' and post.url != '/blog/' and post.title and post.date %}
+    {% assign blog_count = blog_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
 
 <section class="subtle-panel">
-  <strong>{{ posts | size }}</strong> article{% if posts.size != 1 %}s{% endif %} published.
+  <strong>{{ blog_count }}</strong> article{% if blog_count != 1 %}s{% endif %} published.
 </section>
 
 <section class="blog-grid">
-{% for post in posts %}
+{% for post in sorted_pages %}
+  {% if post.url contains '/blog/' and post.url != '/blog/' and post.title and post.date %}
   <a class="blog-card" href="{{ post.url | relative_url }}">
     <div class="blog-cover {% if post.cover %}cover-{{ post.cover }}{% else %}cover-default{% endif %}"></div>
     <div class="blog-card-body">
@@ -37,5 +44,6 @@ title: Gollek Blog
       {% endif %}
     </div>
   </a>
+  {% endif %}
 {% endfor %}
 </section>
