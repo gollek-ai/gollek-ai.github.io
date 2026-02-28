@@ -25,11 +25,11 @@ title: Getting Started with Gollek SDK
 </section>
 
 <section class="subtle-panel">
-  <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/native-ffi">Native FFI</a>
+  <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/architecture#fp8-rowwise-canary-configuration">FP8 Rowwise Config</a> · <a href="/docs/architecture#sageattention2-configuration">SageAttention2 Config</a> · <a href="/docs/architecture#multi-lora-benchmark-telemetry">Benchmark Telemetry</a> · <a href="/docs/native-ffi">Native FFI</a>
 </section>
 
 <section class="subtle-panel">
-  <strong>Latest update:</strong> Multi-LoRA and LibTorch advanced path progress is live, including FP8 rowwise calibration lifecycle and SageAttention2 safety guardrails.
+  <strong>Latest update:</strong> Multi-LoRA and LibTorch advanced path progress is live, including FP8 rowwise calibration lifecycle, SageAttention2 safety guardrails, and benchmark telemetry for CPU/GPU efficiency tracking.
   <a href="/blog/multilora-libtorch-advanced-update">Read the update</a>
 </section>
 

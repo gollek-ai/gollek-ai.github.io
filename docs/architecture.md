@@ -493,4 +493,140 @@ gollek-sdk-java-local
 
 ---
 
+## SageAttention2 Configuration
+
+SageAttention2 is configurable, but currently guarded as an experimental path with rollback safety.
+
+### Core Flags
+
+| Key | Purpose |
+|-----|---------|
+| `libtorch.provider.advanced.sage-attention2-enabled` | Enable/disable SageAttention2 intent |
+| `libtorch.provider.advanced.sage-attention2-allowed-tenants` | Optional tenant allow-list for canary scope |
+| `libtorch.provider.advanced.sage-attention2-allowed-models` | Optional model allow-list for canary scope |
+| `libtorch.provider.advanced.sage-attention2-blocked-tenants` | Optional tenant deny-list (takes precedence) |
+| `libtorch.provider.advanced.sage-attention2-blocked-models` | Optional model deny-list (takes precedence) |
+
+### Environment Variables
+
+- `LIBTORCH_ADVANCED_SAGE2_ENABLED`
+- `LIBTORCH_ADVANCED_SAGE2_ALLOWED_TENANTS`
+- `LIBTORCH_ADVANCED_SAGE2_ALLOWED_MODELS`
+- `LIBTORCH_ADVANCED_SAGE2_BLOCKED_TENANTS`
+- `LIBTORCH_ADVANCED_SAGE2_BLOCKED_MODELS`
+
+### Canary Precedence
+
+1. Deny-list check (`blocked-*`)
+2. Allow-list check (`allowed-*`)
+3. Resolver rollback reason (for example `not-implemented`)
+
+### Current Runtime Status
+
+- SageAttention2 is still rollback-only (no kernel execution path active yet).
+- Runtime exposes requested/active/reason state via health and benchmark runtime tags (`advanced_sage_attention2_*`).
+
+## FP8 Rowwise Canary Configuration
+
+FP8 rowwise is configurable with canary allow/deny controls.
+
+### Core Flags
+
+| Key | Purpose |
+|-----|---------|
+| `libtorch.provider.advanced.fp8-rowwise-enabled` | Enable/disable FP8 rowwise path |
+| `libtorch.provider.advanced.fp8-rowwise-allowed-tenants` | Optional tenant allow-list for canary scope |
+| `libtorch.provider.advanced.fp8-rowwise-allowed-models` | Optional model allow-list for canary scope |
+| `libtorch.provider.advanced.fp8-rowwise-blocked-tenants` | Optional tenant deny-list (takes precedence) |
+| `libtorch.provider.advanced.fp8-rowwise-blocked-models` | Optional model deny-list (takes precedence) |
+
+### Environment Variables
+
+- `LIBTORCH_ADVANCED_FP8_ROWWISE_ENABLED`
+- `LIBTORCH_ADVANCED_FP8_ROWWISE_ALLOWED_TENANTS`
+- `LIBTORCH_ADVANCED_FP8_ROWWISE_ALLOWED_MODELS`
+- `LIBTORCH_ADVANCED_FP8_ROWWISE_BLOCKED_TENANTS`
+- `LIBTORCH_ADVANCED_FP8_ROWWISE_BLOCKED_MODELS`
+
+### Canary Precedence
+
+1. Deny-list check (`blocked-*`)
+2. Allow-list check (`allowed-*`)
+3. Calibration planner checks (artifact/schema/load/runtime match)
+
+### Current Runtime Status
+
+- FP8 rowwise remains feature-flagged and calibration-gated.
+- Runtime exposes requested/active/reason plus scale metadata via health and benchmark tags (`advanced_fp8_rowwise_*`).
+
+## Multi-LoRA Benchmark Telemetry
+
+`scripts/bench-multilora-zipf.sh` now supports optional host/GPU telemetry so CPU/GPU efficiency can be compared across providers and deployment modes.
+
+### Flags
+
+- `--telemetry`: `auto|on|off` for host metrics collection.
+- `--gpu-telemetry`: `auto|on|off` for GPU metrics collection (`nvidia-smi` required).
+- `--sample-interval-sec`: sample interval (default `1` second).
+
+### Artifacts
+
+- `telemetry.csv`: timestamped samples for load, memory, and GPU utilization/memory.
+- `telemetry-summary.txt`: reduced metrics that are merged into `summary.txt` and `summary.json`.
+
+### Summary Fields
+
+- `host_load_1_avg`
+- `host_mem_used_mb_avg`
+- `host_mem_used_mb_peak`
+- `gpu_util_avg`
+- `gpu_util_p95`
+- `gpu_mem_used_mb_peak`
+
+### Configuration Snippets
+
+`application.properties`:
+
+```properties
+libtorch.provider.advanced.fp8-rowwise-enabled=true
+libtorch.provider.advanced.fp8-rowwise-allowed-tenants=tenant-a,tenant-b
+libtorch.provider.advanced.fp8-rowwise-allowed-models=llama-3-8b,qwen2.5-7b
+libtorch.provider.advanced.fp8-rowwise-blocked-tenants=tenant-suspended
+libtorch.provider.advanced.fp8-rowwise-blocked-models=legacy-model
+
+libtorch.provider.advanced.sage-attention2-enabled=true
+libtorch.provider.advanced.sage-attention2-allowed-tenants=tenant-a,tenant-b
+libtorch.provider.advanced.sage-attention2-allowed-models=llama-3-8b,qwen2.5-7b
+libtorch.provider.advanced.sage-attention2-blocked-tenants=tenant-suspended
+libtorch.provider.advanced.sage-attention2-blocked-models=legacy-model
+```
+
+`application.yaml`:
+
+```yaml
+libtorch:
+  provider:
+    advanced:
+      fp8-rowwise-enabled: true
+      fp8-rowwise-allowed-tenants: tenant-a,tenant-b
+      fp8-rowwise-allowed-models: llama-3-8b,qwen2.5-7b
+      fp8-rowwise-blocked-tenants: tenant-suspended
+      fp8-rowwise-blocked-models: legacy-model
+
+      sage-attention2-enabled: true
+      sage-attention2-allowed-tenants: tenant-a,tenant-b
+      sage-attention2-allowed-models: llama-3-8b,qwen2.5-7b
+      sage-attention2-blocked-tenants: tenant-suspended
+      sage-attention2-blocked-models: legacy-model
+```
+
+### Recommended Rollout Sequence
+
+1. **Dev only**: set `sage-attention2-enabled=true` with a single test tenant/model in allow-lists.
+2. **Canary small**: expand allow-lists to a few low-risk tenants/models; keep deny-lists ready for fast exclusion.
+3. **Canary broad**: widen allow-lists gradually while monitoring `advanced_sage_attention2_*` runtime tags.
+4. **Instant rollback**: set `sage-attention2-enabled=false` (global), or add specific tenants/models to deny-lists.
+
+---
+
 [Back to Native FFI](/docs/native-ffi) &nbsp; [Examples](/docs/examples)
