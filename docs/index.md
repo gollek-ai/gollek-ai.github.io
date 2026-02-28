@@ -28,6 +28,11 @@ title: Getting Started with Gollek SDK
   <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/native-ffi">Native FFI</a>
 </section>
 
+<section class="subtle-panel">
+  <strong>Latest update:</strong> Multi-LoRA and LibTorch advanced path progress is live, including FP8 rowwise calibration lifecycle and SageAttention2 safety guardrails.
+  <a href="/blog/multilora-libtorch-advanced-update">Read the update</a>
+</section>
+
 ---
 
 ## Prerequisites

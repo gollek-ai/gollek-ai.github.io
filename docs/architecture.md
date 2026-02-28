@@ -56,6 +56,33 @@ Gollek is the inference engine of the Wayang AI platform, designed for high-perf
 
 ## Core Components
 
+## Advanced Multi-LoRA Runtime Flow
+
+```mermaid
+flowchart TD
+  A["Inference Request (tenant + model + adapter)"] --> B["ModelRouterService"]
+  B --> C["Provider Selected: GGUF"]
+  B --> D["Provider Selected: LibTorch"]
+  C --> E["GGUF Adapter Registry (LRU + adaptive eviction)"]
+  D --> F["LibTorch Advanced Mode Resolver"]
+  F --> G["Baseline Path"]
+  F --> H["Hybrid FP8/BF16 Path"]
+  H --> I["FP8 Rowwise Planner"]
+  I --> J["Calibration Validate + Load + Cache"]
+  J --> K["Apply Row Scales on Logits"]
+  K --> L["Sampling + Response"]
+  J --> M["Invalid/Mismatch"]
+  M --> G
+  G --> L
+  F --> N["SageAttention2 Requested"]
+  N --> O["Forced Rollback (experimental scaffold)"]
+  O --> G
+  L --> P["Health + Metrics + Runtime Tags"]
+  P --> Q["Zipf Benchmark Artifacts"]
+```
+
+---
+
 ### GollekLocalClient
 
 The primary Java API interface exposing all SDK capabilities:

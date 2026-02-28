@@ -34,6 +34,11 @@ title: Gollek SDK - Universal Inference SDK for AI Models
   </a>
 </section>
 
+<section class="subtle-panel">
+  <strong>Latest update:</strong> Multi-LoRA and LibTorch advanced path progress is live, including FP8 rowwise calibration lifecycle and SageAttention2 safety guardrails.
+  <a href="/blog/multilora-libtorch-advanced-update">Read the update</a>
+</section>
+
 ---
 
 ## Why Gollek SDK?

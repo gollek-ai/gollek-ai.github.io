@@ -1,4 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const mermaidBlocks = document.querySelectorAll('pre > code.language-mermaid');
+  const mermaidNodes = [];
+
+  mermaidBlocks.forEach((codeEl, index) => {
+    const pre = codeEl.parentElement;
+    if (!pre) {
+      return;
+    }
+    const container = document.createElement('div');
+    container.className = 'mermaid';
+    container.id = `mermaid-diagram-${index + 1}`;
+    container.textContent = codeEl.textContent || '';
+    pre.replaceWith(container);
+    mermaidNodes.push(container);
+  });
+
+  if (mermaidNodes.length > 0 && window.mermaid) {
+    window.mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'loose',
+      theme: 'neutral'
+    });
+    window.mermaid.run({ nodes: mermaidNodes });
+  }
+
   const blocks = document.querySelectorAll('pre > code');
 
   blocks.forEach((codeEl) => {
