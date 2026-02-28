@@ -565,6 +565,7 @@ FP8 rowwise is configurable with canary allow/deny controls.
 
 ### Flags
 
+- `--advanced-profile`: `baseline|hybrid-fp8-bf16|sageattention2-intent` for explicit benchmark intent segmentation.
 - `--telemetry`: `auto|on|off` for host metrics collection.
 - `--gpu-telemetry`: `auto|on|off` for GPU metrics collection (`nvidia-smi` required).
 - `--sample-interval-sec`: sample interval (default `1` second).
@@ -573,6 +574,7 @@ FP8 rowwise is configurable with canary allow/deny controls.
 
 - `telemetry.csv`: timestamped samples for load, memory, and GPU utilization/memory.
 - `telemetry-summary.txt`: reduced metrics that are merged into `summary.txt` and `summary.json`.
+- `report.txt` / `report.json` from `scripts/bench-compare.sh` for baseline-vs-candidate KPI deltas.
 
 ### Summary Fields
 
@@ -582,6 +584,12 @@ FP8 rowwise is configurable with canary allow/deny controls.
 - `gpu_util_avg`
 - `gpu_util_p95`
 - `gpu_mem_used_mb_peak`
+
+### Comparison Workflow
+
+1. Run `bench-multilora-zipf.sh` with `--advanced-profile baseline`.
+2. Run candidate profiles (`hybrid-fp8-bf16`, `sageattention2-intent`).
+3. Run `bench-compare.sh` to generate a normalized delta report.
 
 ### Configuration Snippets
 

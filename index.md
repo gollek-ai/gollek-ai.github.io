@@ -118,17 +118,16 @@ System.out.println(response.getContent());
 ## Supported Providers
 
 ### Local Runtimes
-- **GGUF** (llama.cpp) - Quantized models for CPU inference
-- **ONNX** - Cross-platform neural network format
-- **TFLite** - TensorFlow Lite for mobile and edge devices
-- **vLLM** - High-throughput LLM serving
+- **GGUF** - Quantized models for CPU inference
+- **ONNX** (Open Neural Network Exchange) - Cross-platform neural network format (on progress)
+- **TFLite** (TensorFlow Lite) - TensorFlow Lite for mobile and edge devices (on progress)
 
 ### Cloud Providers
-- **OpenAI** - GPT-4, GPT-3.5-Turbo, and more
-- **Anthropic** - Claude family of models
 - **Google Gemini** - Gemini Pro and Ultra
-- **Ollama** - Self-hosted open-source models
 - **Cerebras** - High-performance cloud inference
+- **OpenAI** - GPT-4, GPT-3.5-Turbo, and more (on progress)
+- **Anthropic** - Claude family of models (on progress)
+
 
 ---
 
