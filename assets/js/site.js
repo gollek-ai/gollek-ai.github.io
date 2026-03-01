@@ -1,4 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('theme-toggle');
+
+  const getTheme = () => root.getAttribute('data-theme') || 'dark';
+  const setTheme = (theme) => {
+    root.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('gollek-theme', theme);
+    } catch (error) {
+      // Ignore storage errors in private browsing modes.
+    }
+    if (themeToggle) {
+      themeToggle.textContent = theme === 'light' ? 'Light' : 'Dark';
+      themeToggle.setAttribute('aria-label', `Switch to ${theme === 'light' ? 'dark' : 'light'} theme`);
+    }
+  };
+
+  if (themeToggle) {
+    setTheme(getTheme());
+    themeToggle.addEventListener('click', () => {
+      setTheme(getTheme() === 'light' ? 'dark' : 'light');
+    });
+  }
+
   const mermaidBlocks = document.querySelectorAll('pre > code.language-mermaid');
   const mermaidNodes = [];
 
@@ -19,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.mermaid.initialize({
       startOnLoad: false,
       securityLevel: 'loose',
-      theme: 'neutral'
+      theme: getTheme() === 'light' ? 'default' : 'dark'
     });
     window.mermaid.run({ nodes: mermaidNodes });
   }
