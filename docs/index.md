@@ -25,7 +25,7 @@ title: Getting Started with Gollek SDK
 </section>
 
 <section class="subtle-panel">
-  <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/architecture#fp8-rowwise-canary-configuration">FP8 Rowwise Config</a> · <a href="/docs/architecture#sageattention2-configuration">SageAttention2 Config</a> · <a href="/docs/architecture#multi-lora-benchmark-telemetry">Benchmark Telemetry</a> · <a href="/docs/native-ffi">Native FFI</a>
+  <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/developer-guidance">Developer Guidance</a> · <a href="/docs/architecture#fp8-rowwise-canary-configuration">FP8 Rowwise Config</a> · <a href="/docs/architecture#sageattention2-configuration">SageAttention2 Config</a> · <a href="/docs/architecture#multi-lora-benchmark-telemetry">Benchmark Telemetry</a> · <a href="/docs/native-ffi">Native FFI</a>
 </section>
 
 <section class="subtle-panel">

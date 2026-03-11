@@ -591,6 +591,15 @@ FP8 rowwise is configurable with canary allow/deny controls.
 2. Run candidate profiles (`hybrid-fp8-bf16`, `sageattention2-intent`).
 3. Run `bench-compare.sh` to generate a normalized delta report.
 
+### Matrix Workflow
+
+Use `bench-matrix-advanced.sh` to run all three profiles in one command and emit gate pass/fail summaries suitable for CI.
+Use `--runtime-tag-gate auto|on|off` to control whether SA2 runtime-tag validation is required for a passing matrix.
+CI references:
+- `bench-matrix-smoke.yml` for deterministic mock-based verification.
+- `bench-matrix-strict.yml` for manual strict runs against real endpoints with longer artifact retention.
+- See [Developer Guidance](/docs/developer-guidance) for threshold presets and gate-failure playbook.
+
 ### Configuration Snippets
 
 `application.properties`:

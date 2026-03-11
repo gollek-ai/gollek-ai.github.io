@@ -94,4 +94,38 @@ document.addEventListener('DOMContentLoaded', () => {
     toolbar.appendChild(button);
     pre.prepend(toolbar);
   });
+
+  const typingTarget = document.getElementById('typing-effect');
+  if (typingTarget) {
+    const command = typingTarget.getAttribute('data-command') || 'gollek chat --provider gemini';
+    const result = typingTarget.getAttribute('data-result') || '';
+    const initTyping = () => {
+      if (!window.T) {
+        return;
+      }
+      typingTarget.textContent = '';
+      const escapedResult = result
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\n/g, '<br>');
+      const text = escapedResult
+        ? `${command}<ins>450</ins><br><span class='terminal-output'>${escapedResult}</span>`
+        : command;
+      new window.T('#typing-effect', {
+        speed: 90,
+        cursor: '_',
+        text
+      });
+    };
+
+    if (window.T) {
+      initTyping();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/gh/mntn-dev/t.js/t.min.js';
+      script.onload = initTyping;
+      document.head.appendChild(script);
+    }
+  }
 });

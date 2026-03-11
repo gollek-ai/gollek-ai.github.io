@@ -14,6 +14,12 @@ title: Gollek Blog
   </div>
 </section>
 
+<section class="subtle-panel">
+  <strong>Featured:</strong>
+  <a href="/blog/how-gollek-gguf-chat-loads-model-and-answers">How Gollek GGUF Chat Loads from Hugging Face and Answers</a>
+  <span class="blog-meta">Published: March 3, 2026</span>
+</section>
+
 {% assign sorted_pages = site.pages | sort: "date" | reverse %}
 {% assign blog_count = 0 %}
 {% for post in sorted_pages %}

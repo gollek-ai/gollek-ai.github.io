@@ -44,6 +44,19 @@ title: Gollek SDK - Universal Inference SDK for AI Models
   <a href="/blog/multilora-libtorch-advanced-update">Read the update</a>
 </section>
 
+<section class="terminal-demo">
+  <h2>Try the CLI Experience</h2>
+  <p>See how a real terminal session starts with Gollek and Gemini provider.</p>
+  <div id="terminal" class="terminal-box" role="img" aria-label="Typing demo showing gollek chat command">
+    <span class="prompt">$</span>
+    <span
+      id="typing-effect"
+      data-command="gollek chat --provider gemini"
+      data-result="Connecting to Gemini API...&#10;✓ Ready to chat&#10;You: "
+    >gollek chat --provider gemini</span>
+  </div>
+</section>
+
 ---
 
 ## Why Gollek SDK?
@@ -127,6 +140,10 @@ System.out.println(response.getContent());
 - **Cerebras** - High-performance cloud inference
 - **OpenAI** - GPT-4, GPT-3.5-Turbo, and more (on progress)
 - **Anthropic** - Claude family of models (on progress)
+
+### Default Models
+- **Text Generation**: `Llama-3.2-3B-Instruct` (via GGUF)
+- **Embeddings**: `Qwen/Qwen2.5-0.5B-Instruct` (via GGUF)
 
 
 ---
