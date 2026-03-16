@@ -3,6 +3,23 @@ layout: default
 title: Code Examples
 ---
 
+## ONNX Runtime with CoreML (Apple Silicon)
+
+Configure ONNX Runtime to use CoreML when available:
+
+```properties
+onnx.runner.execution_provider=coreml
+```
+
+Auto mode (tries CoreML → CUDA → ROCm → CPU):
+
+```properties
+onnx.runner.execution_provider=auto
+```
+
+Notes:
+- CoreML EP requires an ONNX Runtime build that exports `OrtSessionOptionsAppendExecutionProvider_CoreML`.
+- Global Metal switches also apply: `gollek.runners.metal.enabled=false` or `gollek.runners.metal.mode=disabled`.
 # Code Examples
 
 Practical examples demonstrating common Gollek SDK usage patterns.

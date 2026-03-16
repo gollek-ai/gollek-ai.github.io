@@ -25,8 +25,7 @@ Single consistent interface for all inference providers and model formats.
 - GGUF (llama.cpp)
 - ONNX Runtime
 - TensorFlow Lite
-- vLLM
-- Cloud APIs (OpenAI, Anthropic, Gemini, Ollama)
+- Cloud APIs (Gemini, Anthropic, OpenAI)
 
 ---
 

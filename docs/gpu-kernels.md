@@ -1052,6 +1052,50 @@ gollek.runners.cuda.kv-cache-blocks=1024
 
 ---
 
+## Configuration Guide
+
+For detailed optimization configuration options, see the **[Optimization Configuration Guide](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/optimization/OPTIMIZATION_CONFIGURATION.md)**.
+
+### Quick Configuration Reference
+
+#### CUDA (A100/H100/B200)
+
+```properties
+gollek.runners.cuda.enabled=true
+gollek.runners.cuda.use-fp8=true      # Auto on H100+
+gollek.runners.cuda.use-fp4=true      # Auto on B200
+gollek.runners.cuda.use-unified-memory=true
+```
+
+#### Blackwell (B100/B200/GB200)
+
+```properties
+gollek.runners.blackwell.enabled=true
+gollek.runners.blackwell.use-tmem=true    # 64MB on-chip
+gollek.runners.blackwell.use-fp4=true     # 2x speedup
+gollek.runners.blackwell.async-copy=true  # Overlap copy/compute
+```
+
+#### ROCm (MI300X/MI250X)
+
+```properties
+gollek.runners.rocm.enabled=true
+gollek.runners.rocm.use-managed-memory=true  # MI300X zero-copy
+gollek.runners.rocm.use-fp8=true             # MI300X FP8 cores
+gollek.runners.rocm.gpu-arch=gfx942          # Auto-detected
+```
+
+#### Metal (M1/M2/M3/M4)
+
+```properties
+gollek.runners.metal.enabled=true
+gollek.runners.metal.mode=auto          # Auto standard/offload
+gollek.runners.metal.use-sdpa=true      # MPSGraph FA4 equiv (macOS 14+)
+gollek.runners.metal.use-bf16=true      # M3/M4 BF16 support
+```
+
+---
+
 ## Resources
 
 ### Kernel Module Documentation
