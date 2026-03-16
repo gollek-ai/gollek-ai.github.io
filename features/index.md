@@ -30,6 +30,30 @@ Single consistent interface for all inference providers and model formats.
 
 ---
 
+### GPU Kernel Acceleration
+
+Native GPU acceleration for optimal inference performance.
+
+**Supported Platforms:**
+
+| Platform | Architecture | Key Features |
+|----------|--------------|--------------|
+| **NVIDIA CUDA** | A100/H100/H200 | FlashAttention-2/3, FP8/FP4, Tensor Cores |
+| **NVIDIA Blackwell** | B100/B200/GB200 | FA3+TMEM, FP4, 192GB HBM3e, Async Exec |
+| **AMD ROCm** | MI300X/MI250X | HIP Kernels, Unified Memory, FlashAttention |
+| **Apple Metal** | M1/M2/M3/M4 | MPS Graph, Unified Memory, AMX Blocks |
+
+**Features:**
+- FlashAttention-2/3 for 2-3x speedup
+- FP4/FP8 tensor core acceleration
+- Unified memory zero-copy on A100/H100/B200/MI300X
+- Paged KV cache for long contexts
+- Multi-GPU support
+
+[Learn more](/docs/gpu-kernels)
+
+---
+
 ### Multi-Provider Support
 
 Seamlessly integrate with multiple inference providers.
@@ -108,6 +132,15 @@ List<InferenceResponse> responses = client.batchInference(
 ---
 
 ## Model Management
+
+### Centralized Model Life-cycle
+
+Programmatic management of models from discovery to inference.
+
+**Features:**
+- **One-Call Preparation**: `prepareModel` handles local resolution, pulling from HuggingFace/S3, and SHA-256 verification.
+- **Provider Auto-Selection**: Automatically routes models to GGUF, ONNX, or Cloud based on format.
+- **Detailed Statistics**: Access model usage, version history, and storage metrics.
 
 ### Local Model Repository
 
@@ -241,12 +274,11 @@ Enterprise-grade security features.
 
 Comprehensive monitoring and debugging.
 
-**Metrics:**
-- Request latency histograms
-- Token usage counters
-- Provider health gauges
-- Queue depth monitors
-- Error rate tracking
+**Engine Metrics:**
+- **P95 Latency**: Track 95th percentile response times per provider/model.
+- **Error Rate Tracking**: Real-time failure monitoring for proactive failover.
+- **Circuit Breaker Status**: Monitor automated throttling state.
+- **Token Usage**: Granular counters for input/output tokens.
 
 **Tracing:**
 - OpenTelemetry integration

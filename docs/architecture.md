@@ -37,7 +37,7 @@ Gollek is the inference engine of the Wayang AI platform, designed for high-perf
 +------------------------------------------------------------------+
 |                      LocalGollekSdk                               |
 |  +----------------+  +----------------+  +---------------------+  |
-|  | InferenceSvc   |  | AsyncJobMgr    |  | ProviderRegistry    |  |
+|  | InferenceSvc   |  | ModelPrepSvc   |  | MetricsCache        |  |
 |  +----------------+  +----------------+  +---------------------+  |
 +------------------------------------------------------------------+
 |                     Model Repository                              |
@@ -50,11 +50,53 @@ Gollek is the inference engine of the Wayang AI platform, designed for high-perf
 |  | GGUF |  | ONNX |  | TFLite |  | OpenAI |  | Gemini |  | ... | |
 |  +------+  +------+  +--------+  +--------+  +--------+  +-----+ |
 +------------------------------------------------------------------+
+|                    GPU Kernel Modules                             |
+|  +-----------+  +------------+  +--------+  +-----------------+  |
+|  | CUDA      |  | Blackwell  |  | ROCm   |  | Metal           |  |
+|  | (A100+)   |  | (B100/B200)|  | (AMD)  |  | (Apple Silicon) |  |
+|  +-----------+  +------------+  +--------+  +-----------------+  |
++------------------------------------------------------------------+
 ```
 
 ---
 
 ## Core Components
+
+### GPU Kernel Modules
+
+Native GPU acceleration kernels for optimal inference performance.
+
+**Module Structure:**
+
+```
+inference-gollek/extension/kernel/
+├── gollek-kernel-cuda       # NVIDIA CUDA (A100/H100/H200)
+│   ├── CudaRunner           # Main inference runner
+│   ├── CudaBinding          # FFM binding to CUDA Driver API
+│   ├── CudaCapabilities     # Device capability detection
+│   ├── CudaDetector         # Hardware detection
+│   └── CudaCpuFallback      # CPU fallback implementations
+├── gollek-kernel-blackwell  # NVIDIA Blackwell (B100/B200/GB200)
+│   ├── BlackwellRunner      # FA3 + TMEM acceleration
+│   ├── BlackwellBinding     # FFM with TMEM/FP4 support
+│   ├── BlackwellCapabilities# Blackwell-specific caps
+│   └── BlackwellDetector    # Compute cap ≥ 10.0 detection
+├── gollek-kernel-rocm       # AMD ROCm (MI300X/MI250X)
+│   └── RocmRunner           # HIP kernel execution
+└── gollek-kernel-metal      # Apple Metal (M1/M2/M3/M4)
+    └── MetalRunner          # MPS Graph execution
+```
+
+**Key Features:**
+
+| Feature | CUDA | Blackwell | ROCm | Metal |
+|---------|------|-----------|------|-------|
+| FlashAttention | FA2/FA3 | FA3+TMEM | FA2/FA3 | MPS SDPA |
+| Precision | FP16/FP8 | FP4/FP8 | FP16/FP8 | FP16/BF16 |
+| Memory | 40-80GB | 180-192GB | 128-192GB | 8-128GB |
+| Unified Memory | ✓ (A100+) | ✓ | ✓ (MI300X) | ✓ (all) |
+
+[Learn more](/docs/gpu-kernels)
 
 ## Advanced Multi-LoRA Runtime Flow
 
@@ -102,12 +144,11 @@ The primary Java API interface exposing all SDK capabilities:
 Core implementation of the SDK with CDI integration:
 
 **Key Services:**
-| Service | Responsibility |
-|---------|---------------|
 | InferenceService | Execute inference requests |
-| AsyncJobManager | Manage background jobs |
+| ModelPreparationService | Automated resolution, pulling, and verification |
 | ProviderRegistry | Provider discovery and lifecycle |
-| CachedModelRepository | Model storage and retrieval |
+| ModelRegistryService | Comprehensive model management and stats |
+| RuntimeMetricsCache | Real-time observability and performance tracking |
 | McpRegistryManager | MCP tool integration |
 
 **Location:** `gollek-sdk-java-local/src/main/java/.../LocalGollekSdk.java`
@@ -208,14 +249,15 @@ Unified model storage and retrieval:
 ### Synchronous Inference
 
 ```
-1. Client creates InferenceRequest
+1. Client initiates request (often via resolveDefaultModel)
          |
          v
-2. GollekLocalClient.createCompletion()
+2. GollekLocalClient.prepareModel(modelId) [NEW]
+   (Handles resolution, download, and verification)
          |
          v
-3. LocalGollekSdk.enrichRequest()
-   (Add preferred provider if not set)
+3. InferenceRequest enrichment
+   (Injecting preferred provider or auto-selecting via autoSelectProvider)
          |
          v
 4. InferenceService.inferAsync()
@@ -224,13 +266,10 @@ Unified model storage and retrieval:
 5. ProviderRegistry.resolveProvider()
          |
          v
-6. ModelRepository.resolveModel()
+6. Provider.execute(model, request)
          |
          v
-7. Provider.execute(model, request)
-         |
-         v
-8. Return InferenceResponse
+7. Return InferenceResponse
 ```
 
 ---
@@ -416,7 +455,7 @@ gollek-sdk-java-local
 ├── gollek-model-repo-core (Model repository)
 ├── gollek-model-repo-hf (HuggingFace source)
 ├── gollek-model-repo-local (Local filesystem)
-├── gollek-ext-format-gguf (GGUF support)
+├── gollek-ext-runner-gguf (GGUF support)
 ├── gollek-plugin-mcp (MCP integration)
 ├── mutiny (Reactive programming)
 ├── jakarta.enterprise.cdi-api (CDI)

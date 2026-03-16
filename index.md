@@ -6,7 +6,7 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 <section class="hero">
   <p class="eyebrow">Universal Inference SDK + CLI</p>
   <h1>Build AI features once. Run local or cloud with the same API.</h1>
-  <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, and hosted providers. Use it as a Java SDK or install the standalone <code>gollek</code> CLI.</p>
+  <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, and hosted providers. It centralizes model life-cycle, observability, and provider auto-selection into a single consistent SDK.</p>
   <div class="hero-actions">
     <a class="btn btn-primary" href="/docs/">Get Started</a>
     <a class="btn btn-ghost" href="/blog/">Blog</a>
@@ -42,6 +42,16 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 <section class="subtle-panel">
   <strong>Latest update:</strong> Multi-LoRA and LibTorch advanced path progress is live, including FP8 rowwise calibration lifecycle and SageAttention2 safety guardrails.
   <a href="/blog/multilora-libtorch-advanced-update">Read the update</a>
+</section>
+
+<section class="subtle-panel">
+  <strong>GPU Acceleration:</strong> Native CUDA, Blackwell, ROCm, and Metal kernels with FlashAttention-2/3 and FP4 tensor cores.
+  <a href="/docs/gpu-kernels">Learn about GPU support</a>
+</section>
+
+<section class="subtle-panel">
+  <strong>Local install layout:</strong> Gollek stores models and native libraries under <code>~/.gollek/</code> by default.
+  <a href="/docs/developer-guidance#gpu-smoke-test-apple-silicon-only">Metal GPU test guide</a>
 </section>
 
 <section class="terminal-demo">
@@ -99,14 +109,19 @@ Create your first inference:
 // Create SDK instance
 GollekLocalClient client = new GollekLocalClientAdapter(GollekSdkFactory.createLocalSdk());
 
-// Build inference request
+// Resolve default model and prepare it (handles discovery & pull)
+String modelId = client.resolveDefaultModel().orElse("llama-3.2-3b-instruct");
+ModelResolution resolution = client.prepareModel(modelId, progress -> {
+    System.out.printf("\rPreparing... %.0f%%", progress.getPercentComplete());
+});
+
+// Build and execute inference request
 InferenceRequest request = InferenceRequest.builder()
-    .model("llama-3.2-3b-instruct")
+    .model(resolution.getModelId())
     .prompt("Explain quantum computing in simple terms")
     .maxTokens(500)
     .build();
 
-// Execute inference
 InferenceResponse response = client.createCompletion(request);
 System.out.println(response.getContent());
 ```
@@ -121,10 +136,13 @@ System.out.println(response.getContent());
 | Streaming Support | Real-time token streaming with Mutiny reactive streams |
 | Async Jobs | Background job submission with status tracking and callbacks |
 | Batch Inference | Process multiple requests efficiently in a single call |
-| Model Management | Pull, list, and delete models programmatically |
-| Provider Discovery | Auto-discover available providers and their capabilities |
+| Model Management | Automated resolution, pull-if-missing, and lifecycle handling |
+| Engine Metrics | Real-time P95 latency and error rate monitoring |
+| Plugin System | Extensible architecture for custom providers and features |
+| Provider Discovery | Auto-select best provider based on model format |
 | Native Interop | GraalVM native image with C FFI for embedded integration |
 | CDI Integration | Full Jakarta EE CDI support for enterprise applications |
+| GPU Acceleration | CUDA, Blackwell, ROCm, and Metal kernels with FlashAttention |
 
 ---
 
@@ -158,8 +176,8 @@ System.out.println(response.getContent());
 +-------------------------------------------------------------+
 |                    LocalGollekSdk                            |
 |  +--------------+ +--------------+ +---------------------+  |
-|  | Inference    | | Async Job    | | Provider            |  |
-|  | Service      | | Manager      | | Registry            |  |
+|  | Inference    | | Model Prep   | | Metrics &           |  |
+|  | Service      | | Service      | | Observability       |  |
 |  +--------------+ +--------------+ +---------------------+  |
 +-------------------------------------------------------------+
 |                    Model Repository                          |

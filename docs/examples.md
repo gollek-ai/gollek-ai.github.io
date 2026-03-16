@@ -40,20 +40,25 @@ public class SimpleCompletion {
             GollekSdkFactory.createLocalSdk()
         );
 
-        // Build request
+        // 1. Resolve default model if none specified
+        String modelId = client.resolveDefaultModel().orElse("llama-3.2-3b-instruct");
+
+        // 2. Prepare the model (handles discovery, pull-if-missing, and verification)
+        ModelResolution resolution = client.prepareModel(modelId, progress -> {
+            System.out.printf("\rPreparing model: %.2f%%", progress.getPercentComplete());
+        });
+        System.out.println("\nModel ready: " + resolution.getModelId());
+
+        // 3. Build and execute request
         InferenceRequest request = InferenceRequest.builder()
-            .model("llama-3.2-3b-instruct")
+            .model(resolution.getModelId())
             .prompt("What is the capital of France?")
             .maxTokens(100)
-            .temperature(0.7)
             .build();
 
-        // Execute inference
         InferenceResponse response = client.createCompletion(request);
         
         System.out.println("Answer: " + response.getContent());
-        System.out.println("Model: " + response.getModel());
-        System.out.println("Tokens used: " + response.getUsage().getTotalTokens());
     }
 }
 ```
@@ -70,22 +75,19 @@ public class ChatCompletion {
             GollekSdkFactory.createLocalSdk()
         );
 
+        // Prepare model first
+        String modelId = client.resolveDefaultModel().orElse("llama-3.2-3b-instruct");
+        client.prepareModel(modelId, null);
+
         // Build conversation
         List<Message> messages = List.of(
-            Message.builder()
-                .role("system")
-                .content("You are a helpful assistant.")
-                .build(),
-            Message.builder()
-                .role("user")
-                .content("What is Java?")
-                .build()
+            Message.builder().role("system").content("You are a helpful assistant.").build(),
+            Message.builder().role("user").content("What is Java?").build()
         );
 
         InferenceRequest request = InferenceRequest.builder()
-            .model("llama-3.2-3b-instruct")
+            .model(modelId)
             .messages(messages)
-            .maxTokens(200)
             .build();
 
         InferenceResponse response = client.createCompletion(request);

@@ -36,12 +36,16 @@ public interface GollekLocalClient {
     void setPreferredProvider(String providerId);
     Optional<String> getPreferredProvider();
     
-    // Model management
-    List<ModelInfo> listModels();
-    List<ModelInfo> listModels(int offset, int limit);
-    Optional<ModelInfo> getModelInfo(String modelId);
-    void pullModel(String modelSpec, Consumer<PullProgress> progressCallback);
-    void deleteModel(String modelId);
+    // Model Preparation & Resolution
+    ModelResolution prepareModel(String modelId, Consumer<PullProgress> progressCallback);
+    Optional<String> autoSelectProvider(String modelId);
+    Optional<String> resolveDefaultModel();
+
+    // Advanced Operations
+    List<GollekPlugin.PluginMetadata> listPlugins();
+    Map<String, Object> getMetrics(String providerId, String modelId);
+    Optional<ModelRegistry.ModelStats> getModelStats(String modelId);
+    ModelManifest registerModel(ModelRegistry.ModelUploadRequest request);
     
     // MCP Registry
     McpRegistryManager mcpRegistry();
@@ -422,6 +426,98 @@ void pullModel(String modelSpec, Consumer<PullProgress> progressCallback)
 | total | Long | Total bytes |
 | completed | Long | Completed bytes |
 | percentComplete | double | Percentage complete |
+
+---
+
+---
+
+## Model Preparation & Resolution
+
+### prepareModel
+
+Centralized logic to ensure a model is ready for inference. This method handles local resolution, pulling from remote if missing, and verifying the download.
+
+```java
+ModelResolution prepareModel(String modelId, Consumer<PullProgress> progressCallback)
+```
+
+**Returns:**
+- `ModelResolution` - Object containing final `modelId` and `localPath`.
+
+**Example:**
+```java
+ModelResolution resolution = client.prepareModel("llama-3.2-3b", progress -> {
+    System.out.printf("\rDownloading: %.2f%%", progress.getPercentComplete());
+});
+System.out.println("Model ready at: " + resolution.getLocalPath());
+```
+
+---
+
+### autoSelectProvider
+
+Automatically determine the best inference provider based on the model format (GGUF, ONNX, etc.).
+
+```java
+Optional<String> autoSelectProvider(String modelId)
+```
+
+---
+
+### resolveDefaultModel
+
+Resolve the system's default model ID if none is specified by the user.
+
+```java
+Optional<String> resolveDefaultModel()
+```
+
+---
+
+## Advanced Operations
+
+### listPlugins
+
+List all installed engine plugins and their metadata.
+
+```java
+List<GollekPlugin.PluginMetadata> listPlugins()
+```
+
+---
+
+### getMetrics
+
+Retrieve real-time performance metrics for a specific provider/model combination.
+
+```java
+Map<String, Object> getMetrics(String providerId, String modelId)
+```
+
+**Metrics Keys:**
+- `p95LatencyMs` - 95th percentile latency in milliseconds
+- `errorRate` - Recent failure percentage
+- `circuitBreakerOpen` - Boolean indicating if the provider is currently throttled
+
+---
+
+### getModelStats
+
+Get detailed usage and version statistics for a model.
+
+```java
+Optional<ModelRegistry.ModelStats> getModelStats(String modelId)
+```
+
+---
+
+### registerModel
+
+Programmatically register a custom model into the local registry.
+
+```java
+ModelManifest registerModel(ModelRegistry.ModelUploadRequest request)
+```
 
 ---
 

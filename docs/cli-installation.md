@@ -53,12 +53,11 @@ Download and extract `gollek-jvm.zip`, then:
 
 ## Runtime Directories
 
-Gollek and Wayang service defaults are:
+Gollek defaults to a single local root:
 
-- Primary: `~/.wayang/gollek/*`
-- Legacy compatibility: `~/.gollek/*`
+- Default: `~/.gollek/*`
 
-If needed, set `GOLLEK_HOME` to force legacy layout, otherwise prefer `~/.wayang/gollek`.
+Set `GOLLEK_HOME` to override the root location if needed.
 
 ---
 
@@ -71,4 +70,4 @@ gollek --help
 
 ---
 
-[Back to Getting Started](/docs/) &nbsp; [Code Examples](/docs/examples)
+[Back to Getting Started](/docs/) &nbsp; [Storage Layout](/docs/storage-layout) &nbsp; [Code Examples](/docs/examples)
