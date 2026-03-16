@@ -1054,12 +1054,35 @@ gollek.runners.cuda.kv-cache-blocks=1024
 
 ## Resources
 
-### Documentation
+### Kernel Module Documentation
 
-- [CUDA Kernel README](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/kernel/gollek-kernel-cuda)
-- [Blackwell Kernel README](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/kernel/gollek-kernel-blackwell)
-- [ROCm Kernel README](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/kernel/gollek-kernel-rocm)
-- [Metal Kernel README](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/kernel/gollek-kernel-metal)
+- **[CUDA Kernel README](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/kernel/gollek-kernel-cuda)**
+  - FlashAttention-2/3/4 auto-selection
+  - FP8/FP4 tensor core optimization
+  - Unified memory support (A100/H100/B200)
+  
+- **[Blackwell Kernel README](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/kernel/gollek-kernel-blackwell)**
+  - FlashAttention-4 with TMEM (64MB on-chip)
+  - FP4 tensor cores (2x FP8 throughput)
+  - Async execution with stream wait/write
+  
+- **[ROCm Kernel README](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/kernel/gollek-kernel-rocm)**
+  - FlashAttention-2/3 for MI300X/MI250X
+  - Unified memory on MI300X (zero-copy)
+  - FP8 tensor cores on MI300X
+  
+- **[Metal Kernel README](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/kernel/gollek-kernel-metal)**
+  - MPSGraph SDPA (FA4 equivalent for macOS 14+)
+  - Unified memory on all Apple Silicon
+  - Weight offloading for large models
+
+### Optimization Integration
+
+- **[Optimization Integration Guide](https://github.com/gollek-ai/gollek/tree/main/inference-gollek/extension/optimization/OPTIMIZATION_INTEGRATION.md)**
+  - CudaOptimizationManager
+  - BlackwellOptimizationManager
+  - RocmOptimizationManager
+  - MetalOptimizationManager
 
 ### External Resources
 
@@ -1067,6 +1090,9 @@ gollek.runners.cuda.kv-cache-blocks=1024
 - [NVIDIA Blackwell Architecture](https://www.nvidia.com/en-us/data-center/technologies/blackwell-architecture/)
 - [AMD ROCm Documentation](https://rocm.docs.amd.com/)
 - [Apple Metal Documentation](https://developer.apple.com/metal/)
+- [FlashAttention-4 Paper (arXiv:2603.05451)](https://arxiv.org/abs/2603.05451)
+- [FlashAttention-3 Paper (arXiv:2307.08691)](https://arxiv.org/abs/2307.08691)
+- [Hybrid Attention Paper (arXiv:2412.06464)](https://arxiv.org/abs/2412.06464)
 
 ### Community
 

@@ -98,6 +98,7 @@ Runner auto-Metal toggles:
 - LiteRT: `litert.provider.gpu.auto-metal=true`
 - LibTorch: `libtorch.provider.gpu.auto-mps-enabled=true`
 - ONNX Runtime: `onnx.runner.execution_provider=coreml` (Apple Silicon CoreML EP)
+- Global Metal switches (`gollek.runners.metal.enabled=false` or `gollek.runners.metal.mode=disabled`) also disable ONNX CoreML.
 
 Diagnostics:
 - Auto mode will skip offload when the model fits unified memory.
