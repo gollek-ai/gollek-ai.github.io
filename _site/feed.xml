@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Gollek Blog</title>
+    <link>/blog/</link>
+    <description>Gollek release notes, architecture updates, and developer guides.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Mar 2026 17:18:50 +0700</lastBuildDate>
+    
+    
+    
+      
+        
+        
+    <item>
+      <title>How Gollek GGUF Chat Loads from Hugging Face and Answers</title>
+      <link>/blog/how-gollek-gguf-chat-loads-model-and-answers.html</link>
+      <guid>/blog/how-gollek-gguf-chat-loads-model-and-answers.html</guid>
+      <pubDate>Tue, 03 Mar 2026 00:00:00 +0700</pubDate>
+      <description>Step-by-step walkthrough of what happens when running gollek chat with a GGUF provider and a Hugging Face model reference.</description>
+    </item>
+        
+      
+    
+      
+        
+        
+    <item>
+      <title>Multi-LoRA and LibTorch Advanced Path Update</title>
+      <link>/blog/multilora-libtorch-advanced-update.html</link>
+      <guid>/blog/multilora-libtorch-advanced-update.html</guid>
+      <pubDate>Sat, 28 Feb 2026 00:00:00 +0700</pubDate>
+      <description>Gollek runtime update covering Multi-LoRA benchmark tooling, FP8 rowwise calibration lifecycle, and safe SageAttention2 experimental gating.</description>
+    </item>
+        
+      
+    
+      
+        
+        
+    <item>
+      <title>Introducing the New Gollek Inference Engine</title>
+      <link>/blog/gollek-inference-engine-release.html</link>
+      <guid>/blog/gollek-inference-engine-release.html</guid>
+      <pubDate>Fri, 27 Feb 2026 00:00:00 +0700</pubDate>
+      <description>Release introduction to the new Gollek inference engine, key advantages, and community contribution paths.</description>
+    </item>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </channel>
+</rss>

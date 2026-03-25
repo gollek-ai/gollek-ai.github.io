@@ -217,9 +217,9 @@ char* golek_stream_completion_json(long clientHandle, const char* requestJson);
 ```
 
 **Returns:**
-- JSON array of StreamChunk objects
+- JSON array of InferenceChunk objects
 
-**StreamChunk JSON:**
+**InferenceChunk JSON:**
 ```json
 {
     "requestId": "req-123",

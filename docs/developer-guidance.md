@@ -95,16 +95,91 @@ Engine device preference (routing defaults):
 
 Runner auto-Metal toggles:
 - GGUF: `gguf.provider.gpu.auto-metal=true` and `gguf.provider.gpu.auto-metal.layers=-1`
+- GGUF: `gguf.provider.coalesce.enabled=true`, `gguf.provider.coalesce.window-ms=3`, `gguf.provider.coalesce.seq-max=1` (set `seq-max > 1` to enable multi-sequence micro-batching)
+  - Metrics: `gollek.gguf.coalesce.seq.max`, `gollek.gguf.coalesce.seq.avg`, `gollek.gguf.coalesce.seq.total`
+- GGUF Converter: set `dryRun=true` on `/v1/converter/gguf/convert` to resolve paths without converting.
+- GGUF Converter: `POST /v1/converter/gguf/convert/preview` resolves paths without converting and returns `derivedOutputName`, `inputBasePath`, and `outputBasePath`.
+- CLI: `gollek convert --input ~/models/llama-2-7b --output ~/conversions --quant q4_k_m`
 - LiteRT: `litert.provider.gpu.auto-metal=true`
 - LibTorch: `libtorch.provider.gpu.auto-mps-enabled=true`
 - ONNX Runtime: `onnx.runner.execution_provider=coreml` (Apple Silicon CoreML EP)
 - Global Metal switches (`gollek.runners.metal.enabled=false` or `gollek.runners.metal.mode=disabled`) also disable ONNX CoreML.
+- CoreML smoke test (optional): set `gollek.onnx.library-path=/path/to/libonnxruntime.dylib` and run the ONNX module tests.
+- ONNX device selection tests cover:
+  - `~/.gollek/libs/` fallback when `gollek.runners.onnx.library-path` is missing.
+  - Apple Silicon + `coreMlAvailable=true` exposes `DeviceType.METAL`.
+- Hugging Face ONNX integration test (optional):
+  set `GOLLEK_ONNX_HF_REPO`, `GOLLEK_ONNX_LIBRARY_PATH` (must point to a real ONNX Runtime library),
+  and optionally `GOLLEK_HF_TOKEN` or `HF_TOKEN` if the repo is gated, then run the ONNX module tests.
+  To make the test fail instead of skipping on network/404/401, set `GOLLEK_ONNX_HF_REQUIRED=true`.
+  You can also enable strict mode via Maven: `mvn -f gollek/extension/runner/onnx/gollek-runner-onnx/pom.xml -Phf-integration-required test`.
+  If strict mode fails with DNS errors, check local DNS/VPN/proxy settings or run in non-strict mode.
+  Quick ONNX test matrix:
+  - Optional integration: `GOLLEK_ONNX_HF_REPO=onnx-community/tiny-random-bert`
+  - Required integration: `GOLLEK_ONNX_HF_REPO=... GOLLEK_ONNX_HF_REQUIRED=true`
+  - Library path: `GOLLEK_ONNX_LIBRARY_PATH=~/.gollek/libs/libonnxruntime.dylib`
+  - Tokens (if gated): `GOLLEK_HF_TOKEN=$HF_TOKEN`
+
+CLI Native Build (GraalVM):
+- Build: `mvn -f inference-gollek/ui/gollek-cli/pom.xml -Pnative -DskipTests clean package`
+- Output binary: `inference-gollek/ui/gollek-cli/target/gollek`
+- Temp directory override (sandbox-friendly): `-H:TempDirectory=/tmp` (already wired in CLI build args)
+- File logging toggle:
+  - Disable file logging: `GOLLEK_CLI_FILE_LOG_ENABLED=false`
+  - Override log path: `GOLLEK_CLI_LOG_FILE=/tmp/gollek/cli.log`
+  - Default path: `~/.gollek/logs/cli.log`
+- CLI run example:
+  - `GOLLEK_CLI_FILE_LOG_ENABLED=false inference-gollek/ui/gollek-cli/target/gollek --help`
+- Native CLI wrapper (cleans deprecated env keys):
+  - `inference-gollek/ui/gollek-cli/scripts/run-native.sh --help`
+
+SafeTensors provider:
+- Default backend is `auto`, which prefers GGUF conversion (fast, Metal-aware) when the converter is available.
+- Configure backend explicitly: `safetensor.provider.backend=auto|gguf|libtorch`.
+- Conversion output directory: `safetensor.provider.ggufOutputDir=~/.gollek/models/gguf/converted`.
+- GGUF conversion uses the built-in Java converter in `gollek/extension/runner/gguf/gollek-gguf-converter`.
+- Install ONNX Runtime (prebuilt): 
+  `make -C gollek/extension/runner/onnx/gollek-runner-onnx/src/main/cpp/onnxruntime install`
+  (copies `libonnxruntime.*` into `~/.gollek/libs/` which the runner will auto-detect if the configured path is missing).
+
+LiteRT (TFLite):
+- Base path for `.tflite` models: `litert.provider.model.base-path=~/.gollek/models/tflite`
+- LiteRT module tests: `mvn -f gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml test`
+- Optional real-model integration test:
+  - `LITERT_LIBRARY_PATH=~/.gollek/libs/libtensorflowlite_c.dylib`
+  - `GOLLEK_TFLITE_MODEL_URL=https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.tflite`
+  - Strict mode: `GOLLEK_TFLITE_REQUIRED=true` (fails instead of skip on download errors)
+  - The LiteRT loader auto-searches `~/.gollek/libs/` for `libtensorflowlite_c.*` if no override is set.
+- Sample model helper:
+  - `bash gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-sample-model.sh`
+- LiteRT runtime helper:
+  - `bash gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-tflite-runtime.sh`
+  - Optional: `GOLLEK_TFLITE_RUNTIME_URL=https://.../libtensorflowlite_c.dylib` to download directly
+- GitHub Releases auto-download (if assets are published):
+  - `GOLLEK_LITERT_RUNTIME_REPO=bhangun/gollek`
+  - `GOLLEK_LITERT_RUNTIME_RELEASE=latest`
+  - `GOLLEK_LITERT_RUNTIME_ASSET=litert-runtime-macos-arm64.tar.gz`
+  - Asset naming details: `gollek/extension/runner/tflite/gollek-ext-runner-tflite/docs/RELEASE_ASSETS.md`
+  - Release checklist: `gollek/extension/runner/tflite/gollek-ext-runner-tflite/docs/RELEASE_CHECKLIST.md`
+  - Release notes template: `gollek/extension/runner/tflite/gollek-ext-runner-tflite/docs/RELEASE_NOTES_TEMPLATE.md`
+  - GitHub Actions workflow: `.github/workflows/litert-runtime-release.yml`
+  - Build + release workflow: `.github/workflows/litert-runtime-build-and-release.yml`
+- Make targets:
+  - `make tflite-sample`
+  - `make tflite-runtime`
+  - `make tflite-runtime-package`
+
+Release How-To (LiteRT runtime assets):
+1. Build or obtain `libtensorflowlite_c.*` for each target OS/arch.
+2. Package with `make tflite-runtime-package` (produces `dist/litert-runtime-*.tar.gz`).
+3. Upload assets to a GitHub release (manual or via `LiteRT Runtime Release` workflow).
+4. Verify download + smoke test using the commands in the release checklist.
 
 Diagnostics:
 - Auto mode will skip offload when the model fits unified memory.
 - Force mode keeps Metal runners active even if detection reports unavailable.
 - If Metal is unavailable and mode is not `force`, the Metal runners are removed from selection.
-- Build/install note: `make -C inference-gollek/extension/kernel/gollek-kernel-metal/src/main/cpp/metal install`
+- Build/install note: `make -C gollek/extension/kernel/gollek-kernel-metal/src/main/cpp/metal install`
   copies `libgollek_metal.dylib` to `~/.gollek/libs/` (and resources for packaging).
 
 Decision flow (auto + manual):
@@ -142,7 +217,7 @@ GPU smoke test (Apple Silicon only):
 - Default search paths: `~/.gollek/libs/libgollek_metal.dylib`, `/usr/local/lib/libgollek_metal.dylib`, `/Library/Gollek/libgollek_metal.dylib`
 - The test skips automatically if Metal is unavailable or the dylib is missing
 - Headless CI can report `No Metal device found`; run on a logged-in desktop session for GPU validation.
-- CI/profile shortcut: `mvn -f inference-gollek/extension/kernel/gollek-kernel-metal/pom.xml -Pmetal-gpu-tests test`
+- CI/profile shortcut: `mvn -f gollek/extension/kernel/gollek-kernel-metal/pom.xml -Pmetal-gpu-tests test`
 - JVM note: the profile sets `--enable-native-access=ALL-UNNAMED` to satisfy FFM access.
 
 Troubleshooting checklist:
@@ -153,7 +228,7 @@ Troubleshooting checklist:
 - `No Metal device found`: run tests in a logged-in desktop session (headless CI may not expose Metal).
 
 Build note:
-- If you see `class not found` errors after moving SPI types, run a clean build to clear stale reactor output: `mvn -f inference-gollek/pom.xml clean install`.
+- If you see `class not found` errors after moving SPI types, run a clean build to clear stale reactor output: `mvn -f gollek/pom.xml clean install`.
 
 ---
 

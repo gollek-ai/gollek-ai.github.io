@@ -14,6 +14,22 @@ title: Getting Started with Gollek SDK
     <h3>CLI Distribution</h3>
     <p>Install <code>gollek</code> for macOS, Linux, and Windows with release artifacts or package managers.</p>
   </a>
+  <a class="quick-card" href="/docs/cli-installation#quick-commands">
+    <h3>CLI Quick Commands</h3>
+    <p>Run inference, convert to GGUF, and dry-run conversions from the terminal.</p>
+  </a>
+  <a class="quick-card" href="/docs/cli-reference">
+    <h3>CLI Reference</h3>
+    <p>See all commands, including <code>gollek convert</code> for GGUF conversion.</p>
+  </a>
+  <a class="quick-card" href="/docs/audio-processing">
+    <h3>Audio Processing</h3>
+    <p>Speech-to-text (Whisper), text-to-speech (SpeechT5), and VAD pipeline.</p>
+  </a>
+  <a class="quick-card" href="/docs/quantization">
+    <h3>Model Quantization</h3>
+    <p>GPTQ INT4/INT8 and FP8 quantization with 4-8x compression.</p>
+  </a>
   <a class="quick-card" href="#maven-dependency">
     <h3>Java SDK Setup</h3>
     <p>Add Maven/Gradle dependencies and optional providers for embedded inference.</p>
@@ -25,12 +41,12 @@ title: Getting Started with Gollek SDK
 </section>
 
 <section class="subtle-panel">
-  <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/developer-guidance">Developer Guidance</a> · <a href="/docs/storage-layout">Storage Layout</a> · <a href="/docs/developer-guidance#metal-runner-modes-apple-silicon">Metal Modes</a> · <a href="/docs/developer-guidance#gpu-smoke-test-apple-silicon-only">Metal GPU Test</a> · <a href="/docs/architecture#fp8-rowwise-canary-configuration">FP8 Rowwise Config</a> · <a href="/docs/architecture#sageattention2-configuration">SageAttention2 Config</a> · <a href="/docs/architecture#multi-lora-benchmark-telemetry">Benchmark Telemetry</a> · <a href="/docs/native-ffi">Native FFI</a>
+  <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/plugin-system-v2">Plugin System v2.0</a> · <a href="/docs/kernel-auto-detection">Kernel Auto-Detection</a> · <a href="/docs/plugin-examples">Examples</a> · <a href="/docs/plugin-templates">Templates</a> · <a href="/docs/plugin-migration">Migration Guide</a> · <a href="/docs/enhanced-plugin-system-v2">Enhanced Plugins</a> · <a href="/docs/enhanced-plugin-architecture">Kernel Plugins</a> · <a href="/docs/enhanced-runner-plugin-architecture">Runner Plugins</a> · <a href="/docs/safetensor-runner-integration">Safetensor Integration</a> · <a href="/docs/plugin-architecture">Plugin Architecture</a> · <a href="/docs/developer-guidance">Developer Guidance</a> · <a href="/docs/storage-layout">Storage Layout</a> · <a href="/docs/enhancement-history">Enhancement History</a> · <a href="/docs/audio-processing">Audio Processing</a> · <a href="/docs/quantization">Quantization</a> · <a href="/docs/gpu-kernels">GPU Kernels</a> · <a href="/docs/developer-guidance#metal-runner-modes-apple-silicon">Metal Modes</a> · <a href="/docs/developer-guidance#gpu-smoke-test-apple-silicon-only">Metal GPU Test</a> · <a href="/docs/architecture#fp8-rowwise-canary-configuration">FP8 Rowwise Config</a> · <a href="/docs/architecture#sageattention2-configuration">SageAttention2 Config</a> · <a href="/docs/architecture#multi-lora-benchmark-telemetry">Benchmark Telemetry</a> · <a href="/docs/native-ffi">Native FFI</a> · <a href="/docs/troubleshooting">Troubleshooting</a> · <a href="/docs/error-codes">Error Codes</a>
 </section>
 
 <section class="subtle-panel">
-  <strong>Latest update:</strong> Multi-LoRA and LibTorch advanced path progress is live, including FP8 rowwise calibration lifecycle, SageAttention2 safety guardrails, and benchmark telemetry for CPU/GPU efficiency tracking.
-  <a href="/blog/multilora-libtorch-advanced-update">Read the update</a>
+  <strong>Latest update:</strong> Audio module v2.0 is live with Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, and VAD pipeline. Plus quantization engine with INT4/INT8/FP8 support for 4-8x model compression.
+  <a href="/blog/audio-quantization-release">Read the release</a>
 </section>
 
 ---
@@ -265,6 +281,9 @@ InferenceRequest request = InferenceRequest.builder()
 - [Native FFI](/docs/native-ffi) - GraalVM native integration
 - [Architecture](/docs/architecture) - System architecture overview
 - [Examples](/docs/examples) - Code examples and patterns
+- **[Enhancement History](/docs/enhancement-history)** - Complete development history (Phase 1 & 2)
+- **[Phase 1 Completion](/docs/phase1-completion)** - Integration testing (41 tests)
+- **[Phase 2 Completion](/docs/phase2-completion)** - Performance optimization (3x throughput)
 
 ---
 

@@ -50,6 +50,12 @@ Gollek is the inference engine of the Wayang AI platform, designed for high-perf
 |  | GGUF |  | ONNX |  | TFLite |  | OpenAI |  | Gemini |  | ... | |
 |  +------+  +------+  +--------+  +--------+  +--------+  +-----+ |
 +------------------------------------------------------------------+
+|                    Cloud Providers                                |
+|  +--------+  +-----------+  +--------+  +---------+  +--------+  |
+|  | OpenAI |  | Anthropic |  | Gemini |  | Cerebras|  |Mistral |  |
+|  | GPT-4  |  |  Claude 3 |  |  Pro   |  | Llama   |  | Mixtral|  |
+|  +--------+  +-----------+  +--------+  +---------+  +--------+  |
++------------------------------------------------------------------+
 |                    GPU Kernel Modules                             |
 |  +-----------+  +------------+  +--------+  +-----------------+  |
 |  | CUDA      |  | Blackwell  |  | ROCm   |  | Metal           |  |
@@ -65,6 +71,10 @@ Gollek is the inference engine of the Wayang AI platform, designed for high-perf
 ### GPU Kernel Modules
 
 Native GPU acceleration kernels for optimal inference performance.
+
+**🆕 Enhanced v2.0**: ClassLoader isolation, hot-reload support, comprehensive validation, and full engine integration.
+
+[Learn more about Enhanced Kernel Plugins →](/docs/enhanced-plugin-architecture)
 
 **Module Structure:**
 
@@ -97,6 +107,78 @@ inference-gollek/extension/kernel/
 | Unified Memory | ✓ (A100+) | ✓ | ✓ (MI300X) | ✓ (all) |
 
 [Learn more](/docs/gpu-kernels)
+
+### Cloud Providers
+
+Cloud-based LLM inference providers with unified API abstraction.
+
+**Module Structure:**
+
+```
+inference-gollek/extension/cloud/
+├── gollek-ext-cloud-openai      # OpenAI GPT-4, GPT-3.5-Turbo
+│   ├── OpenAiProvider           # Main provider implementation
+│   ├── OpenAiConfig             # Configuration interface
+│   ├── OpenAiRequest            # Request model
+│   ├── OpenAiResponse           # Response model
+│   └── OpenAiUsage              # Token usage tracking
+├── gollek-ext-cloud-anthropic   # Anthropic Claude 3
+│   ├── AnthropicProvider        # Main provider implementation
+│   ├── AnthropicConfig          # Configuration interface
+│   ├── AnthropicRequest         # Request model
+│   └── AnthropicResponse        # Response model
+├── gollek-ext-cloud-gemini      # Google Gemini
+│   └── GeminiProvider           # Gemini provider
+├── gollek-ext-cloud-cerebras    # Cerebras Llama 3.1
+│   └── CerebrasProvider         # High-speed inference
+└── gollek-ext-cloud-mistral     # Mistral AI
+    └── MistralProvider          # Mistral/Mixtral models
+```
+
+**Key Features:**
+
+| Provider | Models | Streaming | Functions | Multimodal | Context |
+|----------|--------|-----------|-----------|------------|---------|
+| OpenAI | GPT-4, GPT-3.5 | ✓ | ✓ | ✓ | 128K |
+| Anthropic | Claude 3 | ✓ | ✓ | ✓ | 200K |
+| Gemini | Gemini Pro/Ultra | ✓ | ✓ | ✓ | 1M+ |
+| Cerebras | Llama 3.1 | ✓ | ✗ | ✗ | 8K |
+| Mistral | Mistral, Mixtral | ✓ | ✓ | ✗ | 32K |
+
+[Learn more](/docs/cloud-providers)
+
+### Native Image Support
+
+Full GraalVM native image support for minimal memory footprint and instant startup.
+
+**Native Configuration:**
+
+```
+src/main/resources/META-INF/native-image/
+├── reflect-config.json      # Reflection configuration
+├── resource-config.json     # Resource inclusion  
+├── jni-config.json          # JNI configuration
+└── proxy-config.json        # Dynamic proxy config
+```
+
+**Build Commands:**
+
+```bash
+# Standard native build
+mvn package -Pnative -DskipTests
+
+# Optimized build
+mvn package -Pnative \
+    -Dnative-image.build-args=-O3 \
+    -Dnative-image.build-args=--gc=G1
+```
+
+**Performance:**
+- **Startup:** 50-100ms (vs 2-5s JVM)
+- **Memory:** 50 MB (vs 200 MB JVM)
+- **Binary Size:** ~30 MB
+
+[Learn more](/docs/native-compilation)
 
 ## Advanced Multi-LoRA Runtime Flow
 
@@ -216,7 +298,7 @@ Unified model storage and retrieval:
 
 
 # Local Runners
-- Local runners emitting internal StreamChunks
+- Local runners emitting internal InferenceChunks
 - OpenAI-compatible SSE JSON can be enable when needed by using flag --enable-json. This adapter layer serializes those chunks as OpenAI-compatible SSE JSON.
 
 
@@ -289,7 +371,7 @@ Unified model storage and retrieval:
 4. Provider.stream(model, request)
          |
          v
-5. Multi<StreamChunk> emitted
+5. Multi<InferenceChunk> emitted
          |
          v
 6. Client subscribes to stream
@@ -412,7 +494,7 @@ public interface LLMProvider {
     Set<ProviderCapability> capabilities();
     
     Uni<InferenceResponse> infer(InferenceRequest request);
-    Multi<StreamChunk> stream(InferenceRequest request);
+    Multi<StreamingInferenceChunk> stream(InferenceRequest request);
     Uni<ProviderHealth> health();
 }
 ```

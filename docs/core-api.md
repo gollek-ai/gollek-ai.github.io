@@ -17,25 +17,34 @@ The `GollekLocalClient` is the main entry point for all SDK operations.
 
 ```java
 public interface GollekLocalClient {
-    // Completion APIs
+    // ==================== Standard Inference ====================
     InferenceResponse createCompletion(InferenceRequest request);
     CompletableFuture<InferenceResponse> createCompletionAsync(InferenceRequest request);
-    Multi<StreamChunk> streamCompletion(InferenceRequest request);
-    
+    Multi<StreamingInferenceChunk> streamCompletion(InferenceRequest request);
+
     // Async job management
     String submitAsyncJob(InferenceRequest request);
     AsyncJobStatus getJobStatus(String jobId);
     AsyncJobStatus waitForJob(String jobId, Duration maxWaitTime, Duration pollInterval);
-    
+
     // Batch inference
     List<InferenceResponse> batchInference(BatchInferenceRequest batchRequest);
+
+    // ==================== Multimodal Inference ====================
+    MultimodalResponse multimodalInference(MultimodalRequest request);
+    Multi<MultimodalResponse> multimodalInferenceStream(MultimodalRequest request);
     
+    // Convenience methods
+    MultimodalResponse visionQA(String model, byte[] imageBytes, String question);
+    MultimodalResponse imageCaptioning(String model, byte[] imageBytes);
+    float[] imageEmbedding(String model, byte[] imageBytes);
+
     // Provider management
     List<ProviderInfo> listAvailableProviders();
     ProviderInfo getProviderInfo(String providerId);
     void setPreferredProvider(String providerId);
     Optional<String> getPreferredProvider();
-    
+
     // Model Preparation & Resolution
     ModelResolution prepareModel(String modelId, Consumer<PullProgress> progressCallback);
     Optional<String> autoSelectProvider(String modelId);
@@ -46,8 +55,11 @@ public interface GollekLocalClient {
     Map<String, Object> getMetrics(String providerId, String modelId);
     Optional<ModelRegistry.ModelStats> getModelStats(String modelId);
     ModelManifest registerModel(ModelRegistry.ModelUploadRequest request);
-    
+
     // MCP Registry
+    McpRegistryManager mcpRegistry();
+}
+```
     McpRegistryManager mcpRegistry();
 }
 ```
@@ -121,14 +133,14 @@ future.thenAccept(response ->
 Streaming inference with real-time token delivery.
 
 ```java
-Multi<StreamChunk> streamCompletion(InferenceRequest request)
+Multi<StreamingInferenceChunk> streamCompletion(InferenceRequest request)
 ```
 
 **Parameters:**
 - `request` - InferenceRequest with model, prompt, and parameters
 
 **Returns:**
-- Multi<StreamChunk> - Reactive stream of tokens
+- Multi<InferenceChunk> - Reactive stream of tokens
 
 **Example:**
 ```java
@@ -146,7 +158,7 @@ client.streamCompletion(request)
     );
 ```
 
-**StreamChunk Fields:**
+**InferenceChunk Fields:**
 | Field | Type | Description |
 |-------|------|-------------|
 | requestId | String | Unique request ID |

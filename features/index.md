@@ -26,6 +26,8 @@ Single consistent interface for all inference providers and model formats.
 - ONNX Runtime
 - TensorFlow Lite
 - Cloud APIs (Gemini, Anthropic, OpenAI)
+- **Audio Models (Whisper, SpeechT5)**
+- **Quantized Models (INT4, INT8, FP8)**
 
 ---
 
@@ -53,6 +55,53 @@ Native GPU acceleration for optimal inference performance.
 
 ---
 
+### Cloud Provider Integration
+
+Seamless integration with leading cloud LLM providers via dynamic plugin system.
+
+**Plugin Architecture:**
+- **Dynamic Loading**: Add/remove providers via JAR files at runtime
+- **Hot-Reload**: Update providers without restarting the application
+- **ClassLoader Isolation**: Each provider runs in isolated ClassLoader
+- **Auto-Discovery**: Plugins automatically discovered from `~/.gollek/plugins/`
+- **Unified API**: Consistent interface across all providers
+
+**Supported Providers:**
+
+| Provider | Models | Context | Key Features |
+|----------|--------|---------|--------------|
+| **OpenAI** | GPT-4, GPT-3.5-Turbo, o1 | 128K | Function calling, Vision, 128K context |
+| **Anthropic** | Claude 3 (Opus/Sonnet/Haiku) | 200K | 200K context, Vision, Low hallucination |
+| **Google Gemini** | Gemini Pro/Ultra | 1M+ | Multimodal, Long context |
+| **Cerebras** | Llama 3.1 | 8K | ~400 tokens/s speed |
+| **Mistral** | Mistral, Mixtral | 32K | Open weights, Efficient |
+
+**Plugin Features:**
+- JAR auto-discovery from `~/.gollek/plugins/`
+- Hot-reload on file changes
+- Dynamic load/unload without restart
+- Plugin manifest (`plugin.json`) support
+- Per-plugin configuration
+- Health monitoring
+
+**Example:**
+```java
+// Plugins automatically loaded on startup
+PluginManager manager = CDI.current().select(PluginManager.class).get();
+manager.initialize();
+
+// Get provider
+OpenAiCloudProvider openai = (OpenAiCloudProvider) 
+    manager.byId("openai-cloud-provider").get();
+
+// Use for inference
+InferenceResponse response = openai.complete(request);
+```
+
+[Learn more](/docs/cloud-providers) [Plugin Guide](/docs/plugin-system)
+
+---
+
 ### Multi-Provider Support
 
 Seamlessly integrate with multiple inference providers.
@@ -62,11 +111,12 @@ Seamlessly integrate with multiple inference providers.
 | GGUF | Local | Streaming, Async, Batch |
 | ONNX | Local | Streaming, Batch |
 | TFLite | Local | Streaming, Batch |
-| OpenAI | Cloud | Streaming, Async, Functions |
-| Anthropic | Cloud | Streaming, Async, Tools |
+| OpenAI | Cloud | Streaming, Async, Functions, Vision |
+| Anthropic | Cloud | Streaming, Async, Tools, Vision |
 | Google Gemini | Cloud | Streaming, Async, Multimodal |
 | Ollama | Local/Cloud | Streaming, Async |
 | Cerebras | Cloud | Streaming, High-throughput |
+| Mistral | Cloud | Streaming, Function calling |
 
 ---
 
@@ -192,6 +242,131 @@ Flexible provider routing strategies.
 - Automatic failover
 - Load balancing (enterprise)
 - Cost-based routing (enterprise)
+
+---
+
+## Audio Processing
+
+### Speech-to-Text (Whisper)
+
+Production-ready speech transcription with 99+ language support.
+
+**Features:**
+- Complete Whisper encoder-decoder implementation
+- Beam search decoding for accuracy
+- Word-level timestamps
+- Language auto-detection
+- Voice activity detection (VAD)
+- Streaming transcription
+- Multi-format support (WAV, MP3, FLAC, OGG, M4A, WebM)
+
+**Supported Models:**
+- tiny (39M), base (74M), small (244M), medium (769M), large-v3 (1.55B)
+
+**Performance:**
+- RTF: 0.15x - 1.5x (model dependent)
+- WER: 2.9% - 8.5% on LibriSpeech
+
+### Text-to-Speech (SpeechT5)
+
+High-quality text-to-speech synthesis with neural vocoder.
+
+**Features:**
+- HiFi-GAN vocoder for natural sound
+- 8 preset voices (alloy, echo, fable, onyx, nova, shimmer, ash, ballad)
+- Custom speaker embedding support
+- Speed control (0.5x - 2.0x)
+- 16kHz 16-bit output
+- Streaming synthesis
+
+**Performance:**
+- MOS: 4.2/5.0
+- Synthesis: ~50x real-time
+- Latency: <100ms
+
+### Audio Processing Pipeline
+
+Comprehensive audio utilities for speech applications.
+
+**Feature Extraction:**
+- Log-Mel spectrogram (80 mel bins)
+- MFCC (13 cepstral coefficients)
+- F0 (fundamental frequency)
+- Energy contour
+
+**Audio Utilities:**
+- High-quality resampling (sinc interpolation)
+- Format conversion (int16 ↔ float32)
+- Peak and RMS normalization
+- Voice activity detection
+- Silence removal
+- Utterance segmentation
+
+[Learn more](/docs/audio-processing)
+
+---
+
+## Model Quantization
+
+### GPTQ (INT4)
+
+4-bit integer quantization with 8x compression.
+
+**Features:**
+- Group-wise quantization (configurable group size)
+- Per-channel scaling
+- Activation ordering (ActOrder)
+- Hessian-based optimization
+- SafeTensors format
+
+**Compression:** ~8x
+**Quality Loss:** Low-Medium
+**Best For:** CPU inference, large models (7B+)
+
+### INT8 Quantization
+
+8-bit integer quantization with 4x compression.
+
+**Features:**
+- Per-channel or per-tensor scaling
+- Symmetric or asymmetric quantization
+- Fast calibration
+- Minimal quality loss
+
+**Compression:** ~4x
+**Quality Loss:** Very Low
+**Best For:** Production inference, balanced quality/speed
+
+### FP8 Quantization
+
+8-bit floating point for GPU tensor cores.
+
+**Features:**
+- E4M3 and E5M2 formats
+- Optimized for H100/MI300
+- Near-lossless quality
+- Tensor core acceleration
+
+**Compression:** ~4x
+**Quality Loss:** Minimal
+**Best For:** GPU inference with FP8 support
+
+### Quantization Pipeline
+
+End-to-end quantization workflow.
+
+**REST API:**
+- `POST /api/v1/quantization/quantize` - Quantize model
+- `POST /api/v1/quantization/quantize/stream` - Stream progress
+- `GET /api/v1/quantization/recommend` - Get strategy recommendation
+- `GET /api/v1/quantization/strategies` - List strategies
+
+**Performance:**
+- 7B model: ~90s (INT4), ~45s (INT8)
+- 13B model: ~180s (INT4), ~90s (INT8)
+- 70B model: ~900s (INT4), ~450s (INT8)
+
+[Learn more](/docs/quantization)
 
 ---
 
@@ -428,6 +603,9 @@ Extensible architecture via plugins.
 | Native FFI | Yes | Yes |
 | Model management | Yes | Yes |
 | CDI integration | Yes | Yes |
+| **Audio Processing** | **Yes** | **Yes** |
+| **Model Quantization** | **Yes** | **Yes** |
+| GPU acceleration | Yes | Yes |
 | Multi-tenancy | No | Yes |
 | Advanced security | Basic | Full |
 | Audit logging | Basic | Comprehensive |

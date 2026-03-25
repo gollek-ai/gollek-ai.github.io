@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gollek CLI Reference | Gollek</title>
+  <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('gollek-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+  <div class="site-bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand">Gollek</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/cli-installation">Install</a>
+        <a href="/features/">Features</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+        <a href="https://github.com/bhangun/gollek">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container content-shell">
+    <article class="content-card">
+      <h1 id="gollek-cli-reference">Gollek CLI Reference</h1>
+
+<p>Quick reference for the core CLI commands.</p>
+
+<hr />
+
+<h2 id="convert-to-gguf">Convert to GGUF</h2>
+
+<p>Convert a local model (directory or file) into GGUF.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gollek convert <span class="nt">--input</span> ~/models/llama-2-7b <span class="nt">--output</span> ~/conversions <span class="nt">--quant</span> q4_k_m
+</code></pre></div></div>
+
+<p>Dry‑run (resolve paths only):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gollek convert <span class="nt">--input</span> ~/models/llama-2-7b <span class="nt">--output</span> ~/conversions <span class="nt">--dry-run</span>
+</code></pre></div></div>
+
+<p>Options:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">--input</code>: Input model path (file or directory)</li>
+  <li><code class="language-plaintext highlighter-rouge">--output</code>: Output GGUF file or directory</li>
+  <li><code class="language-plaintext highlighter-rouge">--quant</code>: Quantization type (<code class="language-plaintext highlighter-rouge">q4_k_m</code>, <code class="language-plaintext highlighter-rouge">q8_0</code>, <code class="language-plaintext highlighter-rouge">f16</code>, …)</li>
+  <li><code class="language-plaintext highlighter-rouge">--overwrite</code>: Overwrite output if it exists</li>
+  <li><code class="language-plaintext highlighter-rouge">--dry-run</code>: Resolve paths without converting</li>
+  <li><code class="language-plaintext highlighter-rouge">--json</code>: Print JSON output for scripting</li>
+  <li><code class="language-plaintext highlighter-rouge">--json-pretty</code>: Pretty-print JSON output</li>
+  <li><code class="language-plaintext highlighter-rouge">--model-base</code>: Base path for relative input paths</li>
+  <li><code class="language-plaintext highlighter-rouge">--output-base</code>: Base path for relative output paths</li>
+</ul>
+
+<hr />
+
+<h2 id="run-inference">Run Inference</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gollek run <span class="nt">--model</span> Qwen/Qwen2.5-0.5B-Instruct <span class="nt">--prompt</span> <span class="s2">"Hi"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="pull-a-model">Pull a Model</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gollek pull hf:Qwen/Qwen2.5-0.5B-Instruct
+</code></pre></div></div>
+
+<hr />
+
+<p><a href="/docs/">Back to Docs Index</a>   <a href="/docs/cli-installation">CLI Installation</a></p>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Gollek AI Docs</span>
+      <a href="https://github.com/bhangun/gollek">bhangun/gollek</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Storage Layout | Gollek</title>
+  <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('gollek-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+  <div class="site-bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand">Gollek</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/cli-installation">Install</a>
+        <a href="/features/">Features</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+        <a href="https://github.com/bhangun/gollek">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container content-shell">
+    <article class="content-card">
+      <h1 id="storage-layout">Storage Layout</h1>
+
+<p>Gollek stores local models, native libraries, and runtime artifacts under a single root.</p>
+
+<h2 id="default-root">Default Root</h2>
+
+<p><code class="language-plaintext highlighter-rouge">~/.gollek/</code></p>
+
+<p>Set <code class="language-plaintext highlighter-rouge">GOLLEK_HOME</code> to override this root for local deployments.</p>
+
+<h2 id="common-paths">Common Paths</h2>
+
+<ul>
+  <li>Models: <code class="language-plaintext highlighter-rouge">~/.gollek/models/</code></li>
+  <li>GGUF: <code class="language-plaintext highlighter-rouge">~/.gollek/models/gguf/</code></li>
+  <li>GGUF (converted from safetensors): <code class="language-plaintext highlighter-rouge">~/.gollek/models/gguf/converted/</code></li>
+  <li>Converter outputs: <code class="language-plaintext highlighter-rouge">~/.gollek/conversions/</code></li>
+  <li>Safetensors: <code class="language-plaintext highlighter-rouge">~/.gollek/models/safetensors/</code></li>
+  <li>LibTorch: <code class="language-plaintext highlighter-rouge">~/.gollek/models/libtorchscript/</code></li>
+  <li>Native libs: <code class="language-plaintext highlighter-rouge">~/.gollek/libs/</code></li>
+  <li>Logs: <code class="language-plaintext highlighter-rouge">~/.gollek/logs/</code></li>
+  <li>MCP registry: <code class="language-plaintext highlighter-rouge">~/.gollek/mcp/servers.json</code></li>
+</ul>
+
+<h2 id="metal-gpu-library">Metal GPU Library</h2>
+
+<p>The Metal dylib is expected at:</p>
+
+<p><code class="language-plaintext highlighter-rouge">~/.gollek/libs/libgollek_metal.dylib</code></p>
+
+<p>Build and install it with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nt">-C</span> inference-gollek/extension/kernel/gollek-kernel-metal/src/main/cpp/metal <span class="nb">install</span>
+</code></pre></div></div>
+
+<hr />
+
+<p><a href="/docs/">Back to Docs Index</a>   <a href="/docs/developer-guidance">Developer Guidance</a></p>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Gollek AI Docs</span>
+      <a href="https://github.com/bhangun/gollek">bhangun/gollek</a>
+    </div>
+  </footer>
+</body>
+</html>

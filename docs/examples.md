@@ -20,6 +20,97 @@ onnx.runner.execution_provider=auto
 Notes:
 - CoreML EP requires an ONNX Runtime build that exports `OrtSessionOptionsAppendExecutionProvider_CoreML`.
 - Global Metal switches also apply: `gollek.runners.metal.enabled=false` or `gollek.runners.metal.mode=disabled`.
+
+Local ONNX Runtime install (macOS example):
+
+```bash
+make -C inference-gollek/extension/runner/onnx/gollek-runner-onnx/src/main/cpp/onnxruntime install
+```
+
+Library path resolution:
+- Preferred: `gollek.runners.onnx.library-path=/full/path/to/libonnxruntime.dylib`
+- Fallback: `~/.gollek/libs/libonnxruntime.dylib` (auto-detected)
+- Env override: `GOLLEK_ONNX_LIBRARY_PATH=~/.gollek/libs/libonnxruntime.dylib`
+
+Optional Hugging Face integration test (downloads a tiny ONNX model):
+
+```bash
+export GOLLEK_ONNX_HF_REPO="onnx-community/tiny-random-bert"
+export GOLLEK_ONNX_LIBRARY_PATH="$HOME/.gollek/libs/libonnxruntime.dylib"
+mvn -f inference-gollek/extension/runner/onnx/gollek-runner-onnx/pom.xml test
+```
+
+Strict mode (fail instead of skip on 401/404/network):
+
+```bash
+export GOLLEK_ONNX_HF_REQUIRED=true
+mvn -f inference-gollek/extension/runner/onnx/gollek-runner-onnx/pom.xml -Phf-integration-required test
+```
+
+## LiteRT (TFLite) Local Inference
+
+Configure a local `.tflite` model path and enable Metal auto-detect on Apple Silicon:
+
+```properties
+litert.provider.model.base-path=~/.gollek/models/tflite
+litert.provider.gpu.auto-metal=true
+litert.provider.gpu.backend=auto
+```
+
+Run LiteRT module tests:
+
+```bash
+mvn -f inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml test
+```
+
+Optional LiteRT real-model integration test (downloads MobileNet v1 if URL is set):
+
+```bash
+export LITERT_LIBRARY_PATH="$HOME/.gollek/libs/libtensorflowlite_c.dylib"
+export GOLLEK_TFLITE_MODEL_URL="https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.tflite"
+mvn -f inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml test
+```
+
+Download a sample TFLite model into `~/.gollek/models/tflite`:
+
+```bash
+bash inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-sample-model.sh
+```
+
+LiteRT runtime helper (prints where to place `libtensorflowlite_c.*`):
+
+```bash
+bash inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-tflite-runtime.sh
+```
+
+Make targets (same helpers):
+
+```bash
+make tflite-sample
+make tflite-runtime
+```
+
+Package your local LiteRT runtime into a release asset:
+
+```bash
+make tflite-runtime-package
+```
+
+Auto-download from GitHub Releases (if you publish assets):
+
+```bash
+export GOLLEK_LITERT_RUNTIME_REPO="bhangun/gollek"
+export GOLLEK_LITERT_RUNTIME_RELEASE="latest"
+export GOLLEK_LITERT_RUNTIME_ASSET="litert-runtime-macos-arm64.tar.gz"
+make tflite-runtime
+```
+
+Strict mode (fail instead of skip on download errors):
+
+```bash
+export GOLLEK_TFLITE_REQUIRED=true
+mvn -f inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml test
+```
 # Code Examples
 
 Practical examples demonstrating common Gollek SDK usage patterns.
@@ -83,7 +174,7 @@ public class SimpleCompletion {
 ### Chat Completion
 
 ```java
-import tech.kayys.gollek.spi.inference.Message;
+import tech.kayys.gollek.spi.Message;
 import java.util.List;
 
 public class ChatCompletion {
@@ -121,7 +212,7 @@ public class ChatCompletion {
 
 ```java
 import io.smallrye.mutiny.Multi;
-import tech.kayys.gollek.spi.stream.StreamChunk;
+import tech.kayys.gollek.spi.inference.InferenceChunk;
 
 public class StreamingExample {
     public static void main(String[] args) {
@@ -136,7 +227,7 @@ public class StreamingExample {
             .build();
 
         // Stream tokens
-        Multi<StreamChunk> stream = client.streamCompletion(request);
+        Multi<StreamingInferenceChunk> stream = client.streamCompletion(request);
         
         stream.subscribe().with(
             chunk -> {

@@ -70,4 +70,25 @@ gollek --help
 
 ---
 
+## Quick Commands
+
+```bash
+# Run inference
+gollek run --model Qwen/Qwen2.5-0.5B-Instruct --prompt "Hi"
+
+# Convert a local model to GGUF
+gollek convert --input ~/models/llama-2-7b --output ~/conversions --quant q4_k_m
+
+# Dry-run conversion (path resolution only)
+gollek convert --input ~/models/llama-2-7b --output ~/conversions --dry-run
+
+# JSON output for scripting
+gollek convert --input ~/models/llama-2-7b --output ~/conversions --json
+
+# Pretty JSON output
+gollek convert --input ~/models/llama-2-7b --output ~/conversions --json-pretty
+```
+
+---
+
 [Back to Getting Started](/docs/) &nbsp; [Storage Layout](/docs/storage-layout) &nbsp; [Code Examples](/docs/examples)

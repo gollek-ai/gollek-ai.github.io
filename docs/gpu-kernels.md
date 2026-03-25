@@ -13,14 +13,25 @@ High-performance GPU acceleration kernels for NVIDIA CUDA, Blackwell, AMD ROCm, 
 
 Gollek provides native GPU kernel implementations for optimal inference performance across multiple hardware platforms. Each kernel module is optimized for its target architecture while maintaining a consistent API.
 
+### 🆕 Optimization Plugins
+
+New! Hot-reload GPU optimization plugins without recompiling:
+
+- **FlashAttention-3** for Hopper+ GPUs (2-3x speedup)
+- **FlashAttention-4** for Blackwell (3-5x speedup)
+- **PagedAttention** for efficient KV caching (2-4x speedup)
+- **Prompt Cache**, **QLoRA**, and 8+ more optimizations
+
+[Learn more about Optimization Plugins →](/docs/optimization-plugins)
+
 ### Quick Comparison
 
-| Platform | Best For | Max Memory | Key Advantage |
-|----------|----------|------------|---------------|
-| **CUDA** | Production AI | 80 GB | Mature ecosystem, FA2/FA3 |
-| **Blackwell** | Large-scale inference | 192 GB | TMEM + FP4 = 3.5x speedup |
-| **ROCm** | AMD datacenters | 192 GB | Open alternative to CUDA |
-| **Metal** | Apple Silicon Macs | 128 GB | Zero-copy unified memory |
+| Platform | Best For | Max Memory | Key Advantage | Optimizations |
+|----------|----------|------------|---------------|---------------|
+| **CUDA** | Production AI | 80 GB | Mature ecosystem, FA2/FA3 | FA3, Paged, KV Cache |
+| **Blackwell** | Large-scale inference | 192 GB | TMEM + FP4 = 3.5x speedup | FA4, All optimizations |
+| **ROCm** | AMD datacenters | 192 GB | Open alternative to CUDA | Paged, KV Cache |
+| **Metal** | Apple Silicon Macs | 128 GB | Zero-copy unified memory | Limited |
 
 ---
 
@@ -1127,6 +1138,20 @@ gollek.runners.metal.use-bf16=true      # M3/M4 BF16 support
   - BlackwellOptimizationManager
   - RocmOptimizationManager
   - MetalOptimizationManager
+- **GGUF/llama.cpp note**
+  - GGUF uses llama.cpp and does not call the optimization managers directly.
+  - The GGUF runner only detects installed optimization modules and exposes them as capabilities for visibility.
+- **Optimization compatibility**
+
+| Optimization Module | Scope | GGUF (llama.cpp) | Kernel Runners |
+|---------------------|-------|-----------------|----------------|
+| `gollek-ext-prompt-cache` | Engine + KV cache | Detectable only | Supported |
+| `gollek-ext-kv-cache` | Kernel KV memory | Detectable only | Supported |
+| `gollek-ext-paged-attention` | Kernel attention | Detectable only | Supported |
+| `gollek-ext-prefilldecode` | Kernel prefill/decode | Detectable only | Supported |
+| `gollek-ext-hybridattn` | Kernel attention | Detectable only | Supported |
+| `gollek-ext-fa3` | Kernel attention | Detectable only | Supported |
+| `gollek-ext-fa4` | Kernel attention | Detectable only | Supported |
 
 ### External Resources
 

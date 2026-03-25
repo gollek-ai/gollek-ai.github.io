@@ -4,9 +4,9 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 ---
 
 <section class="hero">
-  <p class="eyebrow">Universal Inference SDK + CLI</p>
+  <p class="eyebrow">Universal Inference SDK + CLI + Audio</p>
   <h1>Build AI features once. Run local or cloud with the same API.</h1>
-  <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, and hosted providers. It centralizes model life-cycle, observability, and provider auto-selection into a single consistent SDK.</p>
+  <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, audio processing (Whisper STT, SpeechT5 TTS), and hosted providers. It centralizes model life-cycle, observability, and provider auto-selection into a single consistent SDK.</p>
   <div class="hero-actions">
     <a class="btn btn-primary" href="/docs/">Get Started</a>
     <a class="btn btn-ghost" href="/blog/">Blog</a>
@@ -15,8 +15,9 @@ title: Gollek SDK - Universal Inference SDK for AI Models
   </div>
   <div class="hero-stats">
     <span>SDK + CLI</span>
-    <span>Local + Cloud Providers</span>
+    <span>Local + Cloud + Audio</span>
     <span>Native Ready</span>
+    <span>GPU Accelerated</span>
   </div>
 </section>
 
@@ -33,6 +34,10 @@ title: Gollek SDK - Universal Inference SDK for AI Models
     <h3>Read Examples</h3>
     <p>Copy real code patterns for streaming, async jobs, and provider selection.</p>
   </a>
+  <a class="quick-card" href="/docs/developer-guidance#litert-tflite">
+    <h3>LiteRT Runtime</h3>
+    <p>Download or package the LiteRT C runtime and sample model assets.</p>
+  </a>
   <a class="quick-card" href="/blog/">
     <h3>Product Blog</h3>
     <p>Read release notes, architecture updates, and implementation progress.</p>
@@ -40,8 +45,8 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 </section>
 
 <section class="subtle-panel">
-  <strong>Latest update:</strong> Multi-LoRA and LibTorch advanced path progress is live, including FP8 rowwise calibration lifecycle and SageAttention2 safety guardrails.
-  <a href="/blog/multilora-libtorch-advanced-update">Read the update</a>
+  <strong>Latest update:</strong> Audio module v2.0 is live with Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, and VAD pipeline. Plus quantization engine with INT4/INT8/FP8 support.
+  <a href="/blog/audio-quantization-release">Read the release</a>
 </section>
 
 <section class="subtle-panel">
@@ -50,8 +55,23 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 </section>
 
 <section class="subtle-panel">
+  <strong>Audio Processing:</strong> Speech-to-text (Whisper), Text-to-speech (SpeechT5), voice activity detection, and multi-format support.
+  <a href="/docs/audio-processing">Audio API reference</a>
+</section>
+
+<section class="subtle-panel">
+  <strong>Model Quantization:</strong> GPTQ INT4, INT8, and FP8 quantization with SafeTensors format for 4-8x compression.
+  <a href="/docs/quantization">Quantization guide</a>
+</section>
+
+<section class="subtle-panel">
   <strong>Local install layout:</strong> Gollek stores models and native libraries under <code>~/.gollek/</code> by default.
   <a href="/docs/developer-guidance#gpu-smoke-test-apple-silicon-only">Metal GPU test guide</a>
+</section>
+
+<section class="subtle-panel">
+  <strong>LiteRT Runtime Assets:</strong> one-command helper to download or package <code>libtensorflowlite_c</code>.
+  <a href="/docs/developer-guidance#litert-tflite">Release + install guide</a>
 </section>
 
 <section class="terminal-demo">
@@ -143,25 +163,41 @@ System.out.println(response.getContent());
 | Native Interop | GraalVM native image with C FFI for embedded integration |
 | CDI Integration | Full Jakarta EE CDI support for enterprise applications |
 | GPU Acceleration | CUDA, Blackwell, ROCm, and Metal kernels with FlashAttention |
+| **Audio Processing** | **Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, VAD** |
+| **Model Quantization** | **GPTQ INT4/INT8, FP8 with SafeTensors format** |
 
 ---
 
 ## Supported Providers
 
+### Cloud Providers
+- **OpenAI** - GPT-4, GPT-3.5-Turbo, o1 with function calling and vision
+- **Anthropic** - Claude 3 family (Opus, Sonnet, Haiku) with 200K context
+- **Google Gemini** - Gemini Pro/Ultra with multimodal support
+- **Cerebras** - Llama 3.1 with ~400 tokens/sec speed
+- **Mistral** - Mistral and Mixtral models
+
 ### Local Runtimes
 - **GGUF** - Quantized models for CPU inference
-- **ONNX** (Open Neural Network Exchange) - Cross-platform neural network format (on progress)
-- **TFLite** (TensorFlow Lite) - TensorFlow Lite for mobile and edge devices (on progress)
+- **ONNX** (Open Neural Network Exchange) - Cross-platform neural network format
+- **TFLite** (TensorFlow Lite) - TensorFlow Lite for mobile and edge devices
 
-### Cloud Providers
-- **Google Gemini** - Gemini Pro and Ultra
-- **Cerebras** - High-performance cloud inference
-- **OpenAI** - GPT-4, GPT-3.5-Turbo, and more (on progress)
-- **Anthropic** - Claude family of models (on progress)
+### Audio Processing
+- **Whisper** - Speech-to-text (STT) with 99+ language support
+- **SpeechT5** - Text-to-speech (TTS) with 8 preset voices
+- **HiFi-GAN** - High-quality neural vocoder
+- **VAD** - Voice activity detection for silence removal
+
+### Model Quantization
+- **GPTQ** - 4-bit integer quantization (8x compression)
+- **INT8** - 8-bit integer quantization (4x compression)
+- **FP8** - 8-bit floating point for GPU tensor cores
 
 ### Default Models
 - **Text Generation**: `Llama-3.2-3B-Instruct` (via GGUF)
 - **Embeddings**: `Qwen/Qwen2.5-0.5B-Instruct` (via GGUF)
+- **Speech-to-Text**: `openai/whisper-large-v3`
+- **Text-to-Speech**: `microsoft/speecht5_tts`
 
 
 ---

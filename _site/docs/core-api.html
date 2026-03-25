@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Core API Reference | Gollek</title>
+  <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('gollek-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+</head>
+
+<body>
+  <div class="site-bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand">Gollek</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/cli-installation">Install</a>
+        <a href="/features/">Features</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+        <a href="https://github.com/bhangun/gollek">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container content-shell">
+    <article class="content-card">
+      <h1 id="core-api-reference">Core API Reference</h1>
+
+      <p>Complete reference for the Gollek SDK Java API.</p>
+
+      <hr />
+
+      <h2 id="golleklocalclient-interface">GollekLocalClient Interface</h2>
+
+      <p>The <code class="language-plaintext highlighter-rouge">GollekLocalClient</code> is the main entry point for all
+        SDK operations.</p>
+
+      <h3 id="interface-definition">Interface Definition</h3>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">GollekLocalClient</span> <span class="o">{</span>
+    <span class="c1">// ==================== Standard Inference ====================</span>
+    <span class="nc">InferenceResponse</span> <span class="nf">createCompletion</span><span class="o">(</span><span class="nc">InferenceRequest</span> <span class="n">request</span><span class="o">);</span>
+    <span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">InferenceResponse</span><span class="o">&gt;</span> <span class="nf">createCompletionAsync</span><span class="o">(</span><span class="nc">InferenceRequest</span> <span class="n">request</span><span class="o">);</span>
+    <span class="nc">Multi</span><span class="o">&lt;</span><span class="nc">InferenceChunk</span><span class="o">&gt;</span> <span class="nf">streamCompletion</span><span class="o">(</span><span class="nc">InferenceRequest</span> <span class="n">request</span><span class="o">);</span>
+
+    <span class="c1">// Async job management</span>
+    <span class="nc">String</span> <span class="nf">submitAsyncJob</span><span class="o">(</span><span class="nc">InferenceRequest</span> <span class="n">request</span><span class="o">);</span>
+    <span class="nc">AsyncJobStatus</span> <span class="nf">getJobStatus</span><span class="o">(</span><span class="nc">String</span> <span class="n">jobId</span><span class="o">);</span>
+    <span class="nc">AsyncJobStatus</span> <span class="nf">waitForJob</span><span class="o">(</span><span class="nc">String</span> <span class="n">jobId</span><span class="o">,</span> <span class="nc">Duration</span> <span class="n">maxWaitTime</span><span class="o">,</span> <span class="nc">Duration</span> <span class="n">pollInterval</span><span class="o">);</span>
+
+    <span class="c1">// Batch inference</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">InferenceResponse</span><span class="o">&gt;</span> <span class="nf">batchInference</span><span class="o">(</span><span class="nc">BatchInferenceRequest</span> <span class="n">batchRequest</span><span class="o">);</span>
+
+    <span class="c1">// ==================== Multimodal Inference ====================</span>
+    <span class="nc">MultimodalResponse</span> <span class="nf">multimodalInference</span><span class="o">(</span><span class="nc">MultimodalRequest</span> <span class="n">request</span><span class="o">);</span>
+    <span class="nc">Multi</span><span class="o">&lt;</span><span class="nc">MultimodalResponse</span><span class="o">&gt;</span> <span class="nf">multimodalInferenceStream</span><span class="o">(</span><span class="nc">MultimodalRequest</span> <span class="n">request</span><span class="o">);</span>
+    
+    <span class="c1">// Convenience methods</span>
+    <span class="nc">MultimodalResponse</span> <span class="nf">visionQA</span><span class="o">(</span><span class="nc">String</span> <span class="n">model</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">imageBytes</span><span class="o">,</span> <span class="nc">String</span> <span class="n">question</span><span class="o">);</span>
+    <span class="nc">MultimodalResponse</span> <span class="nf">imageCaptioning</span><span class="o">(</span><span class="nc">String</span> <span class="n">model</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">imageBytes</span><span class="o">);</span>
+    <span class="kt">float</span><span class="o">[]</span> <span class="nf">imageEmbedding</span><span class="o">(</span><span class="nc">String</span> <span class="n">model</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">imageBytes</span><span class="o">);</span>
+
+    <span class="c1">// Provider management</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ProviderInfo</span><span class="o">&gt;</span> <span class="nf">listAvailableProviders</span><span class="o">();</span>
+    <span class="nc">ProviderInfo</span> <span class="nf">getProviderInfo</span><span class="o">(</span><span class="nc">String</span> <span class="n">providerId</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">setPreferredProvider</span><span class="o">(</span><span class="nc">String</span> <span class="n">providerId</span><span class="o">);</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">getPreferredProvider</span><span class="o">();</span>
+
+    <span class="c1">// Model Preparation &amp; Resolution</span>
+    <span class="nc">ModelResolution</span> <span class="nf">prepareModel</span><span class="o">(</span><span class="nc">String</span> <span class="n">modelId</span><span class="o">,</span> <span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">PullProgress</span><span class="o">&gt;</span> <span class="n">progressCallback</span><span class="o">);</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">autoSelectProvider</span><span class="o">(</span><span class="nc">String</span> <span class="n">modelId</span><span class="o">);</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">resolveDefaultModel</span><span class="o">();</span>
+
+    <span class="c1">// Advanced Operations</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">GollekPlugin</span><span class="o">.</span><span class="na">PluginMetadata</span><span class="o">&gt;</span> <span class="nf">listPlugins</span><span class="o">();</span>
+    <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="nf">getMetrics</span><span class="o">(</span><span class="nc">String</span> <span class="n">providerId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">modelId</span><span class="o">);</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">ModelRegistry</span><span class="o">.</span><span class="na">ModelStats</span><span class="o">&gt;</span> <span class="nf">getModelStats</span><span class="o">(</span><span class="nc">String</span> <span class="n">modelId</span><span class="o">);</span>
+    <span class="nc">ModelManifest</span> <span class="nf">registerModel</span><span class="o">(</span><span class="nc">ModelRegistry</span><span class="o">.</span><span class="na">ModelUploadRequest</span> <span class="n">request</span><span class="o">);</span>
+
+    <span class="c1">// MCP Registry</span>
+    <span class="nc">McpRegistryManager</span> <span class="nf">mcpRegistry</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre>
+        </div>
+      </div>
+      <div class="language-plaintext highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code>McpRegistryManager mcpRegistry(); } ```
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2 id="completion-apis">Completion APIs</h2>
+
+      <h3 id="createcompletion">createCompletion</h3>
+
+      <p>Synchronous inference request. Blocks until the response is complete.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">InferenceResponse</span> <span class="nf">createCompletion</span><span class="o">(</span><span class="nc">InferenceRequest</span> <span class="n">request</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Parameters:</strong></p>
+      <ul>
+        <li><code class="language-plaintext highlighter-rouge">request</code> - InferenceRequest with model, prompt, and
+          parameters</li>
+      </ul>
+
+      <p><strong>Returns:</strong></p>
+      <ul>
+        <li>InferenceResponse with generated content</li>
+      </ul>
+
+      <p><strong>Throws:</strong></p>
+      <ul>
+        <li>GollekLocalClientException - If inference fails</li>
+      </ul>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">InferenceRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">InferenceRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llama-3.2-3b-instruct"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">prompt</span><span class="o">(</span><span class="s">"What is the capital of France?"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">maxTokens</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">InferenceResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">createCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Answer: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="createcompletionasync">createCompletionAsync</h3>
+
+      <p>Asynchronous inference request. Returns a CompletableFuture.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">InferenceResponse</span><span class="o">&gt;</span> <span class="nf">createCompletionAsync</span><span class="o">(</span><span class="nc">InferenceRequest</span> <span class="n">request</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Parameters:</strong></p>
+      <ul>
+        <li><code class="language-plaintext highlighter-rouge">request</code> - InferenceRequest with model, prompt, and
+          parameters</li>
+      </ul>
+
+      <p><strong>Returns:</strong></p>
+      <ul>
+        <li>CompletableFuture<InferenceResponse></InferenceResponse>
+        </li>
+      </ul>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">InferenceResponse</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> 
+    <span class="n">client</span><span class="o">.</span><span class="na">createCompletionAsync</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+
+<span class="n">future</span><span class="o">.</span><span class="na">thenAccept</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> 
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Answer: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">())</span>
+<span class="o">).</span><span class="na">exceptionally</span><span class="o">(</span><span class="n">ex</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error: "</span> <span class="o">+</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">});</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="streamcompletion">streamCompletion</h3>
+
+      <p>Streaming inference with real-time token delivery.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">Multi</span><span class="o">&lt;</span><span class="nc">InferenceChunk</span><span class="o">&gt;</span> <span class="nf">streamCompletion</span><span class="o">(</span><span class="nc">InferenceRequest</span> <span class="n">request</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Parameters:</strong></p>
+      <ul>
+        <li><code class="language-plaintext highlighter-rouge">request</code> - InferenceRequest with model, prompt, and
+          parameters</li>
+      </ul>
+
+      <p><strong>Returns:</strong></p>
+      <ul>
+        <li>Multi<InferenceChunk> - Reactive stream of tokens</InferenceChunk>
+        </li>
+      </ul>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="n">client</span><span class="o">.</span><span class="na">streamCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">onItem</span><span class="o">().</span><span class="na">invoke</span><span class="o">(</span><span class="n">chunk</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">chunk</span><span class="o">.</span><span class="na">getToken</span><span class="o">());</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">chunk</span><span class="o">.</span><span class="na">isComplete</span><span class="o">())</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\nGeneration complete!"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">})</span>
+    <span class="o">.</span><span class="na">subscribe</span><span class="o">().</span><span class="na">with</span><span class="o">(</span>
+        <span class="n">chunk</span> <span class="o">-&gt;</span> <span class="o">{},</span> <span class="c1">// onItem</span>
+        <span class="nl">Throwable:</span><span class="o">:</span><span class="n">printStackTrace</span><span class="o">,</span> <span class="c1">// onFailure</span>
+        <span class="o">()</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Stream completed"</span><span class="o">)</span> <span class="c1">// onCompletion</span>
+    <span class="o">);</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>InferenceChunk Fields:</strong>
+        | Field | Type | Description |
+        |——-|——|————-|
+        | requestId | String | Unique request ID |
+        | sequenceNumber | long | Token sequence number |
+        | token | String | Generated token text |
+        | isComplete | boolean | True if last token |
+        | timestamp | Instant | Token generation time |</p>
+
+      <hr />
+
+      <h2 id="async-job-management">Async Job Management</h2>
+
+      <h3 id="submitasyncjob">submitAsyncJob</h3>
+
+      <p>Submit an inference job for background processing.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">String</span> <span class="nf">submitAsyncJob</span><span class="o">(</span><span class="nc">InferenceRequest</span> <span class="n">request</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Returns:</strong></p>
+      <ul>
+        <li>String - Job ID for status tracking</li>
+      </ul>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">String</span> <span class="n">jobId</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">submitAsyncJob</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Job submitted: "</span> <span class="o">+</span> <span class="n">jobId</span><span class="o">);</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="getjobstatus">getJobStatus</h3>
+
+      <p>Check the status of an async job.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">AsyncJobStatus</span> <span class="nf">getJobStatus</span><span class="o">(</span><span class="nc">String</span> <span class="n">jobId</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Returns:</strong></p>
+      <ul>
+        <li>AsyncJobStatus with job state and result (if complete)</li>
+      </ul>
+
+      <p><strong>AsyncJobStatus Fields:</strong>
+        | Field | Type | Description |
+        |——-|——|————-|
+        | jobId | String | Job identifier |
+        | status | String | PENDING, RUNNING, COMPLETED, FAILED |
+        | result | InferenceResponse | Result (if completed) |
+        | error | String | Error message (if failed) |
+        | createdAt | Instant | Job creation time |
+        | completedAt | Instant | Job completion time |</p>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">AsyncJobStatus</span> <span class="n">status</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">getJobStatus</span><span class="o">(</span><span class="n">jobId</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="na">isComplete</span><span class="o">())</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Result: "</span> <span class="o">+</span> <span class="n">status</span><span class="o">.</span><span class="na">getResult</span><span class="o">().</span><span class="na">getContent</span><span class="o">());</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Status: "</span> <span class="o">+</span> <span class="n">status</span><span class="o">.</span><span class="na">getStatus</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="waitforjob">waitForJob</h3>
+
+      <p>Block until job completes or timeout.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">AsyncJobStatus</span> <span class="nf">waitForJob</span><span class="o">(</span>
+    <span class="nc">String</span> <span class="n">jobId</span><span class="o">,</span> 
+    <span class="nc">Duration</span> <span class="n">maxWaitTime</span><span class="o">,</span> 
+    <span class="nc">Duration</span> <span class="n">pollInterval</span>
+<span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Parameters:</strong></p>
+      <ul>
+        <li><code class="language-plaintext highlighter-rouge">jobId</code> - Job identifier</li>
+        <li><code class="language-plaintext highlighter-rouge">maxWaitTime</code> - Maximum time to wait</li>
+        <li><code class="language-plaintext highlighter-rouge">pollInterval</code> - Status check interval</li>
+      </ul>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">AsyncJobStatus</span> <span class="n">status</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">waitForJob</span><span class="o">(</span>
+    <span class="n">jobId</span><span class="o">,</span> 
+    <span class="nc">Duration</span><span class="o">.</span><span class="na">ofMinutes</span><span class="o">(</span><span class="mi">5</span><span class="o">),</span> 
+    <span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span>
+<span class="o">);</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2 id="batch-inference">Batch Inference</h2>
+
+      <h3 id="batchinference">batchInference</h3>
+
+      <p>Process multiple inference requests in one call.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">InferenceResponse</span><span class="o">&gt;</span> <span class="nf">batchInference</span><span class="o">(</span><span class="nc">BatchInferenceRequest</span> <span class="n">batchRequest</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">InferenceRequest</span><span class="o">&gt;</span> <span class="n">requests</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
+    <span class="nc">InferenceRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llama-3.2-3b-instruct"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">prompt</span><span class="o">(</span><span class="s">"Translate to French: Hello"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">(),</span>
+    <span class="nc">InferenceRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llama-3.2-3b-instruct"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">prompt</span><span class="o">(</span><span class="s">"Translate to Spanish: Hello"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">()</span>
+<span class="o">);</span>
+
+<span class="nc">BatchInferenceRequest</span> <span class="n">batch</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BatchInferenceRequest</span><span class="o">(</span><span class="n">requests</span><span class="o">);</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">InferenceResponse</span><span class="o">&gt;</span> <span class="n">responses</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">batchInference</span><span class="o">(</span><span class="n">batch</span><span class="o">);</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">responses</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Response "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> 
+        <span class="n">responses</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getContent</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2 id="provider-management">Provider Management</h2>
+
+      <h3 id="listavailableproviders">listAvailableProviders</h3>
+
+      <p>List all registered inference providers.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">ProviderInfo</span><span class="o">&gt;</span> <span class="nf">listAvailableProviders</span><span class="o">()</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>ProviderInfo Fields:</strong>
+        | Field | Type | Description |
+        |——-|——|————-|
+        | id | String | Provider identifier |
+        | name | String | Human-readable name |
+        | version | String | Provider version |
+        | description | String | Provider description |
+        | vendor | String | Provider vendor |
+        | healthStatus | Status | HEALTHY, UNHEALTHY, UNKNOWN |
+        | capabilities | Set | Supported capabilities |
+        | supportedModels | Set | Available models |
+        | metadata | Map | Additional metadata |</p>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">ProviderInfo</span><span class="o">&gt;</span> <span class="n">providers</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">listAvailableProviders</span><span class="o">();</span>
+<span class="k">for</span> <span class="o">(</span><span class="nc">ProviderInfo</span> <span class="n">provider</span> <span class="o">:</span> <span class="n">providers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - %s (Status: %s)%n"</span><span class="o">,</span>
+        <span class="n">provider</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span>
+        <span class="n">provider</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+        <span class="n">provider</span><span class="o">.</span><span class="na">getHealthStatus</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="getproviderinfo">getProviderInfo</h3>
+
+      <p>Get detailed information about a specific provider.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">ProviderInfo</span> <span class="nf">getProviderInfo</span><span class="o">(</span><span class="nc">String</span> <span class="n">providerId</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">ProviderInfo</span> <span class="n">ollama</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">getProviderInfo</span><span class="o">(</span><span class="s">"ollama"</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Ollama version: "</span> <span class="o">+</span> <span class="n">ollama</span><span class="o">.</span><span class="na">getVersion</span><span class="o">());</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="setpreferredprovider">setPreferredProvider</h3>
+
+      <p>Set default provider for inference requests.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="kt">void</span> <span class="nf">setPreferredProvider</span><span class="o">(</span><span class="nc">String</span> <span class="n">providerId</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="n">client</span><span class="o">.</span><span class="na">setPreferredProvider</span><span class="o">(</span><span class="s">"ollama"</span><span class="o">);</span>
+<span class="c1">// Subsequent requests use Ollama by default</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="getpreferredprovider">getPreferredProvider</h3>
+
+      <p>Get the currently set preferred provider.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">getPreferredProvider</span><span class="o">()</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2 id="model-management">Model Management</h2>
+
+      <h3 id="listmodels">listModels</h3>
+
+      <p>List all available models.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">ModelInfo</span><span class="o">&gt;</span> <span class="nf">listModels</span><span class="o">()</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">ModelInfo</span><span class="o">&gt;</span> <span class="nf">listModels</span><span class="o">(</span><span class="kt">int</span> <span class="n">offset</span><span class="o">,</span> <span class="kt">int</span> <span class="n">limit</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>ModelInfo Fields:</strong>
+        | Field | Type | Description |
+        |——-|——|————-|
+        | modelId | String | Model identifier |
+        | name | String | Model name |
+        | version | String | Model version |
+        | format | String | Model format (GGUF, ONNX, etc.) |
+        | sizeBytes | Long | Model size in bytes |
+        | quantization | String | Quantization type |
+        | createdAt | Instant | Creation timestamp |
+        | updatedAt | Instant | Last update timestamp |
+        | metadata | Map | Additional metadata |</p>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">ModelInfo</span><span class="o">&gt;</span> <span class="n">models</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">listModels</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+<span class="k">for</span> <span class="o">(</span><span class="nc">ModelInfo</span> <span class="n">model</span> <span class="o">:</span> <span class="n">models</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - %s (%s)%n"</span><span class="o">,</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">getModelId</span><span class="o">(),</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">getFormat</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="getmodelinfo">getModelInfo</h3>
+
+      <p>Get detailed information about a specific model.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">ModelInfo</span><span class="o">&gt;</span> <span class="nf">getModelInfo</span><span class="o">(</span><span class="nc">String</span> <span class="n">modelId</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="deletemodel">deleteModel</h3>
+
+      <p>Delete a model from the local repository.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="kt">void</span> <span class="nf">deleteModel</span><span class="o">(</span><span class="nc">String</span> <span class="n">modelId</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="pullmodel">pullModel</h3>
+
+      <p>Pull a model from a remote source.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="kt">void</span> <span class="nf">pullModel</span><span class="o">(</span><span class="nc">String</span> <span class="n">modelSpec</span><span class="o">,</span> <span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">PullProgress</span><span class="o">&gt;</span> <span class="n">progressCallback</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Note:</strong> In the local SDK, this operation may be unsupported. Use runtime/API model management
+        instead.</p>
+
+      <p><strong>PullProgress Fields:</strong>
+        | Field | Type | Description |
+        |——-|——|————-|
+        | status | String | Download status |
+        | digest | String | Content digest |
+        | total | Long | Total bytes |
+        | completed | Long | Completed bytes |
+        | percentComplete | double | Percentage complete |</p>
+
+      <hr />
+
+      <hr />
+
+      <h2 id="model-preparation--resolution">Model Preparation &amp; Resolution</h2>
+
+      <h3 id="preparemodel">prepareModel</h3>
+
+      <p>Centralized logic to ensure a model is ready for inference. This method handles local resolution, pulling from
+        remote if missing, and verifying the download.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">ModelResolution</span> <span class="nf">prepareModel</span><span class="o">(</span><span class="nc">String</span> <span class="n">modelId</span><span class="o">,</span> <span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">PullProgress</span><span class="o">&gt;</span> <span class="n">progressCallback</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Returns:</strong></p>
+      <ul>
+        <li><code class="language-plaintext highlighter-rouge">ModelResolution</code> - Object containing final <code
+            class="language-plaintext highlighter-rouge">modelId</code> and <code
+            class="language-plaintext highlighter-rouge">localPath</code>.</li>
+      </ul>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">ModelResolution</span> <span class="n">resolution</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">prepareModel</span><span class="o">(</span><span class="s">"llama-3.2-3b"</span><span class="o">,</span> <span class="n">progress</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"\rDownloading: %.2f%%"</span><span class="o">,</span> <span class="n">progress</span><span class="o">.</span><span class="na">getPercentComplete</span><span class="o">());</span>
+<span class="o">});</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Model ready at: "</span> <span class="o">+</span> <span class="n">resolution</span><span class="o">.</span><span class="na">getLocalPath</span><span class="o">());</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="autoselectprovider">autoSelectProvider</h3>
+
+      <p>Automatically determine the best inference provider based on the model format (GGUF, ONNX, etc.).</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">autoSelectProvider</span><span class="o">(</span><span class="nc">String</span> <span class="n">modelId</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="resolvedefaultmodel">resolveDefaultModel</h3>
+
+      <p>Resolve the system’s default model ID if none is specified by the user.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">resolveDefaultModel</span><span class="o">()</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2 id="advanced-operations">Advanced Operations</h2>
+
+      <h3 id="listplugins">listPlugins</h3>
+
+      <p>List all installed engine plugins and their metadata.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">GollekPlugin</span><span class="o">.</span><span class="na">PluginMetadata</span><span class="o">&gt;</span> <span class="nf">listPlugins</span><span class="o">()</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="getmetrics">getMetrics</h3>
+
+      <p>Retrieve real-time performance metrics for a specific provider/model combination.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="nf">getMetrics</span><span class="o">(</span><span class="nc">String</span> <span class="n">providerId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">modelId</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Metrics Keys:</strong></p>
+      <ul>
+        <li><code class="language-plaintext highlighter-rouge">p95LatencyMs</code> - 95th percentile latency in
+          milliseconds</li>
+        <li><code class="language-plaintext highlighter-rouge">errorRate</code> - Recent failure percentage</li>
+        <li><code class="language-plaintext highlighter-rouge">circuitBreakerOpen</code> - Boolean indicating if the
+          provider is currently throttled</li>
+      </ul>
+
+      <hr />
+
+      <h3 id="getmodelstats">getModelStats</h3>
+
+      <p>Get detailed usage and version statistics for a model.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">ModelRegistry</span><span class="o">.</span><span class="na">ModelStats</span><span class="o">&gt;</span> <span class="nf">getModelStats</span><span class="o">(</span><span class="nc">String</span> <span class="n">modelId</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h3 id="registermodel">registerModel</h3>
+
+      <p>Programmatically register a custom model into the local registry.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">ModelManifest</span> <span class="nf">registerModel</span><span class="o">(</span><span class="nc">ModelRegistry</span><span class="o">.</span><span class="na">ModelUploadRequest</span> <span class="n">request</span><span class="o">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2 id="mcp-registry">MCP Registry</h2>
+
+      <h3 id="mcpregistry">mcpRegistry</h3>
+
+      <p>Access the Model Context Protocol registry for tool integration.</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">McpRegistryManager</span> <span class="nf">mcpRegistry</span><span class="o">()</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p><strong>Example:</strong></p>
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="nc">McpRegistryManager</span> <span class="n">registry</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">mcpRegistry</span><span class="o">();</span>
+<span class="c1">// Register or query MCP tools</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <h2 id="error-handling">Error Handling</h2>
+
+      <p>All SDK operations throw <code class="language-plaintext highlighter-rouge">GollekLocalClientException</code>
+        on failure:</p>
+
+      <div class="language-java highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="nc">InferenceResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">createCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">GollekLocalClientException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inference failed: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Cause: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getCause</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre>
+        </div>
+      </div>
+
+      <hr />
+
+      <p><a href="/docs/">Back to Getting Started</a>   <a href="/docs/native-ffi">Native FFI Reference</a></p>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Gollek AI Docs</span>
+      <a href="https://github.com/bhangun/gollek">bhangun/gollek</a>
+    </div>
+  </footer>
+</body>
+
+</html>

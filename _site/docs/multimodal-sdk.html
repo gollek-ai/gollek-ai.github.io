@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multimodal SDK | Gollek</title>
+  <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('gollek-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+  <div class="site-bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand">Gollek</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/cli-installation">Install</a>
+        <a href="/features/">Features</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+        <a href="https://github.com/bhangun/gollek">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container content-shell">
+    <article class="content-card">
+      <h1 id="multimodal-sdk">Multimodal SDK</h1>
+
+<p>Process text, images, audio, and video with unified multimodal inference through the Gollek SDK.</p>
+
+<hr />
+
+<h2 id="overview">Overview</h2>
+
+<p>The Gollek Multimodal SDK provides a unified API for processing multiple input modalities and generating multimodal outputs. Built on top of the inference engine, it supports vision-language models, image generation, and more.</p>
+
+<p><strong>Supported Modalities:</strong></p>
+<ul>
+  <li>✅ Text (input/output)</li>
+  <li>✅ Images (input/output)</li>
+  <li>✅ Audio (input)</li>
+  <li>✅ Video (input)</li>
+  <li>✅ Documents (input)</li>
+  <li>✅ Embeddings (input/output)</li>
+</ul>
+
+<hr />
+
+<h2 id="quick-start">Quick Start</h2>
+
+<h3 id="installation">Installation</h3>
+
+<p>Add the SDK dependency to your project:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>tech.kayys.gollek<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>gollek-sdk-java-local<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<h3 id="basic-usage">Basic Usage</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClientAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tech.kayys.gollek.multimodal.model.MultimodalRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tech.kayys.gollek.multimodal.model.MultimodalResponse</span><span class="o">;</span>
+
+<span class="c1">// Create client</span>
+<span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GollekLocalClientAdapter</span><span class="o">(</span>
+    <span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">()</span>
+<span class="o">);</span>
+
+<span class="c1">// Vision QA example</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">imageBytes</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">readAllBytes</span><span class="o">(</span><span class="nc">Path</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"image.jpg"</span><span class="o">));</span>
+
+<span class="nc">MultimodalResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">visionQA</span><span class="o">(</span>
+    <span class="s">"llava-13b-gguf"</span><span class="o">,</span>
+    <span class="n">imageBytes</span><span class="o">,</span>
+    <span class="s">"What's in this image?"</span>
+<span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Answer: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getOutputs</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">getText</span><span class="o">());</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="multimodal-inference">Multimodal Inference</h2>
+
+<h3 id="vision-question-answering">Vision Question Answering</h3>
+
+<p>Ask questions about images using LLaVA or similar models:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Method 1: Convenience method</span>
+<span class="nc">MultimodalResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">visionQA</span><span class="o">(</span>
+    <span class="s">"llava-13b-gguf"</span><span class="o">,</span>
+    <span class="n">imageBytes</span><span class="o">,</span>
+    <span class="s">"What color is the car?"</span>
+<span class="o">);</span>
+
+<span class="c1">// Method 2: Full request builder</span>
+<span class="nc">MultimodalRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">MultimodalRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llava-13b-gguf"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">inputs</span><span class="o">(</span>
+        <span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofText</span><span class="o">(</span><span class="s">"What color is the car?"</span><span class="o">),</span>
+        <span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofBase64Image</span><span class="o">(</span><span class="n">imageBytes</span><span class="o">,</span> <span class="s">"image/jpeg"</span><span class="o">)</span>
+    <span class="o">)</span>
+    <span class="o">.</span><span class="na">outputConfig</span><span class="o">(</span><span class="nc">MultimodalRequest</span><span class="o">.</span><span class="na">OutputConfig</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">maxTokens</span><span class="o">(</span><span class="mi">256</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">temperature</span><span class="o">(</span><span class="mf">0.7</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">MultimodalResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">multimodalInference</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Answer: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getOutputs</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">getText</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h3 id="image-captioning">Image Captioning</h3>
+
+<p>Generate descriptions for images:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MultimodalResponse</span> <span class="n">caption</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">imageCaptioning</span><span class="o">(</span>
+    <span class="s">"blip-large"</span><span class="o">,</span>
+    <span class="n">imageBytes</span>
+<span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Caption: "</span> <span class="o">+</span> <span class="n">caption</span><span class="o">.</span><span class="na">getOutputs</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">getText</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h3 id="image-embedding">Image Embedding</h3>
+
+<p>Generate embeddings for images (e.g., CLIP):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span><span class="o">[]</span> <span class="n">embedding</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">imageEmbedding</span><span class="o">(</span>
+    <span class="s">"clip-vit-large"</span><span class="o">,</span>
+    <span class="n">imageBytes</span>
+<span class="o">);</span>
+
+<span class="c1">// Use for similarity search</span>
+<span class="kt">float</span> <span class="n">similarity</span> <span class="o">=</span> <span class="n">cosineSimilarity</span><span class="o">(</span><span class="n">embedding</span><span class="o">,</span> <span class="n">otherEmbedding</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="document-analysis">Document Analysis</h3>
+
+<p>Analyze PDFs and documents:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span><span class="o">[]</span> <span class="n">pdfBytes</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">readAllBytes</span><span class="o">(</span><span class="nc">Path</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"document.pdf"</span><span class="o">));</span>
+
+<span class="nc">MultimodalRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">MultimodalRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"claude-3-opus"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">inputs</span><span class="o">(</span>
+        <span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofText</span><span class="o">(</span><span class="s">"Summarize this document"</span><span class="o">),</span>
+        <span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofDocument</span><span class="o">(</span><span class="n">pdfBytes</span><span class="o">,</span> <span class="s">"pdf"</span><span class="o">,</span> <span class="s">"application/pdf"</span><span class="o">)</span>
+    <span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">MultimodalResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">multimodalInference</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Summary: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getOutputs</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">getText</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h3 id="image-generation">Image Generation</h3>
+
+<p>Generate images from text (Stable Diffusion):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MultimodalRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">MultimodalRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"stable-diffusion-v2"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">inputs</span><span class="o">(</span><span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofText</span><span class="o">(</span><span class="s">"A cat sitting on a couch"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">outputConfig</span><span class="o">(</span><span class="nc">MultimodalRequest</span><span class="o">.</span><span class="na">OutputConfig</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">outputModalities</span><span class="o">(</span><span class="nc">ModalityType</span><span class="o">.</span><span class="na">IMAGE</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">MultimodalResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">multimodalInference</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">generatedImage</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getOutputs</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">getRawBytes</span><span class="o">();</span>
+
+<span class="c1">// Save generated image</span>
+<span class="nc">Files</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="nc">Path</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"generated.png"</span><span class="o">),</span> <span class="n">generatedImage</span><span class="o">);</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="builder-api">Builder API</h2>
+
+<h3 id="multimodalrequestbuilder">MultimodalRequestBuilder</h3>
+
+<p>Use the builder for fluent request construction:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">static</span> <span class="n">tech</span><span class="o">.</span><span class="na">kayys</span><span class="o">.</span><span class="na">gollek</span><span class="o">.</span><span class="na">sdk</span><span class="o">.</span><span class="na">multimodal</span><span class="o">.</span><span class="na">MultimodalRequestBuilder</span><span class="o">.*;</span>
+
+<span class="nc">MultimodalRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llava-13b-gguf"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">addText</span><span class="o">(</span><span class="s">"Describe this image in detail"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">imageBytes</span><span class="o">,</span> <span class="s">"image/jpeg"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">maxTokens</span><span class="o">(</span><span class="mi">512</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">temperature</span><span class="o">(</span><span class="mf">0.7</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">topP</span><span class="o">(</span><span class="mf">0.9</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="builder-methods">Builder Methods</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">model(String)</code></td>
+      <td>Set model name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">addText(String)</code></td>
+      <td>Add text input</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">addImage(byte[], String)</code></td>
+      <td>Add image from bytes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">addImageBase64(String, String)</code></td>
+      <td>Add image from base64</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">addImageUri(String, String)</code></td>
+      <td>Add image from URI</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">addDocument(byte[], String, String)</code></td>
+      <td>Add document</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">maxTokens(int)</code></td>
+      <td>Set max output tokens</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">temperature(double)</code></td>
+      <td>Set temperature (0-2)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">topP(double)</code></td>
+      <td>Set top P (0-1)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">stream(boolean)</code></td>
+      <td>Enable streaming</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">outputModalities(ModalityType...)</code></td>
+      <td>Set output types</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="supported-models">Supported Models</h2>
+
+<h3 id="vision-language-models">Vision-Language Models</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Format</th>
+      <th>Use Case</th>
+      <th>Provider</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LLaVA-13B</td>
+      <td>GGUF</td>
+      <td>Visual QA</td>
+      <td>GGUF</td>
+    </tr>
+    <tr>
+      <td>LLaVA-1.6</td>
+      <td>GGUF</td>
+      <td>Multi-image QA</td>
+      <td>GGUF</td>
+    </tr>
+    <tr>
+      <td>BakLLaVA</td>
+      <td>GGUF</td>
+      <td>Visual reasoning</td>
+      <td>GGUF</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="image-understanding">Image Understanding</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Format</th>
+      <th>Use Case</th>
+      <th>Provider</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CLIP ViT</td>
+      <td>ONNX</td>
+      <td>Image embedding</td>
+      <td>ONNX</td>
+    </tr>
+    <tr>
+      <td>BLIP</td>
+      <td>ONNX</td>
+      <td>Image captioning</td>
+      <td>ONNX</td>
+    </tr>
+    <tr>
+      <td>ViT</td>
+      <td>ONNX</td>
+      <td>Image classification</td>
+      <td>ONNX</td>
+    </tr>
+    <tr>
+      <td>TrOCR</td>
+      <td>ONNX</td>
+      <td>OCR</td>
+      <td>ONNX</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="image-generation-1">Image Generation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Format</th>
+      <th>Use Case</th>
+      <th>Provider</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stable Diffusion v2</td>
+      <td>LibTorch</td>
+      <td>Text-to-image</td>
+      <td>LibTorch</td>
+    </tr>
+    <tr>
+      <td>DALL-E Mini</td>
+      <td>LibTorch</td>
+      <td>Text-to-image</td>
+      <td>LibTorch</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="configuration">Configuration</h2>
+
+<h3 id="basic-configuration">Basic Configuration</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Enable multimodal
+</span><span class="py">gollek.multimodal.enabled</span><span class="p">=</span><span class="s">true</span>
+
+<span class="c"># Default model
+</span><span class="py">gollek.multimodal.default-model</span><span class="p">=</span><span class="s">llava-13b-gguf</span>
+
+<span class="c"># Timeout settings
+</span><span class="py">gollek.multimodal.timeout-ms</span><span class="p">=</span><span class="s">30000</span>
+
+<span class="c"># Max concurrent requests
+</span><span class="py">gollek.multimodal.max-concurrent</span><span class="p">=</span><span class="s">10</span>
+</code></pre></div></div>
+
+<h3 id="provider-configuration">Provider Configuration</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># GGUF/LLaVA
+</span><span class="py">gollek.multimodal.gguf.enabled</span><span class="p">=</span><span class="s">true</span>
+<span class="py">gollek.multimodal.gguf.model-path</span><span class="p">=</span><span class="s">/path/to/llava-13b.gguf</span>
+<span class="py">gollek.multimodal.gguf.vision-projector</span><span class="p">=</span><span class="s">/path/to/projector.gguf</span>
+
+<span class="c"># ONNX
+</span><span class="py">gollek.multimodal.onnx.enabled</span><span class="p">=</span><span class="s">true</span>
+<span class="py">gollek.multimodal.onnx.execution-provider</span><span class="p">=</span><span class="s">cuda</span>
+<span class="py">gollek.multimodal.onnx.model-dir</span><span class="p">=</span><span class="s">/path/to/onnx-models</span>
+
+<span class="c"># LibTorch
+</span><span class="py">gollek.multimodal.torch.enabled</span><span class="p">=</span><span class="s">true</span>
+<span class="py">gollek.multimodal.torch.device</span><span class="p">=</span><span class="s">cuda</span>
+<span class="py">gollek.multimodal.torch.model-dir</span><span class="p">=</span><span class="s">/path/to/torch-models</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="streaming">Streaming</h2>
+
+<p>Stream multimodal responses:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MultimodalRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">MultimodalRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llava-13b-gguf"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">inputs</span><span class="o">(</span>
+        <span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofText</span><span class="o">(</span><span class="s">"Describe this image"</span><span class="o">),</span>
+        <span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofBase64Image</span><span class="o">(</span><span class="n">imageBytes</span><span class="o">,</span> <span class="s">"image/jpeg"</span><span class="o">)</span>
+    <span class="o">)</span>
+    <span class="o">.</span><span class="na">outputConfig</span><span class="o">(</span><span class="nc">MultimodalRequest</span><span class="o">.</span><span class="na">OutputConfig</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">client</span><span class="o">.</span><span class="na">multimodalInferenceStream</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">subscribe</span><span class="o">().</span><span class="na">with</span><span class="o">(</span>
+        <span class="n">response</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getOutputs</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">getText</span><span class="o">()),</span>
+        <span class="n">error</span> <span class="o">-&gt;</span> <span class="n">error</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">(),</span>
+        <span class="o">()</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\nDone!"</span><span class="o">)</span>
+    <span class="o">);</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="error-handling">Error Handling</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="nc">MultimodalResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">multimodalInference</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SdkException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="k">instanceof</span> <span class="nc">MultimodalException</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Handle multimodal-specific errors</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Multimodal error: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="k">instanceof</span> <span class="nc">ModelNotFoundException</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Handle missing model</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Model not found: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="c1">// Handle other SDK errors</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"SDK error: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="performance-tips">Performance Tips</h2>
+
+<h3 id="image-optimization">Image Optimization</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Resize large images before sending</span>
+<span class="nc">BufferedImage</span> <span class="n">resized</span> <span class="o">=</span> <span class="n">resizeImage</span><span class="o">(</span><span class="n">originalImage</span><span class="o">,</span> <span class="mi">512</span><span class="o">,</span> <span class="mi">512</span><span class="o">);</span>
+<span class="nc">ByteArrayOutputStream</span> <span class="n">baos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ByteArrayOutputStream</span><span class="o">();</span>
+<span class="nc">ImageIO</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">resized</span><span class="o">,</span> <span class="s">"jpg"</span><span class="o">,</span> <span class="n">baos</span><span class="o">);</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">optimizedBytes</span> <span class="o">=</span> <span class="n">baos</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="batch-processing">Batch Processing</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Process multiple images in batch</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">MultimodalRequest</span><span class="o">&gt;</span> <span class="n">requests</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">img</span> <span class="o">-&gt;</span> <span class="nc">MultimodalRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"clip-vit"</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">inputs</span><span class="o">(</span><span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofBase64Image</span><span class="o">(</span><span class="n">img</span><span class="o">,</span> <span class="s">"image/jpeg"</span><span class="o">))</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">MultimodalResponse</span><span class="o">&gt;</span> <span class="n">responses</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">client:</span><span class="o">:</span><span class="n">multimodalInference</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h3 id="caching">Caching</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Cache embeddings for reuse</span>
+<span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="kt">float</span><span class="o">[]&gt;</span> <span class="n">embeddingCache</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcurrentHashMap</span><span class="o">&lt;&gt;();</span>
+
+<span class="kt">float</span><span class="o">[]</span> <span class="nf">getEmbedding</span><span class="o">(</span><span class="nc">String</span> <span class="n">imageId</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">imageBytes</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">embeddingCache</span><span class="o">.</span><span class="na">computeIfAbsent</span><span class="o">(</span><span class="n">imageId</span><span class="o">,</span> <span class="n">id</span> <span class="o">-&gt;</span> 
+        <span class="n">client</span><span class="o">.</span><span class="na">imageEmbedding</span><span class="o">(</span><span class="s">"clip-vit"</span><span class="o">,</span> <span class="n">imageBytes</span><span class="o">)</span>
+    <span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="example-1-visual-assistant">Example 1: Visual Assistant</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VisualAssistant</span> <span class="o">{</span>
+    
+    <span class="nd">@Inject</span>
+    <span class="nc">GollekLocalClient</span> <span class="n">client</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">describeImage</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">imageBytes</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="na">visionQA</span><span class="o">(</span>
+            <span class="s">"llava-13b-gguf"</span><span class="o">,</span>
+            <span class="n">imageBytes</span><span class="o">,</span>
+            <span class="s">"Describe this image in detail"</span>
+        <span class="o">).</span><span class="na">getOutputs</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">getText</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">answerQuestion</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">imageBytes</span><span class="o">,</span> <span class="nc">String</span> <span class="n">question</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="na">visionQA</span><span class="o">(</span>
+            <span class="s">"llava-13b-gguf"</span><span class="o">,</span>
+            <span class="n">imageBytes</span><span class="o">,</span>
+            <span class="n">question</span>
+        <span class="o">).</span><span class="na">getOutputs</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">getText</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="example-2-image-search">Example 2: Image Search</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ImageSearch</span> <span class="o">{</span>
+    
+    <span class="nd">@Inject</span>
+    <span class="nc">GollekLocalClient</span> <span class="n">client</span><span class="o">;</span>
+    
+    <span class="kd">private</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="kt">float</span><span class="o">[]&gt;</span> <span class="n">index</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcurrentHashMap</span><span class="o">&lt;&gt;();</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">indexImage</span><span class="o">(</span><span class="nc">String</span> <span class="n">imageId</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">imageBytes</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">float</span><span class="o">[]</span> <span class="n">embedding</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">imageEmbedding</span><span class="o">(</span><span class="s">"clip-vit"</span><span class="o">,</span> <span class="n">imageBytes</span><span class="o">);</span>
+        <span class="n">index</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">imageId</span><span class="o">,</span> <span class="n">embedding</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">search</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">queryImage</span><span class="o">,</span> <span class="kt">int</span> <span class="n">topK</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">float</span><span class="o">[]</span> <span class="n">queryEmbedding</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">imageEmbedding</span><span class="o">(</span><span class="s">"clip-vit"</span><span class="o">,</span> <span class="n">queryImage</span><span class="o">);</span>
+        
+        <span class="k">return</span> <span class="n">index</span><span class="o">.</span><span class="na">entrySet</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">sorted</span><span class="o">(</span><span class="nc">Comparator</span><span class="o">.</span><span class="na">comparingDouble</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> 
+                <span class="o">-</span><span class="n">cosineSimilarity</span><span class="o">(</span><span class="n">queryEmbedding</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span>
+            <span class="o">))</span>
+            <span class="o">.</span><span class="na">limit</span><span class="o">(</span><span class="n">topK</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nc">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">::</span><span class="n">getKey</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="example-3-document-qa">Example 3: Document Q&amp;A</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DocumentQA</span> <span class="o">{</span>
+    
+    <span class="nd">@Inject</span>
+    <span class="nc">GollekLocalClient</span> <span class="n">client</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">answerQuestion</span><span class="o">(</span><span class="nc">Path</span> <span class="n">documentPath</span><span class="o">,</span> <span class="nc">String</span> <span class="n">question</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">docBytes</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">readAllBytes</span><span class="o">(</span><span class="n">documentPath</span><span class="o">);</span>
+        
+        <span class="nc">MultimodalRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">MultimodalRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"claude-3-opus"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">inputs</span><span class="o">(</span>
+                <span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofText</span><span class="o">(</span><span class="n">question</span><span class="o">),</span>
+                <span class="nc">MultimodalContent</span><span class="o">.</span><span class="na">ofDocument</span><span class="o">(</span><span class="n">docBytes</span><span class="o">,</span> <span class="s">"pdf"</span><span class="o">,</span> <span class="s">"application/pdf"</span><span class="o">)</span>
+            <span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="na">multimodalInference</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">getOutputs</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">getText</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3 id="common-issues">Common Issues</h3>
+
+<h4 id="model-not-found">“Model not found”</h4>
+
+<p><strong>Solution</strong>: Ensure the model file exists and path is correct:</p>
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">gollek.multimodal.gguf.model-path</span><span class="p">=</span><span class="s">/absolute/path/to/model.gguf</span>
+</code></pre></div></div>
+
+<h4 id="out-of-memory">“Out of memory”</h4>
+
+<p><strong>Solutions</strong>:</p>
+<ol>
+  <li>Resize images before processing</li>
+  <li>Reduce batch size</li>
+  <li>Use streaming for large outputs</li>
+</ol>
+
+<h4 id="slow-inference">“Slow inference”</h4>
+
+<p><strong>Solutions</strong>:</p>
+<ol>
+  <li>Enable GPU acceleration</li>
+  <li>Use smaller models</li>
+  <li>Implement caching</li>
+</ol>
+
+<hr />
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="/docs/multimodal-integration">Multimodal Integration Guide</a></li>
+  <li><a href="/docs/api/multimodal">API Reference</a></li>
+  <li><a href="/docs/models/multimodal">Model Catalog</a></li>
+  <li><a href="https://github.com/gollek-ai/gollek/tree/main/examples/multimodal">GitHub Examples</a></li>
+</ul>
+
+<hr />
+
+<p><a href="/docs/sdk">Back to SDK Documentation</a>   <a href="/docs/inference-engine">View Inference Engine</a></p>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Gollek AI Docs</span>
+      <a href="https://github.com/bhangun/gollek">bhangun/gollek</a>
+    </div>
+  </footer>
+</body>
+</html>

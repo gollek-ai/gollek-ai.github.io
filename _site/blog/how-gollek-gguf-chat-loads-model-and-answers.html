@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How Gollek GGUF Chat Loads from Hugging Face and Answers | Gollek</title>
+  <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('gollek-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+  <div class="site-bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand">Gollek</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/cli-installation">Install</a>
+        <a href="/features/">Features</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+        <a href="https://github.com/bhangun/gollek">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container content-shell">
+    <article class="content-card">
+      <p class="blog-meta">Published: March 3, 2026</p>
+
+<h1 id="how-gollek-gguf-chat-loads-from-hugging-face-and-answers">How Gollek GGUF Chat Loads from Hugging Face and Answers</h1>
+
+<p>This post explains what happens when you run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gollek chat <span class="nt">--provider</span> gguf <span class="nt">--model</span> Qwen/Qwen2.5-0.5B-Instruct
+</code></pre></div></div>
+
+<p>From the first command, Gollek resolves the model source, pulls artifacts into the local model repository (if needed), initializes the GGUF runtime session, opens interactive prompt mode, and generates the answer.</p>
+
+<hr />
+
+<h2 id="example-session">Example Session</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  _____       _  _      _    
+ / ____|     | || |    | |   
+| |  __  ___ | || | ___| | __
+| | |_ |/ _ \| || |/ _ \ |/ /
+| |__| | (_) | || |  __/   &lt; 
+ \_____|\___/|_||_|\___|_|\_\
+
+Model: Qwen2.5-0.5B-Instruct-GGUF
+Provider: gguf
+Commands: 'exit' to quit, '/reset' to clear history.
+Note: Use '\' at the end of a line for multiline input.
+----------------------------------------------------------------------------------------------------
+
+&gt;&gt;&gt; Hello, what can you do?
+
+Assistant: I can help you with coding, writing, and analysis...
+
+[Tokens: 42, Duration: 0.85s, Speed: 49.41 t/s]
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="process-breakdown">Process Breakdown</h2>
+
+<ol>
+  <li>CLI parses runtime intent:
+    <ul>
+      <li>provider is pinned to <code class="language-plaintext highlighter-rouge">gguf</code></li>
+      <li>model reference is <code class="language-plaintext highlighter-rouge">Qwen/Qwen2.5-0.5B-Instruct</code></li>
+    </ul>
+  </li>
+  <li>Provider + model resolution:
+    <ul>
+      <li>Provider registry routes request to GGUF provider path.</li>
+      <li>Model repository checks local cache first.</li>
+      <li>If missing, repository resolves Hugging Face source and downloads required model artifacts.</li>
+    </ul>
+  </li>
+  <li>GGUF session initialization:
+    <ul>
+      <li>GGUF runtime loads model metadata and tensors.</li>
+      <li>Chat runtime prepares initial conversation state and prompt formatting.</li>
+    </ul>
+  </li>
+  <li>Interactive prompt loop:
+    <ul>
+      <li>User input (<code class="language-plaintext highlighter-rouge">&gt;&gt;&gt; ...</code>) is appended to chat state.</li>
+      <li>GGUF provider executes generation with current context.</li>
+      <li>Output is streamed/assembled and printed as <code class="language-plaintext highlighter-rouge">Assistant: ...</code>.</li>
+    </ul>
+  </li>
+  <li>Metrics and user feedback:
+    <ul>
+      <li>CLI prints tokens, duration, and token/s speed.</li>
+      <li>Session remains active for next prompt until <code class="language-plaintext highlighter-rouge">exit</code> or <code class="language-plaintext highlighter-rouge">/reset</code>.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="sequence-diagram">Sequence Diagram</h2>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    autonumber
+    participant U as User
+    participant C as Gollek CLI
+    participant R as Provider Registry
+    participant M as Model Repository
+    participant H as Hugging Face Source
+    participant G as GGUF Provider/Runtime
+
+    U-&gt;&gt;C: gollek chat --provider gguf --model Qwen/Qwen2.5-0.5B-Instruct
+    C-&gt;&gt;R: Resolve provider (gguf)
+    R--&gt;&gt;C: GGUF provider selected
+    C-&gt;&gt;M: Resolve model reference
+    M-&gt;&gt;M: Check local cache
+    alt Model not cached
+      M-&gt;&gt;H: Fetch model artifacts
+      H--&gt;&gt;M: Return GGUF artifacts
+      M-&gt;&gt;M: Store in local repository
+    else Model cached
+      M--&gt;&gt;C: Return local artifact path
+    end
+    C-&gt;&gt;G: Initialize GGUF session
+    G--&gt;&gt;C: Ready (model + chat state)
+    U-&gt;&gt;C: "Hello, what can you do?"
+    C-&gt;&gt;G: Generate response from current prompt/context
+    G--&gt;&gt;C: Assistant text + token stats
+    C--&gt;&gt;U: Print answer and [Tokens, Duration, Speed]
+</code></pre>
+
+<hr />
+
+<h2 id="why-this-matters">Why This Matters</h2>
+
+<ul>
+  <li>Local-first behavior keeps repeat runs fast after first download.</li>
+  <li>Explicit <code class="language-plaintext highlighter-rouge">--provider gguf</code> gives deterministic runtime path for benchmarking and debugging.</li>
+  <li>Interactive loop + token stats make CLI suitable for both demos and performance validation.</li>
+</ul>
+
+<hr />
+
+<p>For related runtime guidance, see <a href="/docs/developer-guidance">Developer Guidance</a> and <a href="/docs/architecture">Architecture</a>.</p>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Gollek AI Docs</span>
+      <a href="https://github.com/bhangun/gollek">bhangun/gollek</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -17,6 +17,8 @@ Set `GOLLEK_HOME` to override this root for local deployments.
 
 - Models: `~/.gollek/models/`
 - GGUF: `~/.gollek/models/gguf/`
+- GGUF (converted from safetensors): `~/.gollek/models/gguf/converted/`
+- Converter outputs: `~/.gollek/conversions/`
 - Safetensors: `~/.gollek/models/safetensors/`
 - LibTorch: `~/.gollek/models/libtorchscript/`
 - Native libs: `~/.gollek/libs/`

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Introducing the New Gollek Inference Engine | Gollek</title>
+  <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('gollek-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+  <div class="site-bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="brand">Gollek</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/docs/">Docs</a>
+        <a href="/blog/">Blog</a>
+        <a href="/docs/cli-installation">Install</a>
+        <a href="/features/">Features</a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
+        <a href="https://github.com/bhangun/gollek">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container content-shell">
+    <article class="content-card">
+      <p class="blog-meta">Published: February 27, 2026</p>
+
+<h1 id="introducing-the-new-gollek-inference-engine">Introducing the New Gollek Inference Engine</h1>
+
+<p>Gollek is now available as a full inference engine platform for developers, teams, and the wider community. This release focuses on fast local execution, clean integration paths, and production-ready operations without giving up flexibility.</p>
+
+<p>Whether you are building command-line workflows, backend services, or enterprise integration layers, Gollek is designed to be practical from day one.</p>
+
+<hr />
+
+<h2 id="what-is-new-in-this-release">What Is New in This Release</h2>
+
+<ul>
+  <li>Unified inference runtime across local and cloud providers</li>
+  <li>Standalone <code class="language-plaintext highlighter-rouge">gollek</code> CLI for direct usage</li>
+  <li>Java SDK for service and application embedding</li>
+  <li>Native build and distribution support for macOS, Linux, and Windows</li>
+  <li>Consistent developer experience for install, run, observe, and iterate</li>
+</ul>
+
+<hr />
+
+<h2 id="why-gollek-is-a-strong-choice">Why Gollek Is a Strong Choice</h2>
+
+<h3 id="1-one-interface-across-many-runtimes">1. One Interface Across Many Runtimes</h3>
+
+<p>Gollek gives a consistent API and CLI surface for multiple model backends and providers. Teams can switch providers, compare outputs, and evolve architecture without rewriting the full integration layer.</p>
+
+<h3 id="2-local-first-performance">2. Local-First Performance</h3>
+
+<p>The runtime is built for practical local inference workflows, including GGUF-native usage and low-latency startup paths. This helps developer machines, edge environments, and cost-sensitive deployments.</p>
+
+<h3 id="3-sdk--cli-together">3. SDK + CLI Together</h3>
+
+<p>Many teams need both: an SDK for application integration and a CLI for experiments, debugging, and operations. Gollek ships both as first-class components so your workflow stays consistent from prototype to production.</p>
+
+<h3 id="4-cross-platform-distribution">4. Cross-Platform Distribution</h3>
+
+<p>Release artifacts support macOS, Linux, and Windows, including installer-oriented packaging and package-manager pathways. This lowers friction for team onboarding and internal adoption.</p>
+
+<h3 id="5-native-ready-architecture">5. Native-Ready Architecture</h3>
+
+<p>Gollek supports native compilation and FFI-oriented workflows, making it a fit for high-performance services, constrained environments, and integration with non-JVM ecosystems.</p>
+
+<h3 id="6-extensible-by-design">6. Extensible by Design</h3>
+
+<p>Provider and extension patterns make it possible to add capabilities incrementally. You can keep the core lean while introducing specialized runtime behavior as your use cases grow.</p>
+
+<h3 id="7-production-observability-mindset">7. Production Observability Mindset</h3>
+
+<p>The platform is designed to work with structured logging, metrics, and service-oriented deployment patterns, helping teams operate inference workloads with confidence.</p>
+
+<hr />
+
+<h2 id="who-should-use-gollek">Who Should Use Gollek</h2>
+
+<ul>
+  <li>Developers who want local inference workflows with a clean CLI</li>
+  <li>Backend teams embedding inference into Java services</li>
+  <li>Platform teams standardizing model-provider access across products</li>
+  <li>Builders who need a foundation they can extend and contribute to</li>
+</ul>
+
+<hr />
+
+<h2 id="community-and-contribution">Community and Contribution</h2>
+
+<p>Gollek is built for open collaboration. Community and developer contributions are welcome across:</p>
+
+<ul>
+  <li>Runtime performance improvements</li>
+  <li>Provider integrations</li>
+  <li>Documentation and example quality</li>
+  <li>Tooling, packaging, and cross-platform support</li>
+  <li>Testing, reliability, and observability enhancements</li>
+</ul>
+
+<p>If you want to contribute, start with:</p>
+
+<ol>
+  <li>Read the docs and run the CLI locally</li>
+  <li>Open issues for bugs, improvements, and feature proposals</li>
+  <li>Submit pull requests for targeted improvements</li>
+  <li>Share usage feedback so we can prioritize real developer needs</li>
+</ol>
+
+<hr />
+
+<h2 id="start-today">Start Today</h2>
+
+<ul>
+  <li>Install guide: <a href="/docs/cli-installation">Gollek CLI Installation</a></li>
+  <li>Developer docs: <a href="/docs/">Getting Started</a></li>
+  <li>API reference: <a href="/docs/core-api">Core API</a></li>
+  <li>Project repository: <a href="https://github.com/bhangun/gollek">bhangun/gollek</a></li>
+</ul>
+
+<p>Gollek is ready to use now, and it will get better with community input. We invite developers and organizations to build with it, test it in real workloads, and help shape the roadmap.</p>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Gollek AI Docs</span>
+      <a href="https://github.com/bhangun/gollek">bhangun/gollek</a>
+    </div>
+  </footer>
+</body>
+</html>
