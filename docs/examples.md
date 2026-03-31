@@ -212,7 +212,7 @@ public class ChatCompletion {
 
 ```java
 import io.smallrye.mutiny.Multi;
-import tech.kayys.gollek.spi.inference.InferenceChunk;
+import tech.kayys.gollek.spi.inference.StreamingInferenceChunk;
 
 public class StreamingExample {
     public static void main(String[] args) {

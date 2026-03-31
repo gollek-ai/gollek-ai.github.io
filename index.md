@@ -4,20 +4,19 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 ---
 
 <section class="hero">
-  <p class="eyebrow">Universal Inference SDK + CLI + Audio</p>
-  <h1>Build AI features once. Run local or cloud with the same API.</h1>
-  <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, audio processing (Whisper STT, SpeechT5 TTS), and hosted providers. It centralizes model life-cycle, observability, and provider auto-selection into a single consistent SDK.</p>
+  <p class="eyebrow">Universal Inference SDK + CLI + Embedded ML Framework</p>
+  <h1>Build AI features once. Run and Train anywhere with a PyTorch-like Java API.</h1>
+  <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, and now a **native Java ML SDK**. It centralizes model life-cycle, autograd-powered training, and provider auto-selection into a single consistent ecosystem.</p>
   <div class="hero-actions">
     <a class="btn btn-primary" href="/docs/">Get Started</a>
     <a class="btn btn-ghost" href="/blog/">Blog</a>
     <a class="btn btn-ghost" href="/docs/cli-installation">Install Gollek</a>
     <a class="btn btn-ghost" href="https://github.com/bhangun/gollek">GitHub</a>
   </div>
-  <div class="hero-stats">
-    <span>SDK + CLI</span>
-    <span>Local + Cloud + Audio</span>
-    <span>Native Ready</span>
+    <span>Distributed KV Fabric</span>
+    <span>Mixture-of-Experts</span>
     <span>GPU Accelerated</span>
+    <span>Token-Level Routing</span>
   </div>
 </section>
 
@@ -45,8 +44,18 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 </section>
 
 <section class="subtle-panel">
+  <strong>New Release:</strong> Gollek ML SDK v0.1.0 is here! A PyTorch-like Java framework for Tensors, Autograd, and Neural Networks. Build and train models directly in Java.
+  <a href="/blog/ml-sdk-pytorch-java">Read the announcement</a>
+</section>
+
+<section class="subtle-panel">
   <strong>Latest update:</strong> Audio module v2.0 is live with Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, and VAD pipeline. Plus quantization engine with INT4/INT8/FP8 support.
   <a href="/blog/audio-quantization-release">Read the release</a>
+</section>
+
+<section class="subtle-panel">
+  <strong>GGUF Enhancement:</strong> K-quant support (Q2_K, Q4_K, Q5_K, Q6_K) with fixed Q4_0 nibble overflow and C-compatible Q8_0 rounding. Now supporting 40+ model families including DeepSeek, Yi, DBRX, Grok, and Jamba.
+  <a href="/docs/gguf-enhancements">Learn about GGUF improvements</a>
 </section>
 
 <section class="subtle-panel">
@@ -72,6 +81,20 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 <section class="subtle-panel">
   <strong>LiteRT Runtime Assets:</strong> one-command helper to download or package <code>libtensorflowlite_c</code>.
   <a href="/docs/developer-guidance#litert-tflite">Release + install guide</a>
+</section>
+
+  </div>
+</section>
+
+<section class="visual-feature">
+  <div class="container">
+    <h2>The Distributed Inference Fabric</h2>
+    <p class="lead">Gollek isn't just an SDK; it's a <strong>Distributed LLM OS</strong>. We've unified KV memory across the cluster, enabling multi-node attention, universal speculative decoding, and native Mixture-of-Experts sharding.</p>
+    <div class="feature-mockup">
+      <img src="/assets/token_routing_control_tower_mockup_1774865775837.png" alt="Token Routing Control Tower Mockup" style="width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+      <p class="caption">Real-time Token Routing: A small "Draft" model (cyan) proposes tokens while a large "Target" model (violet) verifies them on the shared KV fabric.</p>
+    </div>
+  </div>
 </section>
 
 <section class="terminal-demo">
@@ -162,9 +185,15 @@ System.out.println(response.getContent());
 | Provider Discovery | Auto-select best provider based on model format |
 | Native Interop | GraalVM native image with C FFI for embedded integration |
 | CDI Integration | Full Jakarta EE CDI support for enterprise applications |
-| GPU Acceleration | CUDA, Blackwell, ROCm, and Metal kernels with FlashAttention |
+| **GPU Acceleration** | **CUDA, Blackwell, ROCm, and Metal kernels with FlashAttention** |
 | **Audio Processing** | **Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, VAD** |
 | **Model Quantization** | **GPTQ INT4/INT8, FP8 with SafeTensors format** |
+| **Embedded ML SDK** | **PyTorch-like Tensors, Autograd, NN Modules, Optimizers** |
+| **Distributed Fabric** | **Unified KV memory, Cluster-wide Attention, Sparse Expert Routing** |
+| **Token Orchestrator** | **Speculative Decoding (2-4x speed), Logit Mixing, Ensemble Inference** |
+| **MoE Runtime** | **Native Expert Gating (Top-K), Sharded Experts, Heatmap Telemetry** |
+| **K-Quants** | **Q2_K, Q4_K, Q5_K, Q6_K with improved quality/size ratios** |
+| **40+ Model Families** | **DeepSeek, Yi, DBRX, Grok, Jamba, Mamba, RWKV, and more** |
 
 ---
 

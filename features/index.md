@@ -592,6 +592,49 @@ Extensible architecture via plugins.
 
 ---
 
+---
+
+### Embedded ML SDK
+
+A PyTorch-like deep learning framework built natively for the Java ecosystem.
+
+**Key Components:**
+
+#### Autograd Engine (`gollek-sdk-autograd`)
+Define-by-run dynamic computation graphs with support for complex backpropagation.
+- **GradTensor**: Tensors that track operations for gradient calculation.
+- **Dynamic Graphs**: Build computation graphs on the fly during the forward pass.
+- **Context Management**: Use `NoGrad` to disable gradient tracking during inference.
+
+**Example:**
+```java
+GradTensor x = GradTensor.scalar(2.0f).requiresGrad(true);
+GradTensor w = GradTensor.scalar(3.0f).requiresGrad(true);
+GradTensor y = w.mul(x);
+y.backward(); // Calculate gradients
+```
+
+#### Neural Network Modules (`gollek-sdk-nn`)
+High-level abstractions for building and training complex models.
+- **Standard Layers**: Linear, LayerNorm, Dropout, Embedding, MultiHeadAttention.
+- **Transformer Blocks**: Pre-built Encoder and Decoder layers.
+- **Loss Functions**: MSE, CrossEntropy, CosineEmbedding.
+- **Optimizers**: AdamW, SGD with parameter grouping.
+
+#### NLP Pipelines (`gollek-sdk-nlp`)
+Task-oriented pipelines for common NLP operations.
+- **Text Generation**: LLM-powered sequence completion.
+- **Embeddings**: High-quality vector representations.
+- **Classification**: Sentiment analysis and zero-shot categorization.
+
+#### Data Loading (`gollek-sdk-data`)
+Scalable data pipelines for model training.
+- **Dataset API**: Abstract interface for indexed data.
+- **DataLoader**: Multithreaded batching and shuffling.
+- **Format Support**: CSV, Text, and custom implementations.
+
+---
+
 ## Comparison Table
 
 | Feature | Community | Enterprise |
@@ -605,6 +648,7 @@ Extensible architecture via plugins.
 | CDI integration | Yes | Yes |
 | **Audio Processing** | **Yes** | **Yes** |
 | **Model Quantization** | **Yes** | **Yes** |
+| **Embedded ML SDK** | **Yes** | **Yes** |
 | GPU acceleration | Yes | Yes |
 | Multi-tenancy | No | Yes |
 | Advanced security | Basic | Full |

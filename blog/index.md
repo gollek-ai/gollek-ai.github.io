@@ -16,8 +16,8 @@ title: Gollek Blog
 
 <section class="subtle-panel">
   <strong>Featured:</strong>
-  <a href="/blog/how-gollek-gguf-chat-loads-model-and-answers">How Gollek GGUF Chat Loads from Hugging Face and Answers</a>
-  <span class="blog-meta">Published: March 3, 2026</span>
+  <a href="/blog/why-java-for-ai-gollek-jdk25">Why Java for AI? The Engineering Behind Gollek's High-Performance Engine</a>
+  <span class="blog-meta">Published: March 31, 2026</span>
 </section>
 
 {% assign sorted_pages = site.pages | sort: "date" | reverse %}

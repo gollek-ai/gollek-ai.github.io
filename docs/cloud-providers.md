@@ -240,7 +240,7 @@ import tech.kayys.gollek.spi.provider.ProviderMetadata;
 import tech.kayys.gollek.spi.provider.ProviderRequest;
 import tech.kayys.gollek.spi.provider.ProviderHealth;
 import tech.kayys.gollek.spi.inference.InferenceResponse;
-import tech.kayys.gollek.spi.inference.InferenceChunk;
+import tech.kayys.gollek.spi.inference.StreamingInferenceChunk;
 import tech.kayys.gollek.spi.exception.ProviderException;
 
 import io.smallrye.mutiny.Multi;
@@ -414,7 +414,7 @@ InferenceResponse response = openai.inferBlocking(request);
 ### Streaming Example
 
 ```java
-import tech.kayys.gollek.spi.inference.InferenceChunk;
+import tech.kayys.gollek.spi.inference.StreamingInferenceChunk;
 import io.smallrye.mutiny.Multi;
 
 Multi<StreamingInferenceChunk> stream = openai.inferStream(request);

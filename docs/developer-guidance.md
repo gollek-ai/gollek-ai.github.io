@@ -48,7 +48,7 @@ Run with:
 - preferred before release cut
 - emits trend artifacts (`trends/matrix-gates.csv`, `trends/matrix-gates.json`) in each run
 - emits gate alert artifacts (`gate-alert.txt`, `gate-alert.md`) in each run
-- can send optional webhook alert on failure (`GOLEK_BENCH_ALERT_WEBHOOK`)
+- can send optional webhook alert on failure (`GOLLEK_BENCH_ALERT_WEBHOOK`)
 
 ---
 
@@ -311,3 +311,77 @@ In strict CI, this snapshot is generated automatically; use manual script runs f
       });
   })();
 </script>
+
+---
+
+## Modular Tokenizer Architecture
+
+The Gollek platform has migrated to a unified **Tokenizer SPI** (`tech.kayys.gollek.tokenizer.spi`), replacing the legacy `HuggingFaceTokenizer` with a pluggable, format-aware architecture.
+
+### Key Features
+- **Universal Support**: Seamlessly handles both **BPE** (`tokenizer.json`) and **SentencePiece** (`tokenizer.model`) variants.
+- **Automatic Discovery**: `TokenizerFactory` intelligently detects the model format and loads the optimal backend (BPE vs. SPM).
+- **Native SPM Bridge**: High-performance SentencePiece decoding via a native Rust-based bridge (`libspm_bridge`).
+- **Streaming Stability**: Integrated `StreamingDecoder` handles multi-byte UTF-8 sequences and BPE merge boundaries, preventing character garbling in streaming responses.
+
+### Common Usage
+```java
+// Centralized loading (auto-detects format)
+Tokenizer tokenizer = TokenizerFactory.loadFromDirectory(modelDir);
+
+// Options-based API
+long[] promptTokens = tokenizer.encode(prompt, EncodeOptions.defaultOptions());
+
+// Stateful streaming decoder (for robust output)
+StreamingDecoder decoder = new StreamingDecoder(tokenizer, DecodeOptions.defaultOptions());
+for (long token : modelOutput) {
+    String piece = decoder.decodeNext(token); // Handles partial UTF-8
+    System.out.print(piece);
+}
+```
+
+---
+
+## Native Library Management
+
+### Standard Location
+
+Native libraries are stored in `~/.gollek/libs/`:
+
+```
+~/.gollek/libs/
+├── llama/              # GGUF/llama.cpp libraries
+├── onnxruntime/        # ONNX Runtime libraries
+├── libtorch/           # LibTorch libraries
+├── native/            # Shared native bridges (e.g., spm_bridge)
+└── tflite/            # TensorFlow Lite libraries
+```
+
+### Quick Setup
+
+```bash
+# Install all native libraries
+make -f Makefile.native install-native-libs
+
+# Verify installation
+make -f Makefile.native verify-libs
+```
+
+### Configuration
+
+```bash
+# Override default directory
+export GOLLEK_NATIVE_LIB_DIR=/opt/gollek/libs
+
+# Explicit library paths
+export GOLLEK_LLAMA_LIB_PATH=~/.gollek/libs/llama/libllama.dylib
+export GOLLEK_ONNX_LIB_PATH=~/.gollek/libs/onnxruntime/libonnxruntime.dylib
+export GOLLEK_NATIVE_LIB=~/.gollek/libs/native/ # Path for spm_bridge
+```
+
+### Documentation
+
+- [Git Repository Cleanup](git-repository-cleanup.md) - Repository maintenance guide
+- [Native Library Management Guide](native-library-guide.md) - Complete technical guide
+
+---

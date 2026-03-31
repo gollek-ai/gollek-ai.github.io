@@ -23,6 +23,7 @@ Gollek uses a **standardized native library location** at `~/.gollek/libs/` for 
 | **LibTorch** | PyTorch | `~/.gollek/libs/libtorch/` |
 | **TFLite** | TensorFlow Lite | `~/.gollek/libs/tflite/` |
 | **Metal** | Metal Kernels | `~/.gollek/libs/metal/` |
+| **Tokenizer** | SentencePiece Bridge | `~/.gollek/libs/native/` |
 
 ---
 
@@ -73,8 +74,11 @@ graph TD
 │   │   ├── libc10.dylib
 │   │   └── libomp.dylib
 │   │
-│   └── tflite/                # TFLite runner
-│       └── libtensorflowlite.dylib
+│   ├── tflite/                # TFLite runner
+│   │   └── libtensorflowlite.dylib
+│   │
+│   └── native/                # Shared native bridges
+│       └── libspm_bridge.dylib
 │
 └── source/                    # Source/vendor libraries (legacy)
     └── vendor/
@@ -145,20 +149,20 @@ dir $env:USERPROFILE\.gollek\libs\
 
 ```bash
 # Override default library directory
-export GOLEK_NATIVE_LIB_DIR=/opt/gollek/libs
+export GOLLEK_NATIVE_LIB_DIR=/opt/gollek/libs
 
 # Per-runner overrides
-export GOLEK_LLAMA_LIB_DIR=~/.gollek/libs/llama
-export GOLEK_ONNX_LIB_DIR=~/.gollek/libs/onnxruntime
-export GOLEK_LIBTORCH_SOURCE_DIR=~/.gollek/source/vendor/libtorch
+export GOLLEK_LLAMA_LIB_DIR=~/.gollek/libs/llama
+export GOLLEK_ONNX_LIB_DIR=~/.gollek/libs/onnxruntime
+export GOLLEK_LIBTORCH_SOURCE_DIR=~/.gollek/source/vendor/libtorch
 ```
 
 #### Explicit Library Paths
 
 ```bash
 # Specific library file paths
-export GOLEK_LLAMA_LIB_PATH=~/.gollek/libs/llama/libllama.dylib
-export GOLEK_ONNX_LIB_PATH=~/.gollek/libs/onnxruntime/libonnxruntime.dylib
+export GOLLEK_LLAMA_LIB_PATH=~/.gollek/libs/llama/libllama.dylib
+export GOLLEK_ONNX_LIB_PATH=~/.gollek/libs/onnxruntime/libonnxruntime.dylib
 ```
 
 ### Application Properties
@@ -180,7 +184,7 @@ libtorch.provider.native.library-path=~/.gollek/libs/libtorch/libtorch.dylib
 Configuration sources are checked in this order:
 
 1. **Explicit Configuration** - `native.library-path` in properties
-2. **Environment Variables** - `GOLEK_*_LIB_PATH`
+2. **Environment Variables** - `GOLLEK_*_LIB_PATH`
 3. **Standard Location** - `~/.gollek/libs/<runner>/`
 4. **Legacy Locations** - `~/.gollek/source/vendor/`, `~/.gollek/native-libs/`
 5. **System Library Path** - `java.library.path`
@@ -280,8 +284,8 @@ provider.initialize();
 ```
 
 **Search Order:**
-1. `GOLEK_LLAMA_LIB_PATH` environment variable
-2. `GOLEK_LLAMA_LIB_DIR` environment variable
+1. `GOLLEK_LLAMA_LIB_PATH` environment variable
+2. `GOLLEK_LLAMA_LIB_DIR` environment variable
 3. `~/.gollek/libs/llama/` (standard location)
 4. `~/.gollek/native-libs/` (legacy)
 5. `~/.gollek/source/vendor/llama.cpp/build/bin/`
@@ -296,7 +300,7 @@ runner.initialize(modelManifest, runnerConfig);
 ```
 
 **Search Order:**
-1. `GOLEK_ONNX_LIB_PATH` environment variable
+1. `GOLLEK_ONNX_LIB_PATH` environment variable
 2. `~/.gollek/libs/onnxruntime/libonnxruntime.dylib`
 3. `~/.gollek/libs/libonnxruntime.dylib` (legacy)
 4. Build directories
@@ -364,7 +368,7 @@ Native library not found at ~/.gollek/libs/llama/libllama.dylib
 
 2. **Set explicit path**
    ```bash
-   export GOLEK_LLAMA_LIB_PATH=~/.gollek/libs/llama/libllama.dylib
+   export GOLLEK_LLAMA_LIB_PATH=~/.gollek/libs/llama/libllama.dylib
    ```
 
 3. **Check permissions**
@@ -447,10 +451,10 @@ sudo mkdir -p /opt/gollek/libs
 sudo cp native-libs/* /opt/gollek/libs/
 
 # Set environment variable
-export GOLEK_NATIVE_LIB_DIR=/opt/gollek/libs
+export GOLLEK_NATIVE_LIB_DIR=/opt/gollek/libs
 
 # Or use per-runner variables
-export GOLEK_LLAMA_LIB_DIR=/opt/gollek/libs/llama
+export GOLLEK_LLAMA_LIB_DIR=/opt/gollek/libs/llama
 ```
 
 ### Multiple Versions
@@ -463,7 +467,7 @@ mkdir -p ~/.gollek/libs/llama-3.2
 cp llama-3.2-build/lib/*.dylib ~/.gollek/libs/llama-3.2/
 
 # Switch versions via environment variable
-export GOLEK_LLAMA_LIB_PATH=~/.gollek/libs/llama-3.2/libllama.dylib
+export GOLLEK_LLAMA_LIB_PATH=~/.gollek/libs/llama-3.2/libllama.dylib
 ```
 
 ### CI/CD Integration
@@ -490,7 +494,7 @@ RUN make -f Makefile.native install-native-libs && \
     ldconfig
 
 # Set library path
-ENV GOLEK_NATIVE_LIB_DIR=/root/.gollek/libs
+ENV GOLLEK_NATIVE_LIB_DIR=/root/.gollek/libs
 ```
 
 ### Performance Optimization

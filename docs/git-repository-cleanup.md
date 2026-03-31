@@ -196,21 +196,21 @@ cp lib/libonnxruntime.dylib .
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `GOLEK_NATIVE_LIB_DIR` | Override base directory | `~/.gollek/libs/` |
-| `GOLEK_LLAMA_LIB_PATH` | Explicit llama.cpp library path | - |
-| `GOLEK_LLAMA_LIB_DIR` | Explicit llama.cpp directory | `~/.gollek/libs/llama/` |
-| `GOLEK_ONNX_LIB_PATH` | Explicit ONNX Runtime library path | - |
-| `GOLEK_ONNX_LIB_DIR` | Explicit ONNX Runtime directory | `~/.gollek/libs/onnxruntime/` |
-| `GOLEK_LIBTORCH_SOURCE_DIR` | LibTorch source directory | `~/.gollek/source/vendor/libtorch` |
+| `GOLLEK_NATIVE_LIB_DIR` | Override base directory | `~/.gollek/libs/` |
+| `GOLLEK_LLAMA_LIB_PATH` | Explicit llama.cpp library path | - |
+| `GOLLEK_LLAMA_LIB_DIR` | Explicit llama.cpp directory | `~/.gollek/libs/llama/` |
+| `GOLLEK_ONNX_LIB_PATH` | Explicit ONNX Runtime library path | - |
+| `GOLLEK_ONNX_LIB_DIR` | Explicit ONNX Runtime directory | `~/.gollek/libs/onnxruntime/` |
+| `GOLLEK_LIBTORCH_SOURCE_DIR` | LibTorch source directory | `~/.gollek/source/vendor/libtorch` |
 
 ### Example Configuration
 
 ```bash
 # Use custom library directory
-export GOLEK_NATIVE_LIB_DIR=/opt/gollek/libs
+export GOLLEK_NATIVE_LIB_DIR=/opt/gollek/libs
 
 # Use specific library file
-export GOLEK_LLAMA_LIB_PATH=/custom/path/libllama.dylib
+export GOLLEK_LLAMA_LIB_PATH=/custom/path/libllama.dylib
 
 # Run with configuration
 java -jar gollek.jar chat --model <model>
@@ -221,7 +221,7 @@ java -jar gollek.jar chat --model <model>
 Libraries are loaded in this priority order:
 
 1. **Explicit configuration** (config file or command-line)
-2. **Environment variables** (`GOLEK_*_LIB_PATH`)
+2. **Environment variables** (`GOLLEK_*_LIB_PATH`)
 3. **Standard location** (`~/.gollek/libs/<runner>/`)
 4. **Legacy locations** (source vendor, build directories)
 5. **System library path** (`java.library.path`)
@@ -243,7 +243,7 @@ Libraries are loaded in this priority order:
 
 2. **Set explicit path**
    ```bash
-   export GOLEK_LLAMA_LIB_PATH=~/.gollek/libs/llama/libllama.dylib
+   export GOLLEK_LLAMA_LIB_PATH=~/.gollek/libs/llama/libllama.dylib
    ```
 
 3. **Reinstall libraries**

@@ -30,23 +30,35 @@ title: Getting Started with Gollek SDK
     <h3>Model Quantization</h3>
     <p>GPTQ INT4/INT8 and FP8 quantization with 4-8x compression.</p>
   </a>
+  <a class="quick-card" href="/docs/gguf-enhancements">
+    <h3>GGUF Enhancements</h3>
+    <p>K-quant support (Q2_K-Q6_K), 40+ model families, and quantization fixes.</p>
+  </a>
   <a class="quick-card" href="#maven-dependency">
     <h3>Java SDK Setup</h3>
     <p>Add Maven/Gradle dependencies and optional providers for embedded inference.</p>
+  </a>
+  <a class="quick-card" href="/docs/ml-sdk">
+    <h3>Embedded ML SDK</h3>
+    <p>A PyTorch-like framework for Java: Tensors, Autograd, NN Layers, and training.</p>
   </a>
   <a class="quick-card" href="/docs/examples">
     <h3>Code Examples</h3>
     <p>Jump to real usage patterns for streaming, async jobs, and provider selection.</p>
   </a>
+  <a class="quick-card" href="/docs/jupyter-jbang-integration">
+    <h3>Jupyter & jbang Integration</h3>
+    <p>Use Gollek SDK in interactive Jupyter notebooks or standalone jbang scripts.</p>
+  </a>
 </section>
 
 <section class="subtle-panel">
-  <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/plugin-system-v2">Plugin System v2.0</a> · <a href="/docs/kernel-auto-detection">Kernel Auto-Detection</a> · <a href="/docs/plugin-examples">Examples</a> · <a href="/docs/plugin-templates">Templates</a> · <a href="/docs/plugin-migration">Migration Guide</a> · <a href="/docs/enhanced-plugin-system-v2">Enhanced Plugins</a> · <a href="/docs/enhanced-plugin-architecture">Kernel Plugins</a> · <a href="/docs/enhanced-runner-plugin-architecture">Runner Plugins</a> · <a href="/docs/safetensor-runner-integration">Safetensor Integration</a> · <a href="/docs/plugin-architecture">Plugin Architecture</a> · <a href="/docs/developer-guidance">Developer Guidance</a> · <a href="/docs/storage-layout">Storage Layout</a> · <a href="/docs/enhancement-history">Enhancement History</a> · <a href="/docs/audio-processing">Audio Processing</a> · <a href="/docs/quantization">Quantization</a> · <a href="/docs/gpu-kernels">GPU Kernels</a> · <a href="/docs/developer-guidance#metal-runner-modes-apple-silicon">Metal Modes</a> · <a href="/docs/developer-guidance#gpu-smoke-test-apple-silicon-only">Metal GPU Test</a> · <a href="/docs/architecture#fp8-rowwise-canary-configuration">FP8 Rowwise Config</a> · <a href="/docs/architecture#sageattention2-configuration">SageAttention2 Config</a> · <a href="/docs/architecture#multi-lora-benchmark-telemetry">Benchmark Telemetry</a> · <a href="/docs/native-ffi">Native FFI</a> · <a href="/docs/troubleshooting">Troubleshooting</a> · <a href="/docs/error-codes">Error Codes</a>
+  <strong>Quick Links:</strong> <a href="/docs/ml-sdk">Embedded ML SDK</a> · <a href="/docs/core-api">Core API</a> · <a href="/docs/jupyter-jbang-integration">Jupyter & jbang</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/plugin-system-v2">Plugin System v2.0</a> · <a href="/docs/kernel-auto-detection">Kernel Auto-Detection</a> · <a href="/docs/plugin-examples">Examples</a> · <a href="/docs/plugin-templates">Templates</a> · <a href="/docs/plugin-migration">Migration Guide</a> · <a href="/docs/enhanced-plugin-system-v2">Enhanced Plugins</a> · <a href="/docs/enhanced-plugin-architecture">Kernel Plugins</a> · <a href="/docs/enhanced-runner-plugin-architecture">Runner Plugins</a> · <a href="/docs/safetensor-runner-integration">Safetensor Integration</a> · <a href="/docs/plugin-architecture">Plugin Architecture</a> · <a href="/docs/developer-guidance">Developer Guidance</a> · <a href="/docs/storage-layout">Storage Layout</a> · <a href="/docs/enhancement-history">Enhancement History</a> · <a href="/docs/audio-processing">Audio Processing</a> · <a href="/docs/quantization">Quantization</a> · <a href="/docs/gguf-enhancements">GGUF Enhancements</a> · <a href="/docs/gpu-kernels">GPU Kernels</a> · <a href="/docs/developer-guidance#metal-runner-modes-apple-silicon">Metal Modes</a> · <a href="/docs/developer-guidance#gpu-smoke-test-apple-silicon-only">Metal GPU Test</a> · <a href="/docs/architecture#fp8-rowwise-canary-configuration">FP8 Rowwise Config</a> · <a href="/docs/architecture#sageattention2-configuration">SageAttention2 Config</a> · <a href="/docs/architecture#multi-lora-benchmark-telemetry">Benchmark Telemetry</a> · <a href="/docs/native-ffi">Native FFI</a> · <a href="/docs/troubleshooting">Troubleshooting</a> · <a href="/docs/error-codes">Error Codes</a>
 </section>
 
 <section class="subtle-panel">
-  <strong>Latest update:</strong> Audio module v2.0 is live with Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, and VAD pipeline. Plus quantization engine with INT4/INT8/FP8 support for 4-8x model compression.
-  <a href="/blog/audio-quantization-release">Read the release</a>
+  <strong>Latest update:</strong> Jupyter & jbang integration is now available! Use Gollek SDK in interactive Jupyter notebooks for exploration or standalone jbang scripts for automation. Includes one-command setup, comprehensive guides, and working examples. Plus audio module v2.0 with Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, and quantization engine (INT4/INT8/FP8) for 4-8x compression.
+  <a href="/docs/jupyter-jbang-integration">Jupyter & jbang guide</a> · <a href="/blog/audio-quantization-release">Audio release</a> · <a href="/docs/gguf-enhancements">GGUF enhancements</a>
 </section>
 
 ---
