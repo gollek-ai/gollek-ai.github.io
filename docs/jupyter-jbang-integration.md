@@ -28,7 +28,7 @@ Gollek SDK is now available for two popular interactive development environments
 ### Option 1: One-Command Setup (Recommended)
 
 ```bash
-cd gollek/sdk
+cd gollek/sdk/integration
 bash install-jupyter-jbang.sh
 ```
 
