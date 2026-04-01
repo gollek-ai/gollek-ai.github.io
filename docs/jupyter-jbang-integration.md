@@ -25,14 +25,18 @@ Gollek SDK is now available for two popular interactive development environments
 
 ## Quick Start
 
-### Option 1: One-Command Setup (Recommended)
+### Option 1: Remote Setup (Recommended)
 
 ```bash
-cd gollek/sdk/integration
-bash install-jupyter-jbang.sh
+# Install jbang and Gollek SDK components directly from the repo
+curl -sSL https://raw.githubusercontent.com/bhangun/gollek/main/scripts/install.sh | bash
 ```
 
-This script automatically:
+This one-liner automatically:
+- ✅ Checks for Java 11+
+- ✅ Installs or verifies jbang
+- ✅ Checks for Jupyter and Maven
+- ✅ Provides direct execution links for Gollek examples
 - ✅ Checks prerequisites (Java, Maven)
 - ✅ Builds Gollek SDK
 - ✅ Installs Jupyter kernel
@@ -338,8 +342,8 @@ jbang --version
 Create `hello-gollek.java`:
 
 ```java
-///usr/bin/env jbang
-// DEPS tech.kayys.gollek:gollek-sdk-nn:1.0.0-SNAPSHOT
+//DEPS tech.kayys.gollek:gollek-sdk-nn:0.1.0-SNAPSHOT
+//REPOS local,mavencentral,github=https://maven.pkg.github.com/bhangun/gollek
 
 import tech.kayys.gollek.ml.nn.*;
 
@@ -372,11 +376,11 @@ That's it! No compilation needed.
 #### Example 1: Template (Copy & Use)
 
 ```java
-///usr/bin/env jbang
-// DEPS tech.kayys.gollek:gollek-sdk-nn:1.0.0-SNAPSHOT
+//DEPS tech.kayys.gollek:gollek-sdk-nn:0.1.0-SNAPSHOT
+//REPOS local,mavencentral,github=https://maven.pkg.github.com/bhangun/gollek
 
 import tech.kayys.gollek.ml.nn.*;
-import tech.kayys.gollek.ml.tensor.*;
+import tech.kayys.gollek.ml.autograd.GradTensor;
 
 public class my_script {
     public static void main(String[] args) {
@@ -398,11 +402,13 @@ public class my_script {
 #### Example 2: Training Script
 
 ```java
-///usr/bin/env jbang
-// DEPS tech.kayys.gollek:gollek-sdk-nn:1.0.0-SNAPSHOT
+//DEPS tech.kayys.gollek:gollek-sdk-nn:0.1.0-SNAPSHOT
+//REPOS local,mavencentral,github=https://maven.pkg.github.com/bhangun/gollek
 
 import tech.kayys.gollek.ml.nn.*;
-import tech.kayys.gollek.ml.tensor.*;
+import tech.kayys.gollek.ml.nn.loss.*;
+import tech.kayys.gollek.ml.nn.optim.*;
+import tech.kayys.gollek.ml.autograd.GradTensor;
 
 public class train_model {
     public static void main(String[] args) {
@@ -430,10 +436,12 @@ public class train_model {
 #### Example 3: CLI Tool with Arguments
 
 ```java
-///usr/bin/env jbang
-// DEPS tech.kayys.gollek:gollek-sdk-nn:1.0.0-SNAPSHOT
+//DEPS tech.kayys.gollek:gollek-sdk-nn:0.1.0-SNAPSHOT
+//REPOS local,mavencentral,github=https://maven.pkg.github.com/bhangun/gollek
 
 import tech.kayys.gollek.ml.nn.*;
+import tech.kayys.gollek.ml.nn.optim.*;
+import tech.kayys.gollek.ml.autograd.GradTensor;
 
 public class train_cli {
     public static void main(String[] args) {
@@ -468,8 +476,8 @@ jbang train_cli.java 20 0.01
 #### Example 4: Batch Processing
 
 ```java
-///usr/bin/env jbang
-// DEPS tech.kayys.gollek:gollek-sdk-nn:1.0.0-SNAPSHOT
+//DEPS tech.kayys.gollek:gollek-sdk-nn:0.1.0-SNAPSHOT
+//REPOS local,mavencentral,github=https://maven.pkg.github.com/bhangun/gollek
 
 import tech.kayys.gollek.ml.nn.*;
 import java.util.*;
@@ -498,8 +506,8 @@ public class batch_process {
 #### Example 5: Error Handling
 
 ```java
-///usr/bin/env jbang
-// DEPS tech.kayys.gollek:gollek-sdk-nn:1.0.0-SNAPSHOT
+//DEPS tech.kayys.gollek:gollek-sdk-nn:0.1.0-SNAPSHOT
+//REPOS local,mavencentral,github=https://maven.pkg.github.com/bhangun/gollek
 
 import tech.kayys.gollek.ml.nn.*;
 
@@ -642,7 +650,7 @@ export JAVA_OPTS="-Xmx2g -Xms1g"
 export GOLLEK_MODEL_REPO_PATH=$HOME/.gollek/models
 
 # Jupyter kernel classpath (if custom)
-export GOLLEK_SDK_CLASSPATH=$HOME/.m2/repository/tech/kayys/gollek/gollek-sdk-nn/1.0.0-SNAPSHOT/gollek-sdk-nn-1.0.0-SNAPSHOT.jar
+export GOLLEK_SDK_CLASSPATH=$HOME/.m2/repository/tech/kayys/gollek/gollek-sdk-nn/0.1.0-SNAPSHOT/gollek-sdk-nn-0.1.0-SNAPSHOT.jar
 ```
 
 ### Maven Dependencies
@@ -652,7 +660,7 @@ export GOLLEK_SDK_CLASSPATH=$HOME/.m2/repository/tech/kayys/gollek/gollek-sdk-nn
 <dependency>
     <groupId>tech.kayys.gollek</groupId>
     <artifactId>gollek-sdk-nn</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -660,7 +668,7 @@ export GOLLEK_SDK_CLASSPATH=$HOME/.m2/repository/tech/kayys/gollek/gollek-sdk-nn
 
 In your script:
 ```java
-// DEPS tech.kayys.gollek:gollek-sdk-nn:1.0.0-SNAPSHOT
+// DEPS tech.kayys.gollek:gollek-sdk-nn:0.1.0-SNAPSHOT
 ```
 
 ---
