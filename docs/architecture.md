@@ -1,770 +1,103 @@
 ---
-layout: default
-title: Gollek Architecture
+title: "Gollek Platform Architecture"
+description: "Technical architecture of the Gollek ML Framework and Hardware Acceleration Dispatch"
 ---
 
-# Gollek Architecture
+# Gollek Architecture Diagrams
 
-Deep dive into the Gollek inference engine architecture, components, and design principles.
+This document outlines the high-level architecture, module dependencies, and the kernel dispatch sequence of the Gollek platform.
 
----
+## 1. High-Level Modular Architecture
 
-## Overview
-
-Gollek is the inference engine of the Wayang AI platform, designed for high-performance, multi-format AI model inference. It provides a unified abstraction layer over diverse model formats and inference providers.
-
-### Design Goals
-
-- **Unified API** - Single interface for all inference providers
-- **Multi-Format Support** - GGUF, ONNX, TFLite, and cloud APIs
-- **High Performance** - Reactive, non-blocking architecture
-- **Modularity** - Pluggable providers with optional dependencies
-- **Native Integration** - GraalVM native image support
-- **Enterprise Ready** - Multi-tenancy, quotas, audit logging
-
----
-
-## System Architecture
-
-```
-+------------------------------------------------------------------+
-|                        Gollek SDK                                 |
-+------------------------------------------------------------------+
-|  +------------------+  +------------------+  +----------------+  |
-|  | Java API         |  | Native FFI       |  | CDI Extension  |  |
-|  | (GollekLocal)    |  | (GraalVM)        |  | (Jakarta EE)   |  |
-|  +------------------+  +------------------+  +----------------+  |
-+------------------------------------------------------------------+
-|                      LocalGollekSdk                               |
-|  +----------------+  +----------------+  +---------------------+  |
-|  | InferenceSvc   |  | ModelPrepSvc   |  | MetricsCache        |  |
-|  +----------------+  +----------------+  +---------------------+  |
-+------------------------------------------------------------------+
-|                     Model Repository                              |
-|  +----------------+  +----------------+  +---------------------+  |
-|  | Local Models   |  | HuggingFace    |  | S3/Custom Sources   |  |
-|  +----------------+  +----------------+  +---------------------+  |
-+------------------------------------------------------------------+
-|                    Inference Providers                            |
-|  +------+  +------+  +--------+  +--------+  +--------+  +-----+ |
-|  | GGUF |  | ONNX |  | TFLite |  | OpenAI |  | Gemini |  | ... | |
-|  +------+  +------+  +--------+  +--------+  +--------+  +-----+ |
-+------------------------------------------------------------------+
-|                    Cloud Providers                                |
-|  +--------+  +-----------+  +--------+  +---------+  +--------+  |
-|  | OpenAI |  | Anthropic |  | Gemini |  | Cerebras|  |Mistral |  |
-|  | GPT-4  |  |  Claude 3 |  |  Pro   |  | Llama   |  | Mixtral|  |
-|  +--------+  +-----------+  +--------+  +---------+  +--------+  |
-+------------------------------------------------------------------+
-|                    GPU Kernel Modules                             |
-|  +-----------+  +------------+  +--------+  +-----------------+  |
-|  | CUDA      |  | Blackwell  |  | ROCm   |  | Metal           |  |
-|  | (A100+)   |  | (B100/B200)|  | (AMD)  |  | (Apple Silicon) |  |
-|  +-----------+  +------------+  +--------+  +-----------------+  |
-+------------------------------------------------------------------+
-```
-
----
-
-## Core Components
-
-### GPU Kernel Modules
-
-Native GPU acceleration kernels for optimal inference performance.
-
-**🆕 Enhanced v2.0**: ClassLoader isolation, hot-reload support, comprehensive validation, and full engine integration.
-
-[Learn more about Enhanced Kernel Plugins →](/docs/enhanced-plugin-architecture)
-
-**Module Structure:**
-
-```
-inference-gollek/extension/kernel/
-├── gollek-kernel-cuda       # NVIDIA CUDA (A100/H100/H200)
-│   ├── CudaRunner           # Main inference runner
-│   ├── CudaBinding          # FFM binding to CUDA Driver API
-│   ├── CudaCapabilities     # Device capability detection
-│   ├── CudaDetector         # Hardware detection
-│   └── CudaCpuFallback      # CPU fallback implementations
-├── gollek-kernel-blackwell  # NVIDIA Blackwell (B100/B200/GB200)
-│   ├── BlackwellRunner      # FA3 + TMEM acceleration
-│   ├── BlackwellBinding     # FFM with TMEM/FP4 support
-│   ├── BlackwellCapabilities# Blackwell-specific caps
-│   └── BlackwellDetector    # Compute cap ≥ 10.0 detection
-├── gollek-kernel-rocm       # AMD ROCm (MI300X/MI250X)
-│   └── RocmRunner           # HIP kernel execution
-└── gollek-kernel-metal      # Apple Metal (M1/M2/M3/M4)
-    └── MetalRunner          # MPS Graph execution
-```
-
-**Key Features:**
-
-| Feature | CUDA | Blackwell | ROCm | Metal |
-|---------|------|-----------|------|-------|
-| FlashAttention | FA2/FA3 | FA3+TMEM | FA2/FA3 | MPS SDPA |
-| Precision | FP16/FP8 | FP4/FP8 | FP16/FP8 | FP16/BF16 |
-| Memory | 40-80GB | 180-192GB | 128-192GB | 8-128GB |
-| Unified Memory | ✓ (A100+) | ✓ | ✓ (MI300X) | ✓ (all) |
-
-[Learn more](/docs/gpu-kernels)
-
-### Cloud Providers
-
-Cloud-based LLM inference providers with unified API abstraction.
-
-**Module Structure:**
-
-```
-inference-gollek/extension/cloud/
-├── gollek-ext-cloud-openai      # OpenAI GPT-4, GPT-3.5-Turbo
-│   ├── OpenAiProvider           # Main provider implementation
-│   ├── OpenAiConfig             # Configuration interface
-│   ├── OpenAiRequest            # Request model
-│   ├── OpenAiResponse           # Response model
-│   └── OpenAiUsage              # Token usage tracking
-├── gollek-ext-cloud-anthropic   # Anthropic Claude 3
-│   ├── AnthropicProvider        # Main provider implementation
-│   ├── AnthropicConfig          # Configuration interface
-│   ├── AnthropicRequest         # Request model
-│   └── AnthropicResponse        # Response model
-├── gollek-ext-cloud-gemini      # Google Gemini
-│   └── GeminiProvider           # Gemini provider
-├── gollek-ext-cloud-cerebras    # Cerebras Llama 3.1
-│   └── CerebrasProvider         # High-speed inference
-└── gollek-ext-cloud-mistral     # Mistral AI
-    └── MistralProvider          # Mistral/Mixtral models
-```
-
-**Key Features:**
-
-| Provider | Models | Streaming | Functions | Multimodal | Context |
-|----------|--------|-----------|-----------|------------|---------|
-| OpenAI | GPT-4, GPT-3.5 | ✓ | ✓ | ✓ | 128K |
-| Anthropic | Claude 3 | ✓ | ✓ | ✓ | 200K |
-| Gemini | Gemini Pro/Ultra | ✓ | ✓ | ✓ | 1M+ |
-| Cerebras | Llama 3.1 | ✓ | ✗ | ✗ | 8K |
-| Mistral | Mistral, Mixtral | ✓ | ✓ | ✗ | 32K |
-
-[Learn more](/docs/cloud-providers)
-
-### Native Image Support
-
-Full GraalVM native image support for minimal memory footprint and instant startup.
-
-**Native Configuration:**
-
-```
-src/main/resources/META-INF/native-image/
-├── reflect-config.json      # Reflection configuration
-├── resource-config.json     # Resource inclusion  
-├── jni-config.json          # JNI configuration
-└── proxy-config.json        # Dynamic proxy config
-```
-
-**Build Commands:**
-
-```bash
-# Standard native build
-mvn package -Pnative -DskipTests
-
-# Optimized build
-mvn package -Pnative \
-    -Dnative-image.build-args=-O3 \
-    -Dnative-image.build-args=--gc=G1
-```
-
-**Performance:**
-- **Startup:** 50-100ms (vs 2-5s JVM)
-- **Memory:** 50 MB (vs 200 MB JVM)
-- **Binary Size:** ~30 MB
-
-[Learn more](/docs/native-compilation)
-
-## Advanced Multi-LoRA Runtime Flow
+The Gollek platform follows a strict layered architecture, decoupling high-level framework features (like Neural Networks and Autograd) from low-level memory management and hardware acceleration.
 
 ```mermaid
-flowchart TD
-  A["Inference Request (tenant + model + adapter)"] --> B["ModelRouterService"]
-  B --> C["Provider Selected: GGUF"]
-  B --> D["Provider Selected: LibTorch"]
-  C --> E["GGUF Adapter Registry (LRU + adaptive eviction)"]
-  D --> F["LibTorch Advanced Mode Resolver"]
-  F --> G["Baseline Path"]
-  F --> H["Hybrid FP8/BF16 Path"]
-  H --> I["FP8 Rowwise Planner"]
-  I --> J["Calibration Validate + Load + Cache"]
-  J --> K["Apply Row Scales on Logits"]
-  K --> L["Sampling + Response"]
-  J --> M["Invalid/Mismatch"]
-  M --> G
-  G --> L
-  F --> N["SageAttention2 Requested"]
-  N --> O["Forced Rollback (experimental scaffold)"]
-  O --> G
-  L --> P["Health + Metrics + Runtime Tags"]
-  P --> Q["Zipf Benchmark Artifacts"]
+graph TD
+    subgraph "Application Layer"
+        Langchain[gollek-langchain4j<br/>Bridge to LLM Ecosystem]
+    end
+
+    subgraph "SDK Framework Layer (gollek/sdk/lib)"
+        ML[gollek-sdk-ml<br/>Façade & Builder APIs]
+        NLP[gollek-sdk-nlp<br/>Pipelines & Tokenizer Bridge]
+        NN[gollek-sdk-nn<br/>Modules, Linear, Conv]
+        Data[gollek-sdk-data<br/>DataLoader, Transformations]
+        Hub[gollek-sdk-hub<br/>SafeTensors Weight Loading]
+        Autograd[gollek-sdk-autograd<br/>GradTensor, Reverse-mode AD]
+        
+        Langchain --> ML
+        ML --> NLP
+        ML --> NN
+        ML --> Data
+        ML --> Hub
+        NN --> Autograd
+    end
+
+    subgraph "Core SPI Contract (gollek/core)"
+        SPITensor[gollek-spi-tensor<br/>ComputeBackend Interface]
+        Autograd --> SPITensor
+        NLP --> Engine[gollek-engine<br/>Inference Engine]
+    end
+
+    subgraph "Runtime & Hardware Plugins"
+        Runtime[gollek-runtime-tensor<br/>DataTypes, Device, Memory]
+        CPU[CpuBackend<br/>Default Pure-Java Fallback]
+        Metal[gollek-plugin-metal<br/>Native GPU Acceleration]
+        
+        SPITensor --> CPU
+        SPITensor -.-> Metal
+        SPITensor --> Runtime
+    end
 ```
 
----
+## 2. Kernel Dispatch Sequence (Autograd)
 
-### GollekLocalClient
+When an operation (e.g., matrix multiplication) is performed on a `GradTensor`, the operation delegates to the `ComputeBackendRegistry`, which routes it to the highest priority hardware plugin available (e.g., Metal).
 
-The primary Java API interface exposing all SDK capabilities:
+```mermaid
+sequenceDiagram
+    participant User
+    participant Func as Functions.Matmul
+    participant Reg as ComputeBackendRegistry
+    participant SPI as ComputeBackend
+    participant Tensor as GradTensor
 
-- Completion APIs (sync, async, streaming)
-- Async job management
-- Batch inference
-- Provider and model management
-- MCP registry integration
-
-**Location:** `gollek-sdk-java-local/src/main/java/.../GollekLocalClient.java`
-
----
-
-### LocalGollekSdk
-
-Core implementation of the SDK with CDI integration:
-
-**Key Services:**
-| InferenceService | Execute inference requests |
-| ModelPreparationService | Automated resolution, pulling, and verification |
-| ProviderRegistry | Provider discovery and lifecycle |
-| ModelRegistryService | Comprehensive model management and stats |
-| RuntimeMetricsCache | Real-time observability and performance tracking |
-| McpRegistryManager | MCP tool integration |
-
-**Location:** `gollek-sdk-java-local/src/main/java/.../LocalGollekSdk.java`
-
----
-
-### GollekNativeEntrypoints
-
-GraalVM native image entrypoints with C FFI:
-
-**Lifecycle Functions:**
-- `golek_client_create` - Create client instance
-- `golek_client_destroy` - Destroy client instance
-- `golek_client_shutdown_runtime` - Shutdown runtime
-- `golek_string_free` - Free allocated strings
-
-**Inference Functions:**
-- `golek_create_completion_json` - Sync inference
-- `golek_stream_completion_json` - Streaming inference
-- `golek_submit_async_job_json` - Async job submission
-- `golek_batch_inference_json` - Batch processing
-
-**Location:** `gollek-sdk-java-local/src/main/java/.../GollekNativeEntrypoints.java`
-
----
-
-### Provider Registry
-
-Dynamic provider discovery and management:
-
-```
-+-------------------+
-| ProviderRegistry  |
-+-------------------+
-        |
-        | Discovers via SPI
-        v
-+-------------------+
-| LLMProvider       | <-- OllamaProvider
-+-------------------+
-| LLMProvider       | <-- OpenAIProvider
-+-------------------+
-| LLMProvider       | <-- GeminiProvider
-+-------------------+
-```
-
-**Provider Metadata:**
-- Provider ID and name
-- Version and vendor
-- Capabilities (streaming, async, batch)
-- Health status
-- Supported models
-
----
-
-### Model Repository
-
-Unified model storage and retrieval:
-
-**Sources:**
-- Local filesystem
-- Hugging Face Hub
-- S3-compatible storage
-- Custom sources via SPI
-
-
-# Local Runners
-- Local runners emitting internal InferenceChunks
-- OpenAI-compatible SSE JSON can be enable when needed by using flag --enable-json. This adapter layer serializes those chunks as OpenAI-compatible SSE JSON.
-
-
-**Model Manifest:**
-```json
-{
-    "modelId": "llama-3.2-3b-instruct",
-    "name": "Llama 3.2 3B Instruct",
-    "version": "1.0",
-    "apiKey": "community",
-    "artifacts": {
-        "gguf": {
-            "path": "/models/llama-3.2-3b.gguf",
-            "sizeBytes": 2147483648
-        }
-    },
-    "metadata": {
-        "quantization": "Q4_K_M",
-        "sizeBytes": 2147483648
-    },
-    "createdAt": "2024-01-01T00:00:00Z",
-    "updatedAt": "2024-01-01T00:00:00Z"
-}
-```
-
----
-
-## Inference Flow
-
-### Synchronous Inference
-
-```
-1. Client initiates request (often via resolveDefaultModel)
-         |
-         v
-2. GollekLocalClient.prepareModel(modelId) [NEW]
-   (Handles resolution, download, and verification)
-         |
-         v
-3. InferenceRequest enrichment
-   (Injecting preferred provider or auto-selecting via autoSelectProvider)
-         |
-         v
-4. InferenceService.inferAsync()
-         |
-         v
-5. ProviderRegistry.resolveProvider()
-         |
-         v
-6. Provider.execute(model, request)
-         |
-         v
-7. Return InferenceResponse
-```
-
----
-
-### Streaming Inference
-
-```
-1. Client creates InferenceRequest
-         |
-         v
-2. GollekLocalClient.streamCompletion()
-         |
-         v
-3. InferenceService.inferStream()
-         |
-         v
-4. Provider.stream(model, request)
-         |
-         v
-5. Multi<InferenceChunk> emitted
-         |
-         v
-6. Client subscribes to stream
-         |
-         v
-7. Tokens delivered in real-time
-```
-
----
-
-### Async Job Flow
-
-```
-1. Client submits InferenceRequest
-         |
-         v
-2. AsyncJobManager.submitJob()
-         |
-         v
-3. Job queued with unique ID
-         |
-         v
-4. Background executor processes job
-         |
-         v
-5. Status updated: PENDING -> RUNNING -> COMPLETED
-         |
-         v
-6. Client polls or waits for completion
-         |
-         v
-7. Result retrieved via getJobStatus()
-```
-
----
-
-## Multi-Tenancy
-
-Gollek supports multi-tenancy via the `tenant-gollek-ext` extension:
-
-### Features
-
-- **Tenant-scoped quotas** - Rate limits per tenant
-- **Isolated model pools** - Dedicated model instances
-- **Secure credential management** - Per-tenant API keys
-- **Audit trail** - Comprehensive logging with provenance
-
-### Activation
-
-```bash
-# Enable multi-tenancy
-export WAYANG_MULTITENANCY_ENABLED=true
-
-# Configure tenant
-export GOLLEK_TENANT_ID=tenant-123
-export GOLLEK_TENANT_API_KEY=sk-tenant-...
-```
-
----
-
-## Model Download and Persistence
-
-### Download Flow
-
-```
-Model Request
-      |
-      v
-{ Model in Repository? }
-      |
-      +-- Yes --> Load from Cache --> Ready
-      |
-      +-- No --> { Offline Mode? }
-                    |
-                    +-- Yes --> { GGUF Variant Exists? }
-                    |               |
-                    |               +-- Yes --> Use GGUF
-                    |               +-- No --> Error
-                    |
-                    +-- No --> Download from Source
-                                |
-                                v
-                        Download with Progress
-                                |
-                                v
-                        Register in Repository
-                                |
-                                v
-                        Save ModelManifest
-                                |
-                                v
-                            Ready
-```
-
-### Key Features
-
-**Persistence:**
-- Downloaded models registered with LocalModelRepository
-- ModelManifest created with artifact location
-- No re-downloads on subsequent runs
-
-**Progress Tracking:**
-- Real-time download progress callbacks
-- Graceful interrupt handling
-- Partial download cleanup
-
----
-
-## Extension Points
-
-### Provider SPI
-
-Implement custom inference providers:
-
-```java
-public interface LLMProvider {
-    String id();
-    String name();
-    ProviderMetadata metadata();
-    Set<ProviderCapability> capabilities();
+    User->>Func: apply(A, B)
+    Func->>Reg: get()
+    Reg-->>Func: activeBackend (e.g., Metal GPU)
+    Func->>SPI: matmul(A.data, A.shape, B.data, B.shape)
     
-    Uni<InferenceResponse> infer(InferenceRequest request);
-    Multi<StreamingInferenceChunk> stream(InferenceRequest request);
-    Uni<ProviderHealth> health();
-}
+    Note over SPI: Native JNI/Ffi Bridge to Hardware
+    SPI-->>Func: result_float_array
+    
+    Func->>Tensor: GradTensor.of(result_float_array)
+    Func->>Tensor: setGradFn(BackwardContext)
+    Tensor-->>User: returns Result Tensor
 ```
 
-### Model Repository SPI
+## 3. NLP Inference Sequence
 
-Implement custom model sources:
+How the SDK bridges text generation through the underlying tokenizer and LLM inference engine.
 
-```java
-public interface ModelRepository {
-    Uni<ModelManifest> findById(String modelId, String apiKey);
-    Uni<List<ModelManifest>> list(String apiKey, Pageable pageable);
-    Uni<Void> delete(String modelId, String apiKey);
-}
+```mermaid
+sequenceDiagram
+    participant Client as SDK Client
+    participant Facade as Gollek (ML Facade)
+    participant Pipe as TextGenerationPipeline
+    participant Tok as TokenizerCore
+    participant Eng as GollekEngine
+    
+    Client->>Facade: createCompletion("Qwen", "Hello!")
+    Facade->>Pipe: process("Hello!")
+    
+    Pipe->>Tok: encode("Hello!")
+    Tok-->>Pipe: [124, 73, 999] (Token IDs)
+    
+    Pipe->>Eng: schedule(BatchInferenceRequest)
+    Eng-->>Pipe: [433, 51] (Output Tokens)
+    
+    Pipe->>Tok: decode([433, 51])
+    Tok-->>Pipe: " How are you?"
+    
+    Pipe-->>Client: returns " How are you?"
 ```
-
----
-
-## Technology Stack
-
-| Component | Technology |
-|-----------|------------|
-| Framework | Quarkus 3.x |
-| Language | Java 21 |
-| Reactive | SmallRye Mutiny |
-| CDI | Jakarta EE 10 |
-| JSON | Jackson |
-| Native Image | GraalVM 24.1 |
-| Build | Maven |
-
----
-
-## Module Dependencies
-
-```
-gollek-sdk-java-local
-├── gollek-sdk-core (SPI interfaces)
-├── gollek-spi (Provider SPI)
-├── gollek-engine (Inference service)
-├── gollek-model-repo-core (Model repository)
-├── gollek-model-repo-hf (HuggingFace source)
-├── gollek-model-repo-local (Local filesystem)
-├── gollek-ext-runner-gguf (GGUF support)
-├── gollek-plugin-mcp (MCP integration)
-├── mutiny (Reactive programming)
-├── jakarta.enterprise.cdi-api (CDI)
-├── jackson (JSON)
-└── graalvm.nativeimage (Native FFI)
-```
-
----
-
-## Performance Considerations
-
-### Memory Management
-
-- Native images reduce heap requirements
-- Streaming avoids buffering large responses
-- Model lazy-loading minimizes initial memory
-
-### Concurrency
-
-- Non-blocking I/O throughout
-- Reactive streams for backpressure
-- Thread-local error state in native mode
-
-### Caching
-
-- Model metadata cached after first load
-- Optional response caching for repeated prompts
-- Connection pooling for cloud providers
-
----
-
-## Security
-
-### Credential Management
-
-- API keys via environment variables
-- Tenant-scoped credentials
-- Secure credential injection
-
-### Isolation
-
-- ClassLoader isolation for plugins
-- Optional WASM sandboxing
-- Container-based isolation (enterprise)
-
-### Audit
-
-- Comprehensive request/response logging
-- Provenance tracking for outputs
-- Compliance hooks for regulations
-
----
-
-## Observability
-
-### Metrics
-
-- Request latency histograms
-- Token usage counters
-- Provider health gauges
-- Queue depth monitors
-
-### Tracing
-
-- OpenTelemetry integration
-- Distributed trace propagation
-- Span annotations for key operations
-
-### Logging
-
-- Structured JSON logging
-- Correlation IDs for requests
-- Configurable log levels
-
----
-
-## SageAttention2 Configuration
-
-SageAttention2 is configurable, but currently guarded as an experimental path with rollback safety.
-
-### Core Flags
-
-| Key | Purpose |
-|-----|---------|
-| `libtorch.provider.advanced.sage-attention2-enabled` | Enable/disable SageAttention2 intent |
-| `libtorch.provider.advanced.sage-attention2-allowed-tenants` | Optional tenant allow-list for canary scope |
-| `libtorch.provider.advanced.sage-attention2-allowed-models` | Optional model allow-list for canary scope |
-| `libtorch.provider.advanced.sage-attention2-blocked-tenants` | Optional tenant deny-list (takes precedence) |
-| `libtorch.provider.advanced.sage-attention2-blocked-models` | Optional model deny-list (takes precedence) |
-
-### Environment Variables
-
-- `LIBTORCH_ADVANCED_SAGE2_ENABLED`
-- `LIBTORCH_ADVANCED_SAGE2_ALLOWED_TENANTS`
-- `LIBTORCH_ADVANCED_SAGE2_ALLOWED_MODELS`
-- `LIBTORCH_ADVANCED_SAGE2_BLOCKED_TENANTS`
-- `LIBTORCH_ADVANCED_SAGE2_BLOCKED_MODELS`
-
-### Canary Precedence
-
-1. Deny-list check (`blocked-*`)
-2. Allow-list check (`allowed-*`)
-3. Resolver rollback reason (for example `not-implemented`)
-
-### Current Runtime Status
-
-- SageAttention2 is still rollback-only (no kernel execution path active yet).
-- Runtime exposes requested/active/reason state via health and benchmark runtime tags (`advanced_sage_attention2_*`).
-
-## FP8 Rowwise Canary Configuration
-
-FP8 rowwise is configurable with canary allow/deny controls.
-
-### Core Flags
-
-| Key | Purpose |
-|-----|---------|
-| `libtorch.provider.advanced.fp8-rowwise-enabled` | Enable/disable FP8 rowwise path |
-| `libtorch.provider.advanced.fp8-rowwise-allowed-tenants` | Optional tenant allow-list for canary scope |
-| `libtorch.provider.advanced.fp8-rowwise-allowed-models` | Optional model allow-list for canary scope |
-| `libtorch.provider.advanced.fp8-rowwise-blocked-tenants` | Optional tenant deny-list (takes precedence) |
-| `libtorch.provider.advanced.fp8-rowwise-blocked-models` | Optional model deny-list (takes precedence) |
-
-### Environment Variables
-
-- `LIBTORCH_ADVANCED_FP8_ROWWISE_ENABLED`
-- `LIBTORCH_ADVANCED_FP8_ROWWISE_ALLOWED_TENANTS`
-- `LIBTORCH_ADVANCED_FP8_ROWWISE_ALLOWED_MODELS`
-- `LIBTORCH_ADVANCED_FP8_ROWWISE_BLOCKED_TENANTS`
-- `LIBTORCH_ADVANCED_FP8_ROWWISE_BLOCKED_MODELS`
-
-### Canary Precedence
-
-1. Deny-list check (`blocked-*`)
-2. Allow-list check (`allowed-*`)
-3. Calibration planner checks (artifact/schema/load/runtime match)
-
-### Current Runtime Status
-
-- FP8 rowwise remains feature-flagged and calibration-gated.
-- Runtime exposes requested/active/reason plus scale metadata via health and benchmark tags (`advanced_fp8_rowwise_*`).
-
-## Multi-LoRA Benchmark Telemetry
-
-`scripts/bench-multilora-zipf.sh` now supports optional host/GPU telemetry so CPU/GPU efficiency can be compared across providers and deployment modes.
-
-### Flags
-
-- `--advanced-profile`: `baseline|hybrid-fp8-bf16|sageattention2-intent` for explicit benchmark intent segmentation.
-- `--telemetry`: `auto|on|off` for host metrics collection.
-- `--gpu-telemetry`: `auto|on|off` for GPU metrics collection (`nvidia-smi` required).
-- `--sample-interval-sec`: sample interval (default `1` second).
-
-### Artifacts
-
-- `telemetry.csv`: timestamped samples for load, memory, and GPU utilization/memory.
-- `telemetry-summary.txt`: reduced metrics that are merged into `summary.txt` and `summary.json`.
-- `report.txt` / `report.json` from `scripts/bench-compare.sh` for baseline-vs-candidate KPI deltas.
-
-### Summary Fields
-
-- `host_load_1_avg`
-- `host_mem_used_mb_avg`
-- `host_mem_used_mb_peak`
-- `gpu_util_avg`
-- `gpu_util_p95`
-- `gpu_mem_used_mb_peak`
-
-### Comparison Workflow
-
-1. Run `bench-multilora-zipf.sh` with `--advanced-profile baseline`.
-2. Run candidate profiles (`hybrid-fp8-bf16`, `sageattention2-intent`).
-3. Run `bench-compare.sh` to generate a normalized delta report.
-
-### Matrix Workflow
-
-Use `bench-matrix-advanced.sh` to run all three profiles in one command and emit gate pass/fail summaries suitable for CI.
-Use `--runtime-tag-gate auto|on|off` to control whether SA2 runtime-tag validation is required for a passing matrix.
-CI references:
-- `bench-matrix-smoke.yml` for deterministic mock-based verification.
-- `bench-matrix-strict.yml` for manual strict runs against real endpoints with longer artifact retention.
-- See [Developer Guidance](/docs/developer-guidance) for threshold presets and gate-failure playbook.
-
-### Configuration Snippets
-
-`application.properties`:
-
-```properties
-libtorch.provider.advanced.fp8-rowwise-enabled=true
-libtorch.provider.advanced.fp8-rowwise-allowed-tenants=tenant-a,tenant-b
-libtorch.provider.advanced.fp8-rowwise-allowed-models=llama-3-8b,qwen2.5-7b
-libtorch.provider.advanced.fp8-rowwise-blocked-tenants=tenant-suspended
-libtorch.provider.advanced.fp8-rowwise-blocked-models=legacy-model
-
-libtorch.provider.advanced.sage-attention2-enabled=true
-libtorch.provider.advanced.sage-attention2-allowed-tenants=tenant-a,tenant-b
-libtorch.provider.advanced.sage-attention2-allowed-models=llama-3-8b,qwen2.5-7b
-libtorch.provider.advanced.sage-attention2-blocked-tenants=tenant-suspended
-libtorch.provider.advanced.sage-attention2-blocked-models=legacy-model
-```
-
-`application.yaml`:
-
-```yaml
-libtorch:
-  provider:
-    advanced:
-      fp8-rowwise-enabled: true
-      fp8-rowwise-allowed-tenants: tenant-a,tenant-b
-      fp8-rowwise-allowed-models: llama-3-8b,qwen2.5-7b
-      fp8-rowwise-blocked-tenants: tenant-suspended
-      fp8-rowwise-blocked-models: legacy-model
-
-      sage-attention2-enabled: true
-      sage-attention2-allowed-tenants: tenant-a,tenant-b
-      sage-attention2-allowed-models: llama-3-8b,qwen2.5-7b
-      sage-attention2-blocked-tenants: tenant-suspended
-      sage-attention2-blocked-models: legacy-model
-```
-
-### Recommended Rollout Sequence
-
-1. **Dev only**: set `sage-attention2-enabled=true` with a single test tenant/model in allow-lists.
-2. **Canary small**: expand allow-lists to a few low-risk tenants/models; keep deny-lists ready for fast exclusion.
-3. **Canary broad**: widen allow-lists gradually while monitoring `advanced_sage_attention2_*` runtime tags.
-4. **Instant rollback**: set `sage-attention2-enabled=false` (global), or add specific tenants/models to deny-lists.
-
----
-
-[Back to Native FFI](/docs/native-ffi) &nbsp; [Examples](/docs/examples)
