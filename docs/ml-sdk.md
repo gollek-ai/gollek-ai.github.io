@@ -9,6 +9,8 @@ nav_order: 10
 
 The Gollek ML SDK is a native Java deep learning framework designed to bring the ease-of-use of PyTorch to the Java Virtual Machine. It leverages the high-performance `gollek-runtime-tensor` backend and provides a dynamic, define-by-run API for building and training neural networks.
 
+For quick experimentation without a full Maven project, see our [JBang Examples Catalog](/docs/jbang-examples).
+
 ## Core Concepts
 
 ### Tensors and GradTensors

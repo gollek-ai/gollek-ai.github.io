@@ -51,8 +51,8 @@ title: Getting Started with Gollek SDK
     <p>Jump to real usage patterns for streaming, async jobs, and provider selection.</p>
   </a>
   <a class="quick-card" href="/docs/jupyter-jbang-integration">
-    <h3>Jupyter & jbang Integration</h3>
-    <p>Use Gollek SDK in interactive Jupyter notebooks or standalone jbang scripts.</p>
+    <h3>JBang & Jupyter Tutorial</h3>
+    <p>Step-by-step guide to interactive scripting and 10+ verified examples in the <a href="/docs/jbang-examples">Examples Catalog</a>.</p>
   </a>
 </section>
 
@@ -61,8 +61,8 @@ title: Getting Started with Gollek SDK
 </section>
 
 <section class="subtle-panel">
-  <strong>Latest update:</strong> Jupyter & jbang integration is now available! Use Gollek SDK in interactive Jupyter notebooks for exploration or standalone jbang scripts for automation. Includes one-command setup, comprehensive guides, and working examples. Plus audio module v2.0 with Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, and quantization engine (INT4/INT8/FP8) for 4-8x compression.
-  <a href="/docs/jupyter-jbang-integration">Jupyter & jbang guide</a> · <a href="/blog/audio-quantization-release">Audio release</a> · <a href="/docs/gguf-enhancements">GGUF enhancements</a>
+  <strong>Latest update:</strong> Modern JBang tutorial and examples catalog are now live! Use Gollek SDK in interactive Jupyter notebooks or standalone JBang scripts with one-command setup and verified XOR training examples.
+  <a href="/docs/jupyter-jbang-integration">JBang & Jupyter Tutorial</a> · <a href="/docs/jbang-examples">Examples Catalog</a> · <a href="/blog/audio-quantization-release">Audio release</a>
 </section>
 
 ---

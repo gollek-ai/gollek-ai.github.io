@@ -1,24 +1,16 @@
 ---
 layout: default
-title: Jupyter & jbang Integration
+title: JBang & Jupyter Tutorial
 ---
 
 <section class="hero hero-compact">
-  <p class="eyebrow">Interactive Development</p>
-  <h1>Use Gollek SDK in Jupyter Notebooks or jbang Scripts</h1>
-  <p class="lead">Run Gollek SDK components in interactive Jupyter notebooks or standalone jbang scripts—perfect for exploration, prototyping, and automation.</p>
+  <p class="eyebrow">Interactive Scripting</p>
+  <h1>Mastering Gollek SDK with JBang & Jupyter</h1>
+  <p class="lead">Build, train, and deploy neural networks using simple Java scripts. No complex build tools required.</p>
 </section>
 
 ---
 
-## Overview
-
-Gollek SDK is now available for two popular interactive development environments:
-
-| Platform | Best For | Setup Time | Learn More |
-|----------|----------|-----------|-----------|
-| **Jupyter** | Interactive exploration, data science workflows, visualization | 5 minutes | [Jupyter Guide](#jupyter-integration) |
-| **jbang** | Standalone scripts, automation, CLI tools, production jobs | 2 minutes | [jbang Guide](#jbang-integration) |
 | **Both** | End-to-end workflows from prototype to production | 10 minutes | [Combined Workflows](#combined-workflows) |
 
 ---
