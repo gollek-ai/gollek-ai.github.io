@@ -1,131 +1,521 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const root = document.documentElement;
-  const themeToggle = document.getElementById('theme-toggle');
+/**
+ * Gollek SDK - Site JavaScript
+ * Handles sidebar navigation, theme switching, and UI interactions
+ */
 
-  const getTheme = () => root.getAttribute('data-theme') || 'dark';
-  const setTheme = (theme) => {
-    root.setAttribute('data-theme', theme);
+(function() {
+  'use strict';
+
+  // ────────────────────────────────────────────────────────
+  // DOM Elements
+  // ────────────────────────────────────────────────────────
+  const sidebar = document.getElementById('sidebar');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebarClose = document.getElementById('sidebar-close');
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeOptions = document.querySelectorAll('.theme-option');
+  const html = document.documentElement;
+
+  // ────────────────────────────────────────────────────────
+  // Sidebar Management
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Open sidebar on mobile
+   */
+  function openSidebar() {
+    if (window.innerWidth <= 1024) {
+      sidebar.classList.add('active');
+      mobileOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  /**
+   * Close sidebar on mobile
+   */
+  function closeSidebar() {
+    sidebar.classList.remove('active');
+    mobileOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  /**
+   * Toggle sidebar state
+   */
+  function toggleSidebar() {
+    if (sidebar.classList.contains('active')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  }
+
+  // Event listeners for sidebar
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', toggleSidebar);
+  }
+
+  if (sidebarClose) {
+    sidebarClose.addEventListener('click', closeSidebar);
+  }
+
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener('click', closeSidebar);
+  }
+
+  // Close sidebar on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+      closeSidebar();
+    }
+  });
+
+  // Close sidebar when clicking on a nav item (mobile)
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      if (window.innerWidth <= 1024) {
+        closeSidebar();
+      }
+    });
+  });
+
+  // Handle window resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (window.innerWidth > 1024) {
+        closeSidebar();
+      }
+    }, 250);
+  });
+
+  // ────────────────────────────────────────────────────────
+  // Theme Management
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Set theme
+   * @param {string} theme - 'dark', 'light', or 'auto'
+   */
+  function setTheme(theme) {
+    // Save to localStorage
     try {
       localStorage.setItem('gollek-theme', theme);
-    } catch (error) {
-      // Ignore storage errors in private browsing modes.
+    } catch (e) {
+      console.warn('Could not save theme preference:', e);
     }
-    if (themeToggle) {
-      themeToggle.textContent = theme === 'light' ? 'Light' : 'Dark';
-      themeToggle.setAttribute('aria-label', `Switch to ${theme === 'light' ? 'dark' : 'light'} theme`);
+
+    // Apply theme
+    if (theme === 'auto') {
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      html.setAttribute('data-theme', prefersLight ? 'light' : 'dark');
+    } else {
+      html.setAttribute('data-theme', theme);
     }
+
+    // Update active state on theme buttons
+    themeOptions.forEach(option => {
+      option.classList.toggle('active', option.dataset.theme === theme);
+    });
+  }
+
+  /**
+   * Get current theme from localStorage or default to 'auto'
+   * @returns {string} Current theme
+   */
+  function getTheme() {
+    try {
+      return localStorage.getItem('gollek-theme') || 'auto';
+    } catch (e) {
+      return 'auto';
+    }
+  }
+
+  /**
+   * Toggle between dark and light themes
+   */
+  function toggleTheme() {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+  }
+
+  // Initialize theme options
+  themeOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      setTheme(option.dataset.theme);
+    });
+  });
+
+  // Listen for system theme changes
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (getTheme() === 'auto') {
+        setTheme('auto');
+      }
+    });
+  }
+
+  // ────────────────────────────────────────────────────────
+  // Copy Code Functionality
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Add copy buttons to code blocks
+   */
+  function initCopyCode() {
+    const codeBlocks = document.querySelectorAll('pre');
+    
+    codeBlocks.forEach(block => {
+      // Skip if already has copy button
+      if (block.querySelector('.copy-code-btn')) return;
+      
+      // Create copy button container
+      const toolbar = document.createElement('div');
+      toolbar.className = 'code-toolbar';
+      
+      // Get language from code element
+      const codeElement = block.querySelector('code');
+      const language = codeElement ? getLanguageFromClass(codeElement.className) : 'code';
+      
+      // Language label
+      const langLabel = document.createElement('span');
+      langLabel.className = 'code-lang';
+      langLabel.textContent = language;
+      
+      // Copy button
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'copy-button';
+      copyBtn.textContent = 'Copy';
+      copyBtn.type = 'button';
+      
+      copyBtn.addEventListener('click', async () => {
+        const codeText = codeElement ? codeElement.textContent : '';
+        
+        try {
+          await navigator.clipboard.writeText(codeText);
+          copyBtn.textContent = 'Copied!';
+          copyBtn.classList.add('copied');
+          
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+            copyBtn.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+          copyBtn.textContent = 'Failed';
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+          }, 2000);
+        }
+      });
+      
+      toolbar.appendChild(langLabel);
+      toolbar.appendChild(copyBtn);
+      
+      // Insert toolbar before code
+      block.insertBefore(toolbar, block.firstChild);
+    });
+  }
+
+  /**
+   * Extract language from class name
+   * @param {string} className - Class string
+   * @returns {string} Language name
+   */
+  function getLanguageFromClass(className) {
+    if (!className) return 'code';
+    
+    const langMatch = className.match(/language-(\w+)/);
+    if (langMatch) {
+      return langMatch[1];
+    }
+    
+    // Common language classes
+    const languages = ['javascript', 'js', 'java', 'python', 'py', 'bash', 'shell', 'json', 'xml', 'html', 'css', 'sql'];
+    for (const lang of languages) {
+      if (className.includes(lang)) {
+        return lang;
+      }
+    }
+    
+    return 'code';
+  }
+
+  // ────────────────────────────────────────────────────────
+  // Active Navigation Highlighting
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Highlight active navigation item based on current URL
+   */
+  function initActiveNav() {
+    const currentPath = window.location.pathname;
+    
+    navItems.forEach(item => {
+      const href = item.getAttribute('href');
+      if (!href) return;
+      
+      // Remove existing active class
+      item.classList.remove('active');
+      
+      // Check if this nav item matches current path
+      if (href === currentPath) {
+        item.classList.add('active');
+      } else if (href !== '/' && currentPath.startsWith(href)) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  // ────────────────────────────────────────────────────────
+  // Smooth Scroll for Anchor Links
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Enable smooth scrolling for anchor links
+   */
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  }
+
+  // ────────────────────────────────────────────────────────
+  // Typing Effect (for homepage demo)
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Typing effect for terminal demo
+   */
+  function initTypingEffect() {
+    const typingElement = document.getElementById('typing-effect');
+    if (!typingElement) return;
+    
+    const command = typingElement.dataset.command;
+    const result = typingElement.dataset.result;
+    
+    if (!command) return;
+    
+    let charIndex = 0;
+    let isTyping = true;
+    
+    function type() {
+      if (charIndex < command.length && isTyping) {
+        typingElement.textContent = command.substring(0, charIndex + 1);
+        charIndex++;
+        setTimeout(type, 50 + Math.random() * 50);
+      } else if (isTyping) {
+        isTyping = false;
+        setTimeout(showResult, 500);
+      }
+    }
+    
+    function showResult() {
+      if (result) {
+        typingElement.innerHTML = command + '\n' + result.replace(/\n/g, '<br>');
+      }
+    }
+    
+    // Start typing when element is in viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          type();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    observer.observe(typingElement);
+  }
+
+  // ────────────────────────────────────────────────────────
+  // Table of Contents (for documentation pages)
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Generate table of contents from headings
+   */
+  function initTableOfContents() {
+    const tocContainer = document.getElementById('table-of-contents');
+    if (!tocContainer) return;
+    
+    const headings = document.querySelectorAll('.content-card h2, .content-card h3');
+    if (headings.length === 0) return;
+    
+    const toc = document.createElement('nav');
+    toc.className = 'table-of-contents';
+    toc.setAttribute('aria-label', 'Table of contents');
+    
+    const tocList = document.createElement('ul');
+    
+    headings.forEach(heading => {
+      const id = heading.id || generateIdFromText(heading.textContent);
+      heading.id = id;
+      
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${id}`;
+      a.textContent = heading.textContent;
+      a.className = `toc-link toc-${heading.tagName.toLowerCase()}`;
+      
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+    
+    toc.appendChild(tocList);
+    tocContainer.appendChild(toc);
+  }
+
+  /**
+   * Generate ID from text
+   * @param {string} text - Heading text
+   * @returns {string} Generated ID
+   */
+  function generateIdFromText(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .trim();
+  }
+
+  // ────────────────────────────────────────────────────────
+  // Search Functionality (placeholder for future implementation)
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Initialize search functionality
+   */
+  function initSearch() {
+    const searchInput = document.getElementById('site-search');
+    if (!searchInput) return;
+    
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      
+      // Future: Implement search functionality
+      console.log('Search query:', query);
+    });
+    
+    // Keyboard shortcut for search (Ctrl/Cmd + K)
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+  }
+
+  // ────────────────────────────────────────────────────────
+  // Notification System
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Show notification
+   * @param {string} message - Notification message
+   * @param {string} type - Notification type (success, error, info, warning)
+   */
+  function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    // Add styles
+    Object.assign(notification.style, {
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      padding: '1rem 1.5rem',
+      borderRadius: 'var(--radius-md)',
+      backgroundColor: type === 'success' ? 'var(--success-bg)' :
+                       type === 'error' ? 'var(--danger-bg)' :
+                       type === 'warning' ? 'var(--warning-bg)' : 'var(--info-bg)',
+      border: `1px solid ${type === 'success' ? 'var(--success)' :
+                           type === 'error' ? 'var(--danger)' :
+                           type === 'warning' ? 'var(--warning)' : 'var(--info)'}`,
+      color: 'var(--text-primary)',
+      zIndex: '1000',
+      animation: 'fadeIn 0.3s ease',
+      boxShadow: 'var(--shadow-lg)'
+    });
+    
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+      notification.style.animation = 'fadeIn 0.3s ease reverse';
+      setTimeout(() => notification.remove(), 300);
+    }, 3000);
+  }
+
+  // Expose to global scope for external use
+  window.gollekUI = {
+    showNotification,
+    openSidebar,
+    closeSidebar,
+    setTheme
   };
 
-  if (themeToggle) {
+  // ────────────────────────────────────────────────────────
+  // Initialize on DOM Ready
+  // ────────────────────────────────────────────────────────
+  
+  function init() {
+    // Initialize theme
     setTheme(getTheme());
-    themeToggle.addEventListener('click', () => {
-      setTheme(getTheme() === 'light' ? 'dark' : 'light');
-    });
+    
+    // Initialize features
+    initCopyCode();
+    initActiveNav();
+    initSmoothScroll();
+    initTypingEffect();
+    initTableOfContents();
+    initSearch();
+    
+    // Add loaded class to body
+    document.body.classList.add('loaded');
   }
 
-  const mermaidBlocks = document.querySelectorAll('pre > code.language-mermaid');
-  const mermaidNodes = [];
+  // Run initialization
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 
-  mermaidBlocks.forEach((codeEl, index) => {
-    const pre = codeEl.parentElement;
-    if (!pre) {
-      return;
-    }
-    const container = document.createElement('div');
-    container.className = 'mermaid';
-    container.id = `mermaid-diagram-${index + 1}`;
-    container.textContent = codeEl.textContent || '';
-    pre.replaceWith(container);
-    mermaidNodes.push(container);
-  });
-
-  if (mermaidNodes.length > 0 && window.mermaid) {
-    window.mermaid.initialize({
-      startOnLoad: false,
+  // ────────────────────────────────────────────────────────
+  // Mermaid.js Integration (for diagrams)
+  // ────────────────────────────────────────────────────────
+  
+  /**
+   * Initialize Mermaid diagrams
+   */
+  if (typeof mermaid !== 'undefined') {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
       securityLevel: 'loose',
-      theme: getTheme() === 'light' ? 'default' : 'dark'
+      fontFamily: 'Space Grotesk, sans-serif'
     });
-    window.mermaid.run({ nodes: mermaidNodes });
   }
 
-  const blocks = document.querySelectorAll('pre > code');
-
-  blocks.forEach((codeEl) => {
-    const pre = codeEl.parentElement;
-    if (!pre || pre.dataset.enhanced === 'true') {
-      return;
-    }
-
-    pre.dataset.enhanced = 'true';
-    pre.classList.add('code-block');
-
-    const toolbar = document.createElement('div');
-    toolbar.className = 'code-toolbar';
-
-    const lang = document.createElement('span');
-    lang.className = 'code-lang';
-    const className = codeEl.className || '';
-    const match = className.match(/language-([a-zA-Z0-9_-]+)/);
-    lang.textContent = match ? match[1] : 'code';
-
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'copy-button';
-    button.textContent = 'Copy';
-
-    button.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(codeEl.innerText);
-        button.textContent = 'Copied';
-        button.classList.add('copied');
-        setTimeout(() => {
-          button.textContent = 'Copy';
-          button.classList.remove('copied');
-        }, 1400);
-      } catch (error) {
-        button.textContent = 'Failed';
-        setTimeout(() => {
-          button.textContent = 'Copy';
-        }, 1400);
-      }
-    });
-
-    toolbar.appendChild(lang);
-    toolbar.appendChild(button);
-    pre.prepend(toolbar);
-  });
-
-  const typingTarget = document.getElementById('typing-effect');
-  if (typingTarget) {
-    const command = typingTarget.getAttribute('data-command') || 'gollek chat --provider gemini';
-    const result = typingTarget.getAttribute('data-result') || '';
-    const initTyping = () => {
-      if (!window.T) {
-        return;
-      }
-      typingTarget.textContent = '';
-      const escapedResult = result
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/\n/g, '<br>');
-      const text = escapedResult
-        ? `${command}<ins>450</ins><br><span class='terminal-output'>${escapedResult}</span>`
-        : command;
-      new window.T('#typing-effect', {
-        speed: 90,
-        cursor: '_',
-        text
-      });
-    };
-
-    if (window.T) {
-      initTyping();
-    } else {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/gh/mntn-dev/t.js/t.min.js';
-      script.onload = initTyping;
-      document.head.appendChild(script);
-    }
-  }
-});
+})();

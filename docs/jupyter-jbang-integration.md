@@ -87,7 +87,7 @@ pip --version
 ```
 
 #### Step-by-Step Installation
-
+## Option 1: Installing Jupyter Kernels using pip
 **1. Install Jupyter**
 ```bash
 pip install jupyter
@@ -104,6 +104,13 @@ jupyter kernelspec list
 ```
 
 You should see: `java` kernel in the list.
+
+## Option 2: Installing Jupyter Kernels locally
+
+The simplest way to run Java based Jupyter kernels is to install JBang and run the following:
+```bash
+jbang install-kernel@jupyter-java
+```
 
 #### Alternative: Using the Automated Installer
 

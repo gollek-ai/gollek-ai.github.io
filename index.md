@@ -4,15 +4,19 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 ---
 
 <section class="hero">
+  <div class="hero-logo-container">
+    <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek03%404x.png" alt="Gollek SDK" class="hero-logo">
+  </div>
   <p class="eyebrow">Universal Inference SDK + CLI + Embedded ML Framework</p>
   <h1>Build AI features once. Run and Train anywhere with a PyTorch-like Java API.</h1>
   <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, and now a **native Java ML SDK**. It centralizes model life-cycle, autograd-powered training, and provider auto-selection into a single consistent ecosystem.</p>
   <div class="hero-actions">
     <a class="btn btn-primary" href="/docs/">Get Started</a>
-    <a class="btn btn-ghost" href="/blog/">Blog</a>
-    <a class="btn btn-ghost" href="/docs/cli-installation">Install Gollek</a>
+    <a class="btn btn-ghost" href="/docs/jbang-examples">JBang Examples</a>
+    <a class="btn btn-ghost" href="/docs/cli-installation">Install CLI</a>
     <a class="btn btn-ghost" href="https://github.com/bhangun/gollek">GitHub</a>
   </div>
+  <div class="hero-stats">
     <span>Distributed KV Fabric</span>
     <span>Mixture-of-Experts</span>
     <span>GPU Accelerated</span>
@@ -25,17 +29,21 @@ title: Gollek SDK - Universal Inference SDK for AI Models
     <h3>Start Integration</h3>
     <p>Set up dependencies, configure providers, and run first inference quickly.</p>
   </a>
+  <a class="quick-card" href="/docs/jbang-examples">
+    <h3>JBang Examples</h3>
+    <p>23+ ready-to-run Java scripts: from Hello World to Transformer classifiers.</p>
+  </a>
   <a class="quick-card" href="/docs/cli-installation">
     <h3>Install CLI</h3>
     <p>Install <code>gollek</code> via release installer, Homebrew, or Chocolatey.</p>
   </a>
-  <a class="quick-card" href="/docs/examples">
-    <h3>Read Examples</h3>
-    <p>Copy real code patterns for streaming, async jobs, and provider selection.</p>
+  <a class="quick-card" href="/docs/ml-sdk">
+    <h3>Embedded ML SDK</h3>
+    <p>PyTorch-like Tensors, Autograd, NN Modules, and training in pure Java.</p>
   </a>
-  <a class="quick-card" href="/docs/developer-guidance#litert-tflite">
-    <h3>LiteRT Runtime</h3>
-    <p>Download or package the LiteRT C runtime and sample model assets.</p>
+  <a class="quick-card" href="/docs/examples">
+    <h3>SDK Examples</h3>
+    <p>Copy real code patterns for streaming, async jobs, and provider selection.</p>
   </a>
   <a class="quick-card" href="/blog/">
     <h3>Product Blog</h3>
@@ -44,8 +52,8 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 </section>
 
 <section class="subtle-panel">
-  <strong>New Release:</strong> Gollek ML SDK v0.1.0 is here! A PyTorch-like Java framework for Tensors, Autograd, and Neural Networks. Build and train models directly in Java.
-  <a href="/blog/ml-sdk-pytorch-java">Read the announcement</a>
+  <strong>🔥 New Release:</strong> Comprehensive JBang Examples Catalog is live! 23+ verified scripts covering neural networks, NLP, computer vision, and integrations with Deeplearning4j, Stanford NLP, Smile ML, and Oracle Tribuo.
+  <a href="/docs/jbang-examples">Browse Examples Catalog</a>
 </section>
 
 <section class="subtle-panel">
@@ -63,31 +71,8 @@ title: Gollek SDK - Universal Inference SDK for AI Models
   <a href="/docs/gpu-kernels">Learn about GPU support</a>
 </section>
 
-<section class="subtle-panel">
-  <strong>Audio Processing:</strong> Speech-to-text (Whisper), Text-to-speech (SpeechT5), voice activity detection, and multi-format support.
-  <a href="/docs/audio-processing">Audio API reference</a>
-</section>
-
-<section class="subtle-panel">
-  <strong>Model Quantization:</strong> GPTQ INT4, INT8, and FP8 quantization with SafeTensors format for 4-8x compression.
-  <a href="/docs/quantization">Quantization guide</a>
-</section>
-
-<section class="subtle-panel">
-  <strong>Local install layout:</strong> Gollek stores models and native libraries under <code>~/.gollek/</code> by default.
-  <a href="/docs/developer-guidance#gpu-smoke-test-apple-silicon-only">Metal GPU test guide</a>
-</section>
-
-<section class="subtle-panel">
-  <strong>LiteRT Runtime Assets:</strong> one-command helper to download or package <code>libtensorflowlite_c</code>.
-  <a href="/docs/developer-guidance#litert-tflite">Release + install guide</a>
-</section>
-
-  </div>
-</section>
-
 <section class="visual-feature">
-  <div class="container">
+  <div class="content-container">
     <h2>The Distributed Inference Fabric</h2>
     <p class="lead">Gollek isn't just an SDK; it's a <strong>Distributed LLM OS</strong>. We've unified KV memory across the cluster, enabling multi-node attention, universal speculative decoding, and native Mixture-of-Experts sharding.</p>
     <div class="feature-mockup">
@@ -98,15 +83,17 @@ title: Gollek SDK - Universal Inference SDK for AI Models
 </section>
 
 <section class="terminal-demo">
-  <h2>Try the CLI Experience</h2>
-  <p>See how a real terminal session starts with Gollek and Gemini provider.</p>
-  <div id="terminal" class="terminal-box" role="img" aria-label="Typing demo showing gollek chat command">
-    <span class="prompt">$</span>
-    <span
-      id="typing-effect"
-      data-command="gollek chat --provider gemini"
-      data-result="Connecting to Gemini API...&#10;✓ Ready to chat&#10;You: "
-    >gollek chat --provider gemini</span>
+  <div class="content-container">
+    <h2>Try the CLI Experience</h2>
+    <p>See how a real terminal session starts with Gollek and Gemini provider.</p>
+    <div id="terminal" class="terminal-box" role="img" aria-label="Typing demo showing gollek chat command">
+      <span class="prompt">$</span>
+      <span
+        id="typing-effect"
+        data-command="gollek chat --provider gemini"
+        data-result="Connecting to Gemini API...&#10;✓ Ready to chat&#10;You: "
+      >gollek chat --provider gemini</span>
+    </div>
   </div>
 </section>
 
@@ -194,6 +181,7 @@ System.out.println(response.getContent());
 | **MoE Runtime** | **Native Expert Gating (Top-K), Sharded Experts, Heatmap Telemetry** |
 | **K-Quants** | **Q2_K, Q4_K, Q5_K, Q6_K with improved quality/size ratios** |
 | **40+ Model Families** | **DeepSeek, Yi, DBRX, Grok, Jamba, Mamba, RWKV, and more** |
+| **JBang Examples** | **23+ ready-to-run scripts: NN, NLP, CV, and ML integrations** |
 
 ---
 
@@ -271,6 +259,7 @@ System.out.println(response.getContent());
 ## Community and Support
 
 - [Documentation](/docs/) - Comprehensive guides and API references
+- [JBang Examples](/docs/jbang-examples) - 23+ ready-to-run Java scripts
 - [Discussions](https://github.com/bhangun/gollek/discussions) - Ask questions and share ideas
 - [Issues](https://github.com/bhangun/gollek/issues) - Report bugs and request features
 - [Architecture](/docs/architecture) - Deep dive into Gollek architecture
@@ -281,7 +270,7 @@ System.out.println(response.getContent());
 
 Start building AI-powered applications with Gollek SDK today.
 
-[Get Started Now](/docs/) &nbsp; [View API Reference](/docs/core-api)
+[Get Started Now](/docs/) &nbsp; [View JBang Examples](/docs/jbang-examples) &nbsp; [View API Reference](/docs/core-api)
 
 ---
 

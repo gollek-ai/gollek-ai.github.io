@@ -1,325 +1,433 @@
 ---
 layout: default
-title: Getting Started with Gollek SDK
+title: Documentation
 ---
 
 <section class="hero hero-compact">
-  <p class="eyebrow">Developer Onboarding</p>
-  <h1>Choose your Gollek path: SDK integration or CLI usage</h1>
-  <p class="lead">This page gives you a practical starting route. Pick the path you need, then continue into API references and examples.</p>
+  <p class="eyebrow">Documentation Hub</p>
+  <h1>Gollek SDK Documentation</h1>
+  <p class="lead">Comprehensive guides, API references, and examples for building AI-powered applications with Gollek SDK.</p>
 </section>
 
 <section class="quick-grid">
-  <a class="quick-card" href="/docs/cli-installation">
-    <h3>CLI Distribution</h3>
-    <p>Install <code>gollek</code> for macOS, Linux, and Windows with release artifacts or package managers.</p>
+  <a class="quick-card" href="#getting-started">
+    <h3>🚀 Getting Started</h3>
+    <p>Installation, quickstart, and setup guides.</p>
   </a>
-  <a class="quick-card" href="/docs/github-packages-deployment">
-    <h3>GitHub Packages</h3>
-    <p>Use Gollek in Maven projects via GitHub Packages. Deploy, consume, and manage SDK dependencies.</p>
+  <a class="quick-card" href="#core-concepts">
+    <h3>📚 Core Concepts</h3>
+    <p>Architecture, API reference, and fundamentals.</p>
   </a>
-  <a class="quick-card" href="/docs/cli-installation#quick-commands">
-    <h3>CLI Quick Commands</h3>
-    <p>Run inference, convert to GGUF, and dry-run conversions from the terminal.</p>
+  <a class="quick-card" href="#model-formats">
+    <h3>📦 Model Formats</h3>
+    <p>GGUF, ONNX, TFLite, and quantization.</p>
   </a>
-  <a class="quick-card" href="/docs/cli-reference">
-    <h3>CLI Reference</h3>
-    <p>See all commands, including <code>gollek convert</code> for GGUF conversion.</p>
+  <a class="quick-card" href="#advanced">
+    <h3>🔬 Advanced</h3>
+    <p>GPU kernels, audio processing, and plugins.</p>
   </a>
-  <a class="quick-card" href="/docs/audio-processing">
-    <h3>Audio Processing</h3>
-    <p>Speech-to-text (Whisper), text-to-speech (SpeechT5), and VAD pipeline.</p>
+  <a class="quick-card" href="#examples">
+    <h3>💡 Examples</h3>
+    <p>JBang scripts, tutorials, and code samples.</p>
   </a>
-  <a class="quick-card" href="/docs/quantization">
-    <h3>Model Quantization</h3>
-    <p>GPTQ INT4/INT8 and FP8 quantization with 4-8x compression.</p>
+  <a class="quick-card" href="#support">
+    <h3>🛟 Support</h3>
+    <p>Troubleshooting, error codes, and help.</p>
   </a>
-  <a class="quick-card" href="/docs/gguf-enhancements">
-    <h3>GGUF Enhancements</h3>
-    <p>K-quant support (Q2_K-Q6_K), 40+ model families, and quantization fixes.</p>
-  </a>
-  <a class="quick-card" href="#maven-dependency">
-    <h3>Java SDK Setup</h3>
-    <p>Add Maven/Gradle dependencies and optional providers for embedded inference.</p>
-  </a>
-  <a class="quick-card" href="/docs/ml-sdk">
-    <h3>Embedded ML SDK</h3>
-    <p>A PyTorch-like framework for Java: Tensors, Autograd, NN Layers, and training.</p>
-  </a>
-  <a class="quick-card" href="/docs/examples">
-    <h3>Code Examples</h3>
-    <p>Jump to real usage patterns for streaming, async jobs, and provider selection.</p>
-  </a>
-  <a class="quick-card" href="/docs/jupyter-jbang-integration">
-    <h3>JBang & Jupyter Tutorial</h3>
-    <p>Step-by-step guide to interactive scripting and 10+ verified examples in the <a href="/docs/jbang-examples">Examples Catalog</a>.</p>
-  </a>
-</section>
-
-<section class="subtle-panel">
-  <strong>Quick Links:</strong> <a href="/docs/ml-sdk">Embedded ML SDK</a> · <a href="/docs/core-api">Core API</a> · <a href="/docs/jupyter-jbang-integration">Jupyter & jbang</a> · <a href="/docs/github-packages-deployment">GitHub Packages</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/plugin-system-v2">Plugin System v2.0</a> · <a href="/docs/kernel-auto-detection">Kernel Auto-Detection</a> · <a href="/docs/plugin-examples">Examples</a> · <a href="/docs/plugin-templates">Templates</a> · <a href="/docs/plugin-migration">Migration Guide</a> · <a href="/docs/enhanced-plugin-system-v2">Enhanced Plugins</a> · <a href="/docs/enhanced-plugin-architecture">Kernel Plugins</a> · <a href="/docs/enhanced-runner-plugin-architecture">Runner Plugins</a> · <a href="/docs/safetensor-runner-integration">Safetensor Integration</a> · <a href="/docs/plugin-architecture">Plugin Architecture</a> · <a href="/docs/developer-guidance">Developer Guidance</a> · <a href="/docs/storage-layout">Storage Layout</a> · <a href="/docs/enhancement-history">Enhancement History</a> · <a href="/docs/audio-processing">Audio Processing</a> · <a href="/docs/quantization">Quantization</a> · <a href="/docs/gguf-enhancements">GGUF Enhancements</a> · <a href="/docs/gpu-kernels">GPU Kernels</a> · <a href="/docs/developer-guidance#metal-runner-modes-apple-silicon">Metal Modes</a> · <a href="/docs/developer-guidance#gpu-smoke-test-apple-silicon-only">Metal GPU Test</a> · <a href="/docs/architecture#fp8-rowwise-canary-configuration">FP8 Rowwise Config</a> · <a href="/docs/architecture#sageattention2-configuration">SageAttention2 Config</a> · <a href="/docs/architecture#multi-lora-benchmark-telemetry">Benchmark Telemetry</a> · <a href="/docs/native-ffi">Native FFI</a> · <a href="/docs/troubleshooting">Troubleshooting</a> · <a href="/docs/error-codes">Error Codes</a>
-</section>
-
-<section class="subtle-panel">
-  <strong>Latest update:</strong> Modern JBang tutorial and examples catalog are now live! Use Gollek SDK in interactive Jupyter notebooks or standalone JBang scripts with one-command setup and verified XOR training examples.
-  <a href="/docs/jupyter-jbang-integration">JBang & Jupyter Tutorial</a> · <a href="/docs/jbang-examples">Examples Catalog</a> · <a href="/blog/audio-quantization-release">Audio release</a>
 </section>
 
 ---
 
-## Prerequisites
+## Getting Started {#getting-started}
 
-Before you begin, ensure you have:
+Essential guides to get you up and running quickly.
 
-- **Java 21 or higher** - Gollek SDK requires Java 21+
-- **Maven 3.8+** - For dependency management
-- **GraalVM** (optional) - For native image compilation
+### [CLI Installation](/docs/cli-installation)
+Install the Gollek CLI via release installer, Homebrew, or Chocolatey for macOS, Linux, and Windows.
 
----
+**Quick Install**:
+```bash
+# macOS/Linux
+curl -sSL https://raw.githubusercontent.com/bhangun/gollek/main/scripts/install.sh | bash
 
-## Installation
-
-### Gollek CLI (Binary Distribution)
-
-If you want the CLI directly (without embedding the SDK), use the release installers:
-
-- macOS/Linux: curl installer (`install.sh`)
-- Windows: native `.exe` or PowerShell installer (`install.ps1`)
-- Package managers: Homebrew formula + Chocolatey template
-
-See full instructions: [CLI Installation Guide](/docs/cli-installation)
+# Windows
+winget install gollek
+```
 
 ---
 
-### Maven Dependency
+### [GitHub Packages Deployment](/docs/github-packages-deployment)
+Use Gollek SDK in Maven projects via GitHub Packages. Configure repositories, authenticate, and manage dependencies.
 
-Add the Gollek SDK dependency to your `pom.xml`:
-
+**Maven Setup**:
 ```xml
-<dependency>
-    <groupId>tech.kayys.gollek</groupId>
-    <artifactId>gollek-sdk-java-local</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-</dependency>
-```
-
-### Gradle Dependency
-
-For Gradle projects:
-
-```groovy
-implementation 'tech.kayys.gollek:gollek-sdk-java-local:1.0.0-SNAPSHOT'
-```
-
-### Optional Provider Dependencies
-
-Gollek SDK uses a modular architecture. Add only the providers you need:
-
-```xml
-<!-- Ollama Cloud Provider -->
-<dependency>
-    <groupId>tech.kayys.gollek</groupId>
-    <artifactId>gollek-ext-cloud-ollama</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-</dependency>
-
-<!-- Google Gemini Provider -->
-<dependency>
-    <groupId>tech.kayys.gollek</groupId>
-    <artifactId>gollek-ext-cloud-gemini</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-</dependency>
-
-<!-- Cerebras Provider -->
-<dependency>
-    <groupId>tech.kayys.gollek</groupId>
-    <artifactId>gollek-ext-cloud-cerebras</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-</dependency>
+<repository>
+    <id>github</id>
+    <url>https://maven.pkg.github.com/bhangun/gollek</url>
+</repository>
 ```
 
 ---
 
-## Quick Start
+### [Core API](/docs/core-api)
+Main entry point for all SDK operations. Learn about `GollekLocalClient`, `InferenceRequest`, `InferenceResponse`, and completion APIs.
 
-### 1. Create SDK Instance
+**Key Topics**:
+- Creating SDK instances
+- Building inference requests
+- Executing synchronous and streaming inference
+- Async jobs and batch processing
+
+---
+
+### [Examples](/docs/examples)
+Code examples and usage patterns for common scenarios including streaming, async jobs, and provider selection.
+
+---
+
+## Core Concepts {#core-concepts}
+
+Fundamental concepts and architecture documentation.
+
+### [Architecture](/docs/architecture)
+System architecture overview including SDK layers, provider system, model repository, and inference pipeline.
+
+**Diagram**:
+```
++------------------+     +-------------------+     +------------------+
+|  Gollek Client   | --> |  Inference Svc    | --> |   Providers      |
++------------------+     +-------------------+     +------------------+
+```
+
+---
+
+### [Core Runtime Architecture](/docs/core-runtime-architecture)
+Deep dive into the runtime engine, execution model, and performance characteristics.
+
+---
+
+### [Plugin System v2](/docs/plugin-system-v2)
+Extensible plugin architecture for custom providers, features, and runners.
+
+**Plugin Types**:
+- **Feature Plugins**: Add new capabilities
+- **Runner Plugins**: Model format support (GGUF, ONNX, etc.)
+- **Kernel Plugins**: Hardware acceleration (CUDA, Metal, ROCm)
+
+---
+
+### [Enhanced Plugin Architecture](/docs/enhanced-plugin-architecture)
+Advanced plugin patterns with kernel auto-detection and isolation strategies.
+
+---
+
+### [Enhanced Runner Plugin Architecture](/docs/enhanced-runner-plugin-architecture)
+Building custom model runners with enhanced plugin system.
+
+---
+
+### [Feature Plugins](/docs/feature-plugins)
+Extend Gollek with custom features and capabilities.
+
+---
+
+### [Optimization Plugins](/docs/optimization-plugins)
+Performance optimization plugins for inference acceleration.
+
+---
+
+### [Plugin Examples](/docs/plugin-examples)
+Working examples of plugin implementations.
+
+---
+
+### [Plugin Templates](/docs/plugin-templates)
+Starter templates for building your own plugins.
+
+---
+
+### [Plugin Migration](/docs/plugin-migration)
+Migrate from v1 to v2 plugin system.
+
+---
+
+### [Enhanced Plugin System v2](/docs/enhanced-plugin-system-v2)
+Complete guide to the enhanced plugin architecture.
+
+---
+
+### [Kernel Auto-Detection](/docs/kernel-auto-detection)
+Automatic hardware kernel detection and selection.
+
+---
+
+### [Storage Layout](/docs/storage-layout)
+Understanding Gollek's local storage structure for models and caches.
+
+**Default Location**: `~/.gollek/`
+
+---
+
+### [Enhancement History](/docs/enhancement-history)
+Complete development history and changelog.
+
+---
+
+### [Phase 1 Completion](/docs/phase1-completion)
+Integration testing results and milestones (41 tests passed).
+
+---
+
+### [Phase 2 Completion](/docs/phase2-completion)
+Performance optimization results (3x throughput improvement).
+
+---
+
+## Model Formats {#model-formats}
+
+Supported model formats and conversion tools.
+
+### [GGUF Enhancements](/docs/gguf-enhancements)
+K-quant support (Q2_K, Q4_K, Q5_K, Q6_K), 40+ model families, and quantization improvements.
+
+**Supported Families**:
+- Llama, Mistral, DeepSeek, Yi, DBRX, Grok, Jamba, Mamba, RWKV
+
+---
+
+### [Quantization](/docs/quantization)
+GPTQ INT4/INT8 and FP8 quantization with SafeTensors format for 4-8x compression.
+
+**Quantization Types**:
+- **GPTQ INT4**: 8x compression
+- **INT8**: 4x compression
+- **FP8**: GPU tensor core optimization
+
+---
+
+### [Safetensor Runner Integration](/docs/safetensor-runner-integration)
+Direct inference from Safetensors format models.
+
+---
+
+### [Runner Plugins](/docs/runner-plugins)
+Model runner implementations for different formats.
+
+---
+
+## Advanced Topics {#advanced}
+
+Advanced features and specialized capabilities.
+
+### [GPU Kernels](/docs/gpu-kernels)
+Native CUDA, Blackwell, ROCm, and Metal kernels with FlashAttention-2/3.
+
+**Supported Hardware**:
+- NVIDIA CUDA (including Blackwell)
+- AMD ROCm
+- Apple Metal (M1/M2/M3)
+
+---
+
+### [Audio Processing](/docs/audio-processing)
+Speech-to-text (Whisper), text-to-speech (SpeechT5), HiFi-GAN vocoder, and VAD pipeline.
+
+**Capabilities**:
+- **STT**: Whisper with 99+ languages
+- **TTS**: SpeechT5 with 8 voices
+- **VAD**: Voice activity detection
+- **Vocoder**: HiFi-GAN
+
+---
+
+### [Multimodal SDK](/docs/multimodal-sdk)
+Vision-language models and multimodal inference.
+
+---
+
+### [ML SDK](/docs/ml-sdk)
+Embedded ML SDK: PyTorch-like Tensors, Autograd, NN Modules, and training in pure Java.
+
+**Features**:
+- Tensor operations with autograd
+- Neural network layers (Linear, Conv, Attention)
+- Loss functions and optimizers
+- Model persistence (GGUF, Safetensors)
+
+---
+
+### [Native Library Guide](/docs/native-library-guide)
+Building and using native libraries with Gollek.
+
+---
+
+### [Native FFI](/docs/native-ffi)
+GraalVM native image support with C FFI for embedded integration.
+
+---
+
+### [Native Compilation](/docs/native-compilation)
+Compiling Gollek to native executables.
+
+---
+
+### [Developer Guidance](/docs/developer-guidance)
+Best practices, tips, and tricks for Gollek development.
+
+**Topics**:
+- Metal GPU smoke test
+- LiteRT TFLite setup
+- Performance tuning
+- Memory management
+
+---
+
+### [Cloud Providers](/docs/cloud-providers)
+Cloud inference providers: OpenAI, Anthropic, Google Gemini, Cerebras, Mistral.
+
+---
+
+## Examples & Tutorials {#examples}
+
+Hands-on examples and tutorials.
+
+### [JBang Examples Catalog](/docs/jbang-examples)
+**23+ ready-to-run Java scripts** covering:
+- 🟢 Beginner: Hello World, templates
+- 🔵 Neural Networks: MLP, training, persistence
+- 🟣 NLP: Sentiment, transformers, chatbots
+- 🟠 ML Integrations: DL4J, Stanford NLP, Smile, Tribuo
+
+**Quick Start**:
+```bash
+jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/hello_gollek.java
+```
+
+---
+
+### [Jupyter & JBang Integration](/docs/jupyter-jbang-integration)
+Interactive development with Jupyter notebooks and jbang scripts.
+
+**What You'll Learn**:
+- Setting up Jupyter Java kernel
+- Interactive model building
+- Converting notebooks to scripts
+- Team collaboration workflows
+
+---
+
+### [CLI Reference](/docs/cli-reference)
+Complete CLI command reference including `gollek chat`, `gollek convert`, and more.
+
+**Common Commands**:
+```bash
+gollek chat --provider gemini
+gollek convert --input model.safetensors --output model.gguf
+gollek list-models
+```
+
+---
+
+## Support {#support}
+
+Troubleshooting and help resources.
+
+### [Troubleshooting](/docs/troubleshooting)
+Common issues and solutions.
+
+**Common Problems**:
+- Dependency resolution failures
+- Model not found errors
+- GPU/CUDA issues
+- Memory problems
+
+---
+
+### [Error Codes](/docs/error-codes)
+Complete error code reference with descriptions and solutions.
+
+**Error Categories**:
+- **INFERENCE_***: Inference-related errors
+- **MODEL_***: Model loading/management errors
+- **PROVIDER_***: Provider configuration errors
+- **RUNTIME_***: Runtime execution errors
+
+---
+
+### [Git Repository Cleanup](/docs/git-repository-cleanup)
+Guide for cleaning up large files from git history.
+
+---
+
+### [GitHub Packages Deployment](/docs/github-packages-deployment)
+Publishing and consuming packages via GitHub Packages.
+
+---
+
+## Quick Reference
+
+### Installation
+
+```bash
+# CLI (macOS/Linux)
+curl -sSL https://raw.githubusercontent.com/bhangun/gollek/main/scripts/install.sh | bash
+
+# CLI (Windows)
+winget install gollek
+
+# Maven Dependency
+# See: /docs/github-packages-deployment
+```
+
+### First Inference
 
 ```java
-import tech.kayys.gollek.sdk.local.GollekLocalClient;
-import tech.kayys.gollek.sdk.local.GollekLocalClientAdapter;
-import tech.kayys.gollek.sdk.factory.GollekSdkFactory;
-
-// Create the SDK client
-GollekLocalClient client = new GollekLocalClientAdapter(
-    GollekSdkFactory.createLocalSdk()
-);
-```
-
-### 2. Build an Inference Request
-
-```java
-import tech.kayys.gollek.spi.inference.InferenceRequest;
-
+GollekLocalClient client = GollekSdkFactory.createLocalSdk();
 InferenceRequest request = InferenceRequest.builder()
     .model("llama-3.2-3b-instruct")
-    .prompt("Explain quantum computing in simple terms")
-    .maxTokens(500)
-    .temperature(0.7)
+    .prompt("Hello, world!")
     .build();
-```
-
-### 3. Execute Inference
-
-```java
-import tech.kayys.gollek.spi.inference.InferenceResponse;
-
-// Synchronous inference
 InferenceResponse response = client.createCompletion(request);
-System.out.println(response.getContent());
 ```
 
----
+### Run JBang Example
 
-## Core Concepts
-
-### GollekLocalClient
-
-The `GollekLocalClient` interface is the main entry point for all SDK operations. It provides:
-
-- **Completion API** - Standard request/response inference
-- **Streaming API** - Real-time token streaming
-- **Async Jobs** - Background job processing
-- **Batch Inference** - Multiple requests in one call
-- **Model Management** - Pull, list, and delete models
-- **Provider Discovery** - List and query available providers
-
-### InferenceRequest
-
-The `InferenceRequest` object defines all parameters for an inference call:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| model | String | Model identifier or name |
-| prompt | String | Input prompt/text |
-| messages | List | Conversation history (for chat models) |
-| maxTokens | int | Maximum tokens to generate |
-| temperature | double | Sampling temperature (0.0-2.0) |
-| topP | double | Nucleus sampling parameter |
-| stopSequences | List | Stop sequences for generation |
-| preferredProvider | Optional | Preferred inference provider |
-| metadata | Map | Additional provider-specific options |
-
-### InferenceResponse
-
-The `InferenceResponse` contains the inference result:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| requestId | String | Unique request identifier |
-| content | String | Generated text content |
-| model | String | Model that generated the response |
-| usage | UsageInfo | Token usage statistics |
-| finishReason | String | Reason for completion |
-| metadata | Map | Additional response metadata |
-
----
-
-## CDI Integration
-
-For Jakarta EE applications, Gollek SDK integrates seamlessly with CDI:
-
-```java
-import jakarta.inject.Inject;
-import jakarta.enterprise.context.ApplicationScoped;
-import tech.kayys.gollek.sdk.local.GollekLocalClient;
-
-@ApplicationScoped
-public class MyService {
-    
-    @Inject
-    GollekLocalClient client;
-    
-    public String generateResponse(String prompt) {
-        InferenceRequest request = InferenceRequest.builder()
-            .model("llama-3.2-3b-instruct")
-            .prompt(prompt)
-            .build();
-        
-        return client.createCompletion(request).getContent();
-    }
-}
+```bash
+jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/hello_gollek.java
 ```
 
----
-
-## Configuration
-
-### API Keys
-
-Configure API keys for cloud providers via environment variables:
+### Configure API Keys
 
 ```bash
 export OPENAI_API_KEY=sk-...
 export ANTHROPIC_API_KEY=sk-ant-...
 export GOOGLE_API_KEY=...
-export OLLAMA_API_KEY=...
-```
-
-### Model Repository
-
-Gollek SDK uses a local model repository for caching and persistence. Configure the location:
-
-```bash
-export GOLLEK_MODEL_REPO_PATH=/path/to/models
-```
-
-### Provider Selection
-
-Set a default provider or specify per-request:
-
-```java
-// Set global default
-client.setPreferredProvider("ollama");
-
-// Or specify per request
-InferenceRequest request = InferenceRequest.builder()
-    .model("llama-3.2-3b-instruct")
-    .prompt("Hello")
-    .preferredProvider("openai")
-    .build();
 ```
 
 ---
 
-## Next Steps
+## Documentation Categories
 
-- [Core API Reference](/docs/core-api) - Detailed API documentation
-- [Native FFI](/docs/native-ffi) - GraalVM native integration
-- [Architecture](/docs/architecture) - System architecture overview
-- [Examples](/docs/examples) - Code examples and patterns
-- **[Enhancement History](/docs/enhancement-history)** - Complete development history (Phase 1 & 2)
-- **[Phase 1 Completion](/docs/phase1-completion)** - Integration testing (41 tests)
-- **[Phase 2 Completion](/docs/phase2-completion)** - Performance optimization (3x throughput)
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-**ClassNotFoundException**
-- Ensure all required dependencies are on the classpath
-- Check that provider modules are included
-
-**Model Not Found**
-- Verify the model exists in your local repository
-- Check model identifier syntax
-
-**Provider Unavailable**
-- Ensure the provider module is included
-- Verify API keys are configured correctly
-- Check network connectivity for cloud providers
+| Category | Pages | Description |
+|----------|-------|-------------|
+| **Getting Started** | 5 | Installation, setup, quickstart |
+| **Core Concepts** | 15 | Architecture, API, plugins |
+| **Model Formats** | 5 | GGUF, quantization, runners |
+| **Advanced** | 10 | GPU, audio, native, ML SDK |
+| **Examples** | 3 | JBang, Jupyter, CLI reference |
+| **Support** | 5 | Troubleshooting, errors, help |
 
 ---
 
-[Back to Home](/) &nbsp; [View API Reference](/docs/core-api)
+## Additional Resources
+
+- [Blog](/blog/) - Latest news and announcements
+- [Features](/features/) - Feature overview
+- [GitHub](https://github.com/bhangun/gollek) - Source code and issues
+- [Discussions](https://github.com/bhangun/gollek/discussions) - Community discussions
+
+---
+
+**Last Updated**: March 2026 | **Version**: 1.0.0
+
+[Back to Home](/) · [View on GitHub](https://github.com/bhangun/gollek)
