@@ -163,62 +163,123 @@
   // ────────────────────────────────────────────────────────
   // Copy Code Functionality
   // ────────────────────────────────────────────────────────
-  
+
   /**
    * Add copy buttons to code blocks
    */
   function initCopyCode() {
-    const codeBlocks = document.querySelectorAll('pre');
-    
+    // Target both Jekyll/Rouge highlighted blocks and standard pre blocks
+    const codeBlocks = document.querySelectorAll('.highlighter-rouge, div.highlight, pre');
+
     codeBlocks.forEach(block => {
       // Skip if already has copy button
-      if (block.querySelector('.copy-code-btn')) return;
+      if (block.querySelector('.copy-button')) return;
       
+      // Skip if this is a nested pre inside highlighter-rouge
+      if (block.closest('.highlighter-rouge') || block.closest('div.highlight')) {
+        if (block.tagName === 'PRE') return;
+      }
+
       // Create copy button container
       const toolbar = document.createElement('div');
       toolbar.className = 'code-toolbar';
+
+      // Get language from code element or parent
+      let codeElement = block.querySelector('code');
       
-      // Get language from code element
-      const codeElement = block.querySelector('code');
+      // For Jekyll blocks, code might be nested
+      if (!codeElement) {
+        codeElement = block.querySelector('pre code');
+      }
+      
+      // For highlighter-rouge divs, look for pre > code
+      if (block.classList.contains('highlighter-rouge') || block.classList.contains('highlight')) {
+        const pre = block.querySelector('pre');
+        if (pre) {
+          codeElement = pre.querySelector('code');
+          // Insert toolbar before the pre element
+          if (pre) {
+            pre.parentNode.insertBefore(toolbar, pre);
+          }
+        }
+      }
+      
       const language = codeElement ? getLanguageFromClass(codeElement.className) : 'code';
-      
+
       // Language label
       const langLabel = document.createElement('span');
       langLabel.className = 'code-lang';
       langLabel.textContent = language;
-      
-      // Copy button
+
+      // Copy button with SVG icon
       const copyBtn = document.createElement('button');
       copyBtn.className = 'copy-button';
-      copyBtn.textContent = 'Copy';
       copyBtn.type = 'button';
-      
+      copyBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+          <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+        </svg>
+        <span>Copy</span>
+      `;
+
       copyBtn.addEventListener('click', async () => {
-        const codeText = codeElement ? codeElement.textContent : '';
-        
+        const codeText = codeElement ? codeElement.textContent.trim() : '';
+
         try {
           await navigator.clipboard.writeText(codeText);
-          copyBtn.textContent = 'Copied!';
-          copyBtn.classList.add('copied');
           
+          // Change to checkmark icon and "Copied!" text
+          copyBtn.classList.add('copied');
+          copyBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20,6 9,17 4,12"/>
+            </svg>
+            <span>Copied!</span>
+          `;
+
           setTimeout(() => {
-            copyBtn.textContent = 'Copy';
             copyBtn.classList.remove('copied');
+            copyBtn.innerHTML = `
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              <span>Copy</span>
+            `;
           }, 2000);
         } catch (err) {
           console.error('Failed to copy:', err);
-          copyBtn.textContent = 'Failed';
+          
+          // Show error state
+          copyBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span>Failed</span>
+          `;
+          
           setTimeout(() => {
-            copyBtn.textContent = 'Copy';
+            copyBtn.innerHTML = `
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              <span>Copy</span>
+            `;
           }, 2000);
         }
       });
-      
+
       toolbar.appendChild(langLabel);
       toolbar.appendChild(copyBtn);
-      
-      // Insert toolbar before code
-      block.insertBefore(toolbar, block.firstChild);
+
+      // For standard pre blocks (not Jekyll highlighted)
+      if (!block.classList.contains('highlighter-rouge') && !block.classList.contains('highlight')) {
+        block.insertBefore(toolbar, block.firstChild);
+      }
     });
   }
 

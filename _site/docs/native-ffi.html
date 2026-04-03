@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,69 +19,292 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
   <script src="/assets/js/site.js" defer></script>
 </head>
-
 <body>
-  <div class="site-bg" aria-hidden="true"></div>
-
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="/" class="brand">Gollek</a>
-      <nav class="site-nav" aria-label="Main navigation">
-        <a href="/docs/">Docs</a>
-        <a href="/blog/">Blog</a>
-        <a href="/docs/cli-installation">Install</a>
-        <a href="/features/">Features</a>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
-        <a href="https://github.com/bhangun/gollek">GitHub</a>
-      </nav>
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <a href="/" class="sidebar-brand">
+        <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png" alt="Gollek Logo" class="brand-logo">
+        <span class="brand-text">Gollek</span>
+      </a>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
     </div>
-  </header>
+    
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Getting Started</div>
+        <a href="/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9,22 9,12 15,12 15,22"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="/docs/cli-installation" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4,17 10,11 4,5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+          <span>Install CLI</span>
+        </a>
+        <a href="/docs/" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10,9 9,9 8,9"/>
+          </svg>
+          <span>Documentation</span>
+        </a>
+        <a href="/features/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+          </svg>
+          <span>Features</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Core Concepts</div>
+        <a href="/docs/core-api" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          <span>Core API</span>
+        </a>
+        <a href="/docs/architecture" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <span>Architecture</span>
+        </a>
+        <a href="/docs/plugin-system-v2" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <span>Plugin System</span>
+        </a>
+        <a href="/docs/runner-plugins" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+          <span>Runners</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Model Formats</div>
+        <a href="/docs/gguf-enhancements" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span>GGUF</span>
+        </a>
+        <a href="/docs/quantization" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <span>Quantization</span>
+        </a>
+        <a href="/docs/audio-processing" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <span>Audio</span>
+        </a>
+        <a href="/docs/gpu-kernels" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <rect x="9" y="9" width="6" height="6"/>
+            <line x1="9" y1="1" x2="9" y2="4"/>
+            <line x1="15" y1="1" x2="15" y2="4"/>
+            <line x1="9" y1="20" x2="9" y2="23"/>
+            <line x1="15" y1="20" x2="15" y2="23"/>
+            <line x1="20" y1="9" x2="23" y2="9"/>
+            <line x1="20" y1="14" x2="23" y2="14"/>
+            <line x1="1" y1="9" x2="4" y2="9"/>
+            <line x1="1" y1="14" x2="4" y2="14"/>
+          </svg>
+          <span>GPU Kernels</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Resources</div>
+        <a href="/blog/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+            <polyline points="17,21 17,13 7,13 7,21"/>
+            <polyline points="17,9 7,9 7,2"/>
+          </svg>
+          <span>Blog</span>
+        </a>
+        <a href="/docs/examples" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <span>Examples</span>
+        </a>
+        <a href="/docs/troubleshooting" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>Troubleshooting</span>
+        </a>
+        <a href="/docs/error-codes" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>Error Codes</span>
+        </a>
+        <a href="https://github.com/bhangun/gollek" class="nav-item nav-item-external" target="_blank" rel="noopener">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+          </svg>
+          <span>GitHub</span>
+          <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+      </div>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="theme-selector">
+        <button class="theme-option" data-theme="dark" aria-label="Dark theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="light" aria-label="Light theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="auto" aria-label="Auto theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="version-info">
+        <span class="version-label">v1.0.0</span>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Main Content Area -->
+  <div class="main-wrapper">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-content">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <div class="header-title">
+          
+          <h1 class="page-title">Native FFI Reference</h1>
+          
+        </div>
+        <div class="header-actions">
+          <a href="/docs/cli-installation" class="btn btn-sm btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Install
+          </a>
+          <a href="https://github.com/bhangun/gollek" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-container">
+        <h1 id="native-ffi-reference">Native FFI Reference</h1>
 
-  <main class="container content-shell">
-    <article class="content-card">
-      <h1 id="native-ffi-reference">Native FFI Reference</h1>
+<p>GraalVM native image integration with C function entrypoints for embedded systems and high-performance applications.</p>
 
-      <p>GraalVM native image integration with C function entrypoints for embedded systems and high-performance
-        applications.</p>
+<hr />
 
-      <hr />
+<h2 id="overview">Overview</h2>
 
-      <h2 id="overview">Overview</h2>
+<p>Gollek SDK provides GraalVM native image support with C function entrypoints (<code class="language-plaintext highlighter-rouge">@CEntryPoint</code>), enabling:</p>
 
-      <p>Gollek SDK provides GraalVM native image support with C function entrypoints (<code
-          class="language-plaintext highlighter-rouge">@CEntryPoint</code>), enabling:</p>
+<ul>
+  <li><strong>Direct C/C++ integration</strong> - Call Gollek SDK from native applications</li>
+  <li><strong>Reduced memory footprint</strong> - Native images have smaller memory requirements</li>
+  <li><strong>Faster startup</strong> - No JVM warmup, instant execution</li>
+  <li><strong>Embedded deployment</strong> - Run on resource-constrained devices</li>
+</ul>
 
-      <ul>
-        <li><strong>Direct C/C++ integration</strong> - Call Gollek SDK from native applications</li>
-        <li><strong>Reduced memory footprint</strong> - Native images have smaller memory requirements</li>
-        <li><strong>Faster startup</strong> - No JVM warmup, instant execution</li>
-        <li><strong>Embedded deployment</strong> - Run on resource-constrained devices</li>
-      </ul>
+<hr />
 
-      <hr />
+<h2 id="building-native-library">Building Native Library</h2>
 
-      <h2 id="building-native-library">Building Native Library</h2>
+<h3 id="prerequisites">Prerequisites</h3>
 
-      <h3 id="prerequisites">Prerequisites</h3>
+<ul>
+  <li><strong>GraalVM 24.1+</strong> with Native Image support</li>
+  <li><strong>Maven 3.8+</strong></li>
+  <li><strong>C compiler</strong> (gcc, clang, or MSVC)</li>
+</ul>
 
-      <ul>
-        <li><strong>GraalVM 24.1+</strong> with Native Image support</li>
-        <li><strong>Maven 3.8+</strong></li>
-        <li><strong>C compiler</strong> (gcc, clang, or MSVC)</li>
-      </ul>
+<h3 id="build-commands">Build Commands</h3>
 
-      <h3 id="build-commands">Build Commands</h3>
-
-      <div class="language-bash highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="c"># Build the JAR</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Build the JAR</span>
 mvn <span class="nt">-f</span> inference-gollek/sdk/gollek-sdk-java-local/pom.xml <span class="nt">-DskipTests</span> package
 
 <span class="c"># Generate native shared library</span>
@@ -91,196 +313,148 @@ native-image <span class="se">\</span>
   <span class="nt">--shared</span> <span class="se">\</span>
   <span class="nt">-H</span>:Name<span class="o">=</span>gollek_sdk_local <span class="se">\</span>
   <span class="nt">-H</span>:Class<span class="o">=</span>tech.kayys.gollek.sdk.local.nativeinterop.GollekNativeEntrypoints
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <h3 id="output">Output</h3>
+<h3 id="output">Output</h3>
 
-      <ul>
-        <li><strong>Linux/macOS</strong>: <code
-            class="language-plaintext highlighter-rouge">libgollek_sdk_local.so</code> / <code
-            class="language-plaintext highlighter-rouge">libgollek_sdk_local.dylib</code></li>
-        <li><strong>Windows</strong>: <code class="language-plaintext highlighter-rouge">gollek_sdk_local.dll</code>
-        </li>
-      </ul>
+<ul>
+  <li><strong>Linux/macOS</strong>: <code class="language-plaintext highlighter-rouge">libgollek_sdk_local.so</code> / <code class="language-plaintext highlighter-rouge">libgollek_sdk_local.dylib</code></li>
+  <li><strong>Windows</strong>: <code class="language-plaintext highlighter-rouge">gollek_sdk_local.dll</code></li>
+</ul>
 
-      <hr />
+<hr />
 
-      <h2 id="c-api-reference">C API Reference</h2>
+<h2 id="c-api-reference">C API Reference</h2>
 
-      <h3 id="client-lifecycle">Client Lifecycle</h3>
+<h3 id="client-lifecycle">Client Lifecycle</h3>
 
-      <h4 id="golek_client_create">golek_client_create</h4>
+<h4 id="golek_client_create">golek_client_create</h4>
 
-      <p>Create a new SDK client instance.</p>
+<p>Create a new SDK client instance.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">long</span> <span class="nf">golek_client_create</span><span class="p">();</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="nf">golek_client_create</span><span class="p">();</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>Client handle (positive integer) on success</li>
-        <li>0 on failure</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>Client handle (positive integer) on success</li>
+  <li>0 on failure</li>
+</ul>
 
-      <p><strong>Example:</strong></p>
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">long</span> <span class="n">client</span> <span class="o">=</span> <span class="n">golek_client_create</span><span class="p">();</span>
+<p><strong>Example:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="n">client</span> <span class="o">=</span> <span class="n">golek_client_create</span><span class="p">();</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">client</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"Failed to create client</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
     <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_client_destroy">golek_client_destroy</h4>
+<h4 id="golek_client_destroy">golek_client_destroy</h4>
 
-      <p>Destroy a client instance and free resources.</p>
+<p>Destroy a client instance and free resources.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">int</span> <span class="nf">golek_client_destroy</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">golek_client_destroy</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Parameters:</strong></p>
-      <ul>
-        <li><code class="language-plaintext highlighter-rouge">clientHandle</code> - Client handle from create call</li>
-      </ul>
+<p><strong>Parameters:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">clientHandle</code> - Client handle from create call</li>
+</ul>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>1 on success, 0 on failure</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>1 on success, 0 on failure</li>
+</ul>
 
-      <p><strong>Example:</strong></p>
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="n">golek_client_destroy</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<p><strong>Example:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">golek_client_destroy</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_client_shutdown_runtime">golek_client_shutdown_runtime</h4>
+<h4 id="golek_client_shutdown_runtime">golek_client_shutdown_runtime</h4>
 
-      <p>Shutdown the entire SDK runtime.</p>
+<p>Shutdown the entire SDK runtime.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">void</span> <span class="nf">golek_client_shutdown_runtime</span><span class="p">();</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">golek_client_shutdown_runtime</span><span class="p">();</span>
+</code></pre></div></div>
 
-      <p><strong>Note:</strong> This destroys all active clients. Use with caution.</p>
+<p><strong>Note:</strong> This destroys all active clients. Use with caution.</p>
 
-      <hr />
+<hr />
 
-      <h3 id="error-handling">Error Handling</h3>
+<h3 id="error-handling">Error Handling</h3>
 
-      <h4 id="golek_last_error">golek_last_error</h4>
+<h4 id="golek_last_error">golek_last_error</h4>
 
-      <p>Get the last error message.</p>
+<p>Get the last error message.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_last_error</span><span class="p">();</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_last_error</span><span class="p">();</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>UTF-8 error message string</li>
-        <li>Must be freed with <code class="language-plaintext highlighter-rouge">golek_string_free</code></li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>UTF-8 error message string</li>
+  <li>Must be freed with <code class="language-plaintext highlighter-rouge">golek_string_free</code></li>
+</ul>
 
-      <p><strong>Example:</strong></p>
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="n">error</span> <span class="o">=</span> <span class="n">golek_last_error</span><span class="p">();</span>
+<p><strong>Example:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="n">error</span> <span class="o">=</span> <span class="n">golek_last_error</span><span class="p">();</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"Error: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
     <span class="n">golek_string_free</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_clear_last_error">golek_clear_last_error</h4>
+<h4 id="golek_clear_last_error">golek_clear_last_error</h4>
 
-      <p>Clear the last error message.</p>
+<p>Clear the last error message.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">void</span> <span class="nf">golek_clear_last_error</span><span class="p">();</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">golek_clear_last_error</span><span class="p">();</span>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_string_free">golek_string_free</h4>
+<h4 id="golek_string_free">golek_string_free</h4>
 
-      <p>Free any string returned by Gollek SDK functions.</p>
+<p>Free any string returned by Gollek SDK functions.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">void</span> <span class="nf">golek_string_free</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">golek_string_free</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Important:</strong> All returned <code class="language-plaintext highlighter-rouge">char*</code> values
-        must be released by calling this function.</p>
+<p><strong>Important:</strong> All returned <code class="language-plaintext highlighter-rouge">char*</code> values must be released by calling this function.</p>
 
-      <hr />
+<hr />
 
-      <h3 id="inference-apis">Inference APIs</h3>
+<h3 id="inference-apis">Inference APIs</h3>
 
-      <p>All inference functions accept JSON payloads and return JSON responses.</p>
+<p>All inference functions accept JSON payloads and return JSON responses.</p>
 
-      <h4 id="golek_create_completion_json">golek_create_completion_json</h4>
+<h4 id="golek_create_completion_json">golek_create_completion_json</h4>
 
-      <p>Synchronous inference request.</p>
+<p>Synchronous inference request.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_create_completion_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_create_completion_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Parameters:</strong></p>
-      <ul>
-        <li><code class="language-plaintext highlighter-rouge">clientHandle</code> - Client handle</li>
-        <li><code class="language-plaintext highlighter-rouge">requestJson</code> - JSON-encoded InferenceRequest</li>
-      </ul>
+<p><strong>Parameters:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">clientHandle</code> - Client handle</li>
+  <li><code class="language-plaintext highlighter-rouge">requestJson</code> - JSON-encoded InferenceRequest</li>
+</ul>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>JSON-encoded InferenceResponse</li>
-        <li>NULL on error (check <code class="language-plaintext highlighter-rouge">golek_last_error</code>)</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>JSON-encoded InferenceResponse</li>
+  <li>NULL on error (check <code class="language-plaintext highlighter-rouge">golek_last_error</code>)</li>
+</ul>
 
-      <p><strong>Example:</strong></p>
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span> <span class="o">=</span> <span class="s">"{"</span>
+<p><strong>Example:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span> <span class="o">=</span> <span class="s">"{"</span>
     <span class="s">"</span><span class="se">\"</span><span class="s">model</span><span class="se">\"</span><span class="s">: </span><span class="se">\"</span><span class="s">llama-3.2-3b-instruct</span><span class="se">\"</span><span class="s">,"</span>
     <span class="s">"</span><span class="se">\"</span><span class="s">prompt</span><span class="se">\"</span><span class="s">: </span><span class="se">\"</span><span class="s">Hello, world!</span><span class="se">\"</span><span class="s">,"</span>
     <span class="s">"</span><span class="se">\"</span><span class="s">maxTokens</span><span class="se">\"</span><span class="s">: 100"</span>
@@ -293,107 +467,79 @@ native-image <span class="se">\</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"Error: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">golek_last_error</span><span class="p">());</span>
 <span class="p">}</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_create_completion_async_json">golek_create_completion_async_json</h4>
+<h4 id="golek_create_completion_async_json">golek_create_completion_async_json</h4>
 
-      <p>Asynchronous inference request.</p>
+<p>Asynchronous inference request.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_create_completion_async_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_create_completion_async_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>JSON-encoded InferenceResponse (after completion)</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>JSON-encoded InferenceResponse (after completion)</li>
+</ul>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_stream_completion_json">golek_stream_completion_json</h4>
+<h4 id="golek_stream_completion_json">golek_stream_completion_json</h4>
 
-      <p>Streaming inference request.</p>
+<p>Streaming inference request.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_stream_completion_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_stream_completion_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>JSON array of InferenceChunk objects</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>JSON array of InferenceChunk objects</li>
+</ul>
 
-      <p><strong>InferenceChunk JSON:</strong></p>
-      <div class="language-json highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="p">{</span><span class="w">
+<p><strong>InferenceChunk JSON:</strong></p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"req-123"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"sequenceNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"isComplete"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-01T00:00:00Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-        </div>
-      </div>
+</span></code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h3 id="async-job-management">Async Job Management</h3>
+<h3 id="async-job-management">Async Job Management</h3>
 
-      <h4 id="golek_submit_async_job_json">golek_submit_async_job_json</h4>
+<h4 id="golek_submit_async_job_json">golek_submit_async_job_json</h4>
 
-      <p>Submit an async inference job.</p>
+<p>Submit an async inference job.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_submit_async_job_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_submit_async_job_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">requestJson</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <div class="language-json highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="p">{</span><span class="w">
+<p><strong>Returns:</strong></p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job-abc-123"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-        </div>
-      </div>
+</span></code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_get_job_status_json">golek_get_job_status_json</h4>
+<h4 id="golek_get_job_status_json">golek_get_job_status_json</h4>
 
-      <p>Get async job status.</p>
+<p>Get async job status.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_get_job_status_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">jobId</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_get_job_status_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">jobId</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Parameters:</strong></p>
-      <ul>
-        <li><code class="language-plaintext highlighter-rouge">jobId</code> - Job ID string</li>
-      </ul>
+<p><strong>Parameters:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">jobId</code> - Job ID string</li>
+</ul>
 
-      <p><strong>Returns:</strong></p>
-      <div class="language-json highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="p">{</span><span class="w">
+<p><strong>Returns:</strong></p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"jobId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job-abc-123"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
@@ -401,55 +547,41 @@ native-image <span class="se">\</span>
     </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"completedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-01T00:00:05Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-        </div>
-      </div>
+</span></code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_wait_for_job_json">golek_wait_for_job_json</h4>
+<h4 id="golek_wait_for_job_json">golek_wait_for_job_json</h4>
 
-      <p>Wait for job completion.</p>
+<p>Wait for job completion.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_wait_for_job_json</span><span class="p">(</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_wait_for_job_json</span><span class="p">(</span>
     <span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> 
     <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">jobId</span><span class="p">,</span>
     <span class="kt">long</span> <span class="n">maxWaitMillis</span><span class="p">,</span>
     <span class="kt">long</span> <span class="n">pollIntervalMillis</span>
 <span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <p><strong>Parameters:</strong></p>
-      <ul>
-        <li><code class="language-plaintext highlighter-rouge">maxWaitMillis</code> - Maximum wait time in milliseconds
-        </li>
-        <li><code class="language-plaintext highlighter-rouge">pollIntervalMillis</code> - Status check interval in
-          milliseconds</li>
-      </ul>
+<p><strong>Parameters:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">maxWaitMillis</code> - Maximum wait time in milliseconds</li>
+  <li><code class="language-plaintext highlighter-rouge">pollIntervalMillis</code> - Status check interval in milliseconds</li>
+</ul>
 
-      <hr />
+<hr />
 
-      <h3 id="batch-inference">Batch Inference</h3>
+<h3 id="batch-inference">Batch Inference</h3>
 
-      <h4 id="golek_batch_inference_json">golek_batch_inference_json</h4>
+<h4 id="golek_batch_inference_json">golek_batch_inference_json</h4>
 
-      <p>Process multiple inference requests.</p>
+<p>Process multiple inference requests.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_batch_inference_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">batchRequestJson</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_batch_inference_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">batchRequestJson</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>BatchRequest JSON:</strong></p>
-      <div class="language-json highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="p">{</span><span class="w">
+<p><strong>BatchRequest JSON:</strong></p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"requests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"llama-3.2-3b-instruct"</span><span class="p">,</span><span class="w">
@@ -461,177 +593,133 @@ native-image <span class="se">\</span>
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-        </div>
-      </div>
+</span></code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>JSON array of InferenceResponse objects</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>JSON array of InferenceResponse objects</li>
+</ul>
 
-      <hr />
+<hr />
 
-      <h3 id="provider-management">Provider Management</h3>
+<h3 id="provider-management">Provider Management</h3>
 
-      <h4 id="golek_list_available_providers_json">golek_list_available_providers_json</h4>
+<h4 id="golek_list_available_providers_json">golek_list_available_providers_json</h4>
 
-      <p>List all available providers.</p>
+<p>List all available providers.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_list_available_providers_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_list_available_providers_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>JSON array of ProviderInfo objects</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>JSON array of ProviderInfo objects</li>
+</ul>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_get_provider_info_json">golek_get_provider_info_json</h4>
+<h4 id="golek_get_provider_info_json">golek_get_provider_info_json</h4>
 
-      <p>Get provider details.</p>
+<p>Get provider details.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_get_provider_info_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">providerId</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_get_provider_info_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">providerId</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_set_preferred_provider">golek_set_preferred_provider</h4>
+<h4 id="golek_set_preferred_provider">golek_set_preferred_provider</h4>
 
-      <p>Set default provider.</p>
+<p>Set default provider.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">int</span> <span class="nf">golek_set_preferred_provider</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">providerId</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">golek_set_preferred_provider</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">providerId</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>1 on success, 0 on failure</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>1 on success, 0 on failure</li>
+</ul>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_get_preferred_provider_json">golek_get_preferred_provider_json</h4>
+<h4 id="golek_get_preferred_provider_json">golek_get_preferred_provider_json</h4>
 
-      <p>Get current preferred provider.</p>
+<p>Get current preferred provider.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_get_preferred_provider_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_get_preferred_provider_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <div class="language-json highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="p">{</span><span class="w">
+<p><strong>Returns:</strong></p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"preferredProvider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ollama"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-        </div>
-      </div>
+</span></code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h3 id="model-management">Model Management</h3>
+<h3 id="model-management">Model Management</h3>
 
-      <h4 id="golek_list_models_json">golek_list_models_json</h4>
+<h4 id="golek_list_models_json">golek_list_models_json</h4>
 
-      <p>List all models.</p>
+<p>List all models.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_list_models_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_list_models_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_list_models_paginated_json">golek_list_models_paginated_json</h4>
+<h4 id="golek_list_models_paginated_json">golek_list_models_paginated_json</h4>
 
-      <p>List models with pagination.</p>
+<p>List models with pagination.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_list_models_paginated_json</span><span class="p">(</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_list_models_paginated_json</span><span class="p">(</span>
     <span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> 
     <span class="kt">int</span> <span class="n">offset</span><span class="p">,</span> 
     <span class="kt">int</span> <span class="n">limit</span>
 <span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_get_model_info_json">golek_get_model_info_json</h4>
+<h4 id="golek_get_model_info_json">golek_get_model_info_json</h4>
 
-      <p>Get model details.</p>
+<p>Get model details.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_get_model_info_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">modelId</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_get_model_info_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">modelId</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_pull_model_json">golek_pull_model_json</h4>
+<h4 id="golek_pull_model_json">golek_pull_model_json</h4>
 
-      <p>Pull a model from remote source.</p>
+<p>Pull a model from remote source.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_pull_model_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">modelSpec</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">golek_pull_model_json</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">modelSpec</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>JSON array of progress events</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>JSON array of progress events</li>
+</ul>
 
-      <hr />
+<hr />
 
-      <h4 id="golek_delete_model">golek_delete_model</h4>
+<h4 id="golek_delete_model">golek_delete_model</h4>
 
-      <p>Delete a model.</p>
+<p>Delete a model.</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">int</span> <span class="nf">golek_delete_model</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">modelId</span><span class="p">);</span>
-</code></pre>
-        </div>
-      </div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">golek_delete_model</span><span class="p">(</span><span class="kt">long</span> <span class="n">clientHandle</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">modelId</span><span class="p">);</span>
+</code></pre></div></div>
 
-      <p><strong>Returns:</strong></p>
-      <ul>
-        <li>1 on success, 0 on failure</li>
-      </ul>
+<p><strong>Returns:</strong></p>
+<ul>
+  <li>1 on success, 0 on failure</li>
+</ul>
 
-      <hr />
+<hr />
 
-      <h2 id="c-example">C++ Example</h2>
+<h2 id="c-example">C++ Example</h2>
 
-      <div class="language-cpp highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 #include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span>
 <span class="k">extern</span> <span class="s">"C"</span> <span class="p">{</span>
@@ -675,17 +763,13 @@ native-image <span class="se">\</span>
     <span class="n">golek_client_destroy</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h2 id="python-example-via-ctypes">Python Example (via ctypes)</h2>
+<h2 id="python-example-via-ctypes">Python Example (via ctypes)</h2>
 
-      <div class="language-python highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kn">import</span> <span class="n">ctypes</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">ctypes</span>
 <span class="kn">import</span> <span class="n">json</span>
 
 <span class="c1"># Load library
@@ -720,34 +804,26 @@ native-image <span class="se">\</span>
 
 <span class="c1"># Cleanup
 </span><span class="n">lib</span><span class="p">.</span><span class="nf">golek_client_destroy</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h2 id="memory-management">Memory Management</h2>
+<h2 id="memory-management">Memory Management</h2>
 
-      <p><strong>Critical:</strong> All string pointers returned by Gollek SDK functions must be freed:</p>
+<p><strong>Critical:</strong> All string pointers returned by Gollek SDK functions must be freed:</p>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="n">golek_create_completion_json</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">requestJson</span><span class="p">);</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="n">golek_create_completion_json</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">requestJson</span><span class="p">);</span>
 <span class="c1">// Use result...</span>
 <span class="n">golek_string_free</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>  <span class="c1">// MUST free</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <p>Failure to free strings will result in memory leaks.</p>
+<p>Failure to free strings will result in memory leaks.</p>
 
-      <hr />
+<hr />
 
-      <h2 id="error-handling-pattern">Error Handling Pattern</h2>
+<h2 id="error-handling-pattern">Error Handling Pattern</h2>
 
-      <div class="language-c highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="n">golek_create_completion_json</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">requestJson</span><span class="p">);</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="n">result</span> <span class="o">=</span> <span class="n">golek_create_completion_json</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">requestJson</span><span class="p">);</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">char</span><span class="o">*</span> <span class="n">error</span> <span class="o">=</span> <span class="n">golek_last_error</span><span class="p">();</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
@@ -761,31 +837,27 @@ native-image <span class="se">\</span>
 <span class="c1">// Use result...</span>
 <span class="n">golek_string_free</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
 <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</code></pre>
-        </div>
-      </div>
+</code></pre></div></div>
 
-      <hr />
+<hr />
 
-      <h2 id="thread-safety">Thread Safety</h2>
+<h2 id="thread-safety">Thread Safety</h2>
 
-      <ul>
-        <li>Client handles are thread-safe for concurrent reads</li>
-        <li>Each thread should use its own client handle for writes</li>
-        <li>Error state is thread-local</li>
-      </ul>
+<ul>
+  <li>Client handles are thread-safe for concurrent reads</li>
+  <li>Each thread should use its own client handle for writes</li>
+  <li>Error state is thread-local</li>
+</ul>
 
-      <hr />
+<hr />
 
-      <h2 id="native-image-configuration">Native Image Configuration</h2>
+<h2 id="native-image-configuration">Native Image Configuration</h2>
 
-      <h3 id="custom-substitutions">Custom Substitutions</h3>
+<h3 id="custom-substitutions">Custom Substitutions</h3>
 
-      <p>For advanced use cases, create a <code class="language-plaintext highlighter-rouge">jni-config.json</code>:</p>
+<p>For advanced use cases, create a <code class="language-plaintext highlighter-rouge">jni-config.json</code>:</p>
 
-      <div class="language-json highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code><span class="p">[</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tech.kayys.gollek.sdk.local.nativeinterop.GollekNativeEntrypoints"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"methods"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -794,38 +866,37 @@ native-image <span class="se">\</span>
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre>
-        </div>
-      </div>
+</span></code></pre></div></div>
 
-      <h3 id="build-with-configuration">Build with Configuration</h3>
+<h3 id="build-with-configuration">Build with Configuration</h3>
 
-      <div class="language-bash highlighter-rouge">
-        <div class="highlight">
-          <pre class="highlight"><code>native-image <span class="se">\</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>native-image <span class="se">\</span>
   <span class="nt">-cp</span> target/classes <span class="se">\</span>
   <span class="nt">--shared</span> <span class="se">\</span>
   <span class="nt">-H</span>:Name<span class="o">=</span>gollek_sdk_local <span class="se">\</span>
   <span class="nt">-H</span>:Class<span class="o">=</span>tech.kayys.gollek.sdk.local.nativeinterop.GollekNativeEntrypoints <span class="se">\</span>
   <span class="nt">--initialize-at-build-time</span><span class="o">=</span>tech.kayys.gollek <span class="se">\</span>
   <span class="nt">-H</span>:JNIConfigurationFiles<span class="o">=</span>jni-config.json
-</code></pre>
+</code></pre></div></div>
+
+<hr />
+
+<p><a href="/docs/core-api">Back to Core API</a>   <a href="/docs/architecture">Architecture</a></p>
+
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-content">
+        <p>&copy; 2026 Gollek AI. Open source under Apache 2.0 License.</p>
+        <div class="footer-links">
+          <a href="https://github.com/bhangun/gollek">GitHub</a>
+          <a href="/blog/">Blog</a>
+          <a href="/docs/">Docs</a>
         </div>
       </div>
-
-      <hr />
-
-      <p><a href="/docs/core-api">Back to Core API</a>   <a href="/docs/architecture">Architecture</a></p>
-
-    </article>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <span>Gollek AI Docs</span>
-      <a href="https://github.com/bhangun/gollek">bhangun/gollek</a>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </body>
-
 </html>

@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Audio Module v2.0 and Quantization Engine Release | Gollek</title>
+  <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('gollek-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <a href="/" class="sidebar-brand">
+        <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png" alt="Gollek Logo" class="brand-logo">
+        <span class="brand-text">Gollek</span>
+      </a>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Getting Started</div>
+        <a href="/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9,22 9,12 15,12 15,22"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="/docs/cli-installation" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4,17 10,11 4,5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+          <span>Install CLI</span>
+        </a>
+        <a href="/docs/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10,9 9,9 8,9"/>
+          </svg>
+          <span>Documentation</span>
+        </a>
+        <a href="/features/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+          </svg>
+          <span>Features</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Core Concepts</div>
+        <a href="/docs/core-api" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          <span>Core API</span>
+        </a>
+        <a href="/docs/architecture" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <span>Architecture</span>
+        </a>
+        <a href="/docs/plugin-system-v2" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <span>Plugin System</span>
+        </a>
+        <a href="/docs/runner-plugins" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+          <span>Runners</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Model Formats</div>
+        <a href="/docs/gguf-enhancements" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span>GGUF</span>
+        </a>
+        <a href="/docs/quantization" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <span>Quantization</span>
+        </a>
+        <a href="/docs/audio-processing" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <span>Audio</span>
+        </a>
+        <a href="/docs/gpu-kernels" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <rect x="9" y="9" width="6" height="6"/>
+            <line x1="9" y1="1" x2="9" y2="4"/>
+            <line x1="15" y1="1" x2="15" y2="4"/>
+            <line x1="9" y1="20" x2="9" y2="23"/>
+            <line x1="15" y1="20" x2="15" y2="23"/>
+            <line x1="20" y1="9" x2="23" y2="9"/>
+            <line x1="20" y1="14" x2="23" y2="14"/>
+            <line x1="1" y1="9" x2="4" y2="9"/>
+            <line x1="1" y1="14" x2="4" y2="14"/>
+          </svg>
+          <span>GPU Kernels</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Resources</div>
+        <a href="/blog/" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+            <polyline points="17,21 17,13 7,13 7,21"/>
+            <polyline points="17,9 7,9 7,2"/>
+          </svg>
+          <span>Blog</span>
+        </a>
+        <a href="/docs/examples" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <span>Examples</span>
+        </a>
+        <a href="/docs/troubleshooting" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>Troubleshooting</span>
+        </a>
+        <a href="/docs/error-codes" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>Error Codes</span>
+        </a>
+        <a href="https://github.com/bhangun/gollek" class="nav-item nav-item-external" target="_blank" rel="noopener">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+          </svg>
+          <span>GitHub</span>
+          <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+      </div>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="theme-selector">
+        <button class="theme-option" data-theme="dark" aria-label="Dark theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="light" aria-label="Light theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="auto" aria-label="Auto theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="version-info">
+        <span class="version-label">v1.0.0</span>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Main Content Area -->
+  <div class="main-wrapper">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-content">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <div class="header-title">
+          
+          <h1 class="page-title">Audio Module v2.0 and Quantization Engine Release</h1>
+          
+        </div>
+        <div class="header-actions">
+          <a href="/docs/cli-installation" class="btn btn-sm btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Install
+          </a>
+          <a href="https://github.com/bhangun/gollek" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-container">
+        <h1 id="audio-module-v20-and-quantization-engine-release">Audio Module v2.0 and Quantization Engine Release</h1>
+
+<p><strong>Published</strong>: March 20, 2026<br />
+<strong>Categories</strong>: Release, Audio, Quantization<br />
+<strong>Tags</strong>: audio, quantization, whisper, speecht5, gptq</p>
+
+<hr />
+
+<h2 id="overview">Overview</h2>
+
+<p>We’re excited to announce the release of Gollek SDK’s Audio Module v2.0 and a comprehensive Quantization Engine. These updates bring production-ready speech-to-text, text-to-speech, and model compression capabilities to the platform.</p>
+
+<h2 id="whats-new">What’s New</h2>
+
+<h3 id="audio-module-v20">Audio Module v2.0</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">gollek-safetensor-audio</code> module has been completely reimagined with:</p>
+
+<h4 id="speech-to-text-whisper">Speech-to-Text (Whisper)</h4>
+<ul>
+  <li><strong>Complete Whisper Implementation</strong>: Full encoder-decoder with beam search</li>
+  <li><strong>99+ Language Support</strong>: Auto-detection and transcription</li>
+  <li><strong>Word-Level Timestamps</strong>: Precise timing information</li>
+  <li><strong>Streaming Transcription</strong>: Real-time processing with &lt;500ms latency</li>
+  <li><strong>Voice Activity Detection</strong>: Silence removal for efficiency</li>
+  <li><strong>Multi-Format Support</strong>: WAV, MP3, FLAC, OGG, M4A, WebM</li>
+</ul>
+
+<h4 id="text-to-speech-speecht5">Text-to-Speech (SpeechT5)</h4>
+<ul>
+  <li><strong>HiFi-GAN Vocoder</strong>: High-quality neural synthesis</li>
+  <li><strong>8 Preset Voices</strong>: alloy, echo, fable, onyx, nova, shimmer, ash, ballad</li>
+  <li><strong>Custom Speaker Embeddings</strong>: Register your own voices</li>
+  <li><strong>Speed Control</strong>: Adjustable synthesis speed</li>
+  <li><strong>16kHz Output</strong>: Professional quality audio</li>
+</ul>
+
+<h4 id="audio-processing-pipeline">Audio Processing Pipeline</h4>
+<ul>
+  <li><strong>Feature Extraction</strong>: Log-Mel, MFCC, F0, energy contours</li>
+  <li><strong>Resampling</strong>: High-quality sinc interpolation</li>
+  <li><strong>Voice Activity Detection</strong>: Energy-based segmentation</li>
+  <li><strong>Normalization</strong>: Peak and RMS normalization</li>
+</ul>
+
+<h3 id="quantization-engine">Quantization Engine</h3>
+
+<p>The new <code class="language-plaintext highlighter-rouge">gollek-safetensor-quantization</code> module provides:</p>
+
+<h4 id="quantization-strategies">Quantization Strategies</h4>
+<ul>
+  <li><strong>GPTQ (INT4)</strong>: 4-bit quantization with 8x compression</li>
+  <li><strong>INT8</strong>: 8-bit integer with 4x compression</li>
+  <li><strong>FP8</strong>: 8-bit floating point for GPU tensor cores</li>
+</ul>
+
+<h4 id="features">Features</h4>
+<ul>
+  <li><strong>SafeTensors Format</strong>: Secure, fast, memory-mappable</li>
+  <li><strong>REST API</strong>: HTTP endpoints for quantization</li>
+  <li><strong>Streaming Progress</strong>: Real-time progress updates</li>
+  <li><strong>Model Integration</strong>: Seamless loading in inference engine</li>
+  <li><strong>Hot-Swap Support</strong>: Zero-downtime model upgrades</li>
+</ul>
+
+<h2 id="performance-improvements">Performance Improvements</h2>
+
+<h3 id="audio-processing">Audio Processing</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Before</th>
+      <th>After</th>
+      <th>Improvement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Transcription Speed</td>
+      <td>45s</td>
+      <td>25s</td>
+      <td>1.8x faster</td>
+    </tr>
+    <tr>
+      <td>TTS Quality (MOS)</td>
+      <td>~3.5</td>
+      <td>~4.2</td>
+      <td>+20%</td>
+    </tr>
+    <tr>
+      <td>Streaming Latency</td>
+      <td>N/A</td>
+      <td>&lt;500ms</td>
+      <td>New</td>
+    </tr>
+    <tr>
+      <td>Audio Formats</td>
+      <td>1 (WAV)</td>
+      <td>6</td>
+      <td>+5 formats</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="quantization">Quantization</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model Size</th>
+      <th>INT4 Time</th>
+      <th>INT8 Time</th>
+      <th>FP8 Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>7B</td>
+      <td>~90s</td>
+      <td>~45s</td>
+      <td>~60s</td>
+    </tr>
+    <tr>
+      <td>13B</td>
+      <td>~180s</td>
+      <td>~90s</td>
+      <td>~120s</td>
+    </tr>
+    <tr>
+      <td>70B</td>
+      <td>~900s</td>
+      <td>~450s</td>
+      <td>~600s</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Compression Ratios:</strong></p>
+<ul>
+  <li>INT4: ~8x size reduction</li>
+  <li>INT8: ~4x size reduction</li>
+  <li>FP8: ~4x size reduction</li>
+</ul>
+
+<h2 id="usage-examples">Usage Examples</h2>
+
+<h3 id="speech-to-text">Speech-to-Text</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Inject</span>
+<span class="nc">ImprovedWhisperEngine</span> <span class="n">whisperEngine</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">transcribe</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">AudioConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="nc">AudioConfig</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">task</span><span class="o">(</span><span class="nc">AudioConfig</span><span class="o">.</span><span class="na">Task</span><span class="o">.</span><span class="na">TRANSCRIBE</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">autoLanguage</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">wordTimestamps</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    
+    <span class="nc">AudioResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">whisperEngine</span><span class="o">.</span><span class="na">transcribe</span><span class="o">(</span>
+        <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"audio.wav"</span><span class="o">),</span>
+        <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/models/whisper-large-v3"</span><span class="o">),</span>
+        <span class="n">config</span>
+    <span class="o">).</span><span class="na">await</span><span class="o">().</span><span class="na">indefinitely</span><span class="o">();</span>
+    
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">getText</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="text-to-speech">Text-to-Speech</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Inject</span>
+<span class="nc">ImprovedSpeechT5Engine</span> <span class="n">ttsEngine</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">synthesize</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">audio</span> <span class="o">=</span> <span class="n">ttsEngine</span><span class="o">.</span><span class="na">synthesize</span><span class="o">(</span>
+        <span class="s">"Hello world!"</span><span class="o">,</span>
+        <span class="s">"alloy"</span><span class="o">,</span>
+        <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/models/speecht5-tts"</span><span class="o">),</span>
+        <span class="nc">AudioConfig</span><span class="o">.</span><span class="na">forTTS</span><span class="o">(</span><span class="s">"alloy"</span><span class="o">)</span>
+    <span class="o">).</span><span class="na">await</span><span class="o">().</span><span class="na">indefinitely</span><span class="o">();</span>
+    
+    <span class="nc">Files</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"output.wav"</span><span class="o">),</span> <span class="n">audio</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="model-quantization">Model Quantization</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Inject</span>
+<span class="nc">QuantizationEngine</span> <span class="n">quantizationEngine</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">quantize</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">QuantConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="nc">QuantConfig</span><span class="o">.</span><span class="na">int4Gptq</span><span class="o">();</span>
+    
+    <span class="nc">QuantResult</span> <span class="n">result</span> <span class="o">=</span> <span class="n">quantizationEngine</span><span class="o">.</span><span class="na">quantize</span><span class="o">(</span>
+        <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/models/llama3-8b"</span><span class="o">),</span>
+        <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/models/llama3-8b-int4"</span><span class="o">),</span>
+        <span class="nc">QuantizationEngine</span><span class="o">.</span><span class="na">QuantStrategy</span><span class="o">.</span><span class="na">INT4</span><span class="o">,</span>
+        <span class="n">config</span>
+    <span class="o">);</span>
+    
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Compression: "</span> <span class="o">+</span> 
+        <span class="n">result</span><span class="o">.</span><span class="na">getStats</span><span class="o">().</span><span class="na">getCompressionRatio</span><span class="o">()</span> <span class="o">+</span> <span class="s">"x"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="rest-api-endpoints">REST API Endpoints</h2>
+
+<h3 id="audio-endpoints">Audio Endpoints</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Transcribe audio</span>
+POST /api/v1/audio/transcribe
+
+<span class="c"># Synthesize speech</span>
+POST /api/v1/audio/synthesize
+
+<span class="c"># Detect language</span>
+POST /api/v1/audio/detect-language
+
+<span class="c"># List voices</span>
+GET /api/v1/audio/voices
+</code></pre></div></div>
+
+<h3 id="quantization-endpoints">Quantization Endpoints</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Quantize model</span>
+POST /api/v1/quantization/quantize
+
+<span class="c"># Stream quantization progress</span>
+POST /api/v1/quantization/quantize/stream
+
+<span class="c"># Get recommendation</span>
+GET /api/v1/quantization/recommend?model_size_gb<span class="o">=</span>7
+
+<span class="c"># List strategies</span>
+GET /api/v1/quantization/strategies
+</code></pre></div></div>
+
+<h2 id="architecture">Architecture</h2>
+
+<h3 id="audio-processing-pipeline-1">Audio Processing Pipeline</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Audio File → Decode → Resample → VAD → Feature Extraction → Model → Output
+             │            │          │          │              │
+          Multi-format  16kHz    Silence    Log-Mel      Whisper/
+                       Normalize  removal    MFCC/F0      SpeechT5
+</code></pre></div></div>
+
+<h3 id="quantization-flow">Quantization Flow</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FP16 Model → Calibration → Quantization → SafeTensors → INT4/INT8/FP8
+             │              │              │
+           Samples      GPTQ/INT8     JSON Header
+           (128)        Algorithm     + Binary Data
+</code></pre></div></div>
+
+<h2 id="model-support">Model Support</h2>
+
+<h3 id="whisper-models">Whisper Models</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Parameters</th>
+      <th>Languages</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tiny</td>
+      <td>39M</td>
+      <td>99+</td>
+      <td>Fast transcription</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>74M</td>
+      <td>99+</td>
+      <td>Balanced</td>
+    </tr>
+    <tr>
+      <td>small</td>
+      <td>244M</td>
+      <td>99+</td>
+      <td>Good quality</td>
+    </tr>
+    <tr>
+      <td>medium</td>
+      <td>769M</td>
+      <td>99+</td>
+      <td>High quality</td>
+    </tr>
+    <tr>
+      <td>large-v3</td>
+      <td>1.55B</td>
+      <td>99+</td>
+      <td>Best quality</td>
+    </tr>
+    <tr>
+      <td>large-v3-turbo</td>
+      <td>809M</td>
+      <td>99+</td>
+      <td>Fast large model</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="speecht5-voices">SpeechT5 Voices</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Voice</th>
+      <th>Description</th>
+      <th>Use Case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>alloy</td>
+      <td>Neutral</td>
+      <td>General purpose</td>
+    </tr>
+    <tr>
+      <td>echo</td>
+      <td>Warm</td>
+      <td>Conversational</td>
+    </tr>
+    <tr>
+      <td>fable</td>
+      <td>Expressive</td>
+      <td>Storytelling</td>
+    </tr>
+    <tr>
+      <td>onyx</td>
+      <td>Deep</td>
+      <td>Narration</td>
+    </tr>
+    <tr>
+      <td>nova</td>
+      <td>Clear</td>
+      <td>Business</td>
+    </tr>
+    <tr>
+      <td>shimmer</td>
+      <td>Soft</td>
+      <td>Meditation</td>
+    </tr>
+    <tr>
+      <td>ash</td>
+      <td>Neutral</td>
+      <td>News</td>
+    </tr>
+    <tr>
+      <td>ballad</td>
+      <td>Rich</td>
+      <td>Music/poetry</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="configuration">Configuration</h2>
+
+<h3 id="application-properties">Application Properties</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Audio Configuration
+</span><span class="py">gollek.audio.whisper.beam-size</span><span class="p">=</span><span class="s">5</span>
+<span class="py">gollek.audio.whisper.vad-enabled</span><span class="p">=</span><span class="s">true</span>
+<span class="py">gollek.audio.tts.default-voice</span><span class="p">=</span><span class="s">alloy</span>
+
+<span class="c"># Quantization Configuration
+</span><span class="py">gollek.quantization.strategy</span><span class="p">=</span><span class="s">INT4</span>
+<span class="py">gollek.quantization.group-size</span><span class="p">=</span><span class="s">128</span>
+</code></pre></div></div>
+
+<h2 id="migration-guide">Migration Guide</h2>
+
+<h3 id="from-legacy-audio-module">From Legacy Audio Module</h3>
+
+<p>The legacy <code class="language-plaintext highlighter-rouge">WhisperEngine</code> and <code class="language-plaintext highlighter-rouge">SpeechT5Engine</code> classes are deprecated but still available. To migrate:</p>
+
+<p><strong>Old:</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Inject</span>
+<span class="nc">WhisperEngine</span> <span class="n">whisper</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p><strong>New:</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Inject</span>
+<span class="nc">ImprovedWhisperEngine</span> <span class="n">whisper</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>The new engines use <code class="language-plaintext highlighter-rouge">AudioConfig</code> and return <code class="language-plaintext highlighter-rouge">AudioResult</code> for consistent APIs.</p>
+
+<h3 id="quantization-integration">Quantization Integration</h3>
+
+<p>Quantized models can be loaded directly in the inference engine:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Load quantized model</span>
+<span class="n">engine</span><span class="o">.</span><span class="na">loadQuantizedModel</span><span class="o">(</span>
+    <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/models/llama3-8b-int4"</span><span class="o">),</span>
+    <span class="nc">QuantizationEngine</span><span class="o">.</span><span class="na">QuantStrategy</span><span class="o">.</span><span class="na">INT4</span>
+<span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="benchmarks">Benchmarks</h2>
+
+<h3 id="whisper-transcription-rtf">Whisper Transcription (RTF*)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>RTF</th>
+      <th>WER**</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tiny</td>
+      <td>0.15x</td>
+      <td>8.5%</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>0.25x</td>
+      <td>6.2%</td>
+    </tr>
+    <tr>
+      <td>small</td>
+      <td>0.5x</td>
+      <td>4.8%</td>
+    </tr>
+    <tr>
+      <td>medium</td>
+      <td>1.0x</td>
+      <td>3.5%</td>
+    </tr>
+    <tr>
+      <td>large-v3</td>
+      <td>1.5x</td>
+      <td>2.9%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>*RTF: Real-Time Factor (lower is faster)
+**WER: Word Error Rate on LibriSpeech test-clean</p>
+
+<h3 id="speecht5-tts">SpeechT5 TTS</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MOS Score</td>
+      <td>4.2/5.0</td>
+    </tr>
+    <tr>
+      <td>Synthesis Speed</td>
+      <td>~50x real-time</td>
+    </tr>
+    <tr>
+      <td>Latency</td>
+      <td>&lt;100ms</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<h3 id="installation">Installation</h3>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>tech.kayys.gollek<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>gollek-safetensor-audio<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>tech.kayys.gollek<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>gollek-safetensor-quantization<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<h3 id="documentation">Documentation</h3>
+
+<ul>
+  <li><a href="/docs/audio-processing">Audio Processing Guide</a></li>
+  <li><a href="/docs/quantization">Quantization Guide</a></li>
+  <li><a href="/docs/core-api">API Reference</a></li>
+  <li><a href="/docs/examples">Examples</a></li>
+</ul>
+
+<h2 id="future-roadmap">Future Roadmap</h2>
+
+<h3 id="audio-module">Audio Module</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Speaker diarization with clustering</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Noise reduction preprocessing</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Emotion control for TTS</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Multi-speaker TTS support</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Streaming diarization</li>
+</ul>
+
+<h3 id="quantization-1">Quantization</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />AWQ (Activation-aware Weight Quantization)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />SmoothQuant for activation quantization</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Mixed-precision quantization</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Quantization-aware training (QAT)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Automatic strategy selection</li>
+</ul>
+
+<h2 id="acknowledgments">Acknowledgments</h2>
+
+<p>This release builds on excellent open-source work:</p>
+<ul>
+  <li><a href="https://github.com/openai/whisper">OpenAI Whisper</a></li>
+  <li><a href="https://github.com/microsoft/SpeechT5">Microsoft SpeechT5</a></li>
+  <li><a href="https://github.com/jik876/hifi-gan">HiFi-GAN</a></li>
+  <li><a href="https://arxiv.org/abs/2210.17323">GPTQ</a></li>
+</ul>
+
+<h2 id="support">Support</h2>
+
+<p>For issues or questions:</p>
+<ul>
+  <li><a href="/docs/">Documentation</a></li>
+  <li><a href="https://github.com/bhangun/gollek/issues">GitHub Issues</a></li>
+  <li><a href="https://github.com/bhangun/gollek/discussions">Discussions</a></li>
+</ul>
+
+<hr />
+
+<p><strong>Ready to build?</strong> <a href="/docs/">Get Started Now</a></p>
+
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-content">
+        <p>&copy; 2026 Gollek AI. Open source under Apache 2.0 License.</p>
+        <div class="footer-links">
+          <a href="https://github.com/bhangun/gollek">GitHub</a>
+          <a href="/blog/">Blog</a>
+          <a href="/docs/">Docs</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

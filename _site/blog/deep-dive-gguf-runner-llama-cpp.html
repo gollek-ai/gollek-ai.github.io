@@ -1,0 +1,105 @@
+<p class="blog-meta">Published: March 31, 2026</p>
+
+<h1 id="deep-dive-how-gollek-orchestrates-gguf-with-llamacpp-and-project-panama">Deep Dive: How Gollek Orchestrates GGUF with llama.cpp and Project Panama</h1>
+
+<p>In our previous post, we discussed why we chose Java for AI. Today, we’re peeling back the layers of the <strong>GGUF Runner</strong>—the engine responsible for running quantized models like Llama 3, Qwen, and Mistral at native speeds within the Java Virtual Machine.</p>
+
+<p>Located in <code class="language-plaintext highlighter-rouge">gollek/plugins/runner/gguf</code>, this runner isn’t just a simple wrapper. It’s a sophisticated orchestration layer that bridges the high-level Java world with the optimized C++ kernels of <code class="language-plaintext highlighter-rouge">llama.cpp</code>.</p>
+
+<hr />
+
+<h2 id="1-the-architecture-of-a-modern-runner">1. The Architecture of a Modern Runner</h2>
+
+<p>The GGUF runner is built as a modular system where each component has a specific responsibility:</p>
+
+<ul>
+  <li><strong><code class="language-plaintext highlighter-rouge">LlamaCppBinding</code></strong>: The heart of the integration. It uses the <strong>JDK 21+ Foreign Function &amp; Memory (FFM) API</strong> (Project Panama) to call <code class="language-plaintext highlighter-rouge">llama.cpp</code> directly, bypassing the overhead and complexity of JNI.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">LlamaCppModelInitializer</code></strong>: Manages the complex lifecycle of loading GGUF binaries, calculating GPU layer offloading, and initializing the compute context.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">LlamaCppKVCacheManager</code></strong>: Handles the KV (Key-Value) cache, ensuring that multi-turn conversations are efficient by reusing previous computations.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">LlamaCppTokenSampler</code></strong>: Implements advanced sampling strategies (Temperature, Top-K, Top-P, Min-P, and Penalties) directly in the inference loop.</li>
+</ul>
+
+<hr />
+
+<h2 id="2-goodbye-jni-hello-project-panama">2. Goodbye JNI, Hello Project Panama</h2>
+
+<p>Traditionally, Java-to-C++ communication required JNI (Java Native Interface), which involved writing “glue” code in C, managing complex headers, and dealing with significant call overhead.</p>
+
+<p>Gollek uses <strong>Project Panama</strong> to define these bindings purely in Java. Here’s a look at how we define the <code class="language-plaintext highlighter-rouge">llama_decode</code> function in <code class="language-plaintext highlighter-rouge">LlamaCppBinding.java</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Definition of the native function signature</span>
+<span class="kd">private</span> <span class="kd">final</span> <span class="nc">MethodHandle</span> <span class="n">llama_decode</span> <span class="o">=</span> <span class="nc">Linker</span><span class="o">.</span><span class="na">nativeLinker</span><span class="o">().</span><span class="na">downcallHandle</span><span class="o">(</span>
+    <span class="n">symbolLookup</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="s">"llama_decode"</span><span class="o">).</span><span class="na">get</span><span class="o">(),</span>
+    <span class="nc">FunctionDescriptor</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="nc">ValueLayout</span><span class="o">.</span><span class="na">JAVA_INT</span><span class="o">,</span> 
+        <span class="nc">ValueLayout</span><span class="o">.</span><span class="na">ADDRESS</span><span class="o">,</span> <span class="c1">// context</span>
+        <span class="no">LLAMA_BATCH_LAYOUT</span>   <span class="c1">// batch data</span>
+    <span class="o">)</span>
+<span class="o">);</span>
+</code></pre></div></div>
+
+<p>By using <code class="language-plaintext highlighter-rouge">MemorySegment</code> and <code class="language-plaintext highlighter-rouge">Arena</code>, we manage native memory with safety and performance that was previously impossible in Java. This allows for <strong>zero-copy</strong> data transfer between Java and the C++ engine.</p>
+
+<hr />
+
+<h2 id="3-beyond-text-multimodal-llava-support">3. Beyond Text: Multimodal LLaVA Support</h2>
+
+<p>One of the most powerful features of Gollek’s GGUF runner is its <strong>Multimodal Support</strong>. In <code class="language-plaintext highlighter-rouge">GGUFMultimodalProcessor.java</code>, we’ve implemented support for <strong>LLaVA (Large Language-and-Vision Assistant)</strong> models.</p>
+
+<p>When you send an image to Gollek, the runner:</p>
+<ol>
+  <li>Processes the image using a dedicated vision encoder.</li>
+  <li>Projects the image embeddings into the same space as the text tokens.</li>
+  <li>Injects these “visual tokens” into the <code class="language-plaintext highlighter-rouge">llama.cpp</code> context.</li>
+  <li>Generates a text response based on both the image and your prompt.</li>
+</ol>
+
+<p>All of this happens through the same high-performance Panama bindings, allowing Java developers to build vision-aware AI applications without leaving the ecosystem.</p>
+
+<hr />
+
+<h2 id="4-intelligent-gpu-offloading">4. Intelligent GPU Offloading</h2>
+
+<p>GGUF models are famous for their ability to run on both CPU and GPU. Gollek’s <code class="language-plaintext highlighter-rouge">LlamaCppModelInitializer</code> dynamically calculates how many layers can fit into your VRAM:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Snippet of the logic in ModelInitializer</span>
+<span class="kt">int</span> <span class="n">activeGpuLayers</span> <span class="o">=</span> <span class="n">calculateOptimalGpuLayers</span><span class="o">(</span><span class="n">modelSize</span><span class="o">,</span> <span class="n">availableVram</span><span class="o">);</span>
+<span class="n">llamaCppBinding</span><span class="o">.</span><span class="na">setModelParam</span><span class="o">(</span><span class="n">modelParams</span><span class="o">,</span> <span class="s">"n_gpu_layers"</span><span class="o">,</span> <span class="n">activeGpuLayers</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>This ensures that whether you’re on a Mac with Metal, a Linux box with NVIDIA CUDA, or a laptop with only a CPU, Gollek automatically scales to provide the best possible performance.</p>
+
+<hr />
+
+<h2 id="5-performance-metrics">5. Performance Metrics</h2>
+
+<p>Thanks to the FFM API and the efficiency of <code class="language-plaintext highlighter-rouge">llama.cpp</code>, the overhead of calling into native code from Java is negligible. On a modern Apple M2 Max, the GGUF runner achieves:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: left">Speed (Tokens/sec)</th>
+      <th style="text-align: left">Latency (First Token)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>Llama 3 8B (Q4_K_M)</strong></td>
+      <td style="text-align: left">~45-55 t/s</td>
+      <td style="text-align: left">&lt; 150ms</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Qwen 2.5 7B (Q8_0)</strong></td>
+      <td style="text-align: left">~35-40 t/s</td>
+      <td style="text-align: left">&lt; 200ms</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The GGUF runner in Gollek represents a new era of Java engineering. By leveraging the latest JDK features and the best-in-class native engines, we’ve created a platform that offers <strong>Python-like flexibility with C++ performance</strong>, all while maintaining the <strong>Java type safety and stability</strong> that enterprises demand.</p>
+
+<p>Ready to dive deeper? Check out the source code in <code class="language-plaintext highlighter-rouge">gollek/plugins/runner/gguf</code> or start building your first multimodal app today!</p>

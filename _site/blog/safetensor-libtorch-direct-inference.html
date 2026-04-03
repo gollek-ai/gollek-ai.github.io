@@ -1,0 +1,84 @@
+<p class="blog-meta">Published: March 31, 2026</p>
+
+<h1 id="beyond-gguf-direct-safetensor-inference-with-libtorch-and-project-panama">Beyond GGUF: Direct SafeTensor Inference with LibTorch and Project Panama</h1>
+
+<p>While the <a href="./deep-dive-gguf-runner-llama-cpp.md">GGUF format</a> is fantastic for local LLMs, the AI research world speaks a different language: <strong>SafeTensors</strong>.</p>
+
+<p>In this deep dive, we explore the <strong>Gollek SafeTensor Runner</strong> (<code class="language-plaintext highlighter-rouge">gollek/plugins/runner/safetensor</code>), a high-performance inference engine that runs raw HuggingFace weights directly in Java. No conversion required. No JNI overhead. Just pure, zero-copy performance.</p>
+
+<hr />
+
+<h2 id="1-the-zero-copy-holy-grail-at_from_blob">1. The Zero-Copy Holy Grail: <code class="language-plaintext highlighter-rouge">at_from_blob</code></h2>
+
+<p>The biggest bottleneck in cross-language AI is moving data. If you load weights into Java and then copy them to C++ for computation, you’ve already lost the performance battle.</p>
+
+<p>Gollek solves this using a “Zero-Copy Bridge” (<code class="language-plaintext highlighter-rouge">SafetensorWeightBridge.java</code>). Here is the magic sequence:</p>
+
+<ol>
+  <li><strong>Mmap</strong>: We use JDK 25’s <code class="language-plaintext highlighter-rouge">MemorySegment.mapFile()</code> to map the <code class="language-plaintext highlighter-rouge">.safetensors</code> file into off-heap memory.</li>
+  <li><strong>Panama Address</strong>: We extract the native address of that memory segment.</li>
+  <li><strong>LibTorch Wrap</strong>: We call the native LibTorch function <code class="language-plaintext highlighter-rouge">at_from_blob</code> via Project Panama.</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Logic from SafetensorWeightBridge.java</span>
+<span class="kd">public</span> <span class="nc">Tensor</span> <span class="nf">bridge</span><span class="o">(</span><span class="nc">SafetensorTensor</span> <span class="n">st</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">MemorySegment</span> <span class="n">segment</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="na">segment</span><span class="o">();</span>
+    <span class="kt">long</span> <span class="n">address</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="na">address</span><span class="o">();</span>
+    <span class="kt">long</span><span class="o">[]</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="na">shape</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="na">dtype</span><span class="o">().</span><span class="na">toScalarType</span><span class="o">();</span>
+
+    <span class="c1">// LibTorch now points to the EXACT same memory as the file on disk</span>
+    <span class="k">return</span> <span class="n">libTorch</span><span class="o">.</span><span class="na">fromBlob</span><span class="o">(</span><span class="n">address</span><span class="o">,</span> <span class="n">shape</span><span class="o">,</span> <span class="n">dtype</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This means the weights are shared between the OS page cache and the compute engine. The first time a layer is used, the OS page-faults it from disk. Subsequent calls are served instantly from RAM.</p>
+
+<hr />
+
+<h2 id="2-orchestrating-the-forward-pass-in-java">2. Orchestrating the Forward Pass in Java</h2>
+
+<p>One of the most unique aspects of Gollek is that the <strong>Transformer architecture is defined in Java</strong>.</p>
+
+<p>While many engines treat the model as a “black box” C++ blob, Gollek’s <code class="language-plaintext highlighter-rouge">DirectForwardPass.java</code> implements the LLaMA/Mistral/Qwen logic using LibTorch tensor operations. This gives us incredible flexibility:</p>
+
+<ul>
+  <li><strong>Flash Attention Integration</strong>: We call high-performance kernels (<code class="language-plaintext highlighter-rouge">FlashAttentionKernel</code>) directly from the Java loop.</li>
+  <li><strong>Custom KV Cache</strong>: Java manages the Key-Value cache pages, allowing for advanced memory strategies like PagedAttention.</li>
+  <li><strong>MoE Support</strong>: Mixture-of-Experts (MoE) logic like that found in Mixtral or DeepSeek is orchestrated directly in Java, routing tokens to expert tensors on the fly.</li>
+</ul>
+
+<hr />
+
+<h2 id="3-the-autoregressive-loop">3. The Autoregressive Loop</h2>
+
+<p>In <code class="language-plaintext highlighter-rouge">TextInferenceEngine.java</code>, we implement the full generation cycle. Because we are in Java, we can easily integrate with enterprise features:</p>
+
+<ol>
+  <li><strong>Prefill Phase</strong>: Process the entire prompt in one shot to populate the KV cache.</li>
+  <li><strong>Decode Phase</strong>: Generate tokens one-by-one in a high-speed loop.</li>
+  <li><strong>Streaming</strong>: Each token is streamed back to the user via <code class="language-plaintext highlighter-rouge">SubmissionPublisher</code> (Java Flow API) as it is generated.</li>
+  <li><strong>Sampling</strong>: We implement Temperature, Top-P, and Penalty logic using LibTorch’s accelerated math.</li>
+</ol>
+
+<hr />
+
+<h2 id="4-why-this-matters-for-java-developers">4. Why this matters for Java Developers</h2>
+
+<p>By building this “Direct Engine,” we’ve removed the “Python Tax.”</p>
+
+<p>You no longer need to run a separate Python microservice just to get state-of-the-art inference. You don’t need to wait for a GGUF conversion of the latest model. You can simply:</p>
+
+<ol>
+  <li>Download a model from HuggingFace (<code class="language-plaintext highlighter-rouge">safetensors</code> format).</li>
+  <li>Point Gollek at the directory.</li>
+  <li>Start inferencing at native LibTorch speeds.</li>
+</ol>
+
+<hr />
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The combination of <strong>Project Panama</strong>, <strong>LibTorch</strong>, and <strong>SafeTensors</strong> has turned Java into a first-class citizen for AI inference. Gollek doesn’t just “support” AI; it provides a high-performance, low-latency foundation for the next generation of intelligent Java applications.</p>
+
+<p>Check out the code in <code class="language-plaintext highlighter-rouge">gollek/plugins/runner/safetensor</code> and see how we’re redefining the boundaries of the JVM!</p>

@@ -1,247 +1,402 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Code Examples | Gollek</title>
-    <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
-    <script>
-        (function () {
-            try {
-                var stored = localStorage.getItem('gollek-theme');
-                var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-                var theme = stored || (prefersLight ? 'light' : 'dark');
-                document.documentElement.setAttribute('data-theme', theme);
-            } catch (e) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        })();
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/site.css">
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
-    <script src="/assets/js/site.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code Examples | Gollek</title>
+  <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('gollek-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
 </head>
-
 <body>
-    <div class="site-bg" aria-hidden="true"></div>
-
-    <header class="site-header">
-        <div class="container header-inner">
-            <a href="/" class="brand">Gollek</a>
-            <nav class="site-nav" aria-label="Main navigation">
-                <a href="/docs/">Docs</a>
-                <a href="/blog/">Blog</a>
-                <a href="/docs/cli-installation">Install</a>
-                <a href="/features/">Features</a>
-                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
-                <a href="https://github.com/bhangun/gollek">GitHub</a>
-            </nav>
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <a href="/" class="sidebar-brand">
+        <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png" alt="Gollek Logo" class="brand-logo">
+        <span class="brand-text">Gollek</span>
+      </a>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Getting Started</div>
+        <a href="/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9,22 9,12 15,12 15,22"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="/docs/cli-installation" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4,17 10,11 4,5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+          <span>Install CLI</span>
+        </a>
+        <a href="/docs/" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10,9 9,9 8,9"/>
+          </svg>
+          <span>Documentation</span>
+        </a>
+        <a href="/features/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+          </svg>
+          <span>Features</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Core Concepts</div>
+        <a href="/docs/core-api" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          <span>Core API</span>
+        </a>
+        <a href="/docs/architecture" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <span>Architecture</span>
+        </a>
+        <a href="/docs/plugin-system-v2" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <span>Plugin System</span>
+        </a>
+        <a href="/docs/runner-plugins" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+          <span>Runners</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Model Formats</div>
+        <a href="/docs/gguf-enhancements" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span>GGUF</span>
+        </a>
+        <a href="/docs/quantization" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <span>Quantization</span>
+        </a>
+        <a href="/docs/audio-processing" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <span>Audio</span>
+        </a>
+        <a href="/docs/gpu-kernels" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <rect x="9" y="9" width="6" height="6"/>
+            <line x1="9" y1="1" x2="9" y2="4"/>
+            <line x1="15" y1="1" x2="15" y2="4"/>
+            <line x1="9" y1="20" x2="9" y2="23"/>
+            <line x1="15" y1="20" x2="15" y2="23"/>
+            <line x1="20" y1="9" x2="23" y2="9"/>
+            <line x1="20" y1="14" x2="23" y2="14"/>
+            <line x1="1" y1="9" x2="4" y2="9"/>
+            <line x1="1" y1="14" x2="4" y2="14"/>
+          </svg>
+          <span>GPU Kernels</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Resources</div>
+        <a href="/blog/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+            <polyline points="17,21 17,13 7,13 7,21"/>
+            <polyline points="17,9 7,9 7,2"/>
+          </svg>
+          <span>Blog</span>
+        </a>
+        <a href="/docs/examples" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <span>Examples</span>
+        </a>
+        <a href="/docs/troubleshooting" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>Troubleshooting</span>
+        </a>
+        <a href="/docs/error-codes" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>Error Codes</span>
+        </a>
+        <a href="https://github.com/bhangun/gollek" class="nav-item nav-item-external" target="_blank" rel="noopener">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+          </svg>
+          <span>GitHub</span>
+          <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+      </div>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="theme-selector">
+        <button class="theme-option" data-theme="dark" aria-label="Dark theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="light" aria-label="Light theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="auto" aria-label="Auto theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="version-info">
+        <span class="version-label">v1.0.0</span>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Main Content Area -->
+  <div class="main-wrapper">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-content">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <div class="header-title">
+          
+          <h1 class="page-title">Code Examples</h1>
+          
         </div>
+        <div class="header-actions">
+          <a href="/docs/cli-installation" class="btn btn-sm btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Install
+          </a>
+          <a href="https://github.com/bhangun/gollek" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
     </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-container">
+        <h2 id="onnx-runtime-with-coreml-apple-silicon">ONNX Runtime with CoreML (Apple Silicon)</h2>
 
-    <main class="container content-shell">
-        <article class="content-card">
-            <h2 id="onnx-runtime-with-coreml-apple-silicon">ONNX Runtime with CoreML (Apple Silicon)</h2>
+<p>Configure ONNX Runtime to use CoreML when available:</p>
 
-            <p>Configure ONNX Runtime to use CoreML when available:</p>
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">onnx.runner.execution_provider</span><span class="p">=</span><span class="s">coreml</span>
+</code></pre></div></div>
 
-            <div class="language-properties highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="py">onnx.runner.execution_provider</span><span class="p">=</span><span class="s">coreml</span>
-</code></pre>
-                </div>
-            </div>
+<p>Auto mode (tries CoreML → CUDA → ROCm → CPU):</p>
 
-            <p>Auto mode (tries CoreML → CUDA → ROCm → CPU):</p>
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">onnx.runner.execution_provider</span><span class="p">=</span><span class="s">auto</span>
+</code></pre></div></div>
 
-            <div class="language-properties highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="py">onnx.runner.execution_provider</span><span class="p">=</span><span class="s">auto</span>
-</code></pre>
-                </div>
-            </div>
+<p>Notes:</p>
+<ul>
+  <li>CoreML EP requires an ONNX Runtime build that exports <code class="language-plaintext highlighter-rouge">OrtSessionOptionsAppendExecutionProvider_CoreML</code>.</li>
+  <li>Global Metal switches also apply: <code class="language-plaintext highlighter-rouge">gollek.runners.metal.enabled=false</code> or <code class="language-plaintext highlighter-rouge">gollek.runners.metal.mode=disabled</code>.</li>
+</ul>
 
-            <p>Notes:</p>
-            <ul>
-                <li>CoreML EP requires an ONNX Runtime build that exports <code
-                        class="language-plaintext highlighter-rouge">OrtSessionOptionsAppendExecutionProvider_CoreML</code>.
-                </li>
-                <li>Global Metal switches also apply: <code
-                        class="language-plaintext highlighter-rouge">gollek.runners.metal.enabled=false</code> or <code
-                        class="language-plaintext highlighter-rouge">gollek.runners.metal.mode=disabled</code>.</li>
-            </ul>
+<p>Local ONNX Runtime install (macOS example):</p>
 
-            <p>Local ONNX Runtime install (macOS example):</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make <span class="nt">-C</span> inference-gollek/extension/runner/onnx/gollek-runner-onnx/src/main/cpp/onnxruntime <span class="nb">install</span>
+</code></pre></div></div>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code>make <span class="nt">-C</span> inference-gollek/extension/runner/onnx/gollek-runner-onnx/src/main/cpp/onnxruntime <span class="nb">install</span>
-</code></pre>
-                </div>
-            </div>
+<p>Library path resolution:</p>
+<ul>
+  <li>Preferred: <code class="language-plaintext highlighter-rouge">gollek.runners.onnx.library-path=/full/path/to/libonnxruntime.dylib</code></li>
+  <li>Fallback: <code class="language-plaintext highlighter-rouge">~/.gollek/libs/libonnxruntime.dylib</code> (auto-detected)</li>
+  <li>Env override: <code class="language-plaintext highlighter-rouge">GOLLEK_ONNX_LIBRARY_PATH=~/.gollek/libs/libonnxruntime.dylib</code></li>
+</ul>
 
-            <p>Library path resolution:</p>
-            <ul>
-                <li>Preferred: <code
-                        class="language-plaintext highlighter-rouge">gollek.runners.onnx.library-path=/full/path/to/libonnxruntime.dylib</code>
-                </li>
-                <li>Fallback: <code
-                        class="language-plaintext highlighter-rouge">~/.gollek/libs/libonnxruntime.dylib</code>
-                    (auto-detected)</li>
-                <li>Env override: <code
-                        class="language-plaintext highlighter-rouge">GOLLEK_ONNX_LIBRARY_PATH=~/.gollek/libs/libonnxruntime.dylib</code>
-                </li>
-            </ul>
+<p>Optional Hugging Face integration test (downloads a tiny ONNX model):</p>
 
-            <p>Optional Hugging Face integration test (downloads a tiny ONNX model):</p>
-
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_ONNX_HF_REPO</span><span class="o">=</span><span class="s2">"onnx-community/tiny-random-bert"</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_ONNX_HF_REPO</span><span class="o">=</span><span class="s2">"onnx-community/tiny-random-bert"</span>
 <span class="nb">export </span><span class="nv">GOLLEK_ONNX_LIBRARY_PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.gollek/libs/libonnxruntime.dylib"</span>
 mvn <span class="nt">-f</span> inference-gollek/extension/runner/onnx/gollek-runner-onnx/pom.xml <span class="nb">test</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <p>Strict mode (fail instead of skip on 401/404/network):</p>
+<p>Strict mode (fail instead of skip on 401/404/network):</p>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_ONNX_HF_REQUIRED</span><span class="o">=</span><span class="nb">true
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_ONNX_HF_REQUIRED</span><span class="o">=</span><span class="nb">true
 </span>mvn <span class="nt">-f</span> inference-gollek/extension/runner/onnx/gollek-runner-onnx/pom.xml <span class="nt">-Phf-integration-required</span> <span class="nb">test</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <h2 id="litert-tflite-local-inference">LiteRT (TFLite) Local Inference</h2>
+<h2 id="litert-tflite-local-inference">LiteRT (TFLite) Local Inference</h2>
 
-            <p>Configure a local <code class="language-plaintext highlighter-rouge">.tflite</code> model path and enable
-                Metal auto-detect on Apple Silicon:</p>
+<p>Configure a local <code class="language-plaintext highlighter-rouge">.tflite</code> model path and enable Metal auto-detect on Apple Silicon:</p>
 
-            <div class="language-properties highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="py">litert.provider.model.base-path</span><span class="p">=</span><span class="s">~/.gollek/models/tflite</span>
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">litert.provider.model.base-path</span><span class="p">=</span><span class="s">~/.gollek/models/tflite</span>
 <span class="py">litert.provider.gpu.auto-metal</span><span class="p">=</span><span class="s">true</span>
 <span class="py">litert.provider.gpu.backend</span><span class="p">=</span><span class="s">auto</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <p>Run LiteRT module tests:</p>
+<p>Run LiteRT module tests:</p>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code>mvn <span class="nt">-f</span> inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml <span class="nb">test</span>
-</code></pre>
-                </div>
-            </div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn <span class="nt">-f</span> inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml <span class="nb">test</span>
+</code></pre></div></div>
 
-            <p>Optional LiteRT real-model integration test (downloads MobileNet v1 if URL is set):</p>
+<p>Optional LiteRT real-model integration test (downloads MobileNet v1 if URL is set):</p>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="nb">export </span><span class="nv">LITERT_LIBRARY_PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.gollek/libs/libtensorflowlite_c.dylib"</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">LITERT_LIBRARY_PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.gollek/libs/libtensorflowlite_c.dylib"</span>
 <span class="nb">export </span><span class="nv">GOLLEK_TFLITE_MODEL_URL</span><span class="o">=</span><span class="s2">"https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.tflite"</span>
 mvn <span class="nt">-f</span> inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml <span class="nb">test</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <p>Download a sample TFLite model into <code
-                    class="language-plaintext highlighter-rouge">~/.gollek/models/tflite</code>:</p>
+<p>Download a sample TFLite model into <code class="language-plaintext highlighter-rouge">~/.gollek/models/tflite</code>:</p>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code>bash inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-sample-model.sh
-</code></pre>
-                </div>
-            </div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-sample-model.sh
+</code></pre></div></div>
 
-            <p>LiteRT runtime helper (prints where to place <code
-                    class="language-plaintext highlighter-rouge">libtensorflowlite_c.*</code>):</p>
+<p>LiteRT runtime helper (prints where to place <code class="language-plaintext highlighter-rouge">libtensorflowlite_c.*</code>):</p>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code>bash inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-tflite-runtime.sh
-</code></pre>
-                </div>
-            </div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-tflite-runtime.sh
+</code></pre></div></div>
 
-            <p>Make targets (same helpers):</p>
+<p>Make targets (same helpers):</p>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code>make tflite-sample
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make tflite-sample
 make tflite-runtime
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <p>Package your local LiteRT runtime into a release asset:</p>
+<p>Package your local LiteRT runtime into a release asset:</p>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code>make tflite-runtime-package
-</code></pre>
-                </div>
-            </div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make tflite-runtime-package
+</code></pre></div></div>
 
-            <p>Auto-download from GitHub Releases (if you publish assets):</p>
+<p>Auto-download from GitHub Releases (if you publish assets):</p>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_LITERT_RUNTIME_REPO</span><span class="o">=</span><span class="s2">"bhangun/gollek"</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_LITERT_RUNTIME_REPO</span><span class="o">=</span><span class="s2">"bhangun/gollek"</span>
 <span class="nb">export </span><span class="nv">GOLLEK_LITERT_RUNTIME_RELEASE</span><span class="o">=</span><span class="s2">"latest"</span>
 <span class="nb">export </span><span class="nv">GOLLEK_LITERT_RUNTIME_ASSET</span><span class="o">=</span><span class="s2">"litert-runtime-macos-arm64.tar.gz"</span>
 make tflite-runtime
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <p>Strict mode (fail instead of skip on download errors):</p>
+<p>Strict mode (fail instead of skip on download errors):</p>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_TFLITE_REQUIRED</span><span class="o">=</span><span class="nb">true
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_TFLITE_REQUIRED</span><span class="o">=</span><span class="nb">true
 </span>mvn <span class="nt">-f</span> inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml <span class="nb">test</span>
-</code></pre>
-                </div>
-            </div>
-            <h1 id="code-examples">Code Examples</h1>
+</code></pre></div></div>
+<h1 id="code-examples">Code Examples</h1>
 
-            <p>Practical examples demonstrating common Gollek SDK usage patterns.</p>
+<p>Practical examples demonstrating common Gollek SDK usage patterns.</p>
 
-            <hr />
+<hr />
 
-            <h2 id="table-of-contents">Table of Contents</h2>
+<h2 id="table-of-contents">Table of Contents</h2>
 
-            <ul>
-                <li><a href="#basic-inference">Basic Inference</a></li>
-                <li><a href="#streaming-responses">Streaming Responses</a></li>
-                <li><a href="#async-jobs">Async Jobs</a></li>
-                <li><a href="#batch-processing">Batch Processing</a></li>
-                <li><a href="#provider-selection">Provider Selection</a></li>
-                <li><a href="#error-handling">Error Handling</a></li>
-                <li><a href="#cdi-integration">CDI Integration</a></li>
-                <li><a href="#native-ffi">Native FFI</a></li>
-            </ul>
+<ul>
+  <li><a href="#basic-inference">Basic Inference</a></li>
+  <li><a href="#streaming-responses">Streaming Responses</a></li>
+  <li><a href="#async-jobs">Async Jobs</a></li>
+  <li><a href="#batch-processing">Batch Processing</a></li>
+  <li><a href="#provider-selection">Provider Selection</a></li>
+  <li><a href="#error-handling">Error Handling</a></li>
+  <li><a href="#cdi-integration">CDI Integration</a></li>
+  <li><a href="#native-ffi">Native FFI</a></li>
+</ul>
 
-            <hr />
+<hr />
 
-            <h2 id="basic-inference">Basic Inference</h2>
+<h2 id="basic-inference">Basic Inference</h2>
 
-            <h3 id="simple-completion">Simple Completion</h3>
+<h3 id="simple-completion">Simple Completion</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClient</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClient</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClientAdapter</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.factory.GollekSdkFactory</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.InferenceRequest</span><span class="o">;</span>
@@ -275,15 +430,11 @@ make tflite-runtime
         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Answer: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <h3 id="chat-completion">Chat Completion</h3>
+<h3 id="chat-completion">Chat Completion</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.Message</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.Message</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChatCompletion</span> <span class="o">{</span>
@@ -311,20 +462,16 @@ make tflite-runtime
         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <hr />
+<hr />
 
-            <h2 id="streaming-responses">Streaming Responses</h2>
+<h2 id="streaming-responses">Streaming Responses</h2>
 
-            <h3 id="basic-streaming">Basic Streaming</h3>
+<h3 id="basic-streaming">Basic Streaming</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">io.smallrye.mutiny.Multi</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.InferenceChunk</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">io.smallrye.mutiny.Multi</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.StreamingInferenceChunk</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">StreamingExample</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -339,7 +486,7 @@ make tflite-runtime
             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
         <span class="c1">// Stream tokens</span>
-        <span class="nc">Multi</span><span class="o">&lt;</span><span class="nc">InferenceChunk</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">streamCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+        <span class="nc">Multi</span><span class="o">&lt;</span><span class="nc">StreamingInferenceChunk</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">streamCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
         
         <span class="n">stream</span><span class="o">.</span><span class="na">subscribe</span><span class="o">().</span><span class="na">with</span><span class="o">(</span>
             <span class="n">chunk</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -360,15 +507,11 @@ make tflite-runtime
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <h3 id="streaming-with-callbacks">Streaming with Callbacks</h3>
+<h3 id="streaming-with-callbacks">Streaming with Callbacks</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StreamingWithCallbacks</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StreamingWithCallbacks</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GollekLocalClientAdapter</span><span class="o">(</span>
             <span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">()</span>
@@ -392,19 +535,15 @@ make tflite-runtime
             <span class="o">.</span><span class="na">subscribe</span><span class="o">().</span><span class="na">with</span><span class="o">(</span><span class="n">ignored</span> <span class="o">-&gt;</span> <span class="o">{});</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <hr />
+<hr />
 
-            <h2 id="async-jobs">Async Jobs</h2>
+<h2 id="async-jobs">Async Jobs</h2>
 
-            <h3 id="submit-and-poll">Submit and Poll</h3>
+<h3 id="submit-and-poll">Submit and Poll</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.AsyncJobStatus</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.AsyncJobStatus</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.time.Duration</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AsyncJobExample</span> <span class="o">{</span>
@@ -445,15 +584,11 @@ make tflite-runtime
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <h3 id="wait-for-completion">Wait for Completion</h3>
+<h3 id="wait-for-completion">Wait for Completion</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WaitForJob</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WaitForJob</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GollekLocalClientAdapter</span><span class="o">(</span>
             <span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">()</span>
@@ -481,19 +616,15 @@ make tflite-runtime
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <hr />
+<hr />
 
-            <h2 id="batch-processing">Batch Processing</h2>
+<h2 id="batch-processing">Batch Processing</h2>
 
-            <h3 id="multiple-requests">Multiple Requests</h3>
+<h3 id="multiple-requests">Multiple Requests</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.BatchInferenceRequest</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.BatchInferenceRequest</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">BatchInference</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -529,19 +660,15 @@ make tflite-runtime
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <hr />
+<hr />
 
-            <h2 id="provider-selection">Provider Selection</h2>
+<h2 id="provider-selection">Provider Selection</h2>
 
-            <h3 id="list-available-providers">List Available Providers</h3>
+<h3 id="list-available-providers">List Available Providers</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.provider.ProviderInfo</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.provider.ProviderInfo</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListProviders</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -562,15 +689,11 @@ make tflite-runtime
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <h3 id="set-preferred-provider">Set Preferred Provider</h3>
+<h3 id="set-preferred-provider">Set Preferred Provider</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProviderSelection</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProviderSelection</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GollekLocalClientAdapter</span><span class="o">(</span>
             <span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">()</span>
@@ -599,19 +722,15 @@ make tflite-runtime
         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">openAiResponse</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <hr />
+<hr />
 
-            <h2 id="error-handling">Error Handling</h2>
+<h2 id="error-handling">Error Handling</h2>
 
-            <h3 id="try-catch-pattern">Try-Catch Pattern</h3>
+<h3 id="try-catch-pattern">Try-Catch Pattern</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClientException</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClientException</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ErrorHandling</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -633,15 +752,11 @@ make tflite-runtime
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <h3 id="retry-logic">Retry Logic</h3>
+<h3 id="retry-logic">Retry Logic</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RetryExample</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RetryExample</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GollekLocalClientAdapter</span><span class="o">(</span>
             <span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">()</span>
@@ -679,19 +794,15 @@ make tflite-runtime
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <hr />
+<hr />
 
-            <h2 id="cdi-integration">CDI Integration</h2>
+<h2 id="cdi-integration">CDI Integration</h2>
 
-            <h3 id="jakarta-ee-service">Jakarta EE Service</h3>
+<h3 id="jakarta-ee-service">Jakarta EE Service</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">jakarta.enterprise.context.ApplicationScoped</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">jakarta.enterprise.context.ApplicationScoped</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">jakarta.inject.Inject</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClient</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.InferenceRequest</span><span class="o">;</span>
@@ -723,15 +834,11 @@ make tflite-runtime
         <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="na">createCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="na">getContent</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <h3 id="rest-resource">REST Resource</h3>
+<h3 id="rest-resource">REST Resource</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">jakarta.ws.rs.*</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">jakarta.ws.rs.*</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">jakarta.ws.rs.core.MediaType</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">jakarta.inject.Inject</span><span class="o">;</span>
 
@@ -775,19 +882,15 @@ make tflite-runtime
         <span class="c1">// constructor, getters and setters</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <hr />
+<hr />
 
-            <h2 id="native-ffi">Native FFI</h2>
+<h2 id="native-ffi">Native FFI</h2>
 
-            <h3 id="c-example">C Example</h3>
+<h3 id="c-example">C Example</h3>
 
-            <div class="language-c highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 #include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span>
 <span class="k">extern</span> <span class="kt">long</span> <span class="nf">golek_client_create</span><span class="p">();</span>
@@ -825,34 +928,26 @@ make tflite-runtime
     <span class="n">golek_client_destroy</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <h3 id="compile-and-run">Compile and Run</h3>
+<h3 id="compile-and-run">Compile and Run</h3>
 
-            <div class="language-bash highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="c"># Compile with GCC</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Compile with GCC</span>
 gcc <span class="nt">-o</span> inference_example inference_example.c <span class="se">\</span>
     <span class="nt">-L</span><span class="nb">.</span> <span class="nt">-lgollek_sdk_local</span> <span class="se">\</span>
     <span class="nt">-Wl</span>,-rpath,.
 
 <span class="c"># Run</span>
 ./inference_example
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <hr />
+<hr />
 
-            <h2 id="model-management">Model Management</h2>
+<h2 id="model-management">Model Management</h2>
 
-            <h3 id="list-models">List Models</h3>
+<h3 id="list-models">List Models</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.model.ModelInfo</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.model.ModelInfo</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ListModels</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -872,15 +967,11 @@ gcc <span class="nt">-o</span> inference_example inference_example.c <span class
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <h3 id="get-model-info">Get Model Info</h3>
+<h3 id="get-model-info">Get Model Info</h3>
 
-            <div class="language-java highlighter-rouge">
-                <div class="highlight">
-                    <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GetModelInfo</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GetModelInfo</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GollekLocalClientAdapter</span><span class="o">(</span>
             <span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">()</span>
@@ -902,23 +993,26 @@ gcc <span class="nt">-o</span> inference_example inference_example.c <span class
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-                </div>
-            </div>
+</code></pre></div></div>
 
-            <hr />
+<hr />
 
-            <p><a href="/docs/architecture">Back to Architecture</a>   <a href="/features/">Features</a></p>
+<p><a href="/docs/architecture">Back to Architecture</a>   <a href="/features/">Features</a></p>
 
-        </article>
+      </div>
     </main>
-
-    <footer class="site-footer">
-        <div class="container footer-inner">
-            <span>Gollek AI Docs</span>
-            <a href="https://github.com/bhangun/gollek">bhangun/gollek</a>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-content">
+        <p>&copy; 2026 Gollek AI. Open source under Apache 2.0 License.</p>
+        <div class="footer-links">
+          <a href="https://github.com/bhangun/gollek">GitHub</a>
+          <a href="/blog/">Blog</a>
+          <a href="/docs/">Docs</a>
         </div>
+      </div>
     </footer>
+  </div>
 </body>
-
 </html>

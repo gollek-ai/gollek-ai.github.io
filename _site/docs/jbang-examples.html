@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JBang Examples Catalog | Gollek</title>
+  <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('gollek-theme');
+        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
+  <script src="/assets/js/site.js" defer></script>
+</head>
+<body>
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <a href="/" class="sidebar-brand">
+        <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png" alt="Gollek Logo" class="brand-logo">
+        <span class="brand-text">Gollek</span>
+      </a>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Getting Started</div>
+        <a href="/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9,22 9,12 15,12 15,22"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="/docs/cli-installation" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4,17 10,11 4,5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+          <span>Install CLI</span>
+        </a>
+        <a href="/docs/" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10,9 9,9 8,9"/>
+          </svg>
+          <span>Documentation</span>
+        </a>
+        <a href="/features/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+          </svg>
+          <span>Features</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Core Concepts</div>
+        <a href="/docs/core-api" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          <span>Core API</span>
+        </a>
+        <a href="/docs/architecture" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <span>Architecture</span>
+        </a>
+        <a href="/docs/plugin-system-v2" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <span>Plugin System</span>
+        </a>
+        <a href="/docs/runner-plugins" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+          <span>Runners</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Model Formats</div>
+        <a href="/docs/gguf-enhancements" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span>GGUF</span>
+        </a>
+        <a href="/docs/quantization" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <span>Quantization</span>
+        </a>
+        <a href="/docs/audio-processing" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <span>Audio</span>
+        </a>
+        <a href="/docs/gpu-kernels" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <rect x="9" y="9" width="6" height="6"/>
+            <line x1="9" y1="1" x2="9" y2="4"/>
+            <line x1="15" y1="1" x2="15" y2="4"/>
+            <line x1="9" y1="20" x2="9" y2="23"/>
+            <line x1="15" y1="20" x2="15" y2="23"/>
+            <line x1="20" y1="9" x2="23" y2="9"/>
+            <line x1="20" y1="14" x2="23" y2="14"/>
+            <line x1="1" y1="9" x2="4" y2="9"/>
+            <line x1="1" y1="14" x2="4" y2="14"/>
+          </svg>
+          <span>GPU Kernels</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Resources</div>
+        <a href="/blog/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+            <polyline points="17,21 17,13 7,13 7,21"/>
+            <polyline points="17,9 7,9 7,2"/>
+          </svg>
+          <span>Blog</span>
+        </a>
+        <a href="/docs/examples" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <span>Examples</span>
+        </a>
+        <a href="/docs/troubleshooting" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>Troubleshooting</span>
+        </a>
+        <a href="/docs/error-codes" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>Error Codes</span>
+        </a>
+        <a href="https://github.com/bhangun/gollek" class="nav-item nav-item-external" target="_blank" rel="noopener">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+          </svg>
+          <span>GitHub</span>
+          <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+      </div>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="theme-selector">
+        <button class="theme-option" data-theme="dark" aria-label="Dark theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="light" aria-label="Light theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="auto" aria-label="Auto theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="version-info">
+        <span class="version-label">v1.0.0</span>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Main Content Area -->
+  <div class="main-wrapper">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-content">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <div class="header-title">
+          
+          <h1 class="page-title">JBang Examples Catalog</h1>
+          
+        </div>
+        <div class="header-actions">
+          <a href="/docs/cli-installation" class="btn btn-sm btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Install
+          </a>
+          <a href="https://github.com/bhangun/gollek" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-container">
+        <section class="hero hero-compact">
+  <p class="eyebrow">Interactive Examples</p>
+  <h1>Gollek SDK JBang Examples Catalog</h1>
+  <p class="lead">23+ ready-to-run Java scripts demonstrating everything from basic tensor operations to advanced neural networks and ML library integrations. No build tools required—just run with jbang.</p>
+</section>
+
+<section class="quick-grid">
+  <a class="quick-card" href="#beginner">
+    <h3>🟢 Beginner</h3>
+    <p>Hello World, templates, and basic model creation.</p>
+  </a>
+  <a class="quick-card" href="#neural-networks">
+    <h3>🔵 Neural Networks</h3>
+    <p>MLP, custom modules, training loops, and persistence.</p>
+  </a>
+  <a class="quick-card" href="#nlp">
+    <h3>🟣 NLP &amp; Text</h3>
+    <p>Sentiment analysis, transformers, and chatbots.</p>
+  </a>
+  <a class="quick-card" href="#machine-learning">
+    <h3>🟠 ML Integrations</h3>
+    <p>Deeplearning4j, Stanford NLP, Smile, Tribuo.</p>
+  </a>
+</section>
+
+<hr />
+
+<h2 id="-quick-start">🚀 Quick Start</h2>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Java 21+ required</span>
+java <span class="nt">--version</span>
+
+<span class="c"># Install jbang (if not already installed)</span>
+curl <span class="nt">-Ls</span> https://sh.jbang.dev | bash <span class="nt">-s</span> -
+</code></pre></div></div>
+
+<h3 id="running-examples">Running Examples</h3>
+
+<p>All examples can be run directly from GitHub:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Basic syntax</span>
+jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/&lt;path&gt;/&lt;example&gt;.java
+
+<span class="c"># Example: Hello Gollek</span>
+jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/hello_gollek.java
+</code></pre></div></div>
+
+<h3 id="first-time-setup">First-Time Setup</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Clone repository (optional, for local editing)</span>
+git clone https://github.com/bhangun/gollek.git
+<span class="nb">cd </span>gollek/gollek/sdk/integration/jbang-templates
+
+<span class="c"># Build SDK locally (required for first run)</span>
+<span class="nb">cd</span> ../../../../ <span class="o">&amp;&amp;</span> mvn clean <span class="nb">install</span> <span class="nt">-DskipTests</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="beginner">🟢 Beginner Examples</h2>
+
+<p>Fundamental concepts and getting started patterns.</p>
+
+<h3 id="hello-gollek">Hello Gollek</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/hello_gollek.java</code></p>
+
+<p>The simplest possible introduction to the SDK.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/hello_gollek.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Model creation</li>
+  <li>Forward pass</li>
+  <li>Tensor output</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Basic SDK initialization and inference.</p>
+
+<hr />
+
+<h3 id="my-script-template">My Script (Template)</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/my_script.java</code></p>
+
+<p>A clean template for starting your own Gollek experiments.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/my_script.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Project structure</li>
+  <li>Dependency management</li>
+  <li>Basic imports</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: How to structure your own jbang scripts.</p>
+
+<hr />
+
+<h3 id="error-handling">Error Handling</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/error_handling.java</code></p>
+
+<p>Best practices for catching and managing SDK-specific exceptions.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/error_handling.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Try-catch patterns</li>
+  <li>Exception types</li>
+  <li>Graceful degradation</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Production-ready error handling.</p>
+
+<hr />
+
+<h2 id="neural-networks">🔵 Neural Networks</h2>
+
+<p>Build and train neural networks from scratch.</p>
+
+<h3 id="neural-network-with-gollek">Neural Network with Gollek</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">neural_network/neural_network_with_gollek.java</code></p>
+
+<p>Complete introduction to building neural networks.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/neural_network/neural_network_with_gollek.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Sequential models</li>
+  <li>Layer composition</li>
+  <li>Activation functions</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Core neural network building blocks.</p>
+
+<hr />
+
+<h3 id="xor-training-end-to-end">XOR Training (End-to-End)</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/xor_training.java</code></p>
+
+<p>A complete script that trains a 2-layer MLP to solve the non-linear XOR problem.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/xor_training.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Non-linear classification</li>
+  <li>BCEWithLogitsLoss</li>
+  <li>SGD optimizer</li>
+  <li>Training loop</li>
+  <li>Backward pass</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Complete training workflow from data to predictions.</p>
+
+<hr />
+
+<h3 id="mnist-style-setup">MNIST-Style Setup</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/mnist_style_setup.java</code></p>
+
+<p>Simulates a digit classification network (28x28 inputs).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/mnist_style_setup.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Deep linear layers</li>
+  <li>Parameter counting</li>
+  <li><code class="language-plaintext highlighter-rouge">train()</code> vs <code class="language-plaintext highlighter-rouge">eval()</code> modes</li>
+  <li>Input flattening</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Setting up image classification architectures.</p>
+
+<hr />
+
+<h3 id="custom-module-demo">Custom Module Demo</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/custom_module_demo.java</code></p>
+
+<p>Shows how to extend the <code class="language-plaintext highlighter-rouge">Module</code> base class to create complex, reusable components like Residual Blocks.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/custom_module_demo.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Class inheritance</li>
+  <li>Parameter registration</li>
+  <li>Skip connections</li>
+  <li>Custom architectures</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Building reusable neural network components.</p>
+
+<hr />
+
+<h3 id="model-persistence">Model Persistence</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/model_persistence.java</code></p>
+
+<p>Learn how to save and load model weights to/from disk.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/model_persistence.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">model.save(path)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">model.load(path)</code></li>
+  <li>Checkpoint management</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Saving and restoring trained models.</p>
+
+<hr />
+
+<h3 id="model-persistence-safetensors">Model Persistence (Safetensors)</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/model_persistence_safetensor.java</code></p>
+
+<p>Advanced model persistence using the Safetensors format.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/model_persistence_safetensor.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Safetensors format</li>
+  <li>Safe model serialization</li>
+  <li>Cross-framework compatibility</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Modern, safe model persistence.</p>
+
+<hr />
+
+<h3 id="batch-processing">Batch Processing</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/batch_process.java</code></p>
+
+<p>Demonstrates how to process multiple data files in a loop.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/batch_process.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Batch inference</li>
+  <li>File I/O</li>
+  <li>Loop processing</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Efficient batch processing patterns.</p>
+
+<hr />
+
+<h3 id="train-via-cli">Train via CLI</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/train_cli.java</code></p>
+
+<p>A script that accepts command-line arguments for epochs and learning rate.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/train_cli.java 20 0.05
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Command-line arguments</li>
+  <li>Hyperparameter configuration</li>
+  <li>Flexible training scripts</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Building configurable training tools.</p>
+
+<p><strong>Usage</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang train_cli.java 50 0.001
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="train-model-complete-example">Train Model (Complete Example)</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">common/train_model.java</code></p>
+
+<p>Full training example with loss tracking and metrics.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/train_model.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Complete training loop</li>
+  <li>Loss monitoring</li>
+  <li>Progress reporting</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Professional training workflows.</p>
+
+<hr />
+
+<h2 id="nlp">🟣 NLP &amp; Text Processing</h2>
+
+<p>Natural language processing with transformers and sentiment analysis.</p>
+
+<h3 id="nlp-sentiment-analysis">NLP Sentiment Analysis</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">nlp_sentiment_analysis.java</code></p>
+
+<p>Trains a native classifier on real movie reviews using the Gollek SDK.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/nlp_sentiment_analysis.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Bag-of-Words features</li>
+  <li>Text tokenization</li>
+  <li>Binary classification</li>
+  <li>Real dataset (100 reviews)</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: End-to-end text classification.</p>
+
+<p><strong>Dataset</strong>: 50 positive + 50 negative movie reviews with TF normalization.</p>
+
+<hr />
+
+<h3 id="nlp-transformer-classifier">NLP Transformer Classifier</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">nlp_transformer_classifier.java</code></p>
+
+<p>A sophisticated sequence model using Transformer architecture.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/nlp_transformer_classifier.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Embedding layers</li>
+  <li>Positional encoding</li>
+  <li>Multi-head attention</li>
+  <li>Global pooling</li>
+  <li>Safetensor persistence</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Building transformer-based models.</p>
+
+<p><strong>Workflow</strong>: Tokenization → Training → Persistence → Inference</p>
+
+<hr />
+
+<h3 id="nlp-chat-with-qwen-gguf">NLP Chat with Qwen GGUF</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">nlp_chat_qwen_gguf.java</code></p>
+
+<p>Interactive chatbot using Qwen model in GGUF format.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/nlp_chat_qwen_gguf.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>GGUF model loading</li>
+  <li>Chat interface</li>
+  <li>Streaming responses</li>
+  <li>Conversation history</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Building conversational AI applications.</p>
+
+<hr />
+
+<h2 id="machine-learning">🟠 Machine Learning Integrations</h2>
+
+<p>Integration with popular Java ML libraries.</p>
+
+<h3 id="computer-vision-mlp-classifier">Computer Vision MLP Classifier</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">machine_learning/cv_mlp_classifier_export.java</code></p>
+
+<p>Image classification with model export capabilities.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/machine_learning/cv_mlp_classifier_export.java
+</code></pre></div></div>
+
+<p><strong>Key Concepts</strong>:</p>
+<ul>
+  <li>Image preprocessing</li>
+  <li>MLP for vision</li>
+  <li>Model export</li>
+  <li>Classification metrics</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Computer vision with Gollek.</p>
+
+<hr />
+
+<h2 id="-external-library-integrations">🔗 External Library Integrations</h2>
+
+<p>Advanced integrations with external ML/NLP libraries. All integration examples are located in the <code class="language-plaintext highlighter-rouge">integration/</code> subdirectory.</p>
+
+<h3 id="deeplearning4j-integration">Deeplearning4j Integration</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">integration/deeplearning4j_integration.java</code></p>
+
+<p>Integrates Gollek SDK with Deeplearning4j for hybrid workflows.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/integration/deeplearning4j_integration.java
+</code></pre></div></div>
+
+<p><strong>Patterns Demonstrated</strong>:</p>
+<ol>
+  <li>DL4J preprocessing → Gollek inference</li>
+  <li>DL4J feature extraction → Gollek classification</li>
+  <li>Ensemble (DL4J + Gollek)</li>
+  <li>Bidirectional tensor conversion (INDArray ↔ GradTensor)</li>
+</ol>
+
+<p><strong>Key Classes</strong>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DL4JPreprocessorGollekInference</code></li>
+  <li><code class="language-plaintext highlighter-rouge">DL4JFeatureExtractorGollekClassifier</code></li>
+  <li><code class="language-plaintext highlighter-rouge">EnsembleDL4JGollek</code></li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Leveraging DL4J’s ecosystem with Gollek inference.</p>
+
+<hr />
+
+<h3 id="stanford-nlp-integration">Stanford NLP Integration</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">integration/stanford_nlp_integration.java</code></p>
+
+<p>Integrates Gollek SDK with Stanford CoreNLP for advanced NLP.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/integration/stanford_nlp_integration.java
+</code></pre></div></div>
+
+<p><strong>Patterns Demonstrated</strong>:</p>
+<ol>
+  <li>Linguistic feature extraction (POS, NER, sentiment)</li>
+  <li>Text classification with linguistic features</li>
+  <li>Hybrid sentiment analysis (Stanford + Gollek)</li>
+  <li>Multi-stage NLP pipeline</li>
+</ol>
+
+<p><strong>Features Extracted</strong>:</p>
+<ul>
+  <li>Sentence length, avg word length</li>
+  <li>POS tag distribution (12 tags)</li>
+  <li>Named entity counts (7 categories)</li>
+  <li>Stanford sentiment score</li>
+  <li>Parse tree depth</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Rich linguistic feature engineering.</p>
+
+<hr />
+
+<h3 id="apache-opennlp-integration">Apache OpenNLP Integration</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">integration/opennlp_integration.java</code></p>
+
+<p>Integrates Gollek SDK with Apache OpenNLP for text processing.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/integration/opennlp_integration.java
+</code></pre></div></div>
+
+<p><strong>Patterns Demonstrated</strong>:</p>
+<ol>
+  <li>Sentence detection → tokenization → POS tagging</li>
+  <li>Named entity recognition</li>
+  <li>Text classification with OpenNLP features</li>
+  <li>NER-based document categorization</li>
+</ol>
+
+<p><strong>Features Extracted</strong>:</p>
+<ul>
+  <li>Sentence/token counts</li>
+  <li>POS ratios (noun, verb, adjective, adverb)</li>
+  <li>Named entity distribution</li>
+  <li>Vocabulary richness</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Production-ready NLP pipelines.</p>
+
+<p><strong>Note</strong>: Downloads OpenNLP models on first run (cached in temp directory).</p>
+
+<hr />
+
+<h3 id="smile-ml-integration">Smile ML Integration</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">integration/smile_ml_integration.java</code></p>
+
+<p>Integrates Gollek SDK with Smile (Statistical Machine Intelligence &amp; Learning Engine).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/integration/smile_ml_integration.java
+</code></pre></div></div>
+
+<p><strong>Patterns Demonstrated</strong>:</p>
+<ol>
+  <li>Smile preprocessing → Gollek inference</li>
+  <li>Smile feature selection → Gollek classification</li>
+  <li>Ensemble (Smile Random Forest + Gollek NN)</li>
+  <li>Statistical feature extraction</li>
+</ol>
+
+<p><strong>Statistical Features</strong>:</p>
+<ul>
+  <li>Mean, variance, standard deviation</li>
+  <li>Min, max, skewness, kurtosis</li>
+</ul>
+
+<p><strong>What You’ll Learn</strong>: Combining traditional ML with neural networks.</p>
+
+<hr />
+
+<h3 id="oracle-tribuo-integration">Oracle Tribuo Integration</h3>
+<p><strong>File</strong>: <code class="language-plaintext highlighter-rouge">integration/tribuo_integration.java</code></p>
+
+<p>Integrates Gollek SDK with Oracle’s Tribuo ML library.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/integration/tribuo_integration.java
+</code></pre></div></div>
+
+<p><strong>Patterns Demonstrated</strong>:</p>
+<ol>
+  <li>Tribuo feature pipeline → Gollek classification</li>
+  <li>Ensemble (Tribuo XGBoost + Gollek NN)</li>
+  <li>Tribuo text classification → Gollek</li>
+  <li>Tribuo regression + Gollek refinement</li>
+</ol>
+
+<p><strong>What You’ll Learn</strong>: Enterprise ML integration patterns.</p>
+
+<hr />
+
+<h2 id="-example-categories-summary">📊 Example Categories Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Files</th>
+      <th>Difficulty</th>
+      <th>Topics</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Beginner</strong></td>
+      <td>3</td>
+      <td>🟢 Easy</td>
+      <td>Hello World, Templates, Error Handling</td>
+    </tr>
+    <tr>
+      <td><strong>Neural Networks</strong></td>
+      <td>8</td>
+      <td>🟡 Medium</td>
+      <td>MLP, Training, Persistence, Custom Modules</td>
+    </tr>
+    <tr>
+      <td><strong>NLP &amp; Text</strong></td>
+      <td>3</td>
+      <td>🟠 Advanced</td>
+      <td>Sentiment, Transformers, Chatbots</td>
+    </tr>
+    <tr>
+      <td><strong>ML Integrations</strong></td>
+      <td>6</td>
+      <td>🔴 Expert</td>
+      <td>DL4J, Stanford NLP, OpenNLP, Smile, Tribuo</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="-troubleshooting">🛠 Troubleshooting</h2>
+
+<h3 id="common-issues">Common Issues</h3>
+
+<p><strong>Problem: Dependencies not found</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Solution: Build SDK locally first</span>
+<span class="nb">cd </span>gollek <span class="o">&amp;&amp;</span> mvn clean <span class="nb">install</span> <span class="nt">-DskipTests</span>
+</code></pre></div></div>
+
+<p><strong>Problem: Out of memory</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Solution: Increase heap size</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">"-Xmx4g"</span> jbang example.java
+</code></pre></div></div>
+
+<p><strong>Problem: First run is slow</strong></p>
+<ul>
+  <li>Normal behavior—jbang downloads and caches dependencies</li>
+  <li>Subsequent runs are fast (1-2 seconds)</li>
+</ul>
+
+<p><strong>Problem: Class not found</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Solution: Clear jbang cache</span>
+<span class="nb">rm</span> <span class="nt">-rf</span> ~/.jbang/cache
+jbang example.java
+</code></pre></div></div>
+
+<h3 id="getting-help">Getting Help</h3>
+
+<ul>
+  <li><a href="https://github.com/bhangun/gollek/blob/main/gollek/sdk/integration/jbang-templates/JBANG_SETUP.md">JBang Setup Guide</a></li>
+  <li><a href="/docs/jupyter-jbang-integration">Jupyter Integration</a></li>
+  <li><a href="/docs/ml-sdk">ML SDK Documentation</a></li>
+  <li><a href="/docs/troubleshooting">Troubleshooting Guide</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-additional-resources">📚 Additional Resources</h2>
+
+<h3 id="documentation">Documentation</h3>
+<ul>
+  <li><a href="/docs/jupyter-jbang-integration">JBang &amp; Jupyter Tutorial</a></li>
+  <li><a href="/docs/ml-sdk">ML SDK API Reference</a></li>
+  <li><a href="/docs/core-concepts">Core Concepts</a></li>
+  <li><a href="/docs/examples">Examples Overview</a></li>
+</ul>
+
+<h3 id="external-links">External Links</h3>
+<ul>
+  <li><a href="https://jbang.dev/documentation">jbang Documentation</a></li>
+  <li><a href="https://deeplearning4j.konduit.ai/">Deeplearning4j</a></li>
+  <li><a href="https://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a></li>
+  <li><a href="https://opennlp.apache.org/">Apache OpenNLP</a></li>
+  <li><a href="https://haifengl.github.io/">Smile ML</a></li>
+  <li><a href="https://tribuo.org/">Oracle Tribuo</a></li>
+</ul>
+
+<hr />
+
+<h2 id="-learning-paths">🎯 Learning Paths</h2>
+
+<h3 id="path-1-complete-beginner">Path 1: Complete Beginner</h3>
+<ol>
+  <li>Hello Gollek</li>
+  <li>My Script (Template)</li>
+  <li>Error Handling</li>
+  <li>Neural Network with Gollek</li>
+</ol>
+
+<h3 id="path-2-neural-network-developer">Path 2: Neural Network Developer</h3>
+<ol>
+  <li>XOR Training</li>
+  <li>MNIST-Style Setup</li>
+  <li>Custom Module Demo</li>
+  <li>Model Persistence</li>
+  <li>Train Model</li>
+</ol>
+
+<h3 id="path-3-nlp-specialist">Path 3: NLP Specialist</h3>
+<ol>
+  <li>NLP Sentiment Analysis</li>
+  <li>NLP Transformer Classifier</li>
+  <li>Stanford NLP Integration</li>
+  <li>OpenNLP Integration</li>
+</ol>
+
+<h3 id="path-4-ml-integration-expert">Path 4: ML Integration Expert</h3>
+<ol>
+  <li>Deeplearning4j Integration</li>
+  <li>Smile ML Integration</li>
+  <li>Oracle Tribuo Integration</li>
+  <li>Computer Vision MLP</li>
+</ol>
+
+<hr />
+
+<h2 id="-tips-for-success">💡 Tips for Success</h2>
+
+<h3 id="performance">Performance</h3>
+<ul>
+  <li>First execution is slow (dependency download + JIT compilation)</li>
+  <li>Subsequent runs use cached dependencies (much faster)</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">-o output.jar</code> for repeated runs</li>
+</ul>
+
+<h3 id="development">Development</h3>
+<ul>
+  <li>Start with templates and modify</li>
+  <li>Use IDE with jbang integration for autocomplete</li>
+  <li>Test changes incrementally</li>
+</ul>
+
+<h3 id="best-practices">Best Practices</h3>
+<ul>
+  <li>Always handle errors gracefully</li>
+  <li>Save model checkpoints during training</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">eval()</code> mode for inference</li>
+  <li>Batch process when possible</li>
+</ul>
+
+<hr />
+
+<p>Ready to start? Pick an example above and run it with jbang!</p>
+
+<p><a href="/docs/">Back to Documentation</a> · <a href="/docs/ml-sdk">ML SDK Guide</a> · <a href="/docs/jupyter-jbang-integration">Jupyter Tutorial</a></p>
+
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-content">
+        <p>&copy; 2026 Gollek AI. Open source under Apache 2.0 License.</p>
+        <div class="footer-links">
+          <a href="https://github.com/bhangun/gollek">GitHub</a>
+          <a href="/blog/">Blog</a>
+          <a href="/docs/">Docs</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

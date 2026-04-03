@@ -572,21 +572,199 @@ body {
   color: var(--text-primary);
 }
 
-.content-card pre {
+/* Jekyll/Rouge highlighted code blocks - target specific language divs */
+.content-card div.language-plaintext,
+.content-card div.language-java,
+.content-card div.language-bash,
+.content-card div.language-xml,
+.content-card div.language-json,
+.content-card div.language-javascript,
+.content-card div.language-python,
+.content-card div.language-yaml,
+.content-card div.language-properties,
+.content-card div.language-dockerfile,
+.content-card div.language-sql,
+.content-card div.language-css,
+.content-card div.language-html,
+.content-card div.highlighter-rouge,
+.content-card div.highlight,
+.content-container div.language-plaintext,
+.content-container div.language-java,
+.content-container div.language-bash,
+.content-container div.language-xml,
+.content-container div.language-json,
+.content-container div.language-javascript,
+.content-container div.language-python,
+.content-container div.language-yaml,
+.content-container div.language-properties,
+.content-container div.language-dockerfile,
+.content-container div.language-sql,
+.content-container div.language-css,
+.content-container div.language-html,
+.content-container div.highlighter-rouge,
+.content-container div.highlight {
+  background: var(--bg-tertiary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg) !important;
+  margin: 1.25rem 0 !important;
+  overflow: auto !important;
+}
+
+.content-card .highlighter-rouge .highlight,
+.content-card div.highlight .highlight,
+.content-container .highlighter-rouge .highlight,
+.content-container div.highlight .highlight {
+  background: transparent !important;
+  border: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+.content-card .highlighter-rouge pre,
+.content-card div.highlight pre,
+.content-container .highlighter-rouge pre,
+.content-container div.highlight pre {
+  background: transparent !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.content-card .highlighter-rouge code,
+.content-card div.highlight code,
+.content-container .highlighter-rouge code,
+.content-container div.highlight code {
+  display: block !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 1rem !important;
+  font-size: 0.813rem !important;
+  line-height: 1.6 !important;
+  overflow-x: auto !important;
+  white-space: pre !important;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+  color: var(--text-primary) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Code toolbar inside Jekyll blocks */
+.content-card .highlighter-rouge .code-toolbar,
+.content-card div.highlight .code-toolbar,
+.content-container .highlighter-rouge .code-toolbar,
+.content-container div.highlight .code-toolbar {
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Standard pre blocks (non-highlighted) */
+.content-card pre,
+.content-container pre {
   background: var(--bg-tertiary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: 1.25rem;
-  overflow-x: auto;
   margin: 1.25rem 0;
+  position: relative;
+  overflow: auto;
+  padding: 0;
 }
 
-.content-card pre code {
+.content-card pre code,
+.content-container pre code {
+  display: block;
   background: transparent;
   border: none;
-  padding: 0;
+  padding: 1rem;
   font-size: 0.813rem;
-  line-height: 1.7;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: var(--text-primary);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Syntax highlighting colors */
+.content-card pre code .keyword { color: #c678dd; }
+.content-card pre code .string { color: #98c379; }
+.content-card pre code .number { color: #d19a66; }
+.content-card pre code .comment { color: #5c6370; font-style: italic; }
+.content-card pre code .function { color: #61afef; }
+.content-card pre code .class { color: #e5c07b; }
+.content-card pre code .variable { color: #e06c75; }
+.content-card pre code .operator { color: #56b6c2; }
+
+/* Light theme syntax highlighting */
+html[data-theme="light"] .content-card pre code .keyword { color: #a626c4; }
+html[data-theme="light"] .content-card pre code .string { color: #50a14f; }
+html[data-theme="light"] .content-card pre code .number { color: #986801; }
+html[data-theme="light"] .content-card pre code .comment { color: #a0a1a7; font-style: italic; }
+html[data-theme="light"] .content-card pre code .function { color: #4078f2; }
+html[data-theme="light"] .content-card pre code .class { color: #c18401; }
+html[data-theme="light"] .content-card pre code .variable { color: #e45649; }
+html[data-theme="light"] .content-card pre code .operator { color: #0184bc; }
+
+/* Code Toolbar (Copy Button Container) */
+.code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  gap: 0.5rem;
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+}
+
+.code-lang {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.copy-button:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  border-color: var(--border-light);
+}
+
+.copy-button:active {
+  transform: translateY(1px);
+}
+
+.copy-button.copied {
+  color: var(--success);
+  border-color: var(--success);
+  background: var(--success-bg);
+}
+
+.copy-button svg {
+  width: 14px;
+  height: 14px;
 }
 
 /* ───────────────────────────────────────────────────────────
@@ -957,6 +1135,11 @@ body {
     font-size: 1.25rem;
   }
   
+  .content-card pre code {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  
   .footer-content {
     flex-direction: column;
     text-align: center;
@@ -969,6 +1152,25 @@ body {
   .terminal-box {
     font-size: 0.75rem;
     padding: 1rem;
+  }
+  
+  /* Code toolbar responsive */
+  .code-toolbar {
+    padding: 0.4rem 0.5rem;
+  }
+  
+  .code-lang {
+    font-size: 0.65rem;
+  }
+  
+  .copy-button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+  }
+  
+  .copy-button svg {
+    width: 12px;
+    height: 12px;
   }
 }
 
@@ -999,9 +1201,10 @@ body {
     border-radius: var(--radius-md);
   }
   
-  .content-card pre {
-    padding: 0.75rem;
+  .content-card pre code {
+    padding: 0.75rem 0.5rem;
     font-size: 0.7rem;
+    line-height: 1.5;
   }
   
   .content-card code {
@@ -1055,6 +1258,29 @@ body {
   
   .brand-text {
     font-size: 1.1rem;
+  }
+  
+  /* Code toolbar responsive */
+  .code-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  
+  .code-lang {
+    font-size: 0.6rem;
+  }
+  
+  .copy-button {
+    width: 100%;
+    justify-content: center;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.7rem;
+  }
+  
+  .copy-button svg {
+    width: 12px;
+    height: 12px;
   }
 }
 

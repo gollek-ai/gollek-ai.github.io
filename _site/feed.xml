@@ -5,9 +5,74 @@
     <link>/blog/</link>
     <description>Gollek release notes, architecture updates, and developer guides.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Mar 2026 17:18:50 +0700</lastBuildDate>
+    <lastBuildDate>Fri, 03 Apr 2026 05:53:47 +0700</lastBuildDate>
     
     
+    
+      
+        
+        
+    <item>
+      <title>Gollek ML SDK: Bringing PyTorch-like DX to the Java Ecosystem</title>
+      <link>/blog/2026-03-31-ml-sdk-pytorch-java.html</link>
+      <guid>/blog/2026-03-31-ml-sdk-pytorch-java.html</guid>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0700</pubDate>
+      <description>Gollek ML SDK: Bringing PyTorch-like DX to the Java Ecosystem</description>
+    </item>
+        
+      
+    
+      
+        
+        
+    <item>
+      <title>One API, Any Model: The Gollek SDK and CLI Experience</title>
+      <link>/blog/sdk-cli-developer-experience.html</link>
+      <guid>/blog/sdk-cli-developer-experience.html</guid>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0700</pubDate>
+      <description>Exploring how the Gollek SDK and CLI provide a unified interface for GGUF, SafeTensors, and Cloud AI, making high-performance inference accessible to every Java developer.</description>
+    </item>
+        
+      
+    
+      
+        
+        
+    <item>
+      <title>Why Java for AI? The Engineering Behind Gollek&apos;s High-Performance Engine</title>
+      <link>/blog/why-java-for-ai-gollek-jdk25.html</link>
+      <guid>/blog/why-java-for-ai-gollek-jdk25.html</guid>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0700</pubDate>
+      <description>Exploring why Gollek chooses Java over Python, leveraging LibTorch, llama.cpp, and the latest Project Panama and Valhalla features in JDK 25.</description>
+    </item>
+        
+      
+    
+      
+        
+        
+    <item>
+      <title>Unleashing the Distributed Inference Fabric: Cluster-Wide LLM Execution</title>
+      <link>/blog/distributed-inference-fabric.html</link>
+      <guid>/blog/distributed-inference-fabric.html</guid>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 +0700</pubDate>
+      <description>Unleashing the Distributed Inference Fabric: Cluster-Wide LLM Execution</description>
+    </item>
+        
+      
+    
+      
+        
+        
+    <item>
+      <title>Audio Module v2.0 and Quantization Engine Release</title>
+      <link>/blog/audio-quantization-release.html</link>
+      <guid>/blog/audio-quantization-release.html</guid>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0700</pubDate>
+      <description>Audio Module v2.0 and Quantization Engine Release</description>
+    </item>
+        
+      
     
       
         
@@ -46,6 +111,52 @@
       <description>Release introduction to the new Gollek inference engine, key advantages, and community contribution paths.</description>
     </item>
         
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       

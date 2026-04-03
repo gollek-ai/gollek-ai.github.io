@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Getting Started with Gollek SDK | Gollek</title>
+  <title>Documentation | Gollek</title>
   <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
   <script>
     (function () {
@@ -19,417 +19,760 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
   <script src="/assets/js/site.js" defer></script>
 </head>
 <body>
-  <div class="site-bg" aria-hidden="true"></div>
-
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="/" class="brand">Gollek</a>
-      <nav class="site-nav" aria-label="Main navigation">
-        <a href="/docs/">Docs</a>
-        <a href="/blog/">Blog</a>
-        <a href="/docs/cli-installation">Install</a>
-        <a href="/features/">Features</a>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">Theme</button>
-        <a href="https://github.com/bhangun/gollek">GitHub</a>
-      </nav>
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <a href="/" class="sidebar-brand">
+        <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png" alt="Gollek Logo" class="brand-logo">
+        <span class="brand-text">Gollek</span>
+      </a>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
     </div>
-  </header>
-
-  <main class="container content-shell">
-    <article class="content-card">
-      <section class="hero hero-compact">
-  <p class="eyebrow">Developer Onboarding</p>
-  <h1>Choose your Gollek path: SDK integration or CLI usage</h1>
-  <p class="lead">This page gives you a practical starting route. Pick the path you need, then continue into API references and examples.</p>
+    
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">Getting Started</div>
+        <a href="/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9,22 9,12 15,12 15,22"/>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="/docs/cli-installation" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4,17 10,11 4,5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+          <span>Install CLI</span>
+        </a>
+        <a href="/docs/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10,9 9,9 8,9"/>
+          </svg>
+          <span>Documentation</span>
+        </a>
+        <a href="/features/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+          </svg>
+          <span>Features</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Core Concepts</div>
+        <a href="/docs/core-api" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          <span>Core API</span>
+        </a>
+        <a href="/docs/architecture" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <span>Architecture</span>
+        </a>
+        <a href="/docs/plugin-system-v2" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <span>Plugin System</span>
+        </a>
+        <a href="/docs/runner-plugins" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+          <span>Runners</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Model Formats</div>
+        <a href="/docs/gguf-enhancements" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span>GGUF</span>
+        </a>
+        <a href="/docs/quantization" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+          <span>Quantization</span>
+        </a>
+        <a href="/docs/audio-processing" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+            <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <span>Audio</span>
+        </a>
+        <a href="/docs/gpu-kernels" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <rect x="9" y="9" width="6" height="6"/>
+            <line x1="9" y1="1" x2="9" y2="4"/>
+            <line x1="15" y1="1" x2="15" y2="4"/>
+            <line x1="9" y1="20" x2="9" y2="23"/>
+            <line x1="15" y1="20" x2="15" y2="23"/>
+            <line x1="20" y1="9" x2="23" y2="9"/>
+            <line x1="20" y1="14" x2="23" y2="14"/>
+            <line x1="1" y1="9" x2="4" y2="9"/>
+            <line x1="1" y1="14" x2="4" y2="14"/>
+          </svg>
+          <span>GPU Kernels</span>
+        </a>
+      </div>
+      
+      <div class="nav-section">
+        <div class="nav-section-title">Resources</div>
+        <a href="/blog/" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+            <polyline points="17,21 17,13 7,13 7,21"/>
+            <polyline points="17,9 7,9 7,2"/>
+          </svg>
+          <span>Blog</span>
+        </a>
+        <a href="/docs/examples" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <span>Examples</span>
+        </a>
+        <a href="/docs/troubleshooting" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span>Troubleshooting</span>
+        </a>
+        <a href="/docs/error-codes" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>Error Codes</span>
+        </a>
+        <a href="https://github.com/bhangun/gollek" class="nav-item nav-item-external" target="_blank" rel="noopener">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+          </svg>
+          <span>GitHub</span>
+          <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+            <polyline points="15,3 21,3 21,9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+      </div>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="theme-selector">
+        <button class="theme-option" data-theme="dark" aria-label="Dark theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="light" aria-label="Light theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="theme-option" data-theme="auto" aria-label="Auto theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="version-info">
+        <span class="version-label">v1.0.0</span>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Main Content Area -->
+  <div class="main-wrapper">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-content">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <div class="header-title">
+          
+          <h1 class="page-title">Documentation</h1>
+          
+        </div>
+        <div class="header-actions">
+          <a href="/docs/cli-installation" class="btn btn-sm btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Install
+          </a>
+          <a href="https://github.com/bhangun/gollek" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-container">
+        <section class="hero hero-compact">
+  <p class="eyebrow">Documentation Hub</p>
+  <h1>Gollek SDK Documentation</h1>
+  <p class="lead">Comprehensive guides, API references, and examples for building AI-powered applications with Gollek SDK.</p>
 </section>
 
 <section class="quick-grid">
-  <a class="quick-card" href="/docs/cli-installation">
-    <h3>CLI Distribution</h3>
-    <p>Install <code>gollek</code> for macOS, Linux, and Windows with release artifacts or package managers.</p>
+  <a class="quick-card" href="#getting-started">
+    <h3>🚀 Getting Started</h3>
+    <p>Installation, quickstart, and setup guides.</p>
   </a>
-  <a class="quick-card" href="/docs/cli-installation#quick-commands">
-    <h3>CLI Quick Commands</h3>
-    <p>Run inference, convert to GGUF, and dry-run conversions from the terminal.</p>
+  <a class="quick-card" href="#core-concepts">
+    <h3>📚 Core Concepts</h3>
+    <p>Architecture, API reference, and fundamentals.</p>
   </a>
-  <a class="quick-card" href="/docs/cli-reference">
-    <h3>CLI Reference</h3>
-    <p>See all commands, including <code>gollek convert</code> for GGUF conversion.</p>
+  <a class="quick-card" href="#model-formats">
+    <h3>📦 Model Formats</h3>
+    <p>GGUF, ONNX, TFLite, and quantization.</p>
   </a>
-  <a class="quick-card" href="#maven-dependency">
-    <h3>Java SDK Setup</h3>
-    <p>Add Maven/Gradle dependencies and optional providers for embedded inference.</p>
+  <a class="quick-card" href="#advanced">
+    <h3>🔬 Advanced</h3>
+    <p>GPU kernels, audio processing, and plugins.</p>
   </a>
-  <a class="quick-card" href="/docs/examples">
-    <h3>Code Examples</h3>
-    <p>Jump to real usage patterns for streaming, async jobs, and provider selection.</p>
+  <a class="quick-card" href="#examples">
+    <h3>💡 Examples</h3>
+    <p>JBang scripts, tutorials, and code samples.</p>
   </a>
-</section>
-
-<section class="subtle-panel">
-  <strong>Quick Links:</strong> <a href="/docs/core-api">Core API</a> · <a href="/docs/architecture">Architecture</a> · <a href="/docs/developer-guidance">Developer Guidance</a> · <a href="/docs/storage-layout">Storage Layout</a> · <a href="/docs/enhancement-history">Enhancement History</a> · <a href="/docs/developer-guidance#metal-runner-modes-apple-silicon">Metal Modes</a> · <a href="/docs/developer-guidance#gpu-smoke-test-apple-silicon-only">Metal GPU Test</a> · <a href="/docs/architecture#fp8-rowwise-canary-configuration">FP8 Rowwise Config</a> · <a href="/docs/architecture#sageattention2-configuration">SageAttention2 Config</a> · <a href="/docs/architecture#multi-lora-benchmark-telemetry">Benchmark Telemetry</a> · <a href="/docs/native-ffi">Native FFI</a>
-</section>
-
-<section class="subtle-panel">
-  <strong>Latest update:</strong> Multi-LoRA and LibTorch advanced path progress is live, including FP8 rowwise calibration lifecycle, SageAttention2 safety guardrails, and benchmark telemetry for CPU/GPU efficiency tracking.
-  <a href="/blog/multilora-libtorch-advanced-update">Read the update</a>
+  <a class="quick-card" href="#support">
+    <h3>🛟 Support</h3>
+    <p>Troubleshooting, error codes, and help.</p>
+  </a>
 </section>
 
 <hr />
 
-<h2 id="prerequisites">Prerequisites</h2>
+<h2 id="getting-started">Getting Started</h2>
 
-<p>Before you begin, ensure you have:</p>
+<p>Essential guides to get you up and running quickly.</p>
 
+<h3 id="cli-installation"><a href="/docs/cli-installation">CLI Installation</a></h3>
+<p>Install the Gollek CLI via release installer, Homebrew, or Chocolatey for macOS, Linux, and Windows.</p>
+
+<p><strong>Quick Install</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># macOS/Linux</span>
+curl <span class="nt">-sSL</span> https://raw.githubusercontent.com/bhangun/gollek/main/scripts/install.sh | bash
+
+<span class="c"># Windows</span>
+winget <span class="nb">install </span>gollek
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="github-packages-deployment"><a href="/docs/github-packages-deployment">GitHub Packages Deployment</a></h3>
+<p>Use Gollek SDK in Maven projects via GitHub Packages. Configure repositories, authenticate, and manage dependencies.</p>
+
+<p><strong>Maven Setup</strong>:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;repository&gt;</span>
+    <span class="nt">&lt;id&gt;</span>github<span class="nt">&lt;/id&gt;</span>
+    <span class="nt">&lt;url&gt;</span>https://maven.pkg.github.com/bhangun/gollek<span class="nt">&lt;/url&gt;</span>
+<span class="nt">&lt;/repository&gt;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="core-api"><a href="/docs/core-api">Core API</a></h3>
+<p>Main entry point for all SDK operations. Learn about <code class="language-plaintext highlighter-rouge">GollekLocalClient</code>, <code class="language-plaintext highlighter-rouge">InferenceRequest</code>, <code class="language-plaintext highlighter-rouge">InferenceResponse</code>, and completion APIs.</p>
+
+<p><strong>Key Topics</strong>:</p>
 <ul>
-  <li><strong>Java 21 or higher</strong> - Gollek SDK requires Java 21+</li>
-  <li><strong>Maven 3.8+</strong> - For dependency management</li>
-  <li><strong>GraalVM</strong> (optional) - For native image compilation</li>
+  <li>Creating SDK instances</li>
+  <li>Building inference requests</li>
+  <li>Executing synchronous and streaming inference</li>
+  <li>Async jobs and batch processing</li>
 </ul>
 
 <hr />
 
-<h2 id="installation">Installation</h2>
-
-<h3 id="gollek-cli-binary-distribution">Gollek CLI (Binary Distribution)</h3>
-
-<p>If you want the CLI directly (without embedding the SDK), use the release installers:</p>
-
-<ul>
-  <li>macOS/Linux: curl installer (<code class="language-plaintext highlighter-rouge">install.sh</code>)</li>
-  <li>Windows: native <code class="language-plaintext highlighter-rouge">.exe</code> or PowerShell installer (<code class="language-plaintext highlighter-rouge">install.ps1</code>)</li>
-  <li>Package managers: Homebrew formula + Chocolatey template</li>
-</ul>
-
-<p>See full instructions: <a href="/docs/cli-installation">CLI Installation Guide</a></p>
-
-<hr />
-
-<h3 id="maven-dependency">Maven Dependency</h3>
-
-<p>Add the Gollek SDK dependency to your <code class="language-plaintext highlighter-rouge">pom.xml</code>:</p>
-
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>tech.kayys.gollek<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>gollek-sdk-java-local<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
-
-<h3 id="gradle-dependency">Gradle Dependency</h3>
-
-<p>For Gradle projects:</p>
-
-<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">implementation</span> <span class="s1">'tech.kayys.gollek:gollek-sdk-java-local:1.0.0-SNAPSHOT'</span>
-</code></pre></div></div>
-
-<h3 id="optional-provider-dependencies">Optional Provider Dependencies</h3>
-
-<p>Gollek SDK uses a modular architecture. Add only the providers you need:</p>
-
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Ollama Cloud Provider --&gt;</span>
-<span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>tech.kayys.gollek<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>gollek-ext-cloud-ollama<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-
-<span class="c">&lt;!-- Google Gemini Provider --&gt;</span>
-<span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>tech.kayys.gollek<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>gollek-ext-cloud-gemini<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-
-<span class="c">&lt;!-- Cerebras Provider --&gt;</span>
-<span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>tech.kayys.gollek<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>gollek-ext-cloud-cerebras<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
-
-<hr />
-
-<h2 id="quick-start">Quick Start</h2>
-
-<h3 id="1-create-sdk-instance">1. Create SDK Instance</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClient</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClientAdapter</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.factory.GollekSdkFactory</span><span class="o">;</span>
-
-<span class="c1">// Create the SDK client</span>
-<span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GollekLocalClientAdapter</span><span class="o">(</span>
-    <span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">()</span>
-<span class="o">);</span>
-</code></pre></div></div>
-
-<h3 id="2-build-an-inference-request">2. Build an Inference Request</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.InferenceRequest</span><span class="o">;</span>
-
-<span class="nc">InferenceRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">InferenceRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llama-3.2-3b-instruct"</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">prompt</span><span class="o">(</span><span class="s">"Explain quantum computing in simple terms"</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">maxTokens</span><span class="o">(</span><span class="mi">500</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">temperature</span><span class="o">(</span><span class="mf">0.7</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-</code></pre></div></div>
-
-<h3 id="3-execute-inference">3. Execute Inference</h3>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.spi.inference.InferenceResponse</span><span class="o">;</span>
-
-<span class="c1">// Synchronous inference</span>
-<span class="nc">InferenceResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">createCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
-<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
-</code></pre></div></div>
+<h3 id="examples"><a href="/docs/examples">Examples</a></h3>
+<p>Code examples and usage patterns for common scenarios including streaming, async jobs, and provider selection.</p>
 
 <hr />
 
 <h2 id="core-concepts">Core Concepts</h2>
 
-<h3 id="golleklocalclient">GollekLocalClient</h3>
+<p>Fundamental concepts and architecture documentation.</p>
 
-<p>The <code class="language-plaintext highlighter-rouge">GollekLocalClient</code> interface is the main entry point for all SDK operations. It provides:</p>
+<h3 id="architecture"><a href="/docs/architecture">Architecture</a></h3>
+<p>System architecture overview including SDK layers, provider system, model repository, and inference pipeline.</p>
 
-<ul>
-  <li><strong>Completion API</strong> - Standard request/response inference</li>
-  <li><strong>Streaming API</strong> - Real-time token streaming</li>
-  <li><strong>Async Jobs</strong> - Background job processing</li>
-  <li><strong>Batch Inference</strong> - Multiple requests in one call</li>
-  <li><strong>Model Management</strong> - Pull, list, and delete models</li>
-  <li><strong>Provider Discovery</strong> - List and query available providers</li>
-</ul>
-
-<h3 id="inferencerequest">InferenceRequest</h3>
-
-<p>The <code class="language-plaintext highlighter-rouge">InferenceRequest</code> object defines all parameters for an inference call:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>model</td>
-      <td>String</td>
-      <td>Model identifier or name</td>
-    </tr>
-    <tr>
-      <td>prompt</td>
-      <td>String</td>
-      <td>Input prompt/text</td>
-    </tr>
-    <tr>
-      <td>messages</td>
-      <td>List</td>
-      <td>Conversation history (for chat models)</td>
-    </tr>
-    <tr>
-      <td>maxTokens</td>
-      <td>int</td>
-      <td>Maximum tokens to generate</td>
-    </tr>
-    <tr>
-      <td>temperature</td>
-      <td>double</td>
-      <td>Sampling temperature (0.0-2.0)</td>
-    </tr>
-    <tr>
-      <td>topP</td>
-      <td>double</td>
-      <td>Nucleus sampling parameter</td>
-    </tr>
-    <tr>
-      <td>stopSequences</td>
-      <td>List</td>
-      <td>Stop sequences for generation</td>
-    </tr>
-    <tr>
-      <td>preferredProvider</td>
-      <td>Optional</td>
-      <td>Preferred inference provider</td>
-    </tr>
-    <tr>
-      <td>metadata</td>
-      <td>Map</td>
-      <td>Additional provider-specific options</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="inferenceresponse">InferenceResponse</h3>
-
-<p>The <code class="language-plaintext highlighter-rouge">InferenceResponse</code> contains the inference result:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>requestId</td>
-      <td>String</td>
-      <td>Unique request identifier</td>
-    </tr>
-    <tr>
-      <td>content</td>
-      <td>String</td>
-      <td>Generated text content</td>
-    </tr>
-    <tr>
-      <td>model</td>
-      <td>String</td>
-      <td>Model that generated the response</td>
-    </tr>
-    <tr>
-      <td>usage</td>
-      <td>UsageInfo</td>
-      <td>Token usage statistics</td>
-    </tr>
-    <tr>
-      <td>finishReason</td>
-      <td>String</td>
-      <td>Reason for completion</td>
-    </tr>
-    <tr>
-      <td>metadata</td>
-      <td>Map</td>
-      <td>Additional response metadata</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr />
-
-<h2 id="cdi-integration">CDI Integration</h2>
-
-<p>For Jakarta EE applications, Gollek SDK integrates seamlessly with CDI:</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">jakarta.inject.Inject</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">jakarta.enterprise.context.ApplicationScoped</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">tech.kayys.gollek.sdk.local.GollekLocalClient</span><span class="o">;</span>
-
-<span class="nd">@ApplicationScoped</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyService</span> <span class="o">{</span>
-    
-    <span class="nd">@Inject</span>
-    <span class="nc">GollekLocalClient</span> <span class="n">client</span><span class="o">;</span>
-    
-    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">generateResponse</span><span class="o">(</span><span class="nc">String</span> <span class="n">prompt</span><span class="o">)</span> <span class="o">{</span>
-        <span class="nc">InferenceRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">InferenceRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llama-3.2-3b-instruct"</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">prompt</span><span class="o">(</span><span class="n">prompt</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-        
-        <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="na">createCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="na">getContent</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
+<p><strong>Diagram</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+------------------+     +-------------------+     +------------------+
+|  Gollek Client   | --&gt; |  Inference Svc    | --&gt; |   Providers      |
++------------------+     +-------------------+     +------------------+
 </code></pre></div></div>
 
 <hr />
 
-<h2 id="configuration">Configuration</h2>
+<h3 id="core-runtime-architecture"><a href="/docs/core-runtime-architecture">Core Runtime Architecture</a></h3>
+<p>Deep dive into the runtime engine, execution model, and performance characteristics.</p>
 
-<h3 id="api-keys">API Keys</h3>
+<hr />
 
-<p>Configure API keys for cloud providers via environment variables:</p>
+<h3 id="plugin-system-v2"><a href="/docs/plugin-system-v2">Plugin System v2</a></h3>
+<p>Extensible plugin architecture for custom providers, features, and runners.</p>
+
+<p><strong>Plugin Types</strong>:</p>
+<ul>
+  <li><strong>Feature Plugins</strong>: Add new capabilities</li>
+  <li><strong>Runner Plugins</strong>: Model format support (GGUF, ONNX, etc.)</li>
+  <li><strong>Kernel Plugins</strong>: Hardware acceleration (CUDA, Metal, ROCm)</li>
+</ul>
+
+<hr />
+
+<h3 id="enhanced-plugin-architecture"><a href="/docs/enhanced-plugin-architecture">Enhanced Plugin Architecture</a></h3>
+<p>Advanced plugin patterns with kernel auto-detection and isolation strategies.</p>
+
+<hr />
+
+<h3 id="enhanced-runner-plugin-architecture"><a href="/docs/enhanced-runner-plugin-architecture">Enhanced Runner Plugin Architecture</a></h3>
+<p>Building custom model runners with enhanced plugin system.</p>
+
+<hr />
+
+<h3 id="feature-plugins"><a href="/docs/feature-plugins">Feature Plugins</a></h3>
+<p>Extend Gollek with custom features and capabilities.</p>
+
+<hr />
+
+<h3 id="optimization-plugins"><a href="/docs/optimization-plugins">Optimization Plugins</a></h3>
+<p>Performance optimization plugins for inference acceleration.</p>
+
+<hr />
+
+<h3 id="plugin-examples"><a href="/docs/plugin-examples">Plugin Examples</a></h3>
+<p>Working examples of plugin implementations.</p>
+
+<hr />
+
+<h3 id="plugin-templates"><a href="/docs/plugin-templates">Plugin Templates</a></h3>
+<p>Starter templates for building your own plugins.</p>
+
+<hr />
+
+<h3 id="plugin-migration"><a href="/docs/plugin-migration">Plugin Migration</a></h3>
+<p>Migrate from v1 to v2 plugin system.</p>
+
+<hr />
+
+<h3 id="enhanced-plugin-system-v2"><a href="/docs/enhanced-plugin-system-v2">Enhanced Plugin System v2</a></h3>
+<p>Complete guide to the enhanced plugin architecture.</p>
+
+<hr />
+
+<h3 id="kernel-auto-detection"><a href="/docs/kernel-auto-detection">Kernel Auto-Detection</a></h3>
+<p>Automatic hardware kernel detection and selection.</p>
+
+<hr />
+
+<h3 id="storage-layout"><a href="/docs/storage-layout">Storage Layout</a></h3>
+<p>Understanding Gollek’s local storage structure for models and caches.</p>
+
+<p><strong>Default Location</strong>: <code class="language-plaintext highlighter-rouge">~/.gollek/</code></p>
+
+<hr />
+
+<h3 id="enhancement-history"><a href="/docs/enhancement-history">Enhancement History</a></h3>
+<p>Complete development history and changelog.</p>
+
+<hr />
+
+<h3 id="phase-1-completion"><a href="/docs/phase1-completion">Phase 1 Completion</a></h3>
+<p>Integration testing results and milestones (41 tests passed).</p>
+
+<hr />
+
+<h3 id="phase-2-completion"><a href="/docs/phase2-completion">Phase 2 Completion</a></h3>
+<p>Performance optimization results (3x throughput improvement).</p>
+
+<hr />
+
+<h2 id="model-formats">Model Formats</h2>
+
+<p>Supported model formats and conversion tools.</p>
+
+<h3 id="gguf-enhancements"><a href="/docs/gguf-enhancements">GGUF Enhancements</a></h3>
+<p>K-quant support (Q2_K, Q4_K, Q5_K, Q6_K), 40+ model families, and quantization improvements.</p>
+
+<p><strong>Supported Families</strong>:</p>
+<ul>
+  <li>Llama, Mistral, DeepSeek, Yi, DBRX, Grok, Jamba, Mamba, RWKV</li>
+</ul>
+
+<hr />
+
+<h3 id="quantization"><a href="/docs/quantization">Quantization</a></h3>
+<p>GPTQ INT4/INT8 and FP8 quantization with SafeTensors format for 4-8x compression.</p>
+
+<p><strong>Quantization Types</strong>:</p>
+<ul>
+  <li><strong>GPTQ INT4</strong>: 8x compression</li>
+  <li><strong>INT8</strong>: 4x compression</li>
+  <li><strong>FP8</strong>: GPU tensor core optimization</li>
+</ul>
+
+<hr />
+
+<h3 id="safetensor-runner-integration"><a href="/docs/safetensor-runner-integration">Safetensor Runner Integration</a></h3>
+<p>Direct inference from Safetensors format models.</p>
+
+<hr />
+
+<h3 id="runner-plugins"><a href="/docs/runner-plugins">Runner Plugins</a></h3>
+<p>Model runner implementations for different formats.</p>
+
+<hr />
+
+<h2 id="advanced">Advanced Topics</h2>
+
+<p>Advanced features and specialized capabilities.</p>
+
+<h3 id="gpu-kernels"><a href="/docs/gpu-kernels">GPU Kernels</a></h3>
+<p>Native CUDA, Blackwell, ROCm, and Metal kernels with FlashAttention-2/3.</p>
+
+<p><strong>Supported Hardware</strong>:</p>
+<ul>
+  <li>NVIDIA CUDA (including Blackwell)</li>
+  <li>AMD ROCm</li>
+  <li>Apple Metal (M1/M2/M3)</li>
+</ul>
+
+<hr />
+
+<h3 id="audio-processing"><a href="/docs/audio-processing">Audio Processing</a></h3>
+<p>Speech-to-text (Whisper), text-to-speech (SpeechT5), HiFi-GAN vocoder, and VAD pipeline.</p>
+
+<p><strong>Capabilities</strong>:</p>
+<ul>
+  <li><strong>STT</strong>: Whisper with 99+ languages</li>
+  <li><strong>TTS</strong>: SpeechT5 with 8 voices</li>
+  <li><strong>VAD</strong>: Voice activity detection</li>
+  <li><strong>Vocoder</strong>: HiFi-GAN</li>
+</ul>
+
+<hr />
+
+<h3 id="multimodal-sdk"><a href="/docs/multimodal-sdk">Multimodal SDK</a></h3>
+<p>Vision-language models and multimodal inference.</p>
+
+<hr />
+
+<h3 id="ml-sdk"><a href="/docs/ml-sdk">ML SDK</a></h3>
+<p>Embedded ML SDK: PyTorch-like Tensors, Autograd, NN Modules, and training in pure Java.</p>
+
+<p><strong>Features</strong>:</p>
+<ul>
+  <li>Tensor operations with autograd</li>
+  <li>Neural network layers (Linear, Conv, Attention)</li>
+  <li>Loss functions and optimizers</li>
+  <li>Model persistence (GGUF, Safetensors)</li>
+</ul>
+
+<hr />
+
+<h3 id="native-library-guide"><a href="/docs/native-library-guide">Native Library Guide</a></h3>
+<p>Building and using native libraries with Gollek.</p>
+
+<hr />
+
+<h3 id="native-ffi"><a href="/docs/native-ffi">Native FFI</a></h3>
+<p>GraalVM native image support with C FFI for embedded integration.</p>
+
+<hr />
+
+<h3 id="native-compilation"><a href="/docs/native-compilation">Native Compilation</a></h3>
+<p>Compiling Gollek to native executables.</p>
+
+<hr />
+
+<h3 id="developer-guidance"><a href="/docs/developer-guidance">Developer Guidance</a></h3>
+<p>Best practices, tips, and tricks for Gollek development.</p>
+
+<p><strong>Topics</strong>:</p>
+<ul>
+  <li>Metal GPU smoke test</li>
+  <li>LiteRT TFLite setup</li>
+  <li>Performance tuning</li>
+  <li>Memory management</li>
+</ul>
+
+<hr />
+
+<h3 id="cloud-providers"><a href="/docs/cloud-providers">Cloud Providers</a></h3>
+<p>Cloud inference providers: OpenAI, Anthropic, Google Gemini, Cerebras, Mistral.</p>
+
+<hr />
+
+<h2 id="examples">Examples &amp; Tutorials</h2>
+
+<p>Hands-on examples and tutorials.</p>
+
+<h3 id="jbang-examples-catalog"><a href="/docs/jbang-examples">JBang Examples Catalog</a></h3>
+<p><strong>23+ ready-to-run Java scripts</strong> covering:</p>
+<ul>
+  <li>🟢 Beginner: Hello World, templates</li>
+  <li>🔵 Neural Networks: MLP, training, persistence</li>
+  <li>🟣 NLP: Sentiment, transformers, chatbots</li>
+  <li>🟠 ML Integrations: DL4J, Stanford NLP, Smile, Tribuo</li>
+</ul>
+
+<p><strong>Quick Start</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/hello_gollek.java
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="jupyter--jbang-integration"><a href="/docs/jupyter-jbang-integration">Jupyter &amp; JBang Integration</a></h3>
+<p>Interactive development with Jupyter notebooks and jbang scripts.</p>
+
+<p><strong>What You’ll Learn</strong>:</p>
+<ul>
+  <li>Setting up Jupyter Java kernel</li>
+  <li>Interactive model building</li>
+  <li>Converting notebooks to scripts</li>
+  <li>Team collaboration workflows</li>
+</ul>
+
+<hr />
+
+<h3 id="cli-reference"><a href="/docs/cli-reference">CLI Reference</a></h3>
+<p>Complete CLI command reference including <code class="language-plaintext highlighter-rouge">gollek chat</code>, <code class="language-plaintext highlighter-rouge">gollek convert</code>, and more.</p>
+
+<p><strong>Common Commands</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gollek chat <span class="nt">--provider</span> gemini
+gollek convert <span class="nt">--input</span> model.safetensors <span class="nt">--output</span> model.gguf
+gollek list-models
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="support">Support</h2>
+
+<p>Troubleshooting and help resources.</p>
+
+<h3 id="troubleshooting"><a href="/docs/troubleshooting">Troubleshooting</a></h3>
+<p>Common issues and solutions.</p>
+
+<p><strong>Common Problems</strong>:</p>
+<ul>
+  <li>Dependency resolution failures</li>
+  <li>Model not found errors</li>
+  <li>GPU/CUDA issues</li>
+  <li>Memory problems</li>
+</ul>
+
+<hr />
+
+<h3 id="error-codes"><a href="/docs/error-codes">Error Codes</a></h3>
+<p>Complete error code reference with descriptions and solutions.</p>
+
+<p><strong>Error Categories</strong>:</p>
+<ul>
+  <li><strong>INFERENCE_</strong>*: Inference-related errors</li>
+  <li><strong>MODEL_</strong>*: Model loading/management errors</li>
+  <li><strong>PROVIDER_</strong>*: Provider configuration errors</li>
+  <li><strong>RUNTIME_</strong>*: Runtime execution errors</li>
+</ul>
+
+<hr />
+
+<h3 id="git-repository-cleanup"><a href="/docs/git-repository-cleanup">Git Repository Cleanup</a></h3>
+<p>Guide for cleaning up large files from git history.</p>
+
+<hr />
+
+<h3 id="github-packages-deployment-1"><a href="/docs/github-packages-deployment">GitHub Packages Deployment</a></h3>
+<p>Publishing and consuming packages via GitHub Packages.</p>
+
+<hr />
+
+<h2 id="quick-reference">Quick Reference</h2>
+
+<h3 id="installation">Installation</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># CLI (macOS/Linux)</span>
+curl <span class="nt">-sSL</span> https://raw.githubusercontent.com/bhangun/gollek/main/scripts/install.sh | bash
+
+<span class="c"># CLI (Windows)</span>
+winget <span class="nb">install </span>gollek
+
+<span class="c"># Maven Dependency</span>
+<span class="c"># See: /docs/github-packages-deployment</span>
+</code></pre></div></div>
+
+<h3 id="first-inference">First Inference</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">();</span>
+<span class="nc">InferenceRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">InferenceRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llama-3.2-3b-instruct"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">prompt</span><span class="o">(</span><span class="s">"Hello, world!"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="nc">InferenceResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">createCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="run-jbang-example">Run JBang Example</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/hello_gollek.java
+</code></pre></div></div>
+
+<h3 id="configure-api-keys">Configure API Keys</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
 <span class="nb">export </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-ant-...
 <span class="nb">export </span><span class="nv">GOOGLE_API_KEY</span><span class="o">=</span>...
-<span class="nb">export </span><span class="nv">OLLAMA_API_KEY</span><span class="o">=</span>...
-</code></pre></div></div>
-
-<h3 id="model-repository">Model Repository</h3>
-
-<p>Gollek SDK uses a local model repository for caching and persistence. Configure the location:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_MODEL_REPO_PATH</span><span class="o">=</span>/path/to/models
-</code></pre></div></div>
-
-<h3 id="provider-selection">Provider Selection</h3>
-
-<p>Set a default provider or specify per-request:</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Set global default</span>
-<span class="n">client</span><span class="o">.</span><span class="na">setPreferredProvider</span><span class="o">(</span><span class="s">"ollama"</span><span class="o">);</span>
-
-<span class="c1">// Or specify per request</span>
-<span class="nc">InferenceRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">InferenceRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llama-3.2-3b-instruct"</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">prompt</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">preferredProvider</span><span class="o">(</span><span class="s">"openai"</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 </code></pre></div></div>
 
 <hr />
 
-<h2 id="next-steps">Next Steps</h2>
+<h2 id="documentation-categories">Documentation Categories</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Pages</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Getting Started</strong></td>
+      <td>5</td>
+      <td>Installation, setup, quickstart</td>
+    </tr>
+    <tr>
+      <td><strong>Core Concepts</strong></td>
+      <td>15</td>
+      <td>Architecture, API, plugins</td>
+    </tr>
+    <tr>
+      <td><strong>Model Formats</strong></td>
+      <td>5</td>
+      <td>GGUF, quantization, runners</td>
+    </tr>
+    <tr>
+      <td><strong>Advanced</strong></td>
+      <td>10</td>
+      <td>GPU, audio, native, ML SDK</td>
+    </tr>
+    <tr>
+      <td><strong>Examples</strong></td>
+      <td>3</td>
+      <td>JBang, Jupyter, CLI reference</td>
+    </tr>
+    <tr>
+      <td><strong>Support</strong></td>
+      <td>5</td>
+      <td>Troubleshooting, errors, help</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="additional-resources">Additional Resources</h2>
 
 <ul>
-  <li><a href="/docs/core-api">Core API Reference</a> - Detailed API documentation</li>
-  <li><a href="/docs/native-ffi">Native FFI</a> - GraalVM native integration</li>
-  <li><a href="/docs/architecture">Architecture</a> - System architecture overview</li>
-  <li><a href="/docs/examples">Examples</a> - Code examples and patterns</li>
-  <li><strong><a href="/docs/enhancement-history">Enhancement History</a></strong> - Complete development history (Phase 1 &amp; 2)</li>
-  <li><strong><a href="/docs/phase1-completion">Phase 1 Completion</a></strong> - Integration testing (41 tests)</li>
-  <li><strong><a href="/docs/phase2-completion">Phase 2 Completion</a></strong> - Performance optimization (3x throughput)</li>
+  <li><a href="/blog/">Blog</a> - Latest news and announcements</li>
+  <li><a href="/features/">Features</a> - Feature overview</li>
+  <li><a href="https://github.com/bhangun/gollek">GitHub</a> - Source code and issues</li>
+  <li><a href="https://github.com/bhangun/gollek/discussions">Discussions</a> - Community discussions</li>
 </ul>
 
 <hr />
 
-<h2 id="troubleshooting">Troubleshooting</h2>
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Last Updated</strong>: March 2026</td>
+      <td><strong>Version</strong>: 1.0.0</td>
+    </tr>
+  </tbody>
+</table>
 
-<h3 id="common-issues">Common Issues</h3>
+<p><a href="/">Back to Home</a> · <a href="https://github.com/bhangun/gollek">View on GitHub</a></p>
 
-<p><strong>ClassNotFoundException</strong></p>
-<ul>
-  <li>Ensure all required dependencies are on the classpath</li>
-  <li>Check that provider modules are included</li>
-</ul>
-
-<p><strong>Model Not Found</strong></p>
-<ul>
-  <li>Verify the model exists in your local repository</li>
-  <li>Check model identifier syntax</li>
-</ul>
-
-<p><strong>Provider Unavailable</strong></p>
-<ul>
-  <li>Ensure the provider module is included</li>
-  <li>Verify API keys are configured correctly</li>
-  <li>Check network connectivity for cloud providers</li>
-</ul>
-
-<hr />
-
-<p><a href="/">Back to Home</a>   <a href="/docs/core-api">View API Reference</a></p>
-
-    </article>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <span>Gollek AI Docs</span>
-      <a href="https://github.com/bhangun/gollek">bhangun/gollek</a>
-    </div>
-  </footer>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-content">
+        <p>&copy; 2026 Gollek AI. Open source under Apache 2.0 License.</p>
+        <div class="footer-links">
+          <a href="https://github.com/bhangun/gollek">GitHub</a>
+          <a href="/blog/">Blog</a>
+          <a href="/docs/">Docs</a>
+        </div>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
