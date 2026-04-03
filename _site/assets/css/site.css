@@ -860,6 +860,171 @@ html[data-theme="light"] .content-card pre code .operator { color: #0184bc; }
 }
 
 /* ───────────────────────────────────────────────────────────
+   Three Paths Section (Homepage)
+   ─────────────────────────────────────────────────────────── */
+.three-paths-section {
+  margin: 2rem 0 3rem;
+}
+
+.three-paths-section h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.paths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.path-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.path-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.path-card-highlighted {
+  border-color: var(--accent-primary);
+  border-width: 2px;
+  box-shadow: 0 8px 24px var(--accent-glow);
+}
+
+.path-badge {
+  position: absolute;
+  top: -10px;
+  right: 1rem;
+  background: var(--accent-gradient);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.path-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--accent-primary);
+}
+
+.path-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.path-card h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.path-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.path-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.feature-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.feature-tag-highlighted {
+  background: var(--bg-active);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.path-example {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+}
+
+.example-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.path-example pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+.path-example code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.7rem;
+}
+
+.path-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+/* Responsive for paths grid */
+@media (max-width: 1024px) {
+  .paths-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .path-card-highlighted {
+    order: -1;
+  }
+}
+
+/* ───────────────────────────────────────────────────────────
    Hero Section (Homepage)
    ─────────────────────────────────────────────────────────── */
 .hero {
@@ -891,7 +1056,7 @@ html[data-theme="light"] .content-card pre code .operator { color: #0184bc; }
 }
 
 .hero-logo {
-  width: 180px;
+  width: 280px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px var(--accent-glow));
@@ -1095,7 +1260,7 @@ html[data-theme="light"] .content-card pre code .operator { color: #0184bc; }
   }
   
   .hero-logo {
-    width: 140px;
+    width: 220px;
   }
   
   .hero h1 {
@@ -1181,7 +1346,7 @@ html[data-theme="light"] .content-card pre code .operator { color: #0184bc; }
   }
   
   .hero-logo {
-    width: 120px;
+    width: 180px;
   }
   
   .hero h1 {

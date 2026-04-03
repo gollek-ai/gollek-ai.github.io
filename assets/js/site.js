@@ -124,14 +124,14 @@
   }
 
   /**
-   * Get current theme from localStorage or default to 'auto'
+   * Get current theme from localStorage or default to 'light'
    * @returns {string} Current theme
    */
   function getTheme() {
     try {
-      return localStorage.getItem('gollek-theme') || 'auto';
+      return localStorage.getItem('gollek-theme') || 'light';
     } catch (e) {
-      return 'auto';
+      return 'light';
     }
   }
 

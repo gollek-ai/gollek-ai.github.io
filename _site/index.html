@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gollek SDK - Universal Inference SDK for AI Models | Gollek</title>
+  <title>Gollek - Universal AI/ML Platform for Java | Gollek</title>
   <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
   <script>
     (function () {
       try {
         var stored = localStorage.getItem('gollek-theme');
-        var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-        var theme = stored || (prefersLight ? 'light' : 'dark');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored || (prefersDark ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-theme', 'light');
       }
     })();
   </script>
@@ -52,28 +52,35 @@
           </svg>
           <span>Home</span>
         </a>
-        <a href="/docs/cli-installation" class="nav-item ">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="4,17 10,11 4,5"/>
-            <line x1="12" y1="19" x2="20" y2="19"/>
-          </svg>
-          <span>Install CLI</span>
-        </a>
         <a href="/docs/" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
             <polyline points="14,2 14,8 20,8"/>
             <line x1="16" y1="13" x2="8" y2="13"/>
             <line x1="16" y1="17" x2="8" y2="17"/>
-            <polyline points="10,9 9,9 8,9"/>
           </svg>
           <span>Documentation</span>
         </a>
-        <a href="/features/" class="nav-item ">
+        <a href="/docs/framework" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
           </svg>
-          <span>Features</span>
+          <span>ML Framework</span>
+        </a>
+        <a href="/docs/cli-installation" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4,17 10,11 4,5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+          <span>CLI Tool</span>
+        </a>
+        <a href="/docs/core-api" class="nav-item ">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+          <span>Inference Runtime</span>
         </a>
       </div>
       
@@ -248,7 +255,7 @@
         </button>
         <div class="header-title">
           
-          <h1 class="page-title">Gollek SDK - Universal Inference SDK for AI Models</h1>
+          <h1 class="page-title">Gollek - Universal AI/ML Platform for Java</h1>
           
         </div>
         <div class="header-actions">
@@ -277,47 +284,177 @@
   <div class="hero-logo-container">
     <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek03%404x.png" alt="Gollek SDK" class="hero-logo" />
   </div>
-  <p class="eyebrow">Universal Inference SDK + CLI + Embedded ML Framework</p>
-  <h1>Build AI features once. Run and Train anywhere with a PyTorch-like Java API.</h1>
-  <p class="lead">Gollek gives your team one execution surface for GGUF, ONNX, TFLite, and now a **native Java ML SDK**. It centralizes model life-cycle, autograd-powered training, and provider auto-selection into a single consistent ecosystem.</p>
+  <p class="eyebrow">One Platform. Three Ways to Build AI/ML Applications.</p>
+  <h1>Build, Train, and Serve AI Models in Java</h1>
+  <p class="lead">Gollek is a unified platform that works as a <strong>CLI tool</strong>, a <strong>PyTorch-like ML Framework</strong>, and an <strong>Inference/Serving Runtime</strong>. Choose your path or combine them all.</p>
   <div class="hero-actions">
-    <a class="btn btn-primary" href="/docs/">Get Started</a>
-    <a class="btn btn-ghost" href="/docs/jbang-examples">JBang Examples</a>
-    <a class="btn btn-ghost" href="/docs/cli-installation">Install CLI</a>
+    <a class="btn btn-primary" href="#three-paths">Get Started</a>
+    <a class="btn btn-ghost" href="/docs/jbang-examples">Examples</a>
     <a class="btn btn-ghost" href="https://github.com/bhangun/gollek">GitHub</a>
   </div>
   <div class="hero-stats">
-    <span>Distributed KV Fabric</span>
-    <span>Mixture-of-Experts</span>
+    <span>PyTorch-like API</span>
     <span>GPU Accelerated</span>
-    <span>Token-Level Routing</span>
+    <span>Multi-Format Support</span>
+    <span>Native Java ML</span>
+  </div>
+</section>
+
+<section id="three-paths" class="three-paths-section">
+  <div class="content-container">
+    <h2>Choose Your Path</h2>
+    <p class="lead">Gollek adapts to your needs—whether you're a developer who wants quick CLI commands, a researcher building models, or an enterprise deploying production inference services.</p>
+    
+    <div class="paths-grid">
+      <!-- Path 1: CLI -->
+      <div class="path-card">
+        <div class="path-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4,17 10,11 4,5" />
+            <line x1="12" y1="19" x2="20" y2="19" />
+          </svg>
+        </div>
+        <h3>1. CLI Tool</h3>
+        <p class="path-description">Quick inference, model management, and conversions from your terminal. Perfect for developers who want to use AI models without writing code.</p>
+        
+        <div class="path-features">
+          <span class="feature-tag">Chat with LLMs</span>
+          <span class="feature-tag">Model Conversion</span>
+          <span class="feature-tag">GGUF Tools</span>
+          <span class="feature-tag">Quantization</span>
+        </div>
+        
+        <div class="path-example">
+          <div class="example-label">Example:</div>
+          <pre><code class="language-bash">gollek chat --provider gemini
+gollek convert --input model.pt \
+  --output model.gguf --quant q4_k
+gollek list-models</code></pre>
+        </div>
+        
+        <div class="path-actions">
+          <a href="/docs/cli-installation" class="btn btn-sm btn-primary">Install CLI</a>
+          <a href="/docs/cli-reference" class="btn btn-sm btn-ghost">View Commands</a>
+        </div>
+      </div>
+      
+      <!-- Path 2: Framework -->
+      <div class="path-card path-card-highlighted">
+        <div class="path-badge">Most Popular</div>
+        <div class="path-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <h3>2. ML Framework</h3>
+        <p class="path-description">Build and train neural networks with a PyTorch-like API in pure Java. Tensors, autograd, layers, optimizers—the full toolkit for ML research and development.</p>
+        
+        <div class="path-features">
+          <span class="feature-tag feature-tag-highlighted">GradTensor + Autograd</span>
+          <span class="feature-tag feature-tag-highlighted">36+ NN Modules</span>
+          <span class="feature-tag feature-tag-highlighted">Training Loop</span>
+          <span class="feature-tag">GPU Kernels</span>
+          <span class="feature-tag">JBang/Jupyter</span>
+          <span class="feature-tag">LangChain4j</span>
+        </div>
+        
+        <div class="path-example">
+          <div class="example-label">Example:</div>
+          <pre><code class="language-java">// Build model (PyTorch-style API)
+Module model = new Sequential(
+    new Linear(784, 256), new ReLU(),
+    new Dropout(0.2f),
+    new Linear(256, 10)
+);
+
+// Training loop
+var optimizer = new Adam(model.parameters(), 0.001f);
+for (int epoch = 0; epoch &lt; 100; epoch++) {
+    var output = model.forward(input);
+    var loss = new CrossEntropyLoss()
+        .compute(output, target);
+    loss.backward();
+    optimizer.step();
+    optimizer.zeroGrad();
+}</code></pre>
+        </div>
+        
+        <div class="path-actions">
+          <a href="/docs/framework" class="btn btn-sm btn-primary">Framework Guide</a>
+          <a href="/docs/jbang-examples" class="btn btn-sm btn-ghost">23+ Examples</a>
+        </div>
+      </div>
+      
+      <!-- Path 3: Runtime -->
+      <div class="path-card">
+        <div class="path-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5,3 19,12 5,21" />
+          </svg>
+        </div>
+        <h3>3. Inference Runtime</h3>
+        <p class="path-description">Deploy models to production with high-performance inference serving. Support for GGUF, ONNX, SafeTensors, and cloud APIs with GPU acceleration.</p>
+        
+        <div class="path-features">
+          <span class="feature-tag">Multi-Format Runners</span>
+          <span class="feature-tag">GPU Acceleration</span>
+          <span class="feature-tag">Streaming</span>
+          <span class="feature-tag">Batch Inference</span>
+          <span class="feature-tag">Plugin System</span>
+        </div>
+        
+        <div class="path-example">
+          <div class="example-label">Example:</div>
+          <pre><code class="language-java">// Local inference
+GollekLocalClient client = 
+    GollekSdkFactory.createLocalSdk();
+
+InferenceRequest request = 
+    InferenceRequest.builder()
+    .model("llama-3.2-3b-instruct")
+    .prompt("Explain quantum computing")
+    .maxTokens(500)
+    .build();
+
+InferenceResponse response = 
+    client.createCompletion(request);</code></pre>
+        </div>
+        
+        <div class="path-actions">
+          <a href="/docs/core-api" class="btn btn-sm btn-primary">SDK Guide</a>
+          <a href="/docs/architecture" class="btn btn-sm btn-ghost">Architecture</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="quick-grid">
-  <a class="quick-card" href="/docs/">
-    <h3>Start Integration</h3>
-    <p>Set up dependencies, configure providers, and run first inference quickly.</p>
-  </a>
-  <a class="quick-card" href="/docs/jbang-examples">
-    <h3>JBang Examples</h3>
-    <p>23+ ready-to-run Java scripts: from Hello World to Transformer classifiers.</p>
+  <a class="quick-card" href="/docs/framework">
+    <h3>🧠 ML Framework</h3>
+    <p>PyTorch-like API: Tensors, Autograd, 36+ NN modules, training loops.</p>
   </a>
   <a class="quick-card" href="/docs/cli-installation">
-    <h3>Install CLI</h3>
-    <p>Install <code>gollek</code> via release installer, Homebrew, or Chocolatey.</p>
+    <h3>💻 CLI Tool</h3>
+    <p>Install via brew, choco, or curl. Chat, convert, and manage models.</p>
   </a>
-  <a class="quick-card" href="/docs/ml-sdk">
-    <h3>Embedded ML SDK</h3>
-    <p>PyTorch-like Tensors, Autograd, NN Modules, and training in pure Java.</p>
+  <a class="quick-card" href="/docs/core-api">
+    <h3>🚀 Inference Runtime</h3>
+    <p>High-performance serving with GPU acceleration and multi-format support.</p>
   </a>
-  <a class="quick-card" href="/docs/examples">
-    <h3>SDK Examples</h3>
-    <p>Copy real code patterns for streaming, async jobs, and provider selection.</p>
+  <a class="quick-card" href="/docs/jbang-examples">
+    <h3>📚 Examples</h3>
+    <p>23+ ready-to-run scripts: from Hello World to Transformer classifiers.</p>
+  </a>
+  <a class="quick-card" href="/docs/gpu-kernels">
+    <h3>⚡ GPU Kernels</h3>
+    <p>CUDA, Metal, ROCm with FlashAttention 2/3/4 and FP8/FP4 precision.</p>
   </a>
   <a class="quick-card" href="/blog/">
-    <h3>Product Blog</h3>
-    <p>Read release notes, architecture updates, and implementation progress.</p>
+    <h3>📝 Blog</h3>
+    <p>Release notes, architecture updates, and implementation progress.</p>
   </a>
 </section>
 
@@ -365,31 +502,89 @@
 
 <hr />
 
-<h2 id="why-gollek-sdk">Why Gollek SDK?</h2>
+<h2 id="why-gollek">Why Gollek?</h2>
 
-<p>Gollek SDK provides a unified interface for AI model inference, abstracting away the complexity of different model formats, providers, and deployment environments.</p>
+<p>Gollek is designed to be the most versatile AI/ML platform for Java developers, offering three distinct usage patterns that can be mixed and matched based on your needs.</p>
 
-<h3 id="multi-format-support">Multi-Format Support</h3>
+<h3 id="as-a-cli-tool">As a CLI Tool</h3>
+<ul>
+  <li><strong>Quick Inference</strong>: Chat with LLMs directly from terminal</li>
+  <li><strong>Model Management</strong>: List, download, and convert models</li>
+  <li><strong>Format Conversion</strong>: GGUF, SafeTensors, ONNX, PyTorch</li>
+  <li><strong>Quantization</strong>: INT4, INT8, FP8 with K-quant support</li>
+</ul>
 
-<p>Native support for GGUF (llama.cpp), ONNX, TFLite, and cloud APIs (OpenAI, Anthropic, Google Gemini, Ollama) through a single consistent API.</p>
+<h3 id="as-an-ml-framework-like-pytorch">As an ML Framework (like PyTorch)</h3>
+<ul>
+  <li><strong>Tensor Operations</strong>: GradTensor with autograd and dynamic computational graphs</li>
+  <li><strong>Neural Network Modules</strong>: 36+ components including Linear, Conv2d, MultiHeadAttention, Transformer layers</li>
+  <li><strong>Training Support</strong>: Complete training loops with optimizers, schedulers, early stopping</li>
+  <li><strong>Hardware Acceleration</strong>: CUDA, Metal, ROCm kernels with FlashAttention</li>
+  <li><strong>Interactive Development</strong>: JBang scripting and Jupyter notebooks</li>
+  <li><strong>Ecosystem Integration</strong>: LangChain4j, Deeplearning4j, Stanford NLP, Smile ML</li>
+</ul>
 
-<h3 id="high-performance">High Performance</h3>
-
-<p>Built on Quarkus 3.x with reactive programming (Mutiny) for non-blocking, high-throughput inference operations.</p>
-
-<h3 id="native-ffi-support">Native FFI Support</h3>
-
-<p>GraalVM native image support with C entrypoints for seamless integration with C/C++ applications and embedded systems.</p>
-
-<h3 id="modular-architecture">Modular Architecture</h3>
-
-<p>Pluggable provider system with optional dependencies. Include only the providers you need for minimal footprint.</p>
+<h3 id="as-an-inference-runtime">As an Inference Runtime</h3>
+<ul>
+  <li><strong>Multi-Format Support</strong>: GGUF, ONNX, SafeTensors, PyTorch JIT, TFLite, TensorRT</li>
+  <li><strong>Cloud Providers</strong>: OpenAI, Anthropic, Google Gemini, Cerebras, Mistral</li>
+  <li><strong>High Performance</strong>: GPU-accelerated inference with batching and streaming</li>
+  <li><strong>Production Ready</strong>: GraalVM native image, plugin system, observability</li>
+</ul>
 
 <hr />
 
 <h2 id="quick-start">Quick Start</h2>
 
+<h3 id="option-1-install-cli">Option 1: Install CLI</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># macOS</span>
+brew tap bhangun/gollek
+brew <span class="nb">install </span>gollek
+
+<span class="c"># Windows</span>
+choco <span class="nb">install </span>gollek
+
+<span class="c"># Linux/Windows (universal)</span>
+curl <span class="nt">-sSL</span> https://raw.githubusercontent.com/bhangun/gollek/main/scripts/install.sh | bash
+</code></pre></div></div>
+
+<h3 id="option-2-use-as-ml-framework">Option 2: Use as ML Framework</h3>
+
 <p>Add the dependency to your project:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>tech.kayys.gollek<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>gollek-sdk-ml<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>Build and train your first model:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Create model (PyTorch-style API)</span>
+<span class="nc">Module</span> <span class="n">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Sequential</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">Linear</span><span class="o">(</span><span class="mi">784</span><span class="o">,</span> <span class="mi">256</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">ReLU</span><span class="o">(),</span>
+    <span class="k">new</span> <span class="nf">Dropout</span><span class="o">(</span><span class="mf">0.2f</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">Linear</span><span class="o">(</span><span class="mi">256</span><span class="o">,</span> <span class="mi">10</span><span class="o">)</span>
+<span class="o">);</span>
+
+<span class="c1">// Setup training</span>
+<span class="kt">var</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Adam</span><span class="o">(</span><span class="n">model</span><span class="o">.</span><span class="na">parameters</span><span class="o">(),</span> <span class="mf">0.001f</span><span class="o">);</span>
+<span class="kt">var</span> <span class="n">loss</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CrossEntropyLoss</span><span class="o">();</span>
+
+<span class="c1">// Training loop</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">epoch</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">epoch</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">;</span> <span class="n">epoch</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="kt">var</span> <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="na">forward</span><span class="o">(</span><span class="n">input</span><span class="o">);</span>
+    <span class="kt">var</span> <span class="n">lossVal</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="na">compute</span><span class="o">(</span><span class="n">output</span><span class="o">,</span> <span class="n">target</span><span class="o">);</span>
+    <span class="n">lossVal</span><span class="o">.</span><span class="na">backward</span><span class="o">();</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="na">step</span><span class="o">();</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="na">zeroGrad</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="option-3-use-as-inference-runtime">Option 3: Use as Inference Runtime</h3>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>tech.kayys.gollek<span class="nt">&lt;/groupId&gt;</span>
@@ -398,20 +593,14 @@
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div></div>
 
-<p>Create your first inference:</p>
+<p>Run inference in your application:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Create SDK instance</span>
-<span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GollekLocalClientAdapter</span><span class="o">(</span><span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">());</span>
-
-<span class="c1">// Resolve default model and prepare it (handles discovery &amp; pull)</span>
-<span class="nc">String</span> <span class="n">modelId</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">resolveDefaultModel</span><span class="o">().</span><span class="na">orElse</span><span class="o">(</span><span class="s">"llama-3.2-3b-instruct"</span><span class="o">);</span>
-<span class="nc">ModelResolution</span> <span class="n">resolution</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">prepareModel</span><span class="o">(</span><span class="n">modelId</span><span class="o">,</span> <span class="n">progress</span> <span class="o">-&gt;</span> <span class="o">{</span>
-    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"\rPreparing... %.0f%%"</span><span class="o">,</span> <span class="n">progress</span><span class="o">.</span><span class="na">getPercentComplete</span><span class="o">());</span>
-<span class="o">});</span>
+<span class="nc">GollekLocalClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">GollekSdkFactory</span><span class="o">.</span><span class="na">createLocalSdk</span><span class="o">();</span>
 
 <span class="c1">// Build and execute inference request</span>
 <span class="nc">InferenceRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">InferenceRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="n">resolution</span><span class="o">.</span><span class="na">getModelId</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="s">"llama-3.2-3b-instruct"</span><span class="o">)</span>
     <span class="o">.</span><span class="na">prompt</span><span class="o">(</span><span class="s">"Explain quantum computing in simple terms"</span><span class="o">)</span>
     <span class="o">.</span><span class="na">maxTokens</span><span class="o">(</span><span class="mi">500</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
@@ -428,89 +617,83 @@
   <thead>
     <tr>
       <th>Feature</th>
-      <th>Description</th>
+      <th>CLI</th>
+      <th>Framework</th>
+      <th>Runtime</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Unified API</td>
-      <td>Single interface for all inference providers and model formats</td>
+      <td><strong>Quick Inference</strong></td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
     </tr>
     <tr>
-      <td>Streaming Support</td>
-      <td>Real-time token streaming with Mutiny reactive streams</td>
+      <td><strong>Model Training</strong></td>
+      <td>❌</td>
+      <td>✅</td>
+      <td>❌</td>
     </tr>
     <tr>
-      <td>Async Jobs</td>
-      <td>Background job submission with status tracking and callbacks</td>
-    </tr>
-    <tr>
-      <td>Batch Inference</td>
-      <td>Process multiple requests efficiently in a single call</td>
-    </tr>
-    <tr>
-      <td>Model Management</td>
-      <td>Automated resolution, pull-if-missing, and lifecycle handling</td>
-    </tr>
-    <tr>
-      <td>Engine Metrics</td>
-      <td>Real-time P95 latency and error rate monitoring</td>
-    </tr>
-    <tr>
-      <td>Plugin System</td>
-      <td>Extensible architecture for custom providers and features</td>
-    </tr>
-    <tr>
-      <td>Provider Discovery</td>
-      <td>Auto-select best provider based on model format</td>
-    </tr>
-    <tr>
-      <td>Native Interop</td>
-      <td>GraalVM native image with C FFI for embedded integration</td>
-    </tr>
-    <tr>
-      <td>CDI Integration</td>
-      <td>Full Jakarta EE CDI support for enterprise applications</td>
+      <td><strong>Neural Network API</strong></td>
+      <td>❌</td>
+      <td>✅</td>
+      <td>❌</td>
     </tr>
     <tr>
       <td><strong>GPU Acceleration</strong></td>
-      <td><strong>CUDA, Blackwell, ROCm, and Metal kernels with FlashAttention</strong></td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
     </tr>
     <tr>
-      <td><strong>Audio Processing</strong></td>
-      <td><strong>Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, VAD</strong></td>
+      <td><strong>Multi-Format Support</strong></td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
     </tr>
     <tr>
-      <td><strong>Model Quantization</strong></td>
-      <td><strong>GPTQ INT4/INT8, FP8 with SafeTensors format</strong></td>
+      <td><strong>Cloud Providers</strong></td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
     </tr>
     <tr>
-      <td><strong>Embedded ML SDK</strong></td>
-      <td><strong>PyTorch-like Tensors, Autograd, NN Modules, Optimizers</strong></td>
+      <td><strong>Streaming</strong></td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
     </tr>
     <tr>
-      <td><strong>Distributed Fabric</strong></td>
-      <td><strong>Unified KV memory, Cluster-wide Attention, Sparse Expert Routing</strong></td>
+      <td><strong>Batch Inference</strong></td>
+      <td>❌</td>
+      <td>✅</td>
+      <td>✅</td>
     </tr>
     <tr>
-      <td><strong>Token Orchestrator</strong></td>
-      <td><strong>Speculative Decoding (2-4x speed), Logit Mixing, Ensemble Inference</strong></td>
+      <td><strong>Plugin System</strong></td>
+      <td>❌</td>
+      <td>✅</td>
+      <td>✅</td>
     </tr>
     <tr>
-      <td><strong>MoE Runtime</strong></td>
-      <td><strong>Native Expert Gating (Top-K), Sharded Experts, Heatmap Telemetry</strong></td>
+      <td><strong>GraalVM Native</strong></td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
     </tr>
     <tr>
-      <td><strong>K-Quants</strong></td>
-      <td><strong>Q2_K, Q4_K, Q5_K, Q6_K with improved quality/size ratios</strong></td>
+      <td><strong>JBang/Jupyter</strong></td>
+      <td>❌</td>
+      <td>✅</td>
+      <td>❌</td>
     </tr>
     <tr>
-      <td><strong>40+ Model Families</strong></td>
-      <td><strong>DeepSeek, Yi, DBRX, Grok, Jamba, Mamba, RWKV, and more</strong></td>
-    </tr>
-    <tr>
-      <td><strong>JBang Examples</strong></td>
-      <td><strong>23+ ready-to-run scripts: NN, NLP, CV, and ML integrations</strong></td>
+      <td><strong>LangChain4j</strong></td>
+      <td>❌</td>
+      <td>✅</td>
+      <td>❌</td>
     </tr>
   </tbody>
 </table>
@@ -533,6 +716,8 @@
   <li><strong>GGUF</strong> - Quantized models for CPU inference</li>
   <li><strong>ONNX</strong> (Open Neural Network Exchange) - Cross-platform neural network format</li>
   <li><strong>TFLite</strong> (TensorFlow Lite) - TensorFlow Lite for mobile and edge devices</li>
+  <li><strong>SafeTensors</strong> - HuggingFace format for PyTorch models</li>
+  <li><strong>PyTorch JIT</strong> - Direct .pt file loading</li>
 </ul>
 
 <h3 id="audio-processing">Audio Processing</h3>
@@ -563,21 +748,24 @@
 <h2 id="architecture-overview">Architecture Overview</h2>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+-------------------------------------------------------------+
-|                    Gollek SDK Client                         |
+|                    Gollek Platform                           |
 +-------------------------------------------------------------+
-|  GollekLocalClient (Java API) | GollekNativeEntrypoints    |
+|  CLI Tool  |  ML Framework (SDK)  |  Inference Runtime      |
 +-------------------------------------------------------------+
-|                    LocalGollekSdk                            |
+|                    Core SDK Layer                            |
 |  +--------------+ +--------------+ +---------------------+  |
-|  | Inference    | | Model Prep   | | Metrics &amp;           |  |
-|  | Service      | | Service      | | Observability       |  |
+|  | Tensor &amp;     | | NN Modules   | | Model Repository    |  |
+|  | Autograd     | | &amp; Training   | | &amp; Management        |  |
 |  +--------------+ +--------------+ +---------------------+  |
 +-------------------------------------------------------------+
-|                    Model Repository                          |
-|  Local | HuggingFace | S3 | Custom Sources                  |
+|                    Hardware Acceleration                     |
+|  CUDA | Metal | ROCm | Blackwell | DirectML                |
 +-------------------------------------------------------------+
-|                    Inference Providers                       |
-|  GGUF | ONNX | TFLite | OpenAI | Anthropic | Gemini | ...  |
+|                    Model Format Runners                      |
+|  GGUF | ONNX | SafeTensors | PyTorch | TFLite | TensorRT   |
++-------------------------------------------------------------+
+|                    Cloud Providers                           |
+|  OpenAI | Anthropic | Gemini | Cerebras | Mistral           |
 +-------------------------------------------------------------+
 </code></pre></div></div>
 
@@ -589,33 +777,50 @@
   <thead>
     <tr>
       <th>Domain</th>
+      <th>Approach</th>
       <th>Application</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Edge AI</td>
+      <td><strong>Quick Testing</strong></td>
+      <td>CLI</td>
+      <td>Chat with models, convert formats, quantize models</td>
+    </tr>
+    <tr>
+      <td><strong>ML Research</strong></td>
+      <td>Framework</td>
+      <td>Build custom architectures, train from scratch, experiment</td>
+    </tr>
+    <tr>
+      <td><strong>Enterprise Apps</strong></td>
+      <td>Runtime</td>
+      <td>Embed inference in microservices, high-throughput serving</td>
+    </tr>
+    <tr>
+      <td><strong>Edge AI</strong></td>
+      <td>Runtime</td>
       <td>Run quantized GGUF models on resource-constrained devices</td>
     </tr>
     <tr>
-      <td>Microservices</td>
-      <td>Embed inference directly in Java microservices</td>
-    </tr>
-    <tr>
-      <td>Hybrid Cloud</td>
+      <td><strong>Hybrid Cloud</strong></td>
+      <td>Runtime</td>
       <td>Seamlessly switch between local and cloud providers</td>
     </tr>
     <tr>
-      <td>Model Testing</td>
+      <td><strong>Model Testing</strong></td>
+      <td>CLI + Framework</td>
       <td>Compare outputs across multiple providers and formats</td>
     </tr>
     <tr>
-      <td>Embedded Systems</td>
+      <td><strong>Embedded Systems</strong></td>
+      <td>Runtime</td>
       <td>Native library integration via GraalVM FFI</td>
     </tr>
     <tr>
-      <td>Enterprise Apps</td>
-      <td>CDI integration for Jakarta EE applications</td>
+      <td><strong>Interactive Dev</strong></td>
+      <td>Framework</td>
+      <td>JBang scripting, Jupyter notebooks for rapid prototyping</td>
     </tr>
   </tbody>
 </table>
@@ -626,6 +831,8 @@
 
 <ul>
   <li><a href="/docs/">Documentation</a> - Comprehensive guides and API references</li>
+  <li><a href="/docs/framework">Framework Guide</a> - Build and train models</li>
+  <li><a href="/docs/cli-reference">CLI Reference</a> - All CLI commands</li>
   <li><a href="/docs/jbang-examples">JBang Examples</a> - 23+ ready-to-run Java scripts</li>
   <li><a href="https://github.com/bhangun/gollek/discussions">Discussions</a> - Ask questions and share ideas</li>
   <li><a href="https://github.com/bhangun/gollek/issues">Issues</a> - Report bugs and request features</li>
@@ -636,13 +843,13 @@
 
 <h2 id="ready-to-build">Ready to Build?</h2>
 
-<p>Start building AI-powered applications with Gollek SDK today.</p>
+<p>Choose your path and start building AI-powered applications with Gollek today.</p>
 
-<p><a href="/docs/">Get Started Now</a>   <a href="/docs/jbang-examples">View JBang Examples</a>   <a href="/docs/core-api">View API Reference</a></p>
+<p><a href="/docs/cli-installation">CLI Guide</a>   <a href="/docs/framework">Framework Guide</a>   <a href="/docs/core-api">Runtime Guide</a>   <a href="/docs/jbang-examples">View Examples</a></p>
 
 <hr />
 
-<p>Gollek SDK is open source and available under the Apache 2.0 License.</p>
+<p>Gollek is open source and available under the Apache 2.0 License.</p>
 
       </div>
     </main>

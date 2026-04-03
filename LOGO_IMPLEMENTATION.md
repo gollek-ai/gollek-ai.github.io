@@ -78,7 +78,7 @@
 }
 
 .hero-logo {
-  width: 180px;
+  width: 280px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px var(--accent-glow));
@@ -91,7 +91,7 @@
 ```
 
 **Responsive Sizes**:
-- Desktop: 180px width
+- Desktop: 280px width
 - Tablet (768px): 140px width
 - Mobile (480px): 120px width
 
