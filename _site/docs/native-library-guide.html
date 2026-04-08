@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Native Library Management Guide | Gollek</title>
   <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
-  
+
   <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  <link rel="shortcut icon" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/favicon.svg">
+
   <script>
     (function () {
       try {
@@ -27,219 +27,227 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
   <script src="/assets/js/site.js" defer></script>
 </head>
+
 <body>
   <!-- Mobile Overlay -->
   <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
-  
+
   <!-- Sidebar Navigation -->
   <aside class="sidebar" id="sidebar" aria-label="Main navigation">
     <div class="sidebar-header">
       <a href="/" class="sidebar-brand">
-        <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png" alt="Gollek Logo" class="brand-logo">
+        <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png" alt="Gollek Logo"
+          class="brand-logo">
         <span class="brand-text">Gollek</span>
       </a>
       <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 6L6 18M6 6l12 12"/>
+          <path d="M18 6L6 18M6 6l12 12" />
         </svg>
       </button>
     </div>
-    
+
     <nav class="sidebar-nav">
       <div class="nav-section">
         <div class="nav-section-title">Getting Started</div>
         <a href="/" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-            <polyline points="9,22 9,12 15,12 15,22"/>
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            <polyline points="9,22 9,12 15,12 15,22" />
           </svg>
           <span>Home</span>
         </a>
         <a href="/docs/" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-            <polyline points="14,2 14,8 20,8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14,2 14,8 20,8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
           </svg>
           <span>Documentation</span>
         </a>
         <a href="/docs/framework" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
           </svg>
           <span>ML Framework</span>
         </a>
         <a href="/docs/cli-installation" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="4,17 10,11 4,5"/>
-            <line x1="12" y1="19" x2="20" y2="19"/>
+            <polyline points="4,17 10,11 4,5" />
+            <line x1="12" y1="19" x2="20" y2="19" />
           </svg>
           <span>CLI Tool</span>
         </a>
         <a href="/docs/core-api" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5,3 19,12 5,21"/>
+            <polygon points="5,3 19,12 5,21" />
           </svg>
           <span>Inference Runtime</span>
         </a>
       </div>
-      
+
       <div class="nav-section">
         <div class="nav-section-title">Core Concepts</div>
         <a href="/docs/core-api" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
           </svg>
           <span>Core API</span>
         </a>
         <a href="/docs/architecture" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="20" x2="18" y2="10"/>
-            <line x1="12" y1="20" x2="12" y2="4"/>
-            <line x1="6" y1="20" x2="6" y2="14"/>
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
           </svg>
           <span>Architecture</span>
         </a>
         <a href="/docs/plugin-system-v2" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
           </svg>
           <span>Plugin System</span>
         </a>
         <a href="/docs/runner-plugins" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5,3 19,12 5,21"/>
+            <polygon points="5,3 19,12 5,21" />
           </svg>
           <span>Runners</span>
         </a>
       </div>
-      
+
       <div class="nav-section">
         <div class="nav-section-title">Model Formats</div>
         <a href="/docs/gguf-enhancements" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-            <line x1="8" y1="21" x2="16" y2="21"/>
-            <line x1="12" y1="17" x2="12" y2="21"/>
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
           </svg>
           <span>GGUF</span>
         </a>
         <a href="/docs/quantization" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
-            <line x1="12" y1="22.08" x2="12" y2="12"/>
+            <path
+              d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+            <polyline points="3.27,6.96 12,12.01 20.73,6.96" />
+            <line x1="12" y1="22.08" x2="12" y2="12" />
           </svg>
           <span>Quantization</span>
         </a>
         <a href="/docs/audio-processing" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
-            <path d="M19 10v2a7 7 0 01-14 0v-2"/>
-            <line x1="12" y1="19" x2="12" y2="23"/>
-            <line x1="8" y1="23" x2="16" y2="23"/>
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
+            <path d="M19 10v2a7 7 0 01-14 0v-2" />
+            <line x1="12" y1="19" x2="12" y2="23" />
+            <line x1="8" y1="23" x2="16" y2="23" />
           </svg>
           <span>Audio</span>
         </a>
         <a href="/docs/gpu-kernels" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4" y="4" width="16" height="16" rx="2"/>
-            <rect x="9" y="9" width="6" height="6"/>
-            <line x1="9" y1="1" x2="9" y2="4"/>
-            <line x1="15" y1="1" x2="15" y2="4"/>
-            <line x1="9" y1="20" x2="9" y2="23"/>
-            <line x1="15" y1="20" x2="15" y2="23"/>
-            <line x1="20" y1="9" x2="23" y2="9"/>
-            <line x1="20" y1="14" x2="23" y2="14"/>
-            <line x1="1" y1="9" x2="4" y2="9"/>
-            <line x1="1" y1="14" x2="4" y2="14"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <rect x="9" y="9" width="6" height="6" />
+            <line x1="9" y1="1" x2="9" y2="4" />
+            <line x1="15" y1="1" x2="15" y2="4" />
+            <line x1="9" y1="20" x2="9" y2="23" />
+            <line x1="15" y1="20" x2="15" y2="23" />
+            <line x1="20" y1="9" x2="23" y2="9" />
+            <line x1="20" y1="14" x2="23" y2="14" />
+            <line x1="1" y1="9" x2="4" y2="9" />
+            <line x1="1" y1="14" x2="4" y2="14" />
           </svg>
           <span>GPU Kernels</span>
         </a>
       </div>
-      
+
       <div class="nav-section">
         <div class="nav-section-title">Resources</div>
         <a href="/blog/" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
-            <polyline points="17,21 17,13 7,13 7,21"/>
-            <polyline points="17,9 7,9 7,2"/>
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+            <polyline points="17,21 17,13 7,13 7,21" />
+            <polyline points="17,9 7,9 7,2" />
           </svg>
           <span>Blog</span>
         </a>
         <a href="/docs/examples" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+            <path
+              d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
           </svg>
           <span>Examples</span>
         </a>
         <a href="/docs/troubleshooting" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
           <span>Troubleshooting</span>
         </a>
         <a href="/docs/error-codes" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-            <line x1="12" y1="9" x2="12" y2="13"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
           </svg>
           <span>Error Codes</span>
         </a>
         <a href="https://github.com/bhangun/gollek" class="nav-item nav-item-external" target="_blank" rel="noopener">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
           </svg>
           <span>GitHub</span>
           <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15,3 21,3 21,9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+            <polyline points="15,3 21,3 21,9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
           </svg>
         </a>
       </div>
     </nav>
-    
+
     <div class="sidebar-footer">
       <div class="theme-selector">
         <button class="theme-option" data-theme="dark" aria-label="Dark theme">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
           </svg>
         </button>
         <button class="theme-option" data-theme="light" aria-label="Light theme">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/>
-            <line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
         </button>
         <button class="theme-option" data-theme="auto" aria-label="Auto theme">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
           </svg>
         </button>
       </div>
@@ -248,7 +256,7 @@
       </div>
     </div>
   </aside>
-  
+
   <!-- Main Content Area -->
   <div class="main-wrapper">
     <!-- Top Header -->
@@ -256,97 +264,101 @@
       <div class="header-content">
         <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
         <div class="header-title">
-          
+
           <h1 class="page-title">Native Library Management Guide</h1>
-          
+
         </div>
         <div class="header-actions">
           <a href="/docs/cli-installation" class="btn btn-sm btn-primary">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-              <polyline points="7,10 12,15 17,10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+              <polyline points="7,10 12,15 17,10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
             Install
           </a>
           <a href="https://github.com/bhangun/gollek" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
             </svg>
             GitHub
           </a>
         </div>
       </div>
     </header>
-    
+
     <!-- Main Content -->
     <main class="main-content">
       <div class="content-container">
         <h1 id="native-library-management-guide">Native Library Management Guide</h1>
 
-<p class="highlight"><strong>Comprehensive guide</strong> for managing native inference libraries in Gollek SDK.</p>
+        <p class="highlight"><strong>Comprehensive guide</strong> for managing native inference libraries in Gollek SDK.
+        </p>
 
-<h2 id="overview">Overview</h2>
+        <h2 id="overview">Overview</h2>
 
-<p>Gollek uses a <strong>standardized native library location</strong> at <code class="language-plaintext highlighter-rouge">~/.gollek/libs/</code> for all inference engine native libraries. This provides centralized management across all runners and platforms.</p>
+        <p>Gollek uses a <strong>standardized native library location</strong> at <code
+            class="language-plaintext highlighter-rouge">~/.gollek/libs/</code> for all inference engine native
+          libraries. This provides centralized management across all runners and platforms.</p>
 
-<h3 id="supported-runners">Supported Runners</h3>
+        <h3 id="supported-runners">Supported Runners</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Runner</th>
-      <th>Library</th>
-      <th>Standard Location</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>GGUF</strong></td>
-      <td>llama.cpp</td>
-      <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/llama/</code></td>
-    </tr>
-    <tr>
-      <td><strong>ONNX</strong></td>
-      <td>ONNX Runtime</td>
-      <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/onnxruntime/</code></td>
-    </tr>
-    <tr>
-      <td><strong>LibTorch</strong></td>
-      <td>PyTorch</td>
-      <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/libtorch/</code></td>
-    </tr>
-    <tr>
-      <td><strong>TFLite</strong></td>
-      <td>TensorFlow Lite</td>
-      <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/tflite/</code></td>
-    </tr>
-    <tr>
-      <td><strong>Metal</strong></td>
-      <td>Metal Kernels</td>
-      <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/metal/</code></td>
-    </tr>
-    <tr>
-      <td><strong>Tokenizer</strong></td>
-      <td>SentencePiece Bridge</td>
-      <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/native/</code></td>
-    </tr>
-  </tbody>
-</table>
+        <table>
+          <thead>
+            <tr>
+              <th>Runner</th>
+              <th>Library</th>
+              <th>Standard Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>GGUF</strong></td>
+              <td>llama.cpp</td>
+              <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/llama/</code></td>
+            </tr>
+            <tr>
+              <td><strong>ONNX</strong></td>
+              <td>ONNX Runtime</td>
+              <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/onnxruntime/</code></td>
+            </tr>
+            <tr>
+              <td><strong>LibTorch</strong></td>
+              <td>PyTorch</td>
+              <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/libtorch/</code></td>
+            </tr>
+            <tr>
+              <td><strong>TFLite</strong></td>
+              <td>TensorFlow Lite</td>
+              <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/litert/</code></td>
+            </tr>
+            <tr>
+              <td><strong>Metal</strong></td>
+              <td>Metal Kernels</td>
+              <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/metal/</code></td>
+            </tr>
+            <tr>
+              <td><strong>Tokenizer</strong></td>
+              <td>SentencePiece Bridge</td>
+              <td><code class="language-plaintext highlighter-rouge">~/.gollek/libs/native/</code></td>
+            </tr>
+          </tbody>
+        </table>
 
-<hr />
+        <hr />
 
-<h2 id="architecture">Architecture</h2>
+        <h2 id="architecture">Architecture</h2>
 
-<h3 id="library-loading-flow">Library Loading Flow</h3>
+        <h3 id="library-loading-flow">Library Loading Flow</h3>
 
-<pre><code class="language-mermaid">graph TD
+        <pre><code class="language-mermaid">graph TD
     A[Application Start] --&gt; B{Configured Path?}
     B --&gt;|Yes| C[Load from Config]
     B --&gt;|No| D{Env Variable Set?}
@@ -366,9 +378,11 @@
     K --&gt; M
 </code></pre>
 
-<h3 id="directory-structure">Directory Structure</h3>
+        <h3 id="directory-structure">Directory Structure</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.gollek/
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>~/.gollek/
 ├── libs/                      # Standard library location
 │   ├── llama/                 # GGUF runner
 │   │   ├── libllama.dylib
@@ -387,7 +401,7 @@
 │   │   ├── libc10.dylib
 │   │   └── libomp.dylib
 │   │
-│   ├── tflite/                # TFLite runner
+│   ├── litert/                # TFLite runner
 │   │   └── libtensorflowlite.dylib
 │   │
 │   └── native/                # Shared native bridges
@@ -398,26 +412,34 @@
         ├── llama.cpp/
         ├── onnxruntime/
         └── libtorch/
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="installation">Installation</h2>
+        <h2 id="installation">Installation</h2>
 
-<h3 id="quick-install-recommended">Quick Install (Recommended)</h3>
+        <h3 id="quick-install-recommended">Quick Install (Recommended)</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install all native libraries</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Install all native libraries</span>
 make <span class="nt">-f</span> Makefile.native install-native-libs
 
 <span class="c"># Verify installation</span>
 make <span class="nt">-f</span> Makefile.native verify-libs
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="platform-specific-installation">Platform-Specific Installation</h3>
+        <h3 id="platform-specific-installation">Platform-Specific Installation</h3>
 
-<h4 id="macos-apple-silicon">macOS (Apple Silicon)</h4>
+        <h4 id="macos-apple-silicon">macOS (Apple Silicon)</h4>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># GGUF / llama.cpp</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># GGUF / llama.cpp</span>
 make <span class="nt">-f</span> Makefile.native install-gguf-libs
 
 <span class="c"># ONNX Runtime</span>
@@ -428,53 +450,73 @@ make <span class="nt">-f</span> Makefile.native install-libtorch-libs
 
 <span class="c"># Clear macOS quarantine</span>
 xattr <span class="nt">-dr</span> com.apple.quarantine ~/.gollek/libs/
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h4 id="linux">Linux</h4>
+        <h4 id="linux">Linux</h4>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install all libraries</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Install all libraries</span>
 make <span class="nt">-f</span> Makefile.native install-native-libs
 
 <span class="c"># Set permissions</span>
 <span class="nb">chmod</span> +x ~/.gollek/libs/<span class="k">*</span>/<span class="k">*</span>.so
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h4 id="windows">Windows</h4>
+        <h4 id="windows">Windows</h4>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install all libraries</span><span class="w">
+        <div class="language-powershell highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Install all libraries</span><span class="w">
 </span><span class="n">make</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">Makefile.native</span><span class="w"> </span><span class="nx">install-native-libs</span><span class="w">
 
 </span><span class="c"># Verify</span><span class="w">
 </span><span class="n">dir</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">USERPROFILE</span><span class="nx">\.gollek\libs\</span><span class="w">
-</span></code></pre></div></div>
+</span></code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="configuration">Configuration</h2>
+        <h2 id="configuration">Configuration</h2>
 
-<h3 id="environment-variables">Environment Variables</h3>
+        <h3 id="environment-variables">Environment Variables</h3>
 
-<h4 id="base-configuration">Base Configuration</h4>
+        <h4 id="base-configuration">Base Configuration</h4>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Override default library directory</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Override default library directory</span>
 <span class="nb">export </span><span class="nv">GOLLEK_NATIVE_LIB_DIR</span><span class="o">=</span>/opt/gollek/libs
 
 <span class="c"># Per-runner overrides</span>
 <span class="nb">export </span><span class="nv">GOLLEK_LLAMA_LIB_DIR</span><span class="o">=</span>~/.gollek/libs/llama
 <span class="nb">export </span><span class="nv">GOLLEK_ONNX_LIB_DIR</span><span class="o">=</span>~/.gollek/libs/onnxruntime
 <span class="nb">export </span><span class="nv">GOLLEK_LIBTORCH_SOURCE_DIR</span><span class="o">=</span>~/.gollek/source/vendor/libtorch
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h4 id="explicit-library-paths">Explicit Library Paths</h4>
+        <h4 id="explicit-library-paths">Explicit Library Paths</h4>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Specific library file paths</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Specific library file paths</span>
 <span class="nb">export </span><span class="nv">GOLLEK_LLAMA_LIB_PATH</span><span class="o">=</span>~/.gollek/libs/llama/libllama.dylib
 <span class="nb">export </span><span class="nv">GOLLEK_ONNX_LIB_PATH</span><span class="o">=</span>~/.gollek/libs/onnxruntime/libonnxruntime.dylib
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="application-properties">Application Properties</h3>
+        <h3 id="application-properties">Application Properties</h3>
 
-<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># GGUF Provider Configuration
+        <div class="language-properties highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># GGUF Provider Configuration
 </span><span class="py">gguf.provider.native.library-path</span><span class="p">=</span><span class="s">~/.gollek/libs/llama/libllama.dylib</span>
 <span class="py">gguf.provider.native.library-dir</span><span class="p">=</span><span class="s">~/.gollek/libs/llama/</span>
 
@@ -483,28 +525,40 @@ make <span class="nt">-f</span> Makefile.native install-native-libs
 
 <span class="c"># LibTorch Configuration
 </span><span class="py">libtorch.provider.native.library-path</span><span class="p">=</span><span class="s">~/.gollek/libs/libtorch/libtorch.dylib</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="priority-order">Priority Order</h3>
+        <h3 id="priority-order">Priority Order</h3>
 
-<p>Configuration sources are checked in this order:</p>
+        <p>Configuration sources are checked in this order:</p>
 
-<ol>
-  <li><strong>Explicit Configuration</strong> - <code class="language-plaintext highlighter-rouge">native.library-path</code> in properties</li>
-  <li><strong>Environment Variables</strong> - <code class="language-plaintext highlighter-rouge">GOLLEK_*_LIB_PATH</code></li>
-  <li><strong>Standard Location</strong> - <code class="language-plaintext highlighter-rouge">~/.gollek/libs/&lt;runner&gt;/</code></li>
-  <li><strong>Legacy Locations</strong> - <code class="language-plaintext highlighter-rouge">~/.gollek/source/vendor/</code>, <code class="language-plaintext highlighter-rouge">~/.gollek/native-libs/</code></li>
-  <li><strong>System Library Path</strong> - <code class="language-plaintext highlighter-rouge">java.library.path</code></li>
-  <li><strong>Build Directories</strong> - <code class="language-plaintext highlighter-rouge">target/</code>, <code class="language-plaintext highlighter-rouge">build/</code>, <code class="language-plaintext highlighter-rouge">cmake-build-*/</code></li>
-</ol>
+        <ol>
+          <li><strong>Explicit Configuration</strong> - <code
+              class="language-plaintext highlighter-rouge">native.library-path</code> in properties</li>
+          <li><strong>Environment Variables</strong> - <code
+              class="language-plaintext highlighter-rouge">GOLLEK_*_LIB_PATH</code></li>
+          <li><strong>Standard Location</strong> - <code
+              class="language-plaintext highlighter-rouge">~/.gollek/libs/&lt;runner&gt;/</code></li>
+          <li><strong>Legacy Locations</strong> - <code
+              class="language-plaintext highlighter-rouge">~/.gollek/source/vendor/</code>, <code
+              class="language-plaintext highlighter-rouge">~/.gollek/native-libs/</code></li>
+          <li><strong>System Library Path</strong> - <code
+              class="language-plaintext highlighter-rouge">java.library.path</code></li>
+          <li><strong>Build Directories</strong> - <code class="language-plaintext highlighter-rouge">target/</code>,
+            <code class="language-plaintext highlighter-rouge">build/</code>, <code
+              class="language-plaintext highlighter-rouge">cmake-build-*/</code></li>
+        </ol>
 
-<hr />
+        <hr />
 
-<h2 id="programmatic-usage">Programmatic Usage</h2>
+        <h2 id="programmatic-usage">Programmatic Usage</h2>
 
-<h3 id="using-nativelibrarymanager">Using NativeLibraryManager</h3>
+        <h3 id="using-nativelibrarymanager">Using NativeLibraryManager</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.core.util.NativeLibraryManager</span><span class="o">;</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.core.util.NativeLibraryManager</span><span class="o">;</span>
 
 <span class="c1">// Initialize manager for llama.cpp</span>
 <span class="nc">NativeLibraryManager</span> <span class="n">llamaManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">NativeLibraryManager</span><span class="o">(</span><span class="s">"llama"</span><span class="o">);</span>
@@ -526,11 +580,15 @@ make <span class="nt">-f</span> Makefile.native install-native-libs
 
 <span class="c1">// Check if library exists</span>
 <span class="kt">boolean</span> <span class="n">exists</span> <span class="o">=</span> <span class="n">llamaManager</span><span class="o">.</span><span class="na">libraryExists</span><span class="o">();</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="copying-multiple-libraries">Copying Multiple Libraries</h3>
+        <h3 id="copying-multiple-libraries">Copying Multiple Libraries</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.core.util.NativeLibraryManager</span><span class="o">;</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.core.util.NativeLibraryManager</span><span class="o">;</span>
 
 <span class="nc">NativeLibraryManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">NativeLibraryManager</span><span class="o">(</span><span class="s">"llama"</span><span class="o">);</span>
 
@@ -544,11 +602,15 @@ make <span class="nt">-f</span> Makefile.native install-native-libs
     <span class="n">sourceDir</span><span class="o">,</span> 
     <span class="n">libraries</span>
 <span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="platform-aware-loading">Platform-Aware Loading</h3>
+        <h3 id="platform-aware-loading">Platform-Aware Loading</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.core.util.NativeLibraryManager</span><span class="o">;</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="kn">import</span> <span class="nn">tech.kayys.gollek.core.util.NativeLibraryManager</span><span class="o">;</span>
 
 <span class="c1">// Get platform-specific extension</span>
 <span class="nc">String</span> <span class="n">ext</span> <span class="o">=</span> <span class="nc">NativeLibraryManager</span><span class="o">.</span><span class="na">getNativeExtension</span><span class="o">();</span>
@@ -570,72 +632,94 @@ make <span class="nt">-f</span> Makefile.native install-native-libs
 <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">UnsatisfiedLinkError</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Library load failed"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="runner-specific-configuration">Runner-Specific Configuration</h2>
+        <h2 id="runner-specific-configuration">Runner-Specific Configuration</h2>
 
-<h3 id="gguf-runner-llamacpp">GGUF Runner (llama.cpp)</h3>
+        <h3 id="gguf-runner-llamacpp">GGUF Runner (llama.cpp)</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// LlamaCppBinding automatically searches ~/.gollek/libs/llama/</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// LlamaCppBinding automatically searches ~/.gollek/libs/llama/</span>
 <span class="nc">GGUFProviderConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="nc">GGUFProviderConfig</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">nativeLibraryDir</span><span class="o">(</span><span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"~/.gollek/libs/llama/"</span><span class="o">))</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
 <span class="nc">GGUFProvider</span> <span class="n">provider</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GGUFProvider</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
 <span class="n">provider</span><span class="o">.</span><span class="na">initialize</span><span class="o">();</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Search Order:</strong></p>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">GOLLEK_LLAMA_LIB_PATH</code> environment variable</li>
-  <li><code class="language-plaintext highlighter-rouge">GOLLEK_LLAMA_LIB_DIR</code> environment variable</li>
-  <li><code class="language-plaintext highlighter-rouge">~/.gollek/libs/llama/</code> (standard location)</li>
-  <li><code class="language-plaintext highlighter-rouge">~/.gollek/native-libs/</code> (legacy)</li>
-  <li><code class="language-plaintext highlighter-rouge">~/.gollek/source/vendor/llama.cpp/build/bin/</code></li>
-  <li>Build directories (<code class="language-plaintext highlighter-rouge">target/</code>, <code class="language-plaintext highlighter-rouge">build/</code>)</li>
-</ol>
+        <p><strong>Search Order:</strong></p>
+        <ol>
+          <li><code class="language-plaintext highlighter-rouge">GOLLEK_LLAMA_LIB_PATH</code> environment variable</li>
+          <li><code class="language-plaintext highlighter-rouge">GOLLEK_LLAMA_LIB_DIR</code> environment variable</li>
+          <li><code class="language-plaintext highlighter-rouge">~/.gollek/libs/llama/</code> (standard location)</li>
+          <li><code class="language-plaintext highlighter-rouge">~/.gollek/native-libs/</code> (legacy)</li>
+          <li><code class="language-plaintext highlighter-rouge">~/.gollek/source/vendor/llama.cpp/build/bin/</code>
+          </li>
+          <li>Build directories (<code class="language-plaintext highlighter-rouge">target/</code>, <code
+              class="language-plaintext highlighter-rouge">build/</code>)</li>
+        </ol>
 
-<h3 id="onnx-runner">ONNX Runner</h3>
+        <h3 id="onnx-runner">ONNX Runner</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// OnnxRuntimeRunner automatically searches ~/.gollek/libs/onnxruntime/</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// OnnxRuntimeRunner automatically searches ~/.gollek/libs/onnxruntime/</span>
 <span class="nc">OnnxRuntimeRunner</span> <span class="n">runner</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OnnxRuntimeRunner</span><span class="o">();</span>
 <span class="n">runner</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="n">modelManifest</span><span class="o">,</span> <span class="n">runnerConfig</span><span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Search Order:</strong></p>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">GOLLEK_ONNX_LIB_PATH</code> environment variable</li>
-  <li><code class="language-plaintext highlighter-rouge">~/.gollek/libs/onnxruntime/libonnxruntime.dylib</code></li>
-  <li><code class="language-plaintext highlighter-rouge">~/.gollek/libs/libonnxruntime.dylib</code> (legacy)</li>
-  <li>Build directories</li>
-</ol>
+        <p><strong>Search Order:</strong></p>
+        <ol>
+          <li><code class="language-plaintext highlighter-rouge">GOLLEK_ONNX_LIB_PATH</code> environment variable</li>
+          <li><code class="language-plaintext highlighter-rouge">~/.gollek/libs/onnxruntime/libonnxruntime.dylib</code>
+          </li>
+          <li><code class="language-plaintext highlighter-rouge">~/.gollek/libs/libonnxruntime.dylib</code> (legacy)
+          </li>
+          <li>Build directories</li>
+        </ol>
 
-<h3 id="libtorch-runner">LibTorch Runner</h3>
+        <h3 id="libtorch-runner">LibTorch Runner</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// NativeLibraryLoader automatically searches ~/.gollek/libs/libtorch/</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// NativeLibraryLoader automatically searches ~/.gollek/libs/libtorch/</span>
 <span class="nc">SymbolLookup</span> <span class="n">lookup</span> <span class="o">=</span> <span class="nc">NativeLibraryLoader</span><span class="o">.</span><span class="na">load</span><span class="o">(</span>
     <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"~/.gollek/libs/libtorch/"</span><span class="o">)</span>
 <span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Search Order:</strong></p>
-<ol>
-  <li>Configured path (<code class="language-plaintext highlighter-rouge">libtorch.provider.native.library-path</code>)</li>
-  <li><code class="language-plaintext highlighter-rouge">LIBTORCH_PATH</code> environment variable</li>
-  <li><code class="language-plaintext highlighter-rouge">~/.gollek/libs/libtorch/</code> (standard location)</li>
-  <li><code class="language-plaintext highlighter-rouge">~/.gollek/source/vendor/libtorch/</code></li>
-  <li>System library path</li>
-</ol>
+        <p><strong>Search Order:</strong></p>
+        <ol>
+          <li>Configured path (<code
+              class="language-plaintext highlighter-rouge">libtorch.provider.native.library-path</code>)</li>
+          <li><code class="language-plaintext highlighter-rouge">LIBTORCH_PATH</code> environment variable</li>
+          <li><code class="language-plaintext highlighter-rouge">~/.gollek/libs/libtorch/</code> (standard location)
+          </li>
+          <li><code class="language-plaintext highlighter-rouge">~/.gollek/source/vendor/libtorch/</code></li>
+          <li>System library path</li>
+        </ol>
 
-<hr />
+        <hr />
 
-<h2 id="troubleshooting">Troubleshooting</h2>
+        <h2 id="troubleshooting">Troubleshooting</h2>
 
-<h3 id="diagnostic-commands">Diagnostic Commands</h3>
+        <h3 id="diagnostic-commands">Diagnostic Commands</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Check library installation</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Check library installation</span>
 <span class="nb">ls</span> <span class="nt">-lh</span> ~/.gollek/libs/<span class="k">*</span>/
 
 <span class="c"># Verify library format (macOS)</span>
@@ -654,99 +738,151 @@ ldd ~/.gollek/libs/llama/libllama.so
 
 <span class="c"># Check quarantine (macOS)</span>
 xattr <span class="nt">-l</span> ~/.gollek/libs/llama/libllama.dylib
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="common-issues">Common Issues</h3>
+        <h3 id="common-issues">Common Issues</h3>
 
-<h4 id="library-not-found">Library Not Found</h4>
+        <h4 id="library-not-found">Library Not Found</h4>
 
-<p><strong>Symptoms:</strong></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Native library not found at ~/.gollek/libs/llama/libllama.dylib
-</code></pre></div></div>
+        <p><strong>Symptoms:</strong></p>
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>Native library not found at ~/.gollek/libs/llama/libllama.dylib
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Solutions:</strong></p>
+        <p><strong>Solutions:</strong></p>
 
-<ol>
-  <li><strong>Verify installation</strong>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-lh</span> ~/.gollek/libs/llama/
+        <ol>
+          <li><strong>Verify installation</strong>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-lh</span> ~/.gollek/libs/llama/
 make <span class="nt">-f</span> Makefile.native install-gguf-libs
-</code></pre></div>    </div>
-  </li>
-  <li><strong>Set explicit path</strong>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_LLAMA_LIB_PATH</span><span class="o">=</span>~/.gollek/libs/llama/libllama.dylib
-</code></pre></div>    </div>
-  </li>
-  <li><strong>Check permissions</strong>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chmod</span> +x ~/.gollek/libs/llama/<span class="k">*</span>.dylib
-</code></pre></div>    </div>
-  </li>
-</ol>
+</code></pre>
+              </div>
+            </div>
+          </li>
+          <li><strong>Set explicit path</strong>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code><span class="nb">export </span><span class="nv">GOLLEK_LLAMA_LIB_PATH</span><span class="o">=</span>~/.gollek/libs/llama/libllama.dylib
+</code></pre>
+              </div>
+            </div>
+          </li>
+          <li><strong>Check permissions</strong>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code><span class="nb">chmod</span> +x ~/.gollek/libs/llama/<span class="k">*</span>.dylib
+</code></pre>
+              </div>
+            </div>
+          </li>
+        </ol>
 
-<h4 id="unsatisfiedlinkerror">UnsatisfiedLinkError</h4>
+        <h4 id="unsatisfiedlinkerror">UnsatisfiedLinkError</h4>
 
-<p><strong>Symptoms:</strong></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java.lang.UnsatisfiedLinkError: dlopen: library not loaded
-</code></pre></div></div>
+        <p><strong>Symptoms:</strong></p>
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>java.lang.UnsatisfiedLinkError: dlopen: library not loaded
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Solutions:</strong></p>
+        <p><strong>Solutions:</strong></p>
 
-<ol>
-  <li><strong>Check dependencies</strong>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>otool <span class="nt">-L</span> ~/.gollek/libs/llama/libllama.dylib
+        <ol>
+          <li><strong>Check dependencies</strong>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>otool <span class="nt">-L</span> ~/.gollek/libs/llama/libllama.dylib
 <span class="c"># Ensure all dependent libraries are present</span>
-</code></pre></div>    </div>
-  </li>
-  <li><strong>Load dependencies first</strong>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Ensure libggml, libggml-base, etc. are in same directory</span>
+</code></pre>
+              </div>
+            </div>
+          </li>
+          <li><strong>Load dependencies first</strong>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code><span class="c"># Ensure libggml, libggml-base, etc. are in same directory</span>
 <span class="nb">ls</span> ~/.gollek/libs/llama/
-</code></pre></div>    </div>
-  </li>
-  <li><strong>Enable debug logging</strong>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-Dgollek</span>.logging.level<span class="o">=</span>DEBUG <span class="nt">-jar</span> gollek.jar
-</code></pre></div>    </div>
-  </li>
-</ol>
+</code></pre>
+              </div>
+            </div>
+          </li>
+          <li><strong>Enable debug logging</strong>
+            <div class="language-bash highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>java <span class="nt">-Dgollek</span>.logging.level<span class="o">=</span>DEBUG <span class="nt">-jar</span> gollek.jar
+</code></pre>
+              </div>
+            </div>
+          </li>
+        </ol>
 
-<h4 id="macos-quarantine">macOS Quarantine</h4>
+        <h4 id="macos-quarantine">macOS Quarantine</h4>
 
-<p><strong>Symptoms:</strong></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Library not loaded: cannot load file
+        <p><strong>Symptoms:</strong></p>
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>Library not loaded: cannot load file
 code signature invalid
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Solution:</strong></p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Clear quarantine attributes</span>
+        <p><strong>Solution:</strong></p>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Clear quarantine attributes</span>
 xattr <span class="nt">-dr</span> com.apple.quarantine ~/.gollek/libs/llama
 xattr <span class="nt">-dr</span> com.apple.quarantine ~/.gollek/libs/onnxruntime
 xattr <span class="nt">-dr</span> com.apple.quarantine ~/.gollek/libs/libtorch
 
 <span class="c"># Verify cleared</span>
 xattr ~/.gollek/libs/llama/libllama.dylib
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h4 id="missing-dependencies">Missing Dependencies</h4>
+        <h4 id="missing-dependencies">Missing Dependencies</h4>
 
-<p><strong>Symptoms:</strong></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dyld: Library not loaded: @rpath/libggml.dylib
-</code></pre></div></div>
+        <p><strong>Symptoms:</strong></p>
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>dyld: Library not loaded: @rpath/libggml.dylib
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Solution:</strong></p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Copy all dependencies</span>
+        <p><strong>Solution:</strong></p>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Copy all dependencies</span>
 make <span class="nt">-f</span> Makefile.native install-gguf-libs
 
 <span class="c"># Or manually copy missing libraries</span>
 <span class="nb">cp </span>build/lib/libggml<span class="k">*</span>.dylib ~/.gollek/libs/llama/
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="advanced-topics">Advanced Topics</h2>
+        <h2 id="advanced-topics">Advanced Topics</h2>
 
-<h3 id="custom-library-locations">Custom Library Locations</h3>
+        <h3 id="custom-library-locations">Custom Library Locations</h3>
 
-<p>For production deployments, you may want to use a custom location:</p>
+        <p>For production deployments, you may want to use a custom location:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># System-wide installation</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># System-wide installation</span>
 <span class="nb">sudo mkdir</span> <span class="nt">-p</span> /opt/gollek/libs
 <span class="nb">sudo cp </span>native-libs/<span class="k">*</span> /opt/gollek/libs/
 
@@ -755,25 +891,33 @@ make <span class="nt">-f</span> Makefile.native install-gguf-libs
 
 <span class="c"># Or use per-runner variables</span>
 <span class="nb">export </span><span class="nv">GOLLEK_LLAMA_LIB_DIR</span><span class="o">=</span>/opt/gollek/libs/llama
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="multiple-versions">Multiple Versions</h3>
+        <h3 id="multiple-versions">Multiple Versions</h3>
 
-<p>Manage multiple library versions:</p>
+        <p>Manage multiple library versions:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install specific version</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Install specific version</span>
 <span class="nb">mkdir</span> <span class="nt">-p</span> ~/.gollek/libs/llama-3.2
 <span class="nb">cp </span>llama-3.2-build/lib/<span class="k">*</span>.dylib ~/.gollek/libs/llama-3.2/
 
 <span class="c"># Switch versions via environment variable</span>
 <span class="nb">export </span><span class="nv">GOLLEK_LLAMA_LIB_PATH</span><span class="o">=</span>~/.gollek/libs/llama-3.2/libllama.dylib
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="cicd-integration">CI/CD Integration</h3>
+        <h3 id="cicd-integration">CI/CD Integration</h3>
 
-<h4 id="github-actions">GitHub Actions</h4>
+        <h4 id="github-actions">GitHub Actions</h4>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install native libraries</span>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install native libraries</span>
   <span class="na">run</span><span class="pi">:</span> <span class="s">make -f Makefile.native install-native-libs</span>
 
 <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Cache native libraries</span>
@@ -781,129 +925,148 @@ make <span class="nt">-f</span> Makefile.native install-gguf-libs
   <span class="na">with</span><span class="pi">:</span>
     <span class="na">path</span><span class="pi">:</span> <span class="s">~/.gollek/libs</span>
     <span class="na">key</span><span class="pi">:</span> <span class="s">$-gollek-libs-$</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h4 id="docker">Docker</h4>
+        <h4 id="docker">Docker</h4>
 
-<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install native libraries</span>
+        <div class="language-dockerfile highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Install native libraries</span>
 <span class="k">RUN </span>make <span class="nt">-f</span> Makefile.native install-native-libs <span class="o">&amp;&amp;</span> <span class="se">\
 </span>    <span class="nb">chmod</span> +x ~/.gollek/libs/<span class="k">*</span>/<span class="k">*</span>.so <span class="o">&amp;&amp;</span> <span class="se">\
 </span>    ldconfig
 
 <span class="c"># Set library path</span>
 <span class="k">ENV</span><span class="s"> GOLLEK_NATIVE_LIB_DIR=/root/.gollek/libs</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="performance-optimization">Performance Optimization</h3>
+        <h3 id="performance-optimization">Performance Optimization</h3>
 
-<h4 id="preload-libraries">Preload Libraries</h4>
+        <h4 id="preload-libraries">Preload Libraries</h4>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Preload all dependencies before main library</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// Preload all dependencies before main library</span>
 <span class="nc">System</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">"/path/to/libggml-base.dylib"</span><span class="o">);</span>
 <span class="nc">System</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">"/path/to/libggml-cpu.dylib"</span><span class="o">);</span>
 <span class="nc">System</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">"/path/to/libllama.dylib"</span><span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h4 id="memory-mapping">Memory Mapping</h4>
+        <h4 id="memory-mapping">Memory Mapping</h4>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Use memory-mapped I/O for large models</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// Use memory-mapped I/O for large models</span>
 <span class="nc">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"gollek.model.memory.map"</span><span class="o">,</span> <span class="s">"true"</span><span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="best-practices">Best Practices</h2>
+        <h2 id="best-practices">Best Practices</h2>
 
-<h3 id="development">Development</h3>
+        <h3 id="development">Development</h3>
 
-<p>✅ Use <code class="language-plaintext highlighter-rouge">Makefile.native</code> for consistent installation<br />
-✅ Keep libraries in standard location<br />
-✅ Clear macOS quarantine after installation<br />
-✅ Verify with <code class="language-plaintext highlighter-rouge">make verify-libs</code></p>
+        <p>✅ Use <code class="language-plaintext highlighter-rouge">Makefile.native</code> for consistent
+          installation<br />
+          ✅ Keep libraries in standard location<br />
+          ✅ Clear macOS quarantine after installation<br />
+          ✅ Verify with <code class="language-plaintext highlighter-rouge">make verify-libs</code></p>
 
-<h3 id="production">Production</h3>
+        <h3 id="production">Production</h3>
 
-<p>✅ Use environment variables for configuration<br />
-✅ Pre-install libraries in container images<br />
-✅ Cache <code class="language-plaintext highlighter-rouge">~/.gollek/libs/</code> in CI/CD pipelines<br />
-✅ Document library versions used</p>
+        <p>✅ Use environment variables for configuration<br />
+          ✅ Pre-install libraries in container images<br />
+          ✅ Cache <code class="language-plaintext highlighter-rouge">~/.gollek/libs/</code> in CI/CD pipelines<br />
+          ✅ Document library versions used</p>
 
-<h3 id="security">Security</h3>
+        <h3 id="security">Security</h3>
 
-<p>✅ Verify library checksums<br />
-✅ Use trusted sources for downloads<br />
-✅ Set appropriate file permissions<br />
-✅ Audit library dependencies</p>
+        <p>✅ Verify library checksums<br />
+          ✅ Use trusted sources for downloads<br />
+          ✅ Set appropriate file permissions<br />
+          ✅ Audit library dependencies</p>
 
-<hr />
+        <hr />
 
-<h2 id="reference">Reference</h2>
+        <h2 id="reference">Reference</h2>
 
-<h3 id="file-naming-conventions">File Naming Conventions</h3>
+        <h3 id="file-naming-conventions">File Naming Conventions</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Platform</th>
-      <th>Library Prefix</th>
-      <th>Extension</th>
-      <th>Example</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>macOS</td>
-      <td><code class="language-plaintext highlighter-rouge">lib</code></td>
-      <td><code class="language-plaintext highlighter-rouge">.dylib</code></td>
-      <td><code class="language-plaintext highlighter-rouge">libllama.dylib</code></td>
-    </tr>
-    <tr>
-      <td>Linux</td>
-      <td><code class="language-plaintext highlighter-rouge">lib</code></td>
-      <td><code class="language-plaintext highlighter-rouge">.so</code></td>
-      <td><code class="language-plaintext highlighter-rouge">libllama.so</code></td>
-    </tr>
-    <tr>
-      <td>Windows</td>
-      <td>-</td>
-      <td><code class="language-plaintext highlighter-rouge">.dll</code></td>
-      <td><code class="language-plaintext highlighter-rouge">llama.dll</code></td>
-    </tr>
-  </tbody>
-</table>
+        <table>
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Library Prefix</th>
+              <th>Extension</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>macOS</td>
+              <td><code class="language-plaintext highlighter-rouge">lib</code></td>
+              <td><code class="language-plaintext highlighter-rouge">.dylib</code></td>
+              <td><code class="language-plaintext highlighter-rouge">libllama.dylib</code></td>
+            </tr>
+            <tr>
+              <td>Linux</td>
+              <td><code class="language-plaintext highlighter-rouge">lib</code></td>
+              <td><code class="language-plaintext highlighter-rouge">.so</code></td>
+              <td><code class="language-plaintext highlighter-rouge">libllama.so</code></td>
+            </tr>
+            <tr>
+              <td>Windows</td>
+              <td>-</td>
+              <td><code class="language-plaintext highlighter-rouge">.dll</code></td>
+              <td><code class="language-plaintext highlighter-rouge">llama.dll</code></td>
+            </tr>
+          </tbody>
+        </table>
 
-<h3 id="common-paths">Common Paths</h3>
+        <h3 id="common-paths">Common Paths</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.gollek/libs/                    # Base directory
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>~/.gollek/libs/                    # Base directory
 ~/.gollek/libs/llama/              # GGUF libraries
 ~/.gollek/libs/onnxruntime/        # ONNX libraries
 ~/.gollek/libs/libtorch/           # LibTorch libraries
 ~/.gollek/source/vendor/           # Legacy source location
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="related-documentation">Related Documentation</h3>
+        <h3 id="related-documentation">Related Documentation</h3>
 
-<ul>
-  <li><a href="git-repository-cleanup.md">Git Repository Cleanup</a> - Repository maintenance</li>
-  <li><a href="developer-guidance.md">Developer Guidance</a> - Development best practices</li>
-  <li><a href="gpu-kernels.md">GPU Kernels</a> - GPU acceleration</li>
-  <li><a href="cli-reference.md">CLI Reference</a> - Command-line interface</li>
-</ul>
+        <ul>
+          <li><a href="git-repository-cleanup.md">Git Repository Cleanup</a> - Repository maintenance</li>
+          <li><a href="developer-guidance.md">Developer Guidance</a> - Development best practices</li>
+          <li><a href="gpu-kernels.md">GPU Kernels</a> - GPU acceleration</li>
+          <li><a href="cli-reference.md">CLI Reference</a> - Command-line interface</li>
+        </ul>
 
-<hr />
+        <hr />
 
-<h2 id="need-help">Need Help?</h2>
+        <h2 id="need-help">Need Help?</h2>
 
-<ol>
-  <li>Check <a href="#troubleshooting">troubleshooting section</a></li>
-  <li>Review <a href="git-repository-cleanup.md">Git Repository Cleanup</a></li>
-  <li>Open an issue on <a href="https://github.com/gollek-ai/inference-gollek/issues">GitHub</a></li>
-  <li>Join <a href="https://github.com/gollek-ai/inference-gollek/discussions">GitHub Discussions</a></li>
-</ol>
+        <ol>
+          <li>Check <a href="#troubleshooting">troubleshooting section</a></li>
+          <li>Review <a href="git-repository-cleanup.md">Git Repository Cleanup</a></li>
+          <li>Open an issue on <a href="https://github.com/gollek-ai/inference-gollek/issues">GitHub</a></li>
+          <li>Join <a href="https://github.com/gollek-ai/inference-gollek/discussions">GitHub Discussions</a></li>
+        </ol>
 
       </div>
     </main>
-    
+
     <!-- Footer -->
     <footer class="main-footer">
       <div class="footer-content">
@@ -917,4 +1080,5 @@ make <span class="nt">-f</span> Makefile.native install-gguf-libs
     </footer>
   </div>
 </body>
+
 </html>

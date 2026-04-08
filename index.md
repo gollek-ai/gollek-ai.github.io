@@ -27,8 +27,7 @@ title: Gollek - Universal AI/ML Platform for Java
   <div class="content-container">
     <h2>Choose Your Path</h2>
     <p class="lead">Gollek adapts to your needs—whether you're a developer who wants quick CLI commands, a researcher building models, or an enterprise deploying production inference services.</p>
-    
-    <div class="paths-grid">
+       <div class="paths-grid">
       <!-- Path 1: CLI -->
       <div class="path-card">
         <div class="path-icon">
@@ -56,14 +55,14 @@ gollek list-models</code></pre>
         </div>
         
         <div class="path-actions">
-          <a href="/docs/cli-installation" class="btn btn-sm btn-primary">Install CLI</a>
-          <a href="/docs/cli-reference" class="btn btn-sm btn-ghost">View Commands</a>
+          <a href="/docs/setup/cli-installation" class="btn btn-sm btn-primary">Install CLI</a>
+          <a href="/docs/setup/cli-reference" class="btn btn-sm btn-ghost">View Commands</a>
         </div>
       </div>
       
       <!-- Path 2: Framework -->
       <div class="path-card path-card-highlighted">
-        <div class="path-badge">Most Popular</div>
+        <div class="path-badge">Core Engine</div>
         <div class="path-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 2L2 7l10 5 10-5-10-5z"/>
@@ -72,106 +71,97 @@ gollek list-models</code></pre>
           </svg>
         </div>
         <h3>2. ML Framework</h3>
-        <p class="path-description">Build and train neural networks with a PyTorch-like API in pure Java. Tensors, autograd, layers, optimizers—the full toolkit for ML research and development.</p>
+        <p class="path-description">Build and train neural networks with a PyTorch-like API in pure Java. Tensors, autograd, advanced indexing, and multimodal layers.</p>
         
         <div class="path-features">
           <span class="feature-tag feature-tag-highlighted">GradTensor + Autograd</span>
-          <span class="feature-tag feature-tag-highlighted">36+ NN Modules</span>
-          <span class="feature-tag feature-tag-highlighted">Training Loop</span>
-          <span class="feature-tag">GPU Kernels</span>
-          <span class="feature-tag">JBang/Jupyter</span>
-          <span class="feature-tag">LangChain4j</span>
+          <span class="feature-tag feature-tag-highlighted">118+ NN Classes</span>
+          <span class="feature-tag feature-tag-highlighted">Advanced Tensor Ops ⭐ NEW</span>
+          <span class="feature-tag">Vision Transforms ⭐ NEW</span>
+          <span class="feature-tag">NLP Tokenizers ⭐ NEW</span>
+          <span class="feature-tag">Distributed Training</span>
         </div>
         
         <div class="path-example">
-          <div class="example-label">Example:</div>
-          <pre><code class="language-java">// Build model (PyTorch-style API)
-Module model = new Sequential(
-    new Linear(784, 256), new ReLU(),
-    new Dropout(0.2f),
-    new Linear(256, 10)
+          <div class="example-label">Example (Vision/Audio NN):</div>
+          <pre><code class="language-java">// Build a Multimodal Encoder
+Module vision = new Sequential(
+    new Conv2d(3, 64, 3), new ReLU(),
+    new MaxPool2d(2),
+    new Flatten()
 );
 
-// Training loop
-var optimizer = new Adam(model.parameters(), 0.001f);
-for (int epoch = 0; epoch < 100; epoch++) {
-    var output = model.forward(input);
-    var loss = new CrossEntropyLoss()
-        .compute(output, target);
-    loss.backward();
-    optimizer.step();
-    optimizer.zeroGrad();
-}</code></pre>
+Module audio = new Sequential(
+    new MelSpectrogram(),
+    new Conv1d(128, 256, 3)
+);
+
+Module fusion = new ModalityFusion(vision, audio);</code></pre>
         </div>
         
         <div class="path-actions">
-          <a href="/docs/framework" class="btn btn-sm btn-primary">Framework Guide</a>
-          <a href="/docs/jbang-examples" class="btn btn-sm btn-ghost">23+ Examples</a>
+          <a href="/docs/framework/framework" class="btn btn-sm btn-primary">Framework Guide</a>
+          <a href="/docs/setup/jbang-examples" class="btn btn-sm btn-ghost">Browse Examples</a>
         </div>
       </div>
       
       <!-- Path 3: Runtime -->
       <div class="path-card">
         <div class="path-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5,3 19,12 5,21"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--multimodal-primary);">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M12 22l10-5-10-5-10 5 10 5z"/>
           </svg>
         </div>
-        <h3>3. Inference Runtime</h3>
-        <p class="path-description">Deploy models to production with high-performance inference serving. Support for GGUF, ONNX, SafeTensors, and cloud APIs with GPU acceleration.</p>
+        <h3>3. Multimodal SDK</h3>
+        <p class="path-description">High-level fluent API for vision, audio, and video tasks. Unified content mapping for local GGUF, ONNX, and Cloud AI providers.</p>
         
         <div class="path-features">
-          <span class="feature-tag">Multi-Format Runners</span>
-          <span class="feature-tag">GPU Acceleration</span>
+          <span class="feature-tag" style="border-color: var(--multimodal-primary);">Vision QA</span>
+          <span class="feature-tag" style="border-color: var(--multimodal-primary);">Speech-to-Text</span>
+          <span class="feature-tag" style="border-color: var(--multimodal-primary);">Video Analysis</span>
+          <span class="feature-tag">LangChain4j</span>
           <span class="feature-tag">Streaming</span>
-          <span class="feature-tag">Batch Inference</span>
-          <span class="feature-tag">Plugin System</span>
         </div>
         
         <div class="path-example">
-          <div class="example-label">Example:</div>
-          <pre><code class="language-java">// Local inference
-GollekLocalClient client = 
-    GollekSdkFactory.createLocalSdk();
+          <div class="example-label">Example (Fluent API):</div>
+          <pre><code class="language-java">// Multimodal Chat with Vision
+var result = Gollek.vision()
+    .model("llama-3.2-11b-vision")
+    .image(Path.of("image.png"))
+    .prompt("Describe this scene")
+    .generate();
 
-InferenceRequest request = 
-    InferenceRequest.builder()
-    .model("llama-3.2-3b-instruct")
-    .prompt("Explain quantum computing")
-    .maxTokens(500)
-    .build();
-
-InferenceResponse response = 
-    client.createCompletion(request);</code></pre>
+System.out.println(result.text());</code></pre>
         </div>
         
         <div class="path-actions">
-          <a href="/docs/core-api" class="btn btn-sm btn-primary">SDK Guide</a>
-          <a href="/docs/architecture" class="btn btn-sm btn-ghost">Architecture</a>
+          <a href="/docs/framework/multimodal-sdk" class="btn btn-sm btn-primary" style="background: var(--multimodal-gradient);">Explore Multimodal</a>
+          <a href="/docs/runtime/core-api" class="btn btn-sm btn-ghost">SDK Reference</a>
         </div>
-      </div>
     </div>
   </div>
 </section>
 
 <section class="quick-grid">
-  <a class="quick-card" href="/docs/framework">
+  <a class="quick-card" href="/docs/framework/framework">
     <h3>🧠 ML Framework</h3>
-    <p>PyTorch-like API: Tensors, Autograd, 36+ NN modules, training loops.</p>
+    <p>PyTorch-like API: Tensors, Autograd, 118+ NN modules, Advanced Tensor Ops, and Multimodal layers.</p>
   </a>
-  <a class="quick-card" href="/docs/cli-installation">
+  <a class="quick-card" href="/docs/setup/cli-installation">
     <h3>💻 CLI Tool</h3>
     <p>Install via brew, choco, or curl. Chat, convert, and manage models.</p>
   </a>
-  <a class="quick-card" href="/docs/core-api">
+  <a class="quick-card" href="/docs/runtime/core-api">
     <h3>🚀 Inference Runtime</h3>
-    <p>High-performance serving with GPU acceleration and multi-format support.</p>
+    <p>High-performance serving with GPU acceleration and unified Multimodal SDK.</p>
   </a>
-  <a class="quick-card" href="/docs/jbang-examples">
+  <a class="quick-card" href="/docs/setup/jbang-examples">
     <h3>📚 Examples</h3>
     <p>23+ ready-to-run scripts: from Hello World to Transformer classifiers.</p>
   </a>
-  <a class="quick-card" href="/docs/gpu-kernels">
+  <a class="quick-card" href="/docs/runtime/gpu-kernels">
     <h3>⚡ GPU Kernels</h3>
     <p>CUDA, Metal, ROCm with FlashAttention 2/3/4 and FP8/FP4 precision.</p>
   </a>
@@ -182,13 +172,18 @@ InferenceResponse response =
 </section>
 
 <section class="subtle-panel">
-  <strong>🔥 New Release:</strong> Comprehensive JBang Examples Catalog is live! 23+ verified scripts covering neural networks, NLP, computer vision, and integrations with Deeplearning4j, Stanford NLP, Smile ML, and Oracle Tribuo.
-  <a href="/docs/jbang-examples">Browse Examples Catalog</a>
+  <strong>🚀 SDK v0.2 Released:</strong> Advanced Tensor Operations, Vision Transforms, NLP Tokenizers, and complete MNIST training example. 75% PyTorch parity achieved!
+  <a href="/docs/release-notes-v0.2">View v0.2 Release Notes</a>
 </section>
 
 <section class="subtle-panel">
-  <strong>Latest update:</strong> Audio module v2.0 is live with Whisper STT, SpeechT5 TTS, HiFi-GAN vocoder, and VAD pipeline. Plus quantization engine with INT4/INT8/FP8 support.
-  <a href="/blog/audio-quantization-release">Read the release</a>
+  <strong>🔥 JBang Examples:</strong> 23+ verified scripts covering neural networks, NLP, computer vision, and integrations with Deeplearning4j, Stanford NLP, Smile ML, and Oracle Tribuo.
+  <a href="/docs/setup/jbang-examples">Browse Examples Catalog</a>
+</section>
+
+<section class="subtle-panel">
+  <strong>Latest update:</strong> Comprehensive quantization engine with GPTQ, AWQ, AutoRound, and TurboQuant support. 4-bit quantization with 8x compression and minimal quality loss.
+  <a href="/docs/plugins/quantization">Explore quantization docs</a>
 </section>
 
 <section class="subtle-panel">
@@ -237,7 +232,7 @@ Gollek is designed to be the most versatile AI/ML platform for Java developers, 
 - **Quick Inference**: Chat with LLMs directly from terminal
 - **Model Management**: List, download, and convert models
 - **Format Conversion**: GGUF, SafeTensors, ONNX, PyTorch
-- **Quantization**: INT4, INT8, FP8 with K-quant support
+- **Quantization**: GPTQ, AWQ, AutoRound, TurboQuant, INT4, INT8, FP8
 
 ### As an ML Framework (like PyTorch)
 - **Tensor Operations**: GradTensor with autograd and dynamic computational graphs
@@ -379,9 +374,13 @@ System.out.println(response.getContent());
 - **VAD** - Voice activity detection for silence removal
 
 ### Model Quantization
-- **GPTQ** - 4-bit integer quantization (8x compression)
+- **GPTQ** - Hessian-based 4-bit quantization (best quality, 8x compression)
+- **AWQ** - Activation-aware quantization (fast, 3-5x speedup)
+- **AutoRound** - Optimization-based rounding (balanced quality/speed)
+- **TurboQuant** - Edge-optimized vector quantization (calibration-free)
 - **INT8** - 8-bit integer quantization (4x compression)
-- **FP8** - 8-bit floating point for GPU tensor cores
+- **FP8** - 8-bit floating point (GPU tensor cores)
+- [Learn more →](/docs/plugins/quantization)
 
 ### Default Models
 - **Text Generation**: `Llama-3.2-3B-Instruct` (via GGUF)
@@ -419,7 +418,31 @@ System.out.println(response.getContent());
 
 ---
 
-## Use Cases
+## 🌟 Wayang Platform: Complete 9-Phase Architecture
+
+Beyond Gollek SDK (Phase 1-3), the complete Wayang Platform includes:
+
+### **Phases 1-3: Deep Learning Foundation (Gollek SDK)**
+- ✅ Phase 1: CNN/RNN Layers - Complete
+- 📋 Phase 2: GPU Acceleration (CUDA, Metal, ROCm) - Designed
+- 📋 Phase 3: Extended Features (Transformers, Model Zoo) - Designed
+
+### **Phases 4-7: Agent Framework (Wayang Runtime)**  
+- ✅ Phase 4: Quarkus Decoupling - Complete
+- ✅ Phase 5: SPI Integration - Complete
+- ✅ Phase 6: AgentSkills.io Compliance - Complete
+- ✅ Phase 7: Skill Integration - Complete
+
+### **Phases 8-9: Production Hardening**
+- ✅ Phase 8: Agent Optimization (75-85% size reduction) - Complete
+- ✅ Phase 8B: Comprehensive Testing (118 tests, >90% coverage) - Complete
+- ✅ Phase 9: Production Observability (OpenTelemetry, Circuit Breakers) - Complete
+- 📋 Phase 9B: Code Quality Tooling (SpotBugs, CheckStyle, JaCoCo) - Designed
+
+**Learn More:** [Complete Platform Phases Overview](/docs/phases-overview)  
+**Get Started:** [Agent Framework](/docs/agent-framework) • [Production Deployment](/docs/production-hardening)
+
+---
 
 | Domain | Approach | Application |
 |--------|----------|-------------|
@@ -436,8 +459,12 @@ System.out.println(response.getContent());
 
 ## Community and Support
 
+- **[Complete Platform Documentation](/docs/phases-overview)** ⭐ NEW - 9-phase architecture overview
+- **[Platform Phase Documentation](/docs/)** - Deep Learning, Agent Framework, Production Hardening
 - [Documentation](/docs/) - Comprehensive guides and API references
 - [Framework Guide](/docs/framework) - Build and train models
+- [Agent Framework Guide](/docs/agent-framework/) - Build intelligent agents (Phases 4-7)
+- [Production Hardening Guide](/docs/production-hardening/) - Deploy to production (Phases 8-9)
 - [CLI Reference](/docs/cli-reference) - All CLI commands
 - [JBang Examples](/docs/jbang-examples) - 23+ ready-to-run Java scripts
 - [Discussions](https://github.com/bhangun/gollek/discussions) - Ask questions and share ideas

@@ -49,10 +49,10 @@ mvn -f inference-gollek/extension/runner/onnx/gollek-runner-onnx/pom.xml -Phf-in
 
 ## LiteRT (TFLite) Local Inference
 
-Configure a local `.tflite` model path and enable Metal auto-detect on Apple Silicon:
+Configure a local `.litertlm` model path and enable Metal auto-detect on Apple Silicon:
 
 ```properties
-litert.provider.model.base-path=~/.gollek/models/tflite
+litert.provider.model.base-path=~/.gollek/models/litert
 litert.provider.gpu.auto-metal=true
 litert.provider.gpu.backend=auto
 ```
@@ -60,40 +60,40 @@ litert.provider.gpu.backend=auto
 Run LiteRT module tests:
 
 ```bash
-mvn -f inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml test
+mvn -f inference-gollek/extension/runner/litert/gollek-runner-litert/pom.xml test
 ```
 
 Optional LiteRT real-model integration test (downloads MobileNet v1 if URL is set):
 
 ```bash
 export LITERT_LIBRARY_PATH="$HOME/.gollek/libs/libtensorflowlite_c.dylib"
-export GOLLEK_TFLITE_MODEL_URL="https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.tflite"
-mvn -f inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml test
+export GOLLEK_TFLITE_MODEL_URL="https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.litertlm"
+mvn -f inference-gollek/extension/runner/litert/gollek-runner-litert/pom.xml test
 ```
 
-Download a sample TFLite model into `~/.gollek/models/tflite`:
+Download a sample TFLite model into `~/.gollek/models/litert`:
 
 ```bash
-bash inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-sample-model.sh
+bash inference-gollek/extension/runner/litert/gollek-runner-litert/scripts/download-sample-model.sh
 ```
 
 LiteRT runtime helper (prints where to place `libtensorflowlite_c.*`):
 
 ```bash
-bash inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-tflite-runtime.sh
+bash inference-gollek/extension/runner/litert/gollek-runner-litert/scripts/download-litert-runtime.sh
 ```
 
 Make targets (same helpers):
 
 ```bash
-make tflite-sample
-make tflite-runtime
+make litert-sample
+make litert-runtime
 ```
 
 Package your local LiteRT runtime into a release asset:
 
 ```bash
-make tflite-runtime-package
+make litert-runtime-package
 ```
 
 Auto-download from GitHub Releases (if you publish assets):
@@ -102,14 +102,14 @@ Auto-download from GitHub Releases (if you publish assets):
 export GOLLEK_LITERT_RUNTIME_REPO="bhangun/gollek"
 export GOLLEK_LITERT_RUNTIME_RELEASE="latest"
 export GOLLEK_LITERT_RUNTIME_ASSET="litert-runtime-macos-arm64.tar.gz"
-make tflite-runtime
+make litert-runtime
 ```
 
 Strict mode (fail instead of skip on download errors):
 
 ```bash
 export GOLLEK_TFLITE_REQUIRED=true
-mvn -f inference-gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml test
+mvn -f inference-gollek/extension/runner/litert/gollek-runner-litert/pom.xml test
 ```
 # Code Examples
 

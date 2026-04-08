@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Runner Plugins | Gollek</title>
   <meta name="description" content="Gollek SDK and CLI documentation for local and cloud inference workflows.">
-  
+
   <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  <link rel="shortcut icon" href="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png">
-  
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/favicon.svg">
+
   <script>
     (function () {
       try {
@@ -27,219 +27,227 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/site.css">
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js" defer></script>
   <script src="/assets/js/site.js" defer></script>
 </head>
+
 <body>
   <!-- Mobile Overlay -->
   <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
-  
+
   <!-- Sidebar Navigation -->
   <aside class="sidebar" id="sidebar" aria-label="Main navigation">
     <div class="sidebar-header">
       <a href="/" class="sidebar-brand">
-        <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png" alt="Gollek Logo" class="brand-logo">
+        <img src="https://raw.githubusercontent.com/bhangun/repo-assets/master/gollek%404x.png" alt="Gollek Logo"
+          class="brand-logo">
         <span class="brand-text">Gollek</span>
       </a>
       <button class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 6L6 18M6 6l12 12"/>
+          <path d="M18 6L6 18M6 6l12 12" />
         </svg>
       </button>
     </div>
-    
+
     <nav class="sidebar-nav">
       <div class="nav-section">
         <div class="nav-section-title">Getting Started</div>
         <a href="/" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-            <polyline points="9,22 9,12 15,12 15,22"/>
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            <polyline points="9,22 9,12 15,12 15,22" />
           </svg>
           <span>Home</span>
         </a>
         <a href="/docs/" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-            <polyline points="14,2 14,8 20,8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+            <polyline points="14,2 14,8 20,8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
           </svg>
           <span>Documentation</span>
         </a>
         <a href="/docs/framework" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
           </svg>
           <span>ML Framework</span>
         </a>
         <a href="/docs/cli-installation" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="4,17 10,11 4,5"/>
-            <line x1="12" y1="19" x2="20" y2="19"/>
+            <polyline points="4,17 10,11 4,5" />
+            <line x1="12" y1="19" x2="20" y2="19" />
           </svg>
           <span>CLI Tool</span>
         </a>
         <a href="/docs/core-api" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5,3 19,12 5,21"/>
+            <polygon points="5,3 19,12 5,21" />
           </svg>
           <span>Inference Runtime</span>
         </a>
       </div>
-      
+
       <div class="nav-section">
         <div class="nav-section-title">Core Concepts</div>
         <a href="/docs/core-api" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
           </svg>
           <span>Core API</span>
         </a>
         <a href="/docs/architecture" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="20" x2="18" y2="10"/>
-            <line x1="12" y1="20" x2="12" y2="4"/>
-            <line x1="6" y1="20" x2="6" y2="14"/>
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
           </svg>
           <span>Architecture</span>
         </a>
         <a href="/docs/plugin-system-v2" class="nav-item active">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
           </svg>
           <span>Plugin System</span>
         </a>
         <a href="/docs/runner-plugins" class="nav-item active">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="5,3 19,12 5,21"/>
+            <polygon points="5,3 19,12 5,21" />
           </svg>
           <span>Runners</span>
         </a>
       </div>
-      
+
       <div class="nav-section">
         <div class="nav-section-title">Model Formats</div>
         <a href="/docs/gguf-enhancements" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-            <line x1="8" y1="21" x2="16" y2="21"/>
-            <line x1="12" y1="17" x2="12" y2="21"/>
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
           </svg>
           <span>GGUF</span>
         </a>
         <a href="/docs/quantization" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-            <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
-            <line x1="12" y1="22.08" x2="12" y2="12"/>
+            <path
+              d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+            <polyline points="3.27,6.96 12,12.01 20.73,6.96" />
+            <line x1="12" y1="22.08" x2="12" y2="12" />
           </svg>
           <span>Quantization</span>
         </a>
         <a href="/docs/audio-processing" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
-            <path d="M19 10v2a7 7 0 01-14 0v-2"/>
-            <line x1="12" y1="19" x2="12" y2="23"/>
-            <line x1="8" y1="23" x2="16" y2="23"/>
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
+            <path d="M19 10v2a7 7 0 01-14 0v-2" />
+            <line x1="12" y1="19" x2="12" y2="23" />
+            <line x1="8" y1="23" x2="16" y2="23" />
           </svg>
           <span>Audio</span>
         </a>
         <a href="/docs/gpu-kernels" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="4" y="4" width="16" height="16" rx="2"/>
-            <rect x="9" y="9" width="6" height="6"/>
-            <line x1="9" y1="1" x2="9" y2="4"/>
-            <line x1="15" y1="1" x2="15" y2="4"/>
-            <line x1="9" y1="20" x2="9" y2="23"/>
-            <line x1="15" y1="20" x2="15" y2="23"/>
-            <line x1="20" y1="9" x2="23" y2="9"/>
-            <line x1="20" y1="14" x2="23" y2="14"/>
-            <line x1="1" y1="9" x2="4" y2="9"/>
-            <line x1="1" y1="14" x2="4" y2="14"/>
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <rect x="9" y="9" width="6" height="6" />
+            <line x1="9" y1="1" x2="9" y2="4" />
+            <line x1="15" y1="1" x2="15" y2="4" />
+            <line x1="9" y1="20" x2="9" y2="23" />
+            <line x1="15" y1="20" x2="15" y2="23" />
+            <line x1="20" y1="9" x2="23" y2="9" />
+            <line x1="20" y1="14" x2="23" y2="14" />
+            <line x1="1" y1="9" x2="4" y2="9" />
+            <line x1="1" y1="14" x2="4" y2="14" />
           </svg>
           <span>GPU Kernels</span>
         </a>
       </div>
-      
+
       <div class="nav-section">
         <div class="nav-section-title">Resources</div>
         <a href="/blog/" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
-            <polyline points="17,21 17,13 7,13 7,21"/>
-            <polyline points="17,9 7,9 7,2"/>
+            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+            <polyline points="17,21 17,13 7,13 7,21" />
+            <polyline points="17,9 7,9 7,2" />
           </svg>
           <span>Blog</span>
         </a>
         <a href="/docs/examples" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+            <path
+              d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
           </svg>
           <span>Examples</span>
         </a>
         <a href="/docs/troubleshooting" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
           <span>Troubleshooting</span>
         </a>
         <a href="/docs/error-codes" class="nav-item ">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-            <line x1="12" y1="9" x2="12" y2="13"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
           </svg>
           <span>Error Codes</span>
         </a>
         <a href="https://github.com/bhangun/gollek" class="nav-item nav-item-external" target="_blank" rel="noopener">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
           </svg>
           <span>GitHub</span>
           <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15,3 21,3 21,9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+            <polyline points="15,3 21,3 21,9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
           </svg>
         </a>
       </div>
     </nav>
-    
+
     <div class="sidebar-footer">
       <div class="theme-selector">
         <button class="theme-option" data-theme="dark" aria-label="Dark theme">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
           </svg>
         </button>
         <button class="theme-option" data-theme="light" aria-label="Light theme">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/>
-            <line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/>
-            <line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
         </button>
         <button class="theme-option" data-theme="auto" aria-label="Auto theme">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
           </svg>
         </button>
       </div>
@@ -248,7 +256,7 @@
       </div>
     </div>
   </aside>
-  
+
   <!-- Main Content Area -->
   <div class="main-wrapper">
     <!-- Top Header -->
@@ -256,120 +264,124 @@
       <div class="header-content">
         <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
         <div class="header-title">
-          
+
           <h1 class="page-title">Runner Plugins</h1>
-          
+
         </div>
         <div class="header-actions">
           <a href="/docs/cli-installation" class="btn btn-sm btn-primary">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-              <polyline points="7,10 12,15 17,10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+              <polyline points="7,10 12,15 17,10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
             Install
           </a>
           <a href="https://github.com/bhangun/gollek" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
             </svg>
             GitHub
           </a>
         </div>
       </div>
     </header>
-    
+
     <!-- Main Content -->
     <main class="main-content">
       <div class="content-container">
         <h1 id="runner-plugin-system">Runner Plugin System</h1>
 
-<p>Model format runner plugins for flexible, modular AI inference support.</p>
+        <p>Model format runner plugins for flexible, modular AI inference support.</p>
 
-<hr />
+        <hr />
 
-<h2 id="overview">Overview</h2>
+        <h2 id="overview">Overview</h2>
 
-<p>The Runner Plugin system provides a modular architecture for supporting different model formats, enabling:</p>
+        <p>The Runner Plugin system provides a modular architecture for supporting different model formats, enabling:
+        </p>
 
-<ul>
-  <li><strong>Hot-Reload</strong>: Add/remove model format support without restarting</li>
-  <li><strong>Selective Deployment</strong>: Include only needed runners in your deployment</li>
-  <li><strong>Performance</strong>: Optimized runners for specific formats</li>
-  <li><strong>Extensibility</strong>: Create custom runners for proprietary formats</li>
-</ul>
+        <ul>
+          <li><strong>Hot-Reload</strong>: Add/remove model format support without restarting</li>
+          <li><strong>Selective Deployment</strong>: Include only needed runners in your deployment</li>
+          <li><strong>Performance</strong>: Optimized runners for specific formats</li>
+          <li><strong>Extensibility</strong>: Create custom runners for proprietary formats</li>
+        </ul>
 
-<hr />
+        <hr />
 
-<h2 id="available-runner-plugins">Available Runner Plugins</h2>
+        <h2 id="available-runner-plugins">Available Runner Plugins</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Runner</th>
-      <th>Format</th>
-      <th>Backend</th>
-      <th>GPU Support</th>
-      <th>Size</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>GGUF</strong></td>
-      <td>.gguf</td>
-      <td>llama.cpp</td>
-      <td>✅ CUDA/Metal</td>
-      <td>~500 MB</td>
-    </tr>
-    <tr>
-      <td><strong>Safetensor</strong></td>
-      <td>.safetensors</td>
-      <td>Direct/GGUF</td>
-      <td>✅ CUDA/MPS</td>
-      <td>~20 GB</td>
-    </tr>
-    <tr>
-      <td><strong>ONNX</strong></td>
-      <td>.onnx</td>
-      <td>ONNX Runtime</td>
-      <td>✅ Multi</td>
-      <td>~800 MB</td>
-    </tr>
-    <tr>
-      <td><strong>TensorRT</strong></td>
-      <td>.engine</td>
-      <td>TensorRT</td>
-      <td>✅ NVIDIA</td>
-      <td>~2 GB</td>
-    </tr>
-    <tr>
-      <td><strong>LibTorch</strong></td>
-      <td>.pt/.bin</td>
-      <td>PyTorch</td>
-      <td>✅ CUDA</td>
-      <td>~3 GB</td>
-    </tr>
-    <tr>
-      <td><strong>TFLite</strong></td>
-      <td>.tflite</td>
-      <td>TensorFlow Lite</td>
-      <td>✅ GPU</td>
-      <td>~500 MB</td>
-    </tr>
-  </tbody>
-</table>
+        <table>
+          <thead>
+            <tr>
+              <th>Runner</th>
+              <th>Format</th>
+              <th>Backend</th>
+              <th>GPU Support</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>GGUF</strong></td>
+              <td>.gguf</td>
+              <td>llama.cpp</td>
+              <td>✅ CUDA/Metal</td>
+              <td>~500 MB</td>
+            </tr>
+            <tr>
+              <td><strong>Safetensor</strong></td>
+              <td>.safetensors</td>
+              <td>Direct/GGUF</td>
+              <td>✅ CUDA/MPS</td>
+              <td>~20 GB</td>
+            </tr>
+            <tr>
+              <td><strong>ONNX</strong></td>
+              <td>.onnx</td>
+              <td>ONNX Runtime</td>
+              <td>✅ Multi</td>
+              <td>~800 MB</td>
+            </tr>
+            <tr>
+              <td><strong>TensorRT</strong></td>
+              <td>.engine</td>
+              <td>TensorRT</td>
+              <td>✅ NVIDIA</td>
+              <td>~2 GB</td>
+            </tr>
+            <tr>
+              <td><strong>LibTorch</strong></td>
+              <td>.pt/.bin</td>
+              <td>PyTorch</td>
+              <td>✅ CUDA</td>
+              <td>~3 GB</td>
+            </tr>
+            <tr>
+              <td><strong>TFLite</strong></td>
+              <td>.litertlm</td>
+              <td>TensorFlow Lite</td>
+              <td>✅ GPU</td>
+              <td>~500 MB</td>
+            </tr>
+          </tbody>
+        </table>
 
-<hr />
+        <hr />
 
-<h2 id="architecture">Architecture</h2>
+        <h2 id="architecture">Architecture</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────────────────────────────────────────┐
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>┌─────────────────────────────────────────────────────────┐
 │              Application Layer                          │
 │  InferenceRequest → Runner Selection                    │
 └─────────────────────────────────────────────────────────┘
@@ -402,17 +414,21 @@
 │           Native Backends                               │
 │  libllama.so | libonnxruntime.so | libnvinfer.so       │
 └─────────────────────────────────────────────────────────┘
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="quick-start">Quick Start</h2>
+        <h2 id="quick-start">Quick Start</h2>
 
-<h3 id="installation">Installation</h3>
+        <h3 id="installation">Installation</h3>
 
-<h4 id="option-1-build-from-source">Option 1: Build from Source</h4>
+        <h4 id="option-1-build-from-source">Option 1: Build from Source</h4>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Build runner plugin core</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Build runner plugin core</span>
 <span class="nb">cd </span>inference-gollek/core/gollek-plugin-runner-core
 mvn clean <span class="nb">install</span>
 
@@ -423,24 +439,34 @@ mvn clean <span class="nb">install</span> <span class="nt">-Pinstall-plugin</spa
 <span class="c"># Build all runner plugins</span>
 <span class="nb">cd </span>inference-gollek/plugins/runner
 mvn clean <span class="nb">install</span> <span class="nt">-Pinstall-plugin</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<p>This installs runner plugins to <code class="language-plaintext highlighter-rouge">~/.gollek/plugins/runners/</code></p>
+        <p>This installs runner plugins to <code
+            class="language-plaintext highlighter-rouge">~/.gollek/plugins/runners/</code></p>
 
-<h4 id="option-2-download-pre-built-jars">Option 2: Download Pre-built JARs</h4>
+        <h4 id="option-2-download-pre-built-jars">Option 2: Download Pre-built JARs</h4>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Download specific runner</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Download specific runner</span>
 wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-runner-gguf-1.0.0.jar
 
 <span class="c"># Copy to runners directory</span>
 <span class="nb">cp </span>gollek-plugin-runner-gguf-1.0.0.jar ~/.gollek/plugins/runners/
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="configuration">Configuration</h3>
+        <h3 id="configuration">Configuration</h3>
 
-<p>Create <code class="language-plaintext highlighter-rouge">~/.gollek/plugins/runners/runner-config.json</code>:</p>
+        <p>Create <code
+            class="language-plaintext highlighter-rouge">~/.gollek/plugins/runners/runner-config.json</code>:</p>
 
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+        <div class="language-json highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"gguf-runner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"n_gpu_layers"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w">
@@ -458,15 +484,19 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
     </span><span class="nl">"execution_provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CUDAExecutionProvider"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
+</span></code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="usage-examples">Usage Examples</h2>
+        <h2 id="usage-examples">Usage Examples</h2>
 
-<h3 id="example-1-auto-select-runner">Example 1: Auto-Select Runner</h3>
+        <h3 id="example-1-auto-select-runner">Example 1: Auto-Select Runner</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Inject</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="nd">@Inject</span>
 <span class="nc">RunnerPluginRegistry</span> <span class="n">runnerRegistry</span><span class="o">;</span>
 
 <span class="c1">// Runner automatically selected based on file extension</span>
@@ -479,11 +509,15 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
     <span class="o">.</span><span class="na">infer</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
     <span class="o">.</span><span class="na">await</span><span class="o">()</span>
     <span class="o">.</span><span class="na">atMost</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">30</span><span class="o">));</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="example-2-specific-runner">Example 2: Specific Runner</h3>
+        <h3 id="example-2-specific-runner">Example 2: Specific Runner</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Get specific runner plugin</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// Get specific runner plugin</span>
 <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">RunnerPlugin</span><span class="o">&gt;</span> <span class="n">ggufRunner</span> <span class="o">=</span> <span class="n">runnerRegistry</span><span class="o">.</span><span class="na">getPlugin</span><span class="o">(</span><span class="s">"gguf-runner"</span><span class="o">);</span>
 
 <span class="k">if</span> <span class="o">(</span><span class="n">ggufRunner</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
@@ -492,11 +526,15 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
     
     <span class="nc">InferenceResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">infer</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="na">await</span><span class="o">();</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="example-3-with-feature-plugins">Example 3: With Feature Plugins</h3>
+        <h3 id="example-3-with-feature-plugins">Example 3: With Feature Plugins</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Enable specific features</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// Enable specific features</span>
 <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">config</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
     <span class="s">"features"</span><span class="o">,</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
         <span class="s">"text"</span><span class="o">,</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
@@ -511,11 +549,15 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
     <span class="s">"llama-3-8b.gguf"</span><span class="o">,</span>
     <span class="n">config</span>
 <span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="example-4-multi-format-service">Example 4: Multi-Format Service</h3>
+        <h3 id="example-4-multi-format-service">Example 4: Multi-Format Service</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// GGUF model</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// GGUF model</span>
 <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">RunnerSession</span><span class="o">&gt;</span> <span class="n">ggufSession</span> <span class="o">=</span> <span class="n">runnerRegistry</span><span class="o">.</span><span class="na">createSession</span><span class="o">(</span>
     <span class="s">"llama-3-8b.gguf"</span><span class="o">,</span>
     <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">()</span>
@@ -532,39 +574,43 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
     <span class="s">"clip-vit.safetensors"</span><span class="o">,</span>
     <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">()</span>
 <span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="runner-plugin-details">Runner Plugin Details</h2>
+        <h2 id="runner-plugin-details">Runner Plugin Details</h2>
 
-<h3 id="gguf-runner">GGUF Runner</h3>
+        <h3 id="gguf-runner">GGUF Runner</h3>
 
-<p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.gguf</code> (llama.cpp)</p>
+        <p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.gguf</code> (llama.cpp)</p>
 
-<p><strong>Features</strong>:</p>
-<ul>
-  <li>✅ Full llama.cpp support</li>
-  <li>✅ GPU acceleration (CUDA, Metal, ROCm)</li>
-  <li>✅ Quantization support (Q2_K - Q8_0)</li>
-  <li>✅ LoRA adapter support</li>
-  <li>✅ Flash Attention</li>
-  <li>✅ Context up to 128K</li>
-</ul>
+        <p><strong>Features</strong>:</p>
+        <ul>
+          <li>✅ Full llama.cpp support</li>
+          <li>✅ GPU acceleration (CUDA, Metal, ROCm)</li>
+          <li>✅ Quantization support (Q2_K - Q8_0)</li>
+          <li>✅ LoRA adapter support</li>
+          <li>✅ Flash Attention</li>
+          <li>✅ Context up to 128K</li>
+        </ul>
 
-<p><strong>Supported Models</strong>:</p>
-<ul>
-  <li>Llama 2/3</li>
-  <li>Mistral</li>
-  <li>Mixtral MoE</li>
-  <li>Qwen</li>
-  <li>Falcon</li>
-  <li>Gemma</li>
-  <li>Phi</li>
-</ul>
+        <p><strong>Supported Models</strong>:</p>
+        <ul>
+          <li>Llama 2/3</li>
+          <li>Mistral</li>
+          <li>Mixtral MoE</li>
+          <li>Qwen</li>
+          <li>Falcon</li>
+          <li>Gemma</li>
+          <li>Phi</li>
+        </ul>
 
-<p><strong>Configuration</strong>:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
+        <p><strong>Configuration</strong>:</p>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
   <span class="na">runners</span><span class="pi">:</span>
     <span class="na">gguf-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
@@ -572,33 +618,38 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
       <span class="na">n_ctx</span><span class="pi">:</span> <span class="m">4096</span>           <span class="c1"># Context size</span>
       <span class="na">n_batch</span><span class="pi">:</span> <span class="m">512</span>          <span class="c1"># Batch size</span>
       <span class="na">flash_attention</span><span class="pi">:</span> <span class="kc">true</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h3 id="safetensor-runner">Safetensor Runner</h3>
+        <h3 id="safetensor-runner">Safetensor Runner</h3>
 
-<p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.safetensors</code>, <code class="language-plaintext highlighter-rouge">.gguf</code> (via conversion)</p>
+        <p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.safetensors</code>, <code
+            class="language-plaintext highlighter-rouge">.gguf</code> (via conversion)</p>
 
-<p><strong>Features</strong>:</p>
-<ul>
-  <li>✅ Direct Safetensor inference</li>
-  <li>✅ GGUF conversion support</li>
-  <li>✅ Multi-device support (CPU, CUDA, MPS)</li>
-  <li>✅ Flash Attention</li>
-  <li>✅ LoRA adapters</li>
-  <li>✅ Quantization (FP8, INT8, GPTQ)</li>
-</ul>
+        <p><strong>Features</strong>:</p>
+        <ul>
+          <li>✅ Direct Safetensor inference</li>
+          <li>✅ GGUF conversion support</li>
+          <li>✅ Multi-device support (CPU, CUDA, MPS)</li>
+          <li>✅ Flash Attention</li>
+          <li>✅ LoRA adapters</li>
+          <li>✅ Quantization (FP8, INT8, GPTQ)</li>
+        </ul>
 
-<p><strong>Feature Plugins</strong>:</p>
-<ul>
-  <li>Audio (Whisper, SpeechT5)</li>
-  <li>Vision (CLIP, ViT, DETR, LLaVA)</li>
-  <li>Text (Llama, Mistral, BERT)</li>
-</ul>
+        <p><strong>Feature Plugins</strong>:</p>
+        <ul>
+          <li>Audio (Whisper, SpeechT5)</li>
+          <li>Vision (CLIP, ViT, DETR, LLaVA)</li>
+          <li>Text (Llama, Mistral, BERT)</li>
+        </ul>
 
-<p><strong>Configuration</strong>:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
+        <p><strong>Configuration</strong>:</p>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
   <span class="na">runners</span><span class="pi">:</span>
     <span class="na">safetensor-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
@@ -612,36 +663,41 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
           <span class="na">enabled</span><span class="pi">:</span> <span class="kc">false</span>
         <span class="na">text</span><span class="pi">:</span>
           <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h3 id="onnx-runner">ONNX Runner</h3>
+        <h3 id="onnx-runner">ONNX Runner</h3>
 
-<p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.onnx</code>, <code class="language-plaintext highlighter-rouge">.onnxruntime</code></p>
+        <p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.onnx</code>, <code
+            class="language-plaintext highlighter-rouge">.onnxruntime</code></p>
 
-<p><strong>Features</strong>:</p>
-<ul>
-  <li>✅ ONNX Runtime backend</li>
-  <li>✅ Multi-device (CPU, CUDA, DirectML, CoreML)</li>
-  <li>✅ Quantization support</li>
-  <li>✅ Batch processing</li>
-  <li>✅ Cross-platform</li>
-</ul>
+        <p><strong>Features</strong>:</p>
+        <ul>
+          <li>✅ ONNX Runtime backend</li>
+          <li>✅ Multi-device (CPU, CUDA, DirectML, CoreML)</li>
+          <li>✅ Quantization support</li>
+          <li>✅ Batch processing</li>
+          <li>✅ Cross-platform</li>
+        </ul>
 
-<p><strong>Supported Models</strong>:</p>
-<ul>
-  <li>BERT</li>
-  <li>RoBERTa</li>
-  <li>DistilBERT</li>
-  <li>Whisper</li>
-  <li>CLIP</li>
-  <li>YOLO</li>
-  <li>ViT</li>
-</ul>
+        <p><strong>Supported Models</strong>:</p>
+        <ul>
+          <li>BERT</li>
+          <li>RoBERTa</li>
+          <li>DistilBERT</li>
+          <li>Whisper</li>
+          <li>CLIP</li>
+          <li>YOLO</li>
+          <li>ViT</li>
+        </ul>
 
-<p><strong>Configuration</strong>:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
+        <p><strong>Configuration</strong>:</p>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
   <span class="na">runners</span><span class="pi">:</span>
     <span class="na">onnx-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
@@ -649,25 +705,30 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
       <span class="na">intra_op_num_threads</span><span class="pi">:</span> <span class="m">4</span>
       <span class="na">inter_op_num_threads</span><span class="pi">:</span> <span class="m">2</span>
       <span class="na">gpu_mem_limit</span><span class="pi">:</span> <span class="m">4294967296</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h3 id="tensorrt-runner">TensorRT Runner</h3>
+        <h3 id="tensorrt-runner">TensorRT Runner</h3>
 
-<p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.engine</code>, <code class="language-plaintext highlighter-rouge">.plan</code></p>
+        <p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.engine</code>, <code
+            class="language-plaintext highlighter-rouge">.plan</code></p>
 
-<p><strong>Features</strong>:</p>
-<ul>
-  <li>✅ TensorRT backend</li>
-  <li>✅ FP16/INT8 optimization</li>
-  <li>✅ Layer fusion</li>
-  <li>✅ Kernel auto-tuning</li>
-  <li>✅ NVIDIA GPU optimized</li>
-</ul>
+        <p><strong>Features</strong>:</p>
+        <ul>
+          <li>✅ TensorRT backend</li>
+          <li>✅ FP16/INT8 optimization</li>
+          <li>✅ Layer fusion</li>
+          <li>✅ Kernel auto-tuning</li>
+          <li>✅ NVIDIA GPU optimized</li>
+        </ul>
 
-<p><strong>Configuration</strong>:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
+        <p><strong>Configuration</strong>:</p>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
   <span class="na">runners</span><span class="pi">:</span>
     <span class="na">tensorrt-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
@@ -675,85 +736,103 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
       <span class="na">fp16_mode</span><span class="pi">:</span> <span class="kc">true</span>
       <span class="na">int8_mode</span><span class="pi">:</span> <span class="kc">false</span>
       <span class="na">max_batch_size</span><span class="pi">:</span> <span class="m">32</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h3 id="libtorch-runner">LibTorch Runner</h3>
+        <h3 id="libtorch-runner">LibTorch Runner</h3>
 
-<p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.pt</code>, <code class="language-plaintext highlighter-rouge">.bin</code>, <code class="language-plaintext highlighter-rouge">.pth</code></p>
+        <p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.pt</code>, <code
+            class="language-plaintext highlighter-rouge">.bin</code>, <code
+            class="language-plaintext highlighter-rouge">.pth</code></p>
 
-<p><strong>Features</strong>:</p>
-<ul>
-  <li>✅ PyTorch LibTorch backend</li>
-  <li>✅ CUDA support</li>
-  <li>✅ JIT compilation</li>
-  <li>✅ Custom operators</li>
-  <li>✅ Training support</li>
-</ul>
+        <p><strong>Features</strong>:</p>
+        <ul>
+          <li>✅ PyTorch LibTorch backend</li>
+          <li>✅ CUDA support</li>
+          <li>✅ JIT compilation</li>
+          <li>✅ Custom operators</li>
+          <li>✅ Training support</li>
+        </ul>
 
-<p><strong>Configuration</strong>:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
+        <p><strong>Configuration</strong>:</p>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
   <span class="na">runners</span><span class="pi">:</span>
     <span class="na">libtorch-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
       <span class="na">device</span><span class="pi">:</span> <span class="s">cuda</span>
       <span class="na">dtype</span><span class="pi">:</span> <span class="s">float16</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h3 id="tflite-runner">TFLite Runner</h3>
+        <h3 id="litert-runner">TFLite Runner</h3>
 
-<p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.tflite</code></p>
+        <p><strong>Format</strong>: <code class="language-plaintext highlighter-rouge">.litertlm</code></p>
 
-<p><strong>Features</strong>:</p>
-<ul>
-  <li>✅ TensorFlow Lite backend</li>
-  <li>✅ GPU delegate support</li>
-  <li>✅ NNAPI support (Android)</li>
-  <li>✅ Quantization support</li>
-  <li>✅ Edge device optimized</li>
-</ul>
+        <p><strong>Features</strong>:</p>
+        <ul>
+          <li>✅ TensorFlow Lite backend</li>
+          <li>✅ GPU delegate support</li>
+          <li>✅ NNAPI support (Android)</li>
+          <li>✅ Quantization support</li>
+          <li>✅ Edge device optimized</li>
+        </ul>
 
-<p><strong>Configuration</strong>:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
+        <p><strong>Configuration</strong>:</p>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
   <span class="na">runners</span><span class="pi">:</span>
-    <span class="na">tflite-runner</span><span class="pi">:</span>
+    <span class="na">litert-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
       <span class="na">device</span><span class="pi">:</span> <span class="s">GPU</span>
       <span class="na">num_threads</span><span class="pi">:</span> <span class="m">4</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="deployment-scenarios">Deployment Scenarios</h2>
+        <h2 id="deployment-scenarios">Deployment Scenarios</h2>
 
-<h3 id="scenario-1-edge-device-cpu-only">Scenario 1: Edge Device (CPU Only)</h3>
+        <h3 id="scenario-1-edge-device-cpu-only">Scenario 1: Edge Device (CPU Only)</h3>
 
-<p><strong>Use Case</strong>: Raspberry Pi, Jetson Nano</p>
+        <p><strong>Use Case</strong>: Raspberry Pi, Jetson Nano</p>
 
-<p><strong>Runners</strong>:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
+        <p><strong>Runners</strong>:</p>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
   <span class="na">runners</span><span class="pi">:</span>
     <span class="na">onnx-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
       <span class="na">execution_provider</span><span class="pi">:</span> <span class="s2">"</span><span class="s">CPUExecutionProvider"</span>
-    <span class="na">tflite-runner</span><span class="pi">:</span>
+    <span class="na">litert-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
       <span class="na">device</span><span class="pi">:</span> <span class="s">CPU</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Size</strong>: ~200 MB</p>
+        <p><strong>Size</strong>: ~200 MB</p>
 
-<hr />
+        <hr />
 
-<h3 id="scenario-2-nvidia-gpu-server">Scenario 2: NVIDIA GPU Server</h3>
+        <h3 id="scenario-2-nvidia-gpu-server">Scenario 2: NVIDIA GPU Server</h3>
 
-<p><strong>Use Case</strong>: Production inference service</p>
+        <p><strong>Use Case</strong>: Production inference service</p>
 
-<p><strong>Runners</strong>:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
+        <p><strong>Runners</strong>:</p>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
   <span class="na">runners</span><span class="pi">:</span>
     <span class="na">gguf-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
@@ -764,18 +843,22 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
     <span class="na">tensorrt-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
       <span class="na">fp16_mode</span><span class="pi">:</span> <span class="kc">true</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Size</strong>: ~1.5 GB</p>
+        <p><strong>Size</strong>: ~1.5 GB</p>
 
-<hr />
+        <hr />
 
-<h3 id="scenario-3-development-machine">Scenario 3: Development Machine</h3>
+        <h3 id="scenario-3-development-machine">Scenario 3: Development Machine</h3>
 
-<p><strong>Use Case</strong>: Model development and testing</p>
+        <p><strong>Use Case</strong>: Model development and testing</p>
 
-<p><strong>Runners</strong>:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
+        <p><strong>Runners</strong>:</p>
+        <div class="language-yaml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="na">gollek</span><span class="pi">:</span>
   <span class="na">runners</span><span class="pi">:</span>
     <span class="na">gguf-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
@@ -785,118 +868,122 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
     <span class="na">libtorch-runner</span><span class="pi">:</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<p><strong>Size</strong>: ~2.5 GB</p>
+        <p><strong>Size</strong>: ~2.5 GB</p>
 
-<hr />
+        <hr />
 
-<h2 id="performance-comparison">Performance Comparison</h2>
+        <h2 id="performance-comparison">Performance Comparison</h2>
 
-<h3 id="inference-speed-a100-8b-model">Inference Speed (A100, 8B Model)</h3>
+        <h3 id="inference-speed-a100-8b-model">Inference Speed (A100, 8B Model)</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Runner</th>
-      <th>Quantization</th>
-      <th>Tokens/s</th>
-      <th>VRAM</th>
-      <th>Latency</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GGUF</td>
-      <td>Q4_K_M</td>
-      <td>220</td>
-      <td>6 GB</td>
-      <td>Low</td>
-    </tr>
-    <tr>
-      <td>GGUF</td>
-      <td>Q8_0</td>
-      <td>180</td>
-      <td>10 GB</td>
-      <td>Low</td>
-    </tr>
-    <tr>
-      <td>Safetensor</td>
-      <td>FP16</td>
-      <td>150</td>
-      <td>16 GB</td>
-      <td>Medium</td>
-    </tr>
-    <tr>
-      <td>TensorRT</td>
-      <td>FP16</td>
-      <td>250</td>
-      <td>16 GB</td>
-      <td>Lowest</td>
-    </tr>
-    <tr>
-      <td>ONNX</td>
-      <td>FP32</td>
-      <td>80</td>
-      <td>20 GB</td>
-      <td>High</td>
-    </tr>
-    <tr>
-      <td>LibTorch</td>
-      <td>FP16</td>
-      <td>140</td>
-      <td>16 GB</td>
-      <td>Medium</td>
-    </tr>
-  </tbody>
-</table>
+        <table>
+          <thead>
+            <tr>
+              <th>Runner</th>
+              <th>Quantization</th>
+              <th>Tokens/s</th>
+              <th>VRAM</th>
+              <th>Latency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GGUF</td>
+              <td>Q4_K_M</td>
+              <td>220</td>
+              <td>6 GB</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>GGUF</td>
+              <td>Q8_0</td>
+              <td>180</td>
+              <td>10 GB</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>Safetensor</td>
+              <td>FP16</td>
+              <td>150</td>
+              <td>16 GB</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>TensorRT</td>
+              <td>FP16</td>
+              <td>250</td>
+              <td>16 GB</td>
+              <td>Lowest</td>
+            </tr>
+            <tr>
+              <td>ONNX</td>
+              <td>FP32</td>
+              <td>80</td>
+              <td>20 GB</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>LibTorch</td>
+              <td>FP16</td>
+              <td>140</td>
+              <td>16 GB</td>
+              <td>Medium</td>
+            </tr>
+          </tbody>
+        </table>
 
-<h3 id="memory-efficiency">Memory Efficiency</h3>
+        <h3 id="memory-efficiency">Memory Efficiency</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Format</th>
-      <th>7B Model</th>
-      <th>13B Model</th>
-      <th>70B Model</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GGUF (Q4)</td>
-      <td>4 GB</td>
-      <td>8 GB</td>
-      <td>40 GB</td>
-    </tr>
-    <tr>
-      <td>GGUF (Q8)</td>
-      <td>8 GB</td>
-      <td>14 GB</td>
-      <td>70 GB</td>
-    </tr>
-    <tr>
-      <td>Safetensor (FP16)</td>
-      <td>14 GB</td>
-      <td>26 GB</td>
-      <td>140 GB</td>
-    </tr>
-    <tr>
-      <td>TensorRT (FP16)</td>
-      <td>14 GB</td>
-      <td>26 GB</td>
-      <td>140 GB</td>
-    </tr>
-  </tbody>
-</table>
+        <table>
+          <thead>
+            <tr>
+              <th>Format</th>
+              <th>7B Model</th>
+              <th>13B Model</th>
+              <th>70B Model</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GGUF (Q4)</td>
+              <td>4 GB</td>
+              <td>8 GB</td>
+              <td>40 GB</td>
+            </tr>
+            <tr>
+              <td>GGUF (Q8)</td>
+              <td>8 GB</td>
+              <td>14 GB</td>
+              <td>70 GB</td>
+            </tr>
+            <tr>
+              <td>Safetensor (FP16)</td>
+              <td>14 GB</td>
+              <td>26 GB</td>
+              <td>140 GB</td>
+            </tr>
+            <tr>
+              <td>TensorRT (FP16)</td>
+              <td>14 GB</td>
+              <td>26 GB</td>
+              <td>140 GB</td>
+            </tr>
+          </tbody>
+        </table>
 
-<hr />
+        <hr />
 
-<h2 id="creating-custom-runner-plugins">Creating Custom Runner Plugins</h2>
+        <h2 id="creating-custom-runner-plugins">Creating Custom Runner Plugins</h2>
 
-<h3 id="step-1-implement-runnerplugin-interface">Step 1: Implement RunnerPlugin Interface</h3>
+        <h3 id="step-1-implement-runnerplugin-interface">Step 1: Implement RunnerPlugin Interface</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomRunnerPlugin</span> <span class="kd">implements</span> <span class="nc">RunnerPlugin</span> <span class="o">{</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomRunnerPlugin</span> <span class="kd">implements</span> <span class="nc">RunnerPlugin</span> <span class="o">{</span>
     
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="nc">String</span> <span class="nf">id</span><span class="o">()</span> <span class="o">{</span>
@@ -934,11 +1021,15 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
         <span class="k">return</span> <span class="k">new</span> <span class="nf">CustomRunnerSession</span><span class="o">(</span><span class="n">modelPath</span><span class="o">,</span> <span class="n">config</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="step-2-create-runnersession">Step 2: Create RunnerSession</h3>
+        <h3 id="step-2-create-runnersession">Step 2: Create RunnerSession</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomRunnerSession</span> <span class="kd">implements</span> <span class="nc">RunnerSession</span> <span class="o">{</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomRunnerSession</span> <span class="kd">implements</span> <span class="nc">RunnerSession</span> <span class="o">{</span>
     
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="nc">Uni</span><span class="o">&lt;</span><span class="nc">InferenceResponse</span><span class="o">&gt;</span> <span class="nf">infer</span><span class="o">(</span><span class="nc">InferenceRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
@@ -954,11 +1045,15 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
     
     <span class="c1">// ... other methods</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="step-3-create-pom">Step 3: Create POM</h3>
+        <h3 id="step-3-create-pom">Step 3: Create POM</h3>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;project&gt;</span>
+        <div class="language-xml highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="nt">&lt;project&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>gollek-plugin-runner-custom<span class="nt">&lt;/artifactId&gt;</span>
     
     <span class="nt">&lt;dependencies&gt;</span>
@@ -986,21 +1081,29 @@ wget https://github.com/gollek-ai/gollek/releases/download/v1.0.0/gollek-plugin-
         <span class="nt">&lt;/plugins&gt;</span>
     <span class="nt">&lt;/build&gt;</span>
 <span class="nt">&lt;/project&gt;</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="step-4-build-and-deploy">Step 4: Build and Deploy</h3>
+        <h3 id="step-4-build-and-deploy">Step 4: Build and Deploy</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean package
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>mvn clean package
 <span class="nb">cp </span>target/gollek-plugin-runner-custom-1.0.0.jar ~/.gollek/plugins/runners/
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="monitoring">Monitoring</h2>
+        <h2 id="monitoring">Monitoring</h2>
 
-<h3 id="health-checks">Health Checks</h3>
+        <h3 id="health-checks">Health Checks</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get runner health status</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Get runner health status</span>
 curl http://localhost:8080/api/v1/runners/health
 
 <span class="c"># Response:</span>
@@ -1019,11 +1122,15 @@ curl http://localhost:8080/api/v1/runners/health
     <span class="s2">"error"</span>: <span class="s2">"ONNX Runtime not found"</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="metrics">Metrics</h3>
+        <h3 id="metrics">Metrics</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get runner statistics</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Get runner statistics</span>
 curl http://localhost:8080/api/v1/runners/stats
 
 <span class="c"># Response:</span>
@@ -1042,15 +1149,19 @@ curl http://localhost:8080/api/v1/runners/stats
     <span class="o">}</span>
   <span class="o">]</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="troubleshooting">Troubleshooting</h2>
+        <h2 id="troubleshooting">Troubleshooting</h2>
 
-<h3 id="runner-not-loading">Runner Not Loading</h3>
+        <h3 id="runner-not-loading">Runner Not Loading</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Check if plugin JAR is in correct directory</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Check if plugin JAR is in correct directory</span>
 <span class="nb">ls</span> <span class="nt">-la</span> ~/.gollek/plugins/runners/<span class="k">*</span>.jar
 
 <span class="c"># Check plugin manifest</span>
@@ -1058,21 +1169,29 @@ unzip <span class="nt">-p</span> gollek-plugin-runner-gguf.jar META-INF/MANIFEST
 
 <span class="c"># Check logs for errors</span>
 <span class="nb">tail</span> <span class="nt">-f</span> ~/.gollek/logs/gollek.log | <span class="nb">grep </span>runner
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="native-library-not-found">Native Library Not Found</h3>
+        <h3 id="native-library-not-found">Native Library Not Found</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Set library path</span>
+        <div class="language-bash highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c"># Set library path</span>
 <span class="nb">export </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/path/to/native/libs:<span class="nv">$LD_LIBRARY_PATH</span>
 
 <span class="c"># Or copy to system directory</span>
 <span class="nb">sudo cp </span>libllama.so /usr/local/lib/
 <span class="nb">sudo </span>ldconfig
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<h3 id="model-format-not-supported">Model Format Not Supported</h3>
+        <h3 id="model-format-not-supported">Model Format Not Supported</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Check which runner supports the model</span>
+        <div class="language-java highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// Check which runner supports the model</span>
 <span class="nc">RunnerPluginManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="nc">RunnerPluginManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
 <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">RunnerPlugin</span><span class="o">&gt;</span> <span class="n">plugin</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">findPluginForModel</span><span class="o">(</span><span class="s">"model.gguf"</span><span class="o">);</span>
 
@@ -1081,28 +1200,34 @@ unzip <span class="nt">-p</span> gollek-plugin-runner-gguf.jar META-INF/MANIFEST
 <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
     <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"No runner supports this model format"</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+          </div>
+        </div>
 
-<hr />
+        <hr />
 
-<h2 id="resources">Resources</h2>
+        <h2 id="resources">Resources</h2>
 
-<ul>
-  <li><strong>Runner Plugin Core</strong>: <code class="language-plaintext highlighter-rouge">inference-gollek/core/gollek-plugin-runner-core/</code></li>
-  <li><strong>GGUF Runner</strong>: <code class="language-plaintext highlighter-rouge">inference-gollek/plugins/runner/gguf/</code></li>
-  <li><strong>Safetensor Runner</strong>: <code class="language-plaintext highlighter-rouge">inference-gollek/plugins/runner/safetensor/</code></li>
-  <li><a href="/docs/feature-plugins">Feature Plugin System</a></li>
-  <li><a href="/docs/optimization-plugins">Optimization Plugins</a></li>
-  <li><a href="/docs/architecture">Architecture</a></li>
-</ul>
+        <ul>
+          <li><strong>Runner Plugin Core</strong>: <code
+              class="language-plaintext highlighter-rouge">inference-gollek/core/gollek-plugin-runner-core/</code></li>
+          <li><strong>GGUF Runner</strong>: <code
+              class="language-plaintext highlighter-rouge">inference-gollek/plugins/runner/gguf/</code></li>
+          <li><strong>Safetensor Runner</strong>: <code
+              class="language-plaintext highlighter-rouge">inference-gollek/plugins/runner/safetensor/</code></li>
+          <li><a href="/docs/feature-plugins">Feature Plugin System</a></li>
+          <li><a href="/docs/optimization-plugins">Optimization Plugins</a></li>
+          <li><a href="/docs/architecture">Architecture</a></li>
+        </ul>
 
-<hr />
+        <hr />
 
-<p><a href="/docs/optimization-plugins">Back to Optimization Plugins</a>   <a href="/docs/feature-plugins">Feature Plugins</a>   <a href="/docs/architecture">View Architecture</a></p>
+        <p><a href="/docs/optimization-plugins">Back to Optimization Plugins</a>   <a
+            href="/docs/feature-plugins">Feature Plugins</a>   <a href="/docs/architecture">View Architecture</a></p>
 
       </div>
     </main>
-    
+
     <!-- Footer -->
     <footer class="main-footer">
       <div class="footer-content">
@@ -1116,4 +1241,5 @@ unzip <span class="nt">-p</span> gollek-plugin-runner-gguf.jar META-INF/MANIFEST
     </footer>
   </div>
 </body>
+
 </html>

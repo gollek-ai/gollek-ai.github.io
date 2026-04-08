@@ -1,433 +1,314 @@
 ---
 layout: default
-title: Documentation
+title: Gollek SDK Documentation
 ---
 
-<section class="hero hero-compact">
-  <p class="eyebrow">Documentation Hub</p>
-  <h1>Gollek SDK Documentation</h1>
-  <p class="lead">Comprehensive guides, API references, and examples for building AI-powered applications with Gollek SDK.</p>
-</section>
+# Gollek SDK Documentation
 
-<section class="quick-grid">
-  <a class="quick-card" href="#getting-started">
-    <h3>🚀 Getting Started</h3>
-    <p>Installation, quickstart, and setup guides.</p>
-  </a>
-  <a class="quick-card" href="#core-concepts">
-    <h3>📚 Core Concepts</h3>
-    <p>Architecture, API reference, and fundamentals.</p>
-  </a>
-  <a class="quick-card" href="#model-formats">
-    <h3>📦 Model Formats</h3>
-    <p>GGUF, ONNX, TFLite, and quantization.</p>
-  </a>
-  <a class="quick-card" href="#advanced">
-    <h3>🔬 Advanced</h3>
-    <p>GPU kernels, audio processing, and plugins.</p>
-  </a>
-  <a class="quick-card" href="#examples">
-    <h3>💡 Examples</h3>
-    <p>JBang scripts, tutorials, and code samples.</p>
-  </a>
-  <a class="quick-card" href="#support">
-    <h3>🛟 Support</h3>
-    <p>Troubleshooting, error codes, and help.</p>
-  </a>
-</section>
+Welcome to the Gollek SDK documentation. Choose a path below to get started building AI/ML applications in Java.
 
 ---
 
-## Getting Started {#getting-started}
+## 🚀 Latest: SDK v0.2 Release
 
-Essential guides to get you up and running quickly.
+**Advanced Tensor Operations | Vision Transforms | NLP Tokenizers | Complete Examples**
 
-### [CLI Installation](/docs/cli-installation)
-Install the Gollek CLI via release installer, Homebrew, or Chocolatey for macOS, Linux, and Windows.
-
-**Quick Install**:
-```bash
-# macOS/Linux
-curl -sSL https://raw.githubusercontent.com/bhangun/gollek/main/scripts/install.sh | bash
-
-# Windows
-winget install gollek
-```
+[📖 View v0.2 Release Notes](/docs/release-notes-v0.2)
 
 ---
 
-### [GitHub Packages Deployment](/docs/github-packages-deployment)
-Use Gollek SDK in Maven projects via GitHub Packages. Configure repositories, authenticate, and manage dependencies.
+## 🎯 Platform Overview
 
-**Maven Setup**:
-```xml
-<repository>
-    <id>github</id>
-    <url>https://maven.pkg.github.com/bhangun/gollek</url>
-</repository>
-```
+**Complete Platform Roadmap (9 Phases)**
 
----
+The Wayang Platform spans 9 phases of development:
 
-### [Core API](/docs/core-api)
-Main entry point for all SDK operations. Learn about `GollekLocalClient`, `InferenceRequest`, `InferenceResponse`, and completion APIs.
+1. **Phases 1-3**: Deep Learning Foundation (Gollek SDK) - 1 Complete ✅, 2 Designed, 3 Designed
+2. **Phases 4-7**: Agent Framework (Wayang Runtime) - All 4 Complete ✅
+3. **Phases 8-9**: Production Hardening - All 3 Complete ✅ (8, 8B, 9), 1 Designed (9B)
 
-**Key Topics**:
-- Creating SDK instances
-- Building inference requests
-- Executing synchronous and streaming inference
-- Async jobs and batch processing
+**Start Your Journey:**
+- [**📊 Platform Phases Overview**](/docs/phases-overview) - Complete roadmap of all 9 phases
+- **[🤖 Wayang Agent Framework (Phases 4-7)](/docs/agent-framework/)** - Build intelligent agents
+- **[🚀 Production Hardening (Phases 8-9)](/docs/production-hardening/)** - Deploy to production
+- **[⚡ GPU Acceleration (Phase 2)](/docs/gpu-acceleration/)** - 30-100x speedup
+- **[🔧 Extended Features (Phase 3)](/docs/extended-features/)** - Transformers, model zoo, and more
 
 ---
 
-### [Examples](/docs/examples)
-Code examples and usage patterns for common scenarios including streaming, async jobs, and provider selection.
+## Getting Started
+
+### New Users
+
+1. **[Platform Overview](/docs/phases-overview)** - Understand the complete system
+2. **[Quick Start Guide](/docs/setup/sdk-installation)** - Install and set up Gollek in 5 minutes
+3. **[Your First Model](/docs/framework/first-model)** - Build a simple neural network
+4. **[MNIST Training Example](/docs/examples/mnist-cnn)** - Complete end-to-end training workflow
+
+### Building Agents (Wayang)
+
+1. **[Agent Framework Intro](/docs/agent-framework/)** - Overview of Phases 4-7
+2. **[Building Your First Agent](docs/agent-framework/)** - Create agent with builder pattern
+3. **[Skills Integration](/docs/agent-framework/)** - Register and manage skills
+4. **[Production Deployment](/docs/production-hardening/)** - Deploy agents safely
+
+### Migrating from PyTorch
+
+1. **[PyTorch to Gollek](/docs/migration/from-pytorch)** - Mapping PyTorch APIs to Gollek
+2. **[Common Patterns](/docs/migration/common-patterns)** - Torch patterns in Java
+3. **[Examples](/docs/examples)** - PyTorch→Gollek code comparisons
 
 ---
 
-## Core Concepts {#core-concepts}
+## Core Documentation
 
-Fundamental concepts and architecture documentation.
+### 🌟 Wayang Platform (Complete System)
 
-### [Architecture](/docs/architecture)
-System architecture overview including SDK layers, provider system, model repository, and inference pipeline.
+| Section | Description | Status |
+|---------|-------------|--------|
+| [**Platform Phases Overview**](/docs/phases-overview) | Complete 9-phase roadmap with status | 📊 Complete |
+| [**Agent Framework (Phases 4-7)**](/docs/agent-framework/) | Intelligent agent runtime and skills | ✅ Production Ready |
+| [**Production Hardening (Phases 8-9)**](/docs/production-hardening/) | Observability, optimization, testing | ✅ Production Ready |
+| [**GPU Acceleration (Phase 2)**](/docs/gpu-acceleration/) | CUDA, Metal, ROCm backends | 📋 Designed |
+| [**Extended Features (Phase 3)**](/docs/extended-features/) | Transformers, loss functions, model zoo | 📋 Designed |
 
-**Diagram**:
-```
-+------------------+     +-------------------+     +------------------+
-|  Gollek Client   | --> |  Inference Svc    | --> |   Providers      |
-+------------------+     +-------------------+     +------------------+
-```
+### Framework & Training
 
----
+| Document | Description |
+|----------|-------------|
+| [Framework Overview](/docs/framework/framework) | Introduction to Gollek's ML framework |
+| [Tensor API](/docs/api/tensor) | Core Tensor class and operations |
+| [GradTensor & Autograd](/docs/api/gradtensor) | Automatic differentiation |
+| [Neural Networks](/docs/framework/nn-modules) | 118+ built-in layer implementations |
+| [Training Loop](/docs/framework/training) | Building training scripts |
+| [Optimizers](/docs/framework/optimizers) | SGD, Adam, RMSprop, etc. |
+| [Learning Rate Schedulers](/docs/framework/schedulers) | StepLR, CosineAnnealingLR, etc. |
 
-### [Core Runtime Architecture](/docs/core-runtime-architecture)
-Deep dive into the runtime engine, execution model, and performance characteristics.
+### Advanced Tensor Operations ⭐ NEW
 
----
+| Document | Description |
+|----------|-------------|
+| [TensorOps API](/docs/api-tensorops) | Advanced slicing, gathering, masking |
+| [Tensor Indexing](/docs/framework/indexing) | Multi-dimensional indexing patterns |
+| [Reshape & Transpose](/docs/framework/reshape) | Tensor shape manipulation |
+| [Broadcasting](/docs/framework/broadcasting) | Numpy-style broadcasting rules |
 
-### [Plugin System v2](/docs/plugin-system-v2)
-Extensible plugin architecture for custom providers, features, and runners.
+### Data Loading & Preprocessing
 
-**Plugin Types**:
-- **Feature Plugins**: Add new capabilities
-- **Runner Plugins**: Model format support (GGUF, ONNX, etc.)
-- **Kernel Plugins**: Hardware acceleration (CUDA, Metal, ROCm)
+| Document | Description |
+|----------|-------------|
+| [DataLoader](/docs/framework/dataloader) | Efficient data loading |
+| [Datasets](/docs/framework/datasets) | Built-in dataset implementations |
+| [Vision Transforms](/docs/api-vision-transforms) | Image preprocessing pipeline ⭐ NEW |
+| [Data Augmentation](/docs/framework/augmentation) | Mixup, CutMix, RandomCrop, etc. |
 
----
+### NLP & Tokenization ⭐ NEW
 
-### [Enhanced Plugin Architecture](/docs/enhanced-plugin-architecture)
-Advanced plugin patterns with kernel auto-detection and isolation strategies.
+| Document | Description |
+|----------|-------------|
+| [Tokenizer API](/docs/api-tokenizer) | Text tokenization interface |
+| [NLP Layers](/docs/framework/nlp-layers) | Embeddings, Attention, etc. |
+| [Transformers](/docs/framework/transformers) | Transformer architecture building blocks |
+| [Language Models](/docs/examples/llm) | Training language models |
 
----
+### Computer Vision
 
-### [Enhanced Runner Plugin Architecture](/docs/enhanced-runner-plugin-architecture)
-Building custom model runners with enhanced plugin system.
+| Document | Description |
+|----------|-------------|
+| [Vision Layers](/docs/framework/vision-layers) | Conv2d, MaxPool, etc. |
+| [CNN Architectures](/docs/examples/cnn) | ResNet, VGG, etc. examples |
+| [Image Classification](/docs/examples/image-classification) | End-to-end image classification |
+| [Object Detection](/docs/examples/object-detection) | YOLO-style detection |
 
----
+### Model Export & Deployment
 
-### [Feature Plugins](/docs/feature-plugins)
-Extend Gollek with custom features and capabilities.
-
----
-
-### [Optimization Plugins](/docs/optimization-plugins)
-Performance optimization plugins for inference acceleration.
-
----
-
-### [Plugin Examples](/docs/plugin-examples)
-Working examples of plugin implementations.
-
----
-
-### [Plugin Templates](/docs/plugin-templates)
-Starter templates for building your own plugins.
-
----
-
-### [Plugin Migration](/docs/plugin-migration)
-Migrate from v1 to v2 plugin system.
-
----
-
-### [Enhanced Plugin System v2](/docs/enhanced-plugin-system-v2)
-Complete guide to the enhanced plugin architecture.
-
----
-
-### [Kernel Auto-Detection](/docs/kernel-auto-detection)
-Automatic hardware kernel detection and selection.
+| Document | Description |
+|----------|-------------|
+| [Model Saving](/docs/framework/model-save) | Save/load models in SafeTensors format |
+| [ONNX Export](/docs/framework/onnx-export) | Export to ONNX format |
+| [Model Serving](/docs/deployment/model-serving) | REST API serving |
+| [Production Deployment](/docs/deployment/production) | Docker, Kubernetes, etc. |
 
 ---
 
-### [Storage Layout](/docs/storage-layout)
-Understanding Gollek's local storage structure for models and caches.
+## API Reference
 
-**Default Location**: `~/.gollek/`
+### Core Classes
 
----
+- **[Tensor](/docs/api/tensor)** - Multi-dimensional array abstraction
+- **[GradTensor](/docs/api/gradtensor)** - Tensor with gradient tracking
+- **[TensorOps](/docs/api-tensorops)** - Advanced tensor operations ⭐ NEW
+- **[Module](/docs/api/module)** - Base class for neural network components
+- **[Sequential](/docs/api/sequential)** - Container for stacked modules
 
-### [Enhancement History](/docs/enhancement-history)
-Complete development history and changelog.
+### Neural Network Modules (118+ classes)
 
----
+**Layers:**
+- [Linear](/docs/api/nn/linear)
+- [Conv2d](/docs/api/nn/conv2d)
+- [RNN, LSTM, GRU](/docs/api/nn/rnn)
+- [MultiHeadAttention](/docs/api/nn/attention)
+- [Embedding](/docs/api/nn/embedding)
 
-### [Phase 1 Completion](/docs/phase1-completion)
-Integration testing results and milestones (41 tests passed).
+**Full List:** [All NN Modules](/docs/api/nn-modules)
 
----
+### Loss Functions
 
-### [Phase 2 Completion](/docs/phase2-completion)
-Performance optimization results (3x throughput improvement).
+- [CrossEntropyLoss](/docs/api/loss/crossentropy)
+- [MSELoss](/docs/api/loss/mse)
+- [BCELoss](/docs/api/loss/bce)
+- [Full List](/docs/api/losses)
 
----
+### Optimizers
 
-## Model Formats {#model-formats}
+- [Adam](/docs/api/optimizer/adam)
+- [SGD](/docs/api/optimizer/sgd)
+- [RMSprop](/docs/api/optimizer/rmsprop)
+- [Full List](/docs/api/optimizers)
 
-Supported model formats and conversion tools.
+### Data & Vision ⭐ NEW
 
-### [GGUF Enhancements](/docs/gguf-enhancements)
-K-quant support (Q2_K, Q4_K, Q5_K, Q6_K), 40+ model families, and quantization improvements.
-
-**Supported Families**:
-- Llama, Mistral, DeepSeek, Yi, DBRX, Grok, Jamba, Mamba, RWKV
-
----
-
-### [Quantization](/docs/quantization)
-GPTQ INT4/INT8 and FP8 quantization with SafeTensors format for 4-8x compression.
-
-**Quantization Types**:
-- **GPTQ INT4**: 8x compression
-- **INT8**: 4x compression
-- **FP8**: GPU tensor core optimization
-
----
-
-### [Safetensor Runner Integration](/docs/safetensor-runner-integration)
-Direct inference from Safetensors format models.
+- [Tokenizer](/docs/api-tokenizer)
+- [VisionTransforms](/docs/api-vision-transforms)
+- [Compose](/docs/api/vision/compose)
+- [Normalize](/docs/api/vision/normalize)
 
 ---
 
-### [Runner Plugins](/docs/runner-plugins)
-Model runner implementations for different formats.
+## Examples
+
+### Beginner
+
+- [Hello World](/docs/examples/hello-world) - Tensor basics
+- [Linear Regression](/docs/examples/linear-regression) - Simple training
+- [MNIST Classification](/docs/examples/mnist) - Neural network classifier
+
+### Intermediate
+
+- [MNIST CNN](/docs/examples/mnist-cnn) - Convolutional network ⭐ NEW
+- [Sentiment Analysis](/docs/examples/sentiment-analysis) - NLP example
+- [Image Classification](/docs/examples/image-classification) - Vision example
+
+### Advanced
+
+- [Transformer Training](/docs/examples/transformer) - Language model
+- [Distributed Training](/docs/examples/distributed-training) - Multi-GPU
+- [Custom Layers](/docs/examples/custom-layers) - Building extensions
+
+### Complete Projects
+
+- [Vision Model](/docs/examples/complete/vision-model) - CNN classifier
+- [Language Model](/docs/examples/complete/language-model) - GPT-style model
+- [Multimodal](/docs/examples/complete/multimodal) - Vision + Text
 
 ---
 
-## Advanced Topics {#advanced}
+## Tools & Integration
 
-Advanced features and specialized capabilities.
+### CLI Tool
 
-### [GPU Kernels](/docs/gpu-kernels)
-Native CUDA, Blackwell, ROCm, and Metal kernels with FlashAttention-2/3.
+- [CLI Installation](/docs/setup/cli-installation)
+- [CLI Reference](/docs/setup/cli-reference)
+- [Chat Command](/docs/cli/chat)
+- [Model Conversion](/docs/cli/convert)
 
-**Supported Hardware**:
-- NVIDIA CUDA (including Blackwell)
-- AMD ROCm
-- Apple Metal (M1/M2/M3)
+### JBang Scripts
 
----
+- [JBang Setup](/docs/setup/jbang-setup)
+- [23+ Example Scripts](/docs/setup/jbang-examples)
+- [Writing JBang Scripts](/docs/setup/jbang-writing)
 
-### [Audio Processing](/docs/audio-processing)
-Speech-to-text (Whisper), text-to-speech (SpeechT5), HiFi-GAN vocoder, and VAD pipeline.
+### Integration
 
-**Capabilities**:
-- **STT**: Whisper with 99+ languages
-- **TTS**: SpeechT5 with 8 voices
-- **VAD**: Voice activity detection
-- **Vocoder**: HiFi-GAN
+- [LangChain4j](/docs/integration/langchain4j)
+- [Spring Boot](/docs/integration/spring-boot)
+- [Gradle Plugin](/docs/integration/gradle-plugin)
 
 ---
 
-### [Multimodal SDK](/docs/multimodal-sdk)
-Vision-language models and multimodal inference.
+## Performance & Optimization
+
+- [Benchmarking Guide](/docs/performance/benchmarking)
+- [Profiling](/docs/performance/profiling)
+- [GPU Acceleration](/docs/performance/gpu)
+- [Memory Optimization](/docs/performance/memory)
+- [Quantization](/docs/performance/quantization)
 
 ---
 
-### [ML SDK](/docs/ml-sdk)
-Embedded ML SDK: PyTorch-like Tensors, Autograd, NN Modules, and training in pure Java.
+## Architecture & Design
 
-**Features**:
-- Tensor operations with autograd
-- Neural network layers (Linear, Conv, Attention)
-- Loss functions and optimizers
-- Model persistence (GGUF, Safetensors)
-
----
-
-### [Native Library Guide](/docs/native-library-guide)
-Building and using native libraries with Gollek.
+- [Architecture Overview](/docs/architecture/overview)
+- [Tensor Implementation](/docs/architecture/tensor)
+- [Autograd System](/docs/architecture/autograd)
+- [Memory Management](/docs/architecture/memory)
+- [Design Patterns](/docs/architecture/patterns)
 
 ---
 
-### [Native FFI](/docs/native-ffi)
-GraalVM native image support with C FFI for embedded integration.
+## Troubleshooting & FAQ
+
+- [Troubleshooting Guide](/docs/troubleshooting)
+- [FAQ](/docs/faq)
+- [Common Errors](/docs/common-errors)
+- [Performance Issues](/docs/performance/troubleshooting)
 
 ---
 
-### [Native Compilation](/docs/native-compilation)
-Compiling Gollek to native executables.
+## Contributing
+
+- [Contributing Guide](/docs/contributing)
+- [Development Setup](/docs/development/setup)
+- [Code Style](/docs/development/style-guide)
+- [Testing](/docs/development/testing)
+- [Building from Source](/docs/development/build)
 
 ---
 
-### [Developer Guidance](/docs/developer-guidance)
-Best practices, tips, and tricks for Gollek development.
+## Release Notes
 
-**Topics**:
-- Metal GPU smoke test
-- LiteRT TFLite setup
-- Performance tuning
-- Memory management
+- **[SDK v0.2](/docs/release-notes-v0.2)** ⭐ Latest - Advanced Tensor Ops, Vision Transforms, NLP Tokenizers
+- [SDK v0.1](/docs/release-notes-v0.1) - Initial release
+- [Migration Guide](/docs/migration/from-v0.1) - Upgrading to v0.2
 
 ---
 
-### [Cloud Providers](/docs/cloud-providers)
-Cloud inference providers: OpenAI, Anthropic, Google Gemini, Cerebras, Mistral.
+## Community & Support
+
+- [GitHub Repository](https://github.com/bhangun/gollek)
+- [GitHub Discussions](https://github.com/bhangun/gollek/discussions)
+- [Issue Tracker](https://github.com/bhangun/gollek/issues)
+- [Email](mailto:support@gollek.io)
 
 ---
 
-## Examples & Tutorials {#examples}
+## Quick Navigation
 
-Hands-on examples and tutorials.
+### By Use Case
 
-### [JBang Examples Catalog](/docs/jbang-examples)
-**23+ ready-to-run Java scripts** covering:
-- 🟢 Beginner: Hello World, templates
-- 🔵 Neural Networks: MLP, training, persistence
-- 🟣 NLP: Sentiment, transformers, chatbots
-- 🟠 ML Integrations: DL4J, Stanford NLP, Smile, Tribuo
+**Training a neural network?**  
+→ [Framework Overview](/docs/framework/framework) → [Training Loop](/docs/framework/training) → [MNIST Example](/docs/examples/mnist-cnn)
 
-**Quick Start**:
-```bash
-jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/hello_gollek.java
-```
+**Using from CLI?**  
+→ [CLI Installation](/docs/setup/cli-installation) → [CLI Reference](/docs/setup/cli-reference)
 
----
+**Migrating from PyTorch?**  
+→ [Migration Guide](/docs/migration/from-pytorch) → [API Mapping](/docs/migration/api-mapping)
 
-### [Jupyter & JBang Integration](/docs/jupyter-jbang-integration)
-Interactive development with Jupyter notebooks and jbang scripts.
+**Looking for examples?**  
+→ [All Examples](/docs/examples) or [JBang Scripts](/docs/setup/jbang-examples)
 
-**What You'll Learn**:
-- Setting up Jupyter Java kernel
-- Interactive model building
-- Converting notebooks to scripts
-- Team collaboration workflows
+**Need API reference?**  
+→ [Core Classes](/docs/api/tensor) → [NN Modules](/docs/api/nn-modules) → [Operations](/docs/api/operations)
 
 ---
 
-### [CLI Reference](/docs/cli-reference)
-Complete CLI command reference including `gollek chat`, `gollek convert`, and more.
-
-**Common Commands**:
-```bash
-gollek chat --provider gemini
-gollek convert --input model.safetensors --output model.gguf
-gollek list-models
-```
-
----
-
-## Support {#support}
-
-Troubleshooting and help resources.
-
-### [Troubleshooting](/docs/troubleshooting)
-Common issues and solutions.
-
-**Common Problems**:
-- Dependency resolution failures
-- Model not found errors
-- GPU/CUDA issues
-- Memory problems
-
----
-
-### [Error Codes](/docs/error-codes)
-Complete error code reference with descriptions and solutions.
-
-**Error Categories**:
-- **INFERENCE_***: Inference-related errors
-- **MODEL_***: Model loading/management errors
-- **PROVIDER_***: Provider configuration errors
-- **RUNTIME_***: Runtime execution errors
-
----
-
-### [Git Repository Cleanup](/docs/git-repository-cleanup)
-Guide for cleaning up large files from git history.
-
----
-
-### [GitHub Packages Deployment](/docs/github-packages-deployment)
-Publishing and consuming packages via GitHub Packages.
-
----
-
-## Quick Reference
-
-### Installation
-
-```bash
-# CLI (macOS/Linux)
-curl -sSL https://raw.githubusercontent.com/bhangun/gollek/main/scripts/install.sh | bash
-
-# CLI (Windows)
-winget install gollek
-
-# Maven Dependency
-# See: /docs/github-packages-deployment
-```
-
-### First Inference
-
-```java
-GollekLocalClient client = GollekSdkFactory.createLocalSdk();
-InferenceRequest request = InferenceRequest.builder()
-    .model("llama-3.2-3b-instruct")
-    .prompt("Hello, world!")
-    .build();
-InferenceResponse response = client.createCompletion(request);
-```
-
-### Run JBang Example
-
-```bash
-jbang https://raw.githubusercontent.com/bhangun/gollek/main/gollek/sdk/integration/jbang-templates/examples/common/hello_gollek.java
-```
-
-### Configure API Keys
-
-```bash
-export OPENAI_API_KEY=sk-...
-export ANTHROPIC_API_KEY=sk-ant-...
-export GOOGLE_API_KEY=...
-```
-
----
-
-## Documentation Categories
-
-| Category | Pages | Description |
-|----------|-------|-------------|
-| **Getting Started** | 5 | Installation, setup, quickstart |
-| **Core Concepts** | 15 | Architecture, API, plugins |
-| **Model Formats** | 5 | GGUF, quantization, runners |
-| **Advanced** | 10 | GPU, audio, native, ML SDK |
-| **Examples** | 3 | JBang, Jupyter, CLI reference |
-| **Support** | 5 | Troubleshooting, errors, help |
-
----
-
-## Additional Resources
-
-- [Blog](/blog/) - Latest news and announcements
-- [Features](/features/) - Feature overview
-- [GitHub](https://github.com/bhangun/gollek) - Source code and issues
-- [Discussions](https://github.com/bhangun/gollek/discussions) - Community discussions
-
----
-
-**Last Updated**: March 2026 | **Version**: 1.0.0
-
-[Back to Home](/) · [View on GitHub](https://github.com/bhangun/gollek)
+<div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--subtle-bg); border-radius: 12px;">
+  <h3>Ready to Build?</h3>
+  <p>Start with the <strong><a href="/docs/setup/sdk-installation">Quick Start Guide</a></strong> or dive into <strong><a href="/docs/examples">Examples</a></strong></p>
+  <p style="font-size: 0.9rem; margin-top: 1rem;">
+    <a href="https://github.com/bhangun/gollek">⭐ Star on GitHub</a> • 
+    <a href="https://github.com/bhangun/gollek/discussions">💬 Join Discussions</a> •
+    <a href="mailto:support@gollek.io">📧 Email Support</a>
+  </p>
+</div>

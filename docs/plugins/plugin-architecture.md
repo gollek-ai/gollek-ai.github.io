@@ -119,7 +119,7 @@ The kernel plugin system has been completely redesigned with production-ready fe
 | **ONNX** | .onnx | ONNX Runtime | ✅ Multi | ~800 MB |
 | **TensorRT** | .engine | TensorRT | ✅ NVIDIA | ~2 GB |
 | **LibTorch** | .pt/.bin | PyTorch | ✅ CUDA | ~3 GB |
-| **TFLite** | .tflite | TensorFlow Lite | ✅ GPU | ~500 MB |
+| **TFLite** | .litertlm | TensorFlow Lite | ✅ GPU | ~500 MB |
 
 **Integration**:
 ```java

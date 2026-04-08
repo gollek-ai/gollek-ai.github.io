@@ -143,35 +143,35 @@ SafeTensors provider:
   (copies `libonnxruntime.*` into `~/.gollek/libs/` which the runner will auto-detect if the configured path is missing).
 
 LiteRT (TFLite):
-- Base path for `.tflite` models: `litert.provider.model.base-path=~/.gollek/models/tflite`
-- LiteRT module tests: `mvn -f gollek/extension/runner/tflite/gollek-ext-runner-tflite/pom.xml test`
+- Base path for `.litertlm` models: `litert.provider.model.base-path=~/.gollek/models/litert`
+- LiteRT module tests: `mvn -f gollek/extension/runner/litert/gollek-runner-litert/pom.xml test`
 - Optional real-model integration test:
   - `LITERT_LIBRARY_PATH=~/.gollek/libs/libtensorflowlite_c.dylib`
-  - `GOLLEK_TFLITE_MODEL_URL=https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.tflite`
+  - `GOLLEK_TFLITE_MODEL_URL=https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.litertlm`
   - Strict mode: `GOLLEK_TFLITE_REQUIRED=true` (fails instead of skip on download errors)
   - The LiteRT loader auto-searches `~/.gollek/libs/` for `libtensorflowlite_c.*` if no override is set.
 - Sample model helper:
-  - `bash gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-sample-model.sh`
+  - `bash gollek/extension/runner/litert/gollek-runner-litert/scripts/download-sample-model.sh`
 - LiteRT runtime helper:
-  - `bash gollek/extension/runner/tflite/gollek-ext-runner-tflite/scripts/download-tflite-runtime.sh`
+  - `bash gollek/extension/runner/litert/gollek-runner-litert/scripts/download-litert-runtime.sh`
   - Optional: `GOLLEK_TFLITE_RUNTIME_URL=https://.../libtensorflowlite_c.dylib` to download directly
 - GitHub Releases auto-download (if assets are published):
   - `GOLLEK_LITERT_RUNTIME_REPO=bhangun/gollek`
   - `GOLLEK_LITERT_RUNTIME_RELEASE=latest`
   - `GOLLEK_LITERT_RUNTIME_ASSET=litert-runtime-macos-arm64.tar.gz`
-  - Asset naming details: `gollek/extension/runner/tflite/gollek-ext-runner-tflite/docs/RELEASE_ASSETS.md`
-  - Release checklist: `gollek/extension/runner/tflite/gollek-ext-runner-tflite/docs/RELEASE_CHECKLIST.md`
-  - Release notes template: `gollek/extension/runner/tflite/gollek-ext-runner-tflite/docs/RELEASE_NOTES_TEMPLATE.md`
+  - Asset naming details: `gollek/extension/runner/litert/gollek-runner-litert/docs/RELEASE_ASSETS.md`
+  - Release checklist: `gollek/extension/runner/litert/gollek-runner-litert/docs/RELEASE_CHECKLIST.md`
+  - Release notes template: `gollek/extension/runner/litert/gollek-runner-litert/docs/RELEASE_NOTES_TEMPLATE.md`
   - GitHub Actions workflow: `.github/workflows/litert-runtime-release.yml`
   - Build + release workflow: `.github/workflows/litert-runtime-build-and-release.yml`
 - Make targets:
-  - `make tflite-sample`
-  - `make tflite-runtime`
-  - `make tflite-runtime-package`
+  - `make litert-sample`
+  - `make litert-runtime`
+  - `make litert-runtime-package`
 
 Release How-To (LiteRT runtime assets):
 1. Build or obtain `libtensorflowlite_c.*` for each target OS/arch.
-2. Package with `make tflite-runtime-package` (produces `dist/litert-runtime-*.tar.gz`).
+2. Package with `make litert-runtime-package` (produces `dist/litert-runtime-*.tar.gz`).
 3. Upload assets to a GitHub release (manual or via `LiteRT Runtime Release` workflow).
 4. Verify download + smoke test using the commands in the release checklist.
 
@@ -354,7 +354,7 @@ Native libraries are stored in `~/.gollek/libs/`:
 ├── onnxruntime/        # ONNX Runtime libraries
 ├── libtorch/           # LibTorch libraries
 ├── native/            # Shared native bridges (e.g., spm_bridge)
-└── tflite/            # TensorFlow Lite libraries
+└── litert/            # TensorFlow Lite libraries
 ```
 
 ### Quick Setup

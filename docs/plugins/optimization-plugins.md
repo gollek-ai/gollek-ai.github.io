@@ -831,4 +831,4 @@ public boolean apply(ExecutionContext context) {
 
 ---
 
-[Back to Runner Plugins](/docs/runner-plugins) &nbsp; [Feature Plugins](/docs/feature-plugins) &nbsp; [View Architecture](/docs/architecture)
+[Back to Runner Plugins](/docs/runner-plugins) &nbsp; [Feature Plugins](/docs/feature-plugins) &nbsp; [Quantization](/docs/plugins/quantization) &nbsp; [View Architecture](/docs/architecture)

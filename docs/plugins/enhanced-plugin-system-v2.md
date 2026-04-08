@@ -296,7 +296,7 @@ if (runner.isSafetensorModel(modelPath)) {
 
 ### TFLite Runner (v2.0)
 
-**File**: `plugins/runner/tflite/gollek-plugin-runner-tflite/.../TFLiteRunnerPlugin.java`
+**File**: `plugins/runner/litert/gollek-plugin-runner-litert/.../LiteRTRunnerPlugin.java`
 
 **Features**:
 - ✅ Comprehensive validation (TFLite, delegates)
@@ -306,7 +306,7 @@ if (runner.isSafetensorModel(modelPath)) {
 - ✅ NNAPI delegate support (Android)
 - ✅ Quantization support (INT8, FP16)
 
-**Supported Formats**: `.tflite`, `.tfl`
+**Supported Formats**: `.litertlm`, `.tfl`
 
 ---
 

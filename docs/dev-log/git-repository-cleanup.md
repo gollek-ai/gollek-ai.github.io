@@ -67,7 +67,7 @@ Native libraries are now stored in **`~/.gollek/libs/`** instead of being tracke
     │   ├── libtorch.dylib
     │   └── libtorch_cpu.dylib
     │
-    └── tflite/            # TensorFlow Lite libraries
+    └── litert/            # TensorFlow Lite libraries
 ```
 
 ### Benefits
@@ -134,7 +134,7 @@ make -f Makefile.native install-native-libs
 make -f Makefile.native install-gguf-libs
 make -f Makefile.native install-onnx-libs
 make -f Makefile.native install-libtorch-libs
-make -f Makefile.native install-tflite-libs
+make -f Makefile.native install-litert-libs
 
 # Verify installation
 make -f Makefile.native verify-libs

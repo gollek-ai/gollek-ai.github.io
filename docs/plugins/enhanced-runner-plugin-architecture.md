@@ -54,7 +54,7 @@ The runner plugin system has been enhanced to v2.0 with production-ready feature
 | **Safetensors** | Safetensors | .safetensors | Custom | ✅ CUDA/MPS |
 | **TensorRT** | TensorRT | .engine, .plan | TensorRT | ✅ NVIDIA |
 | **LibTorch** | PyTorch | .pt, .pth, .bin | LibTorch | ✅ CUDA |
-| **TFLite** | TensorFlow Lite | .tflite, .tfl | TFLite | ✅ GPU delegate |
+| **TFLite** | TensorFlow Lite | .litertlm, .tfl | TFLite | ✅ GPU delegate |
 
 ---
 

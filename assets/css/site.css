@@ -25,6 +25,12 @@
   --accent-secondary: #8b5cf6;
   --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   --accent-glow: rgba(99, 102, 241, 0.4);
+
+  /* Multimodal Theme */
+  --multimodal-primary: #a855f7;
+  --multimodal-secondary: #06b6d4;
+  --multimodal-gradient: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
+  --multimodal-glow: rgba(168, 85, 247, 0.4);
   
   --success: #10b981;
   --success-bg: rgba(16, 185, 129, 0.1);
@@ -268,6 +274,29 @@ body {
 
 .nav-item.active::before {
   transform: scaleY(1);
+}
+
+.nav-multimodal {
+  color: var(--multimodal-primary) !important;
+  font-weight: 700 !important;
+}
+
+.nav-multimodal svg {
+  color: var(--multimodal-primary) !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 5px var(--multimodal-glow));
+}
+
+.nav-multimodal:hover {
+  background: linear-gradient(90deg, var(--bg-hover) 0%, rgba(168, 85, 247, 0.05) 100%) !important;
+}
+
+.nav-multimodal.active {
+  border-left-color: var(--multimodal-primary) !important;
+}
+
+.nav-multimodal.active::before {
+  background: var(--multimodal-gradient) !important;
 }
 
 .nav-icon {

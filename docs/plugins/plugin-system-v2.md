@@ -161,7 +161,7 @@ Plugin-Performance-Speedup: 2-3x
 | **ONNX** | `.onnx` | onnx-inference, cpu-inference | All |
 | **LibTorch** | `.pt`, `.pth` | libtorch-inference, pytorch-support | All |
 | **TensorRT** | `.engine` | tensorrt-inference, nvidia-optimized | Microservice |
-| **TFLite** | `.tflite` | tflite-inference, mobile-optimized | All |
+| **TFLite** | `.litertlm` | litert-inference, mobile-optimized | All |
 
 ### Level 2: Kernel Plugins
 

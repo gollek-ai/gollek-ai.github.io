@@ -29,7 +29,7 @@ The Runner Plugin system provides a modular architecture for supporting differen
 | **ONNX** | .onnx | ONNX Runtime | ✅ Multi | ~800 MB |
 | **TensorRT** | .engine | TensorRT | ✅ NVIDIA | ~2 GB |
 | **LibTorch** | .pt/.bin | PyTorch | ✅ CUDA | ~3 GB |
-| **TFLite** | .tflite | TensorFlow Lite | ✅ GPU | ~500 MB |
+| **TFLite** | .litertlm | TensorFlow Lite | ✅ GPU | ~500 MB |
 
 ---
 
@@ -368,7 +368,7 @@ gollek:
 
 ### TFLite Runner
 
-**Format**: `.tflite`
+**Format**: `.litertlm`
 
 **Features**:
 - ✅ TensorFlow Lite backend
@@ -381,7 +381,7 @@ gollek:
 ```yaml
 gollek:
   runners:
-    tflite-runner:
+    litert-runner:
       enabled: true
       device: GPU
       num_threads: 4
@@ -402,7 +402,7 @@ gollek:
     onnx-runner:
       enabled: true
       execution_provider: "CPUExecutionProvider"
-    tflite-runner:
+    litert-runner:
       enabled: true
       device: CPU
 ```

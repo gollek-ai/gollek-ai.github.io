@@ -21,7 +21,7 @@ Gollek uses a **standardized native library location** at `~/.gollek/libs/` for 
 | **GGUF** | llama.cpp | `~/.gollek/libs/llama/` |
 | **ONNX** | ONNX Runtime | `~/.gollek/libs/onnxruntime/` |
 | **LibTorch** | PyTorch | `~/.gollek/libs/libtorch/` |
-| **TFLite** | TensorFlow Lite | `~/.gollek/libs/tflite/` |
+| **TFLite** | TensorFlow Lite | `~/.gollek/libs/litert/` |
 | **Metal** | Metal Kernels | `~/.gollek/libs/metal/` |
 | **Tokenizer** | SentencePiece Bridge | `~/.gollek/libs/native/` |
 
@@ -74,7 +74,7 @@ graph TD
 │   │   ├── libc10.dylib
 │   │   └── libomp.dylib
 │   │
-│   ├── tflite/                # TFLite runner
+│   ├── litert/                # TFLite runner
 │   │   └── libtensorflowlite.dylib
 │   │
 │   └── native/                # Shared native bridges
