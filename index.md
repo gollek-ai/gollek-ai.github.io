@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Gollek - Universal AI/ML Platform for Java
+title: Gollek - One Stop AI/ML Platform for Java
 ---
 
 <section class="hero">
