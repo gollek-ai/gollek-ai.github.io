@@ -82,7 +82,13 @@ The Wayang Platform spans 9 phases of development:
 | [Neural Networks](/docs/framework/nn-modules) | 118+ built-in layer implementations |
 | [Training Loop](/docs/framework/training) | Building training scripts |
 | [Optimizers](/docs/framework/optimizers) | SGD, Adam, RMSprop, etc. |
-| [Learning Rate Schedulers](/docs/framework/schedulers) | StepLR, CosineAnnealingLR, etc. |
+| [LR Schedulers](/docs/framework/schedulers) | StepLR, CosineAnnealingLR, etc. |
+
+### ML/DL/NN Framework API REferences
+
+| Version | Description | Status |
+|:--------|:------------|:-------|
+| [**0.1.0-SNAPSHOT**](/docs/api-references/0.1.0-SNAPSHOT/) | Modern ML/DL/NN framework modules reference | 📚 Available |
 
 ### Advanced Tensor Operations ⭐ NEW
 

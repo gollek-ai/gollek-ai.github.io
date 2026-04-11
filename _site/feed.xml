@@ -5,7 +5,7 @@
     <link>/blog/</link>
     <description>Gollek release notes, architecture updates, and developer guides.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Apr 2026 08:16:54 +0700</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2026 05:34:14 +0700</lastBuildDate>
     
     
     
@@ -13,11 +13,11 @@
         
         
     <item>
-      <title>Gollek ML SDK: Bringing PyTorch-like DX to the Java Ecosystem</title>
-      <link>/blog/2026-03-31-ml-sdk-pytorch-java.html</link>
-      <guid>/blog/2026-03-31-ml-sdk-pytorch-java.html</guid>
+      <title>Why Java for AI? The Engineering Behind Gollek&apos;s High-Performance Engine</title>
+      <link>/blog/why-java-for-ai-gollek-jdk25.html</link>
+      <guid>/blog/why-java-for-ai-gollek-jdk25.html</guid>
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0700</pubDate>
-      <description>Gollek ML SDK: Bringing PyTorch-like DX to the Java Ecosystem</description>
+      <description>Exploring why Gollek chooses Java over Python, leveraging LibTorch, llama.cpp, and the latest Project Panama and Valhalla features in JDK 25.</description>
     </item>
         
       
@@ -39,11 +39,11 @@
         
         
     <item>
-      <title>Why Java for AI? The Engineering Behind Gollek&apos;s High-Performance Engine</title>
-      <link>/blog/why-java-for-ai-gollek-jdk25.html</link>
-      <guid>/blog/why-java-for-ai-gollek-jdk25.html</guid>
+      <title>Gollek ML SDK: Bringing PyTorch-like DX to the Java Ecosystem</title>
+      <link>/blog/2026-03-31-ml-sdk-pytorch-java.html</link>
+      <guid>/blog/2026-03-31-ml-sdk-pytorch-java.html</guid>
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0700</pubDate>
-      <description>Exploring why Gollek chooses Java over Python, leveraging LibTorch, llama.cpp, and the latest Project Panama and Valhalla features in JDK 25.</description>
+      <description>Gollek ML SDK: Bringing PyTorch-like DX to the Java Ecosystem</description>
     </item>
         
       
@@ -111,6 +111,44 @@
       <description>Release introduction to the new Gollek inference engine, key advantages, and community contribution paths.</description>
     </item>
         
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       

@@ -87,6 +87,61 @@
         </a>
       </div>
 
+      <!-- Section: Tutorial -->
+      <div class="nav-section">
+        <div class="nav-section-title">Tutorial</div>
+        <div class="nav-item nav-collapsible-trigger" style="cursor: pointer;">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span>Learning Paths</span>
+          <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+
+        <div class="nav-sub-menu collapsed">
+          <a href="{{ '/docs/tutorials/basic/' | relative_url }}" class="nav-sub-item {% if page.url contains 'tutorials/basic' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>Basic Tier</span>
+          </a>
+          <a href="{{ '/docs/tutorials/intermediate/' | relative_url }}" class="nav-sub-item {% if page.url contains 'tutorials/intermediate' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>Intermediate Tier</span>
+          </a>
+          <a href="{{ '/docs/tutorials/advanced/' | relative_url }}" class="nav-sub-item {% if page.url contains 'tutorials/advanced' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>Advanced Tier</span>
+          </a>
+        </div>
+
+        <!-- Platform Integrations Section -->
+        <div class="nav-item nav-collapsible-trigger" style="cursor: pointer;">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 7h-9l-3-3H2a2 2 0 00-2 2v12a2 2 0 002 2h18a2 2 0 002-2V9a2 2 0 00-2-2z"/>
+          </svg>
+          <span>Platform Integrations</span>
+          <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+
+        <div class="nav-sub-menu collapsed">
+          <a href="{{ '/docs/tutorials/integrations/jbang' | relative_url }}" class="nav-sub-item {% if page.url contains 'tutorials/integrations/jbang' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>JBang</span>
+          </a>
+          <a href="{{ '/docs/tutorials/integrations/jupyter' | relative_url }}" class="nav-sub-item {% if page.url contains 'tutorials/integrations/jupyter' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>Jupyter</span>
+          </a>
+          <a href="{{ '/docs/tutorials/integrations/langchain4j' | relative_url }}" class="nav-sub-item {% if page.url contains 'tutorials/integrations/langchain4j' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>LangChain4j</span>
+          </a>
+        </div>
+      </div>
+
       <!-- Section: Framework -->
       <div class="nav-section">
         <div class="nav-section-title">ML Framework</div>
@@ -113,6 +168,133 @@
           </svg>
           <span>Quantization</span>
         </a>
+      </div>
+
+      <!-- Section: API REferences -->
+      <div class="nav-section">
+        <div class="nav-section-title">API REferences</div>
+        <div class="nav-item nav-collapsible-trigger" style="cursor: pointer;">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <span>0.1.0-SNAPSHOT</span>
+          <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </div>
+
+        <!-- Version Sub-menu -->
+        <div class="nav-sub-menu collapsed">
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/' | relative_url }}" class="nav-sub-item {% if page.url == '/docs/api-references/0.1.0-SNAPSHOT/' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>Overview</span>
+          </a>
+
+          <div class="nav-category-header">Core Framework</div>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-api' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-api' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-api</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-tensor' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-tensor' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-tensor</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-autograd' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-autograd' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-autograd</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-nn' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-nn' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-nn</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-train' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-train' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-train</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-optimize' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-optimize' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-optimize</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-metrics' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-metrics' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-metrics</span>
+          </a>
+
+          <div class="nav-category-header">Architectures</div>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-cnn' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-cnn' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-cnn</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-rnn' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-rnn' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-rnn</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-transformer' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-transformer' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-transformer</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-models' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-models' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-models</span>
+          </a>
+
+          <div class="nav-category-header">Data & Domains</div>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-data' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-data' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-data</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-augment' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-augment' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-augment</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-vision' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-vision' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-vision</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-audio' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-audio' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-audio</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-nlp' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-nlp' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-nlp</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-multimodal' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-multimodal' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-multimodal</span>
+          </a>
+
+          <div class="nav-category-header">Deployment & Hub</div>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-hub' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-hub' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-hub</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-export' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-export' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-export</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-onnx' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-onnx' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-onnx</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-litert' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-litert' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-litert</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-gguf' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-gguf' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-gguf</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-safetensor' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-safetensor' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-safetensor</span>
+          </a>
+          <a href="{{ '/docs/api-references/0.1.0-SNAPSHOT/modules/gollek-ml-examples' | relative_url }}" class="nav-sub-item {% if page.url contains 'gollek-ml-examples' %}active{% endif %}">
+            <svg class="nav-sub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="3"/></svg>
+            <span>ml-examples</span>
+          </a>
+        </div>
       </div>
 
       <!-- Section: Runtime -->
@@ -225,6 +407,13 @@
             </svg>
             Install
           </a>
+          <a href="{{ '/blog/' | relative_url }}" class="btn btn-sm btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            Blog
+          </a>
           <a href="https://github.com/bhangun/gollek" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
@@ -254,5 +443,30 @@
       </div>
     </footer>
   </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Find all collapsible sections
+        const triggers = document.querySelectorAll('.nav-collapsible-trigger');
+        
+        triggers.forEach(trigger => {
+          const menu = trigger.nextElementSibling;
+          if (!menu || !menu.classList.contains('nav-sub-menu')) return;
+
+          // Auto-expand if current page is inside this menu
+          const hasActiveChild = menu.querySelector('.nav-sub-item.active') || 
+                                 menu.querySelector('.nav-item.active');
+          
+          if (hasActiveChild) {
+            menu.classList.remove('collapsed');
+            trigger.classList.add('expanded');
+          }
+
+          trigger.addEventListener('click', function() {
+            menu.classList.toggle('collapsed');
+            trigger.classList.toggle('expanded');
+          });
+        });
+      });
+    </script>
 </body>
 </html>
